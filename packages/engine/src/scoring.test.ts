@@ -24,12 +24,16 @@ describe('calculateLaneScores', () => {
   it('returns all zeros when no cards are placed', () => {
     const state = createPlayingGame();
     const scores = calculateLaneScores(state);
-    expect(scores).toEqual([[0, 0], [0, 0], [0, 0]]);
+    expect(scores).toEqual([
+      [0, 0],
+      [0, 0],
+      [0, 0],
+    ]);
   });
 
   it('counts card power in correct lane', () => {
     let state = createPlayingGame();
-    const rank1Card = state.players[0].hand.find(id => defs[id]?.rank === 1)!;
+    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
     state = playCard(state, rank1Card, { row: 0, col: 0 });
 
     const scores = calculateLaneScores(state);
@@ -42,11 +46,11 @@ describe('calculateLaneScores', () => {
     let state = createPlayingGame();
 
     // P0 plays a card in row 0
-    const p0Card = state.players[0].hand.find(id => defs[id]?.rank === 1)!;
+    const p0Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
     state = playCard(state, p0Card, { row: 0, col: 0 });
 
     // P1 plays a card in row 0
-    const p1Card = state.players[1].hand.find(id => defs[id]?.rank === 1)!;
+    const p1Card = state.players[1].hand.find((id) => defs[id]?.rank === 1)!;
     state = playCard(state, p1Card, { row: 0, col: 4 });
 
     const scores = calculateLaneScores(state);
@@ -65,7 +69,7 @@ describe('calculateFinalScores', () => {
   it('winner takes lane, loser gets 0', () => {
     let state = createPlayingGame();
     // P0 places a card, P1 doesn't in that lane
-    const p0Card = state.players[0].hand.find(id => defs[id]?.rank === 1)!;
+    const p0Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
     state = playCard(state, p0Card, { row: 0, col: 0 });
 
     const scores = calculateFinalScores(state);
@@ -77,7 +81,7 @@ describe('calculateFinalScores', () => {
     let state = createPlayingGame();
 
     // Play same-power cards in same lane
-    const p0Card = state.players[0].hand.find(id => {
+    const p0Card = state.players[0].hand.find((id) => {
       const d = defs[id];
       return d && d.rank === 1;
     })!;
@@ -85,7 +89,7 @@ describe('calculateFinalScores', () => {
 
     // Find a P1 card with same power
     const p0Power = defs[p0Card]!.power;
-    const p1Card = state.players[1].hand.find(id => {
+    const p1Card = state.players[1].hand.find((id) => {
       const d = defs[id];
       return d && d.rank === 1 && d.power === p0Power;
     });
@@ -102,7 +106,7 @@ describe('calculateFinalScores', () => {
   it('sums across lanes for winner', () => {
     let state = createPlayingGame();
     // P0 plays cards in rows 0 and 1
-    const p0Cards = state.players[0].hand.filter(id => defs[id]?.rank === 1);
+    const p0Cards = state.players[0].hand.filter((id) => defs[id]?.rank === 1);
     if (p0Cards.length >= 2) {
       state = playCard(state, p0Cards[0]!, { row: 0, col: 0 });
       // P1 passes

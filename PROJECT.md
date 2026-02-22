@@ -50,13 +50,13 @@ The engine enforces clean architecture. The game proves it works and gives the c
 
 ### Existing Queen's Blood implementations (prior art)
 
-| Project | Status | Features | Notes |
-|---|---|---|---|
-| [queensbloodonline.com](https://queensbloodonline.com) | Active, playable | Online PvP, all 145 cards, matchmaking | Closed source. Most complete implementation. |
-| [xRiku/react-queens-blood](https://github.com/xRiku/react-queens-blood) | Active (10 stars) | 2P multiplayer, board/deck/pawns, turn logic | Most complete OSS. No card abilities yet. |
-| [trevor-tan03/queens-blood](https://github.com/trevor-tan03/queens-blood) | Active, live deployment | Mulligan, drag-and-drop, lane scoring | Has excellent card data files. |
-| [briangan/queens_blood_by_fan](https://github.com/briangan/queens_blood_by_fan) | Active (183 commits) | Auth, real-time MP, drag-and-drop | Best structured card/ability data (seeds.rb). |
-| TTS Mod (Steam #3189392607) | Playable (552 subscribers) | All cards, rank pawns, counters | A second TTS mod was removed by Steam. |
+| Project                                                                         | Status                     | Features                                     | Notes                                         |
+| ------------------------------------------------------------------------------- | -------------------------- | -------------------------------------------- | --------------------------------------------- |
+| [queensbloodonline.com](https://queensbloodonline.com)                          | Active, playable           | Online PvP, all 145 cards, matchmaking       | Closed source. Most complete implementation.  |
+| [xRiku/react-queens-blood](https://github.com/xRiku/react-queens-blood)         | Active (10 stars)          | 2P multiplayer, board/deck/pawns, turn logic | Most complete OSS. No card abilities yet.     |
+| [trevor-tan03/queens-blood](https://github.com/trevor-tan03/queens-blood)       | Active, live deployment    | Mulligan, drag-and-drop, lane scoring        | Has excellent card data files.                |
+| [briangan/queens_blood_by_fan](https://github.com/briangan/queens_blood_by_fan) | Active (183 commits)       | Auth, real-time MP, drag-and-drop            | Best structured card/ability data (seeds.rb). |
+| TTS Mod (Steam #3189392607)                                                     | Playable (552 subscribers) | All cards, rank pawns, counters              | A second TTS mod was removed by Steam.        |
 
 **No complete, polished, open-source implementation exists.** All OSS projects are early-stage with missing abilities and incomplete card data.
 
@@ -64,12 +64,12 @@ The engine enforces clean architecture. The game proves it works and gives the c
 
 Two structured data sources together cover all 145 cards + 21 token cards:
 
-| Source | Cards | Range Data | Ability Data | Format |
-|---|---|---|---|---|
-| [briangan seeds.rb](https://github.com/briangan/queens_blood_by_fan/blob/master/db/seeds.rb) | 145/145 | 139/145 (x,y coords, Pawn/Affected type) | 124/145 (structured: trigger, target, action, value) | Ruby |
-| [trevor-tan03 expected_ranges.json](https://github.com/trevor-tan03/queens-blood/blob/main/scripts/expected_ranges.json) | 166 (incl tokens) | 166/166 (5x5 grid: O/R/OR notation) | N/A | JSON |
-| [trevor-tan03 SQLite DB](https://github.com/trevor-tan03/queens-blood/blob/main/backend/QB_card_info.db) | 145+ tokens | Via Ranges table | Parsed trigger/action/target/value | SQLite |
-| [Game8 website](https://game8.co/games/Final-Fantasy-VII-Rebirth/archives/Queens-Blood) | 145/145 | Images only | Full text descriptions | HTML |
+| Source                                                                                                                   | Cards             | Range Data                               | Ability Data                                         | Format |
+| ------------------------------------------------------------------------------------------------------------------------ | ----------------- | ---------------------------------------- | ---------------------------------------------------- | ------ |
+| [briangan seeds.rb](https://github.com/briangan/queens_blood_by_fan/blob/master/db/seeds.rb)                             | 145/145           | 139/145 (x,y coords, Pawn/Affected type) | 124/145 (structured: trigger, target, action, value) | Ruby   |
+| [trevor-tan03 expected_ranges.json](https://github.com/trevor-tan03/queens-blood/blob/main/scripts/expected_ranges.json) | 166 (incl tokens) | 166/166 (5x5 grid: O/R/OR notation)      | N/A                                                  | JSON   |
+| [trevor-tan03 SQLite DB](https://github.com/trevor-tan03/queens-blood/blob/main/backend/QB_card_info.db)                 | 145+ tokens       | Via Ranges table                         | Parsed trigger/action/target/value                   | SQLite |
+| [Game8 website](https://game8.co/games/Final-Fantasy-VII-Rebirth/archives/Queens-Blood)                                  | 145/145           | Images only                              | Full text descriptions                               | HTML   |
 
 **Key detail:** trevor-tan03's data captures three range cell types: `O` (orange/pawn only), `R` (red/ability only), `OR` (both pawn AND ability) — the third type is missed by other sources.
 
@@ -91,6 +91,7 @@ Two structured data sources together cover all 145 cards + 21 token cards:
 145 unique cards total: 85 Standard, 60 Legendary.
 
 Each card has:
+
 - **Rank** (1, 2, or 3) — minimum pawn count required on the target tile to play. Replacement cards show a down-arrow instead.
 - **Power** — point value contributed to the lane. Can be modified by abilities during play.
 - **Range pattern** — a grid (5 rows tall, variable columns wide) showing effects relative to the card's placement position:
@@ -162,35 +163,35 @@ This means you can win only 1 lane and still win the match if your score in that
 
 #### Trigger Conditions
 
-| Trigger | Description |
-|---|---|
-| When played | Fires once on placement |
-| While in play | Persistent modifier; removed if card is destroyed |
-| When destroyed | Fires when this card is removed from the board |
-| When allied cards are destroyed | Fires each time a friendly card is destroyed |
-| When enemy cards are destroyed | Fires each time an opponent card is destroyed |
-| When any card is destroyed | Fires on any card destruction |
-| When first enfeebled | Fires the first time this card's power is reduced |
-| When first enhanced | Fires the first time this card's power is increased |
-| When power reaches N | Fires when this card's power hits a threshold |
-| Scaling (continuous) | Continuously recalculates based on board state |
-| End-of-game modifier | Alters scoring rules |
+| Trigger                         | Description                                         |
+| ------------------------------- | --------------------------------------------------- |
+| When played                     | Fires once on placement                             |
+| While in play                   | Persistent modifier; removed if card is destroyed   |
+| When destroyed                  | Fires when this card is removed from the board      |
+| When allied cards are destroyed | Fires each time a friendly card is destroyed        |
+| When enemy cards are destroyed  | Fires each time an opponent card is destroyed       |
+| When any card is destroyed      | Fires on any card destruction                       |
+| When first enfeebled            | Fires the first time this card's power is reduced   |
+| When first enhanced             | Fires the first time this card's power is increased |
+| When power reaches N            | Fires when this card's power hits a threshold       |
+| Scaling (continuous)            | Continuously recalculates based on board state      |
+| End-of-game modifier            | Alters scoring rules                                |
 
 #### Effect Types
 
-| Effect | Description |
-|---|---|
-| Enhancement (buff) | Raise power of cards on affected tiles (+1 to +5) |
-| Enfeeblement (debuff) | Lower power of cards on affected tiles (-1 to -5) |
-| Destruction | Destroy cards on affected tiles |
-| Self-power scaling | Raise this card's own power based on conditions |
-| Lane score bonus | Bonus points if you win the lane (+5, +10) |
-| Add card to hand | Generate a token card into your hand mid-game |
-| Spawn cards | Place token cards directly onto empty board positions you control |
-| Replacement | Destroy an allied card and take its place |
-| Position rank manipulation | Raise tile ranks by 2 (instead of normal 1) |
-| Score redistribution | Winner also gets loser's lane score |
-| Dual-target buff/debuff | Affects BOTH allied and enemy cards |
+| Effect                     | Description                                                       |
+| -------------------------- | ----------------------------------------------------------------- |
+| Enhancement (buff)         | Raise power of cards on affected tiles (+1 to +5)                 |
+| Enfeeblement (debuff)      | Lower power of cards on affected tiles (-1 to -5)                 |
+| Destruction                | Destroy cards on affected tiles                                   |
+| Self-power scaling         | Raise this card's own power based on conditions                   |
+| Lane score bonus           | Bonus points if you win the lane (+5, +10)                        |
+| Add card to hand           | Generate a token card into your hand mid-game                     |
+| Spawn cards                | Place token cards directly onto empty board positions you control |
+| Replacement                | Destroy an allied card and take its place                         |
+| Position rank manipulation | Raise tile ranks by 2 (instead of normal 1)                       |
+| Score redistribution       | Winner also gets loser's lane score                               |
+| Dual-target buff/debuff    | Affects BOTH allied and enemy cards                               |
 
 #### Token Cards (Generated Mid-Game)
 
@@ -221,7 +222,7 @@ These could not be definitively confirmed through research:
 
 The MTG open-source ecosystem (Forge, XMage, Magarena) shows that multiple projects thrive when they serve different needs. But the source game is small (145 cards, 15-tile board) — the game itself can't sustain an ecosystem of competing engines.
 
-What it *can* sustain:
+What it _can_ sustain:
 
 - **The engine** appeals to developers and tinkerers — people who want to build their own UI, write a bot, run simulations, or create a variant game. It's the foundation layer. Low-glamour, high-utility.
 - **The game** appeals to players — people who want to play now, with a polished experience. It's also the proof that the engine works and the on-ramp for contributors who start with card data or art and later dig into engine internals.
@@ -230,14 +231,14 @@ Every existing clone (queensbloodonline.com, GitHub projects, TTS mods) is a mon
 
 ### Contribution paths
 
-| Interest | Where to contribute |
-|---|---|
-| Game rules, ability logic, edge cases | Engine |
-| Card balance, new cards, custom formats | Engine (card definitions) |
-| Original card names, lore, flavor text | Game (creative layer) |
-| Art, visual design, UI/UX | Game (client) |
-| Networking, matchmaking | Game (server) |
-| Bots, solvers, analysis tools | Engine consumers (their own projects) |
+| Interest                                | Where to contribute                   |
+| --------------------------------------- | ------------------------------------- |
+| Game rules, ability logic, edge cases   | Engine                                |
+| Card balance, new cards, custom formats | Engine (card definitions)             |
+| Original card names, lore, flavor text  | Game (creative layer)                 |
+| Art, visual design, UI/UX               | Game (client)                         |
+| Networking, matchmaking                 | Game (server)                         |
+| Bots, solvers, analysis tools           | Engine consumers (their own projects) |
 
 ## Key Design Considerations
 

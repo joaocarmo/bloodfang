@@ -9,6 +9,7 @@ We've completed extensive research and design for a Blood Fang card game engine.
 Create a monorepo with pnpm workspaces. Only `packages/engine` for Phase 1. Client (React + Vite) and server (Colyseus) packages are added in later phases.
 
 **Root files:**
+
 - `package.json` — workspace config (private: true)
 - `pnpm-workspace.yaml` — `packages: ['packages/*']`
 - `tsconfig.base.json` — maximum strictness: strict: true, noUncheckedIndexedAccess: true, exactOptionalPropertyTypes: true, noUnusedLocals: true, noUnusedParameters: true, noPropertyAccessFromIndexSignature: true, noFallthroughCasesInSwitch: true, forceConsistentCasingInFileImports: true, verbatimModuleSyntax: true, target ES2022, module ESNext
@@ -18,6 +19,7 @@ Create a monorepo with pnpm workspaces. Only `packages/engine` for Phase 1. Clie
 **Root devDependencies:** typescript ~5.7, vitest ^3.0, eslint ^9.0, @typescript-eslint ^8.0, tsup ^8.0
 
 **Engine package (`packages/engine/`):**
+
 - `package.json` — name: @bloodfang/engine, type: module, build with tsup (ESM + CJS + dts)
 - `tsconfig.json` — extends base
 - `vitest.config.ts` — tests co-located with source
@@ -44,6 +46,7 @@ packages/engine/src/
 ## Implementation Steps
 
 ### Step 1: Scaffolding
+
 Create all config files, install dependencies, verify `pnpm run build` and `pnpm run test` work with a trivial placeholder.
 
 ### Step 2: Core Types (`types.ts`)
@@ -51,6 +54,7 @@ Create all config files, install dependencies, verify `pnpm run build` and `pnpm
 All types are `readonly` throughout to enforce immutability at the type level.
 
 Key types:
+
 - `PlayerId = 0 | 1` — enables direct array indexing
 - `Position = { row: number; col: number }`
 - `RangeCell = { row: number; col: number; type: 'pawn' | 'ability' | 'both' }` — offsets from card position
@@ -70,6 +74,7 @@ Key types:
 ### Step 3: Board (`board.ts`)
 
 Functions:
+
 - `createBoard()` — 3x5 grid. P0 owns col 0 (1 pawn each), P1 owns col 4, rest empty.
 - `getTile(board, pos)` — safe access, returns undefined if out of bounds
 - `isValidPosition(pos)` — bounds check
@@ -79,6 +84,7 @@ Functions:
 ### Step 4: Game Creation (`game.ts`)
 
 `createGame(p0Deck, p1Deck, definitions, config?, rng?)`:
+
 - Validate deck size = 15, no duplicates, all IDs exist in definitions
 - Fisher-Yates shuffle with injected RNG (defaults to Math.random, enables deterministic tests)
 - Draw 5 cards per player, log drawCard actions
@@ -87,6 +93,7 @@ Functions:
 ### Step 5: Mulligan (`game.ts`)
 
 `mulligan(state, player, returnCardIds, rng?)`:
+
 - Return specified cards to deck, shuffle, draw same count
 - Mark mulliganUsed = true
 - When both players done → phase transitions to 'playing', turnNumber = 1
@@ -95,6 +102,7 @@ Functions:
 ### Step 6: Draw Phase
 
 Draw is automatic on turn transition — no separate startTurn call. When `playCard` or `pass` ends a turn:
+
 1. Increment turnNumber, switch currentPlayerIndex
 2. If turnNumber > 1, draw 1 card for the new current player
 3. If deck is empty, skip draw
@@ -107,6 +115,7 @@ This means the consumer always sees the correct hand when inspecting state.
 `canPlayCard(state, cardId, position)` — single check
 
 Rules:
+
 - Phase must be 'playing'
 - Card must be in current player's hand
 - Tile must be owned by current player
@@ -117,6 +126,7 @@ Rules:
 ### Step 8: Card Placement + Pawn Resolution (`game.ts`)
 
 `playCard(state, cardId, position)` — the core action:
+
 1. Validate via canPlayCard
 2. Remove card from hand
 3. Create CardInstance (instanceId from counter, basePower from definition, bonusPower = 0)
@@ -136,6 +146,7 @@ Rules:
 ### Step 9: Pass + Game End (`game.ts`)
 
 `pass(state)`:
+
 1. Validate phase = 'playing'
 2. Log pass action
 3. Increment consecutivePasses
@@ -153,6 +164,7 @@ Rules:
 ### Step 11: Card Destruction (`game.ts`)
 
 `destroyCard(state, instanceId)`:
+
 - Remove card from board tile (set cardInstanceId = null)
 - Remove from cardInstances map
 - Remove continuous modifiers referencing this card (source or target)
@@ -163,6 +175,7 @@ Rules:
 ### Step 12: Effective Power (`power.ts`)
 
 `getEffectivePower(state, instanceId)`:
+
 - Returns basePower + bonusPower + sum(continuous modifiers targeting this card)
 - No clamping — destruction check handles <= 0 separately
 
@@ -173,6 +186,7 @@ Rules:
 ### Step 14: Integration Tests (`integration.test.ts`)
 
 End-to-end scenarios:
+
 1. Both players pass immediately → draw, all lanes 0
 2. One card each → scoring works
 3. Pawn capture and territory control

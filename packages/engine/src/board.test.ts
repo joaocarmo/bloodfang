@@ -87,13 +87,21 @@ describe('setTile', () => {
 
     expect(getTile(newBoard, { row: 1, col: 2 })).toEqual(newTile);
     // Original unchanged
-    expect(getTile(board, { row: 1, col: 2 })).toEqual({ owner: null, pawnCount: 0, cardInstanceId: null });
+    expect(getTile(board, { row: 1, col: 2 })).toEqual({
+      owner: null,
+      pawnCount: 0,
+      cardInstanceId: null,
+    });
   });
 
   it('does not mutate original board', () => {
     const board = createBoard();
     const newTile = { owner: 1 as const, pawnCount: 3, cardInstanceId: 'test' };
     setTile(board, { row: 0, col: 0 }, newTile);
-    expect(getTile(board, { row: 0, col: 0 })).toEqual({ owner: 0, pawnCount: 1, cardInstanceId: null });
+    expect(getTile(board, { row: 0, col: 0 })).toEqual({
+      owner: 0,
+      pawnCount: 1,
+      cardInstanceId: null,
+    });
   });
 });

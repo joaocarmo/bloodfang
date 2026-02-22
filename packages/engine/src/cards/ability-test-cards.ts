@@ -43,7 +43,10 @@ export const auraBuffer: CardDefinition = {
   id: 'aura-buffer',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }, { row: 0, col: -1, type: 'ability' }],
+  rangePattern: [
+    { row: 0, col: 1, type: 'ability' },
+    { row: 0, col: -1, type: 'ability' },
+  ],
   ability: {
     trigger: 'whileInPlay',
     effect: { type: 'enhance', value: 1, target: { type: 'rangePattern' } },
@@ -179,7 +182,11 @@ export const spawner: CardDefinition = {
   rangePattern: [{ row: 0, col: 1, type: 'ability' }],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'spawnCard', tokenDefinitionId: 'token-basic', target: { type: 'rangePattern' } },
+    effect: {
+      type: 'spawnCard',
+      tokenDefinitionId: 'token-basic',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -212,10 +219,18 @@ export const dualAura: CardDefinition = {
   id: 'dual-aura',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }, { row: 0, col: -1, type: 'ability' }],
+  rangePattern: [
+    { row: 0, col: 1, type: 'ability' },
+    { row: 0, col: -1, type: 'ability' },
+  ],
   ability: {
     trigger: 'whileInPlay',
-    effect: { type: 'dualTargetBuff', alliedValue: 1, enemyValue: -1, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'dualTargetBuff',
+      alliedValue: 1,
+      enemyValue: -1,
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -246,10 +261,26 @@ export const cascadeGrower: CardDefinition = {
 // ── Helpers ───────────────────────────────────────────────────────────
 
 const ALL_ABILITY_CARDS: readonly CardDefinition[] = [
-  enhancerOnPlay, enfeebleOnPlay, destroyerOnPlay, auraBuffer, deathCurse,
-  avenger, predator, scavenger, resilient, inspirer, threshold5Destroyer,
-  armyScaler, laneBonus, handGenerator, spawner, rankBooster,
-  scoreRedistributor, dualAura, chainKiller, cascadeGrower,
+  enhancerOnPlay,
+  enfeebleOnPlay,
+  destroyerOnPlay,
+  auraBuffer,
+  deathCurse,
+  avenger,
+  predator,
+  scavenger,
+  resilient,
+  inspirer,
+  threshold5Destroyer,
+  armyScaler,
+  laneBonus,
+  handGenerator,
+  spawner,
+  rankBooster,
+  scoreRedistributor,
+  dualAura,
+  chainKiller,
+  cascadeGrower,
 ];
 
 export function getAllAbilityTestDefinitions(): Record<string, CardDefinition> {

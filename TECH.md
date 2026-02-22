@@ -6,17 +6,17 @@
 
 Evaluated Rust with WASM/napi-rs bindings against pure TypeScript. TypeScript wins for this project:
 
-| Factor | TypeScript | Rust + WASM |
-|---|---|---|
-| Runtime targets | Browser, Node.js, Deno, Bun, Workers — zero config | Requires wasm-bindgen + napi-rs bindings per target |
-| Contributor accessibility | Anyone who knows JS can add card data | Rust toolchain + borrow checker + WASM setup |
-| Type system for abilities | Discriminated unions + exhaustiveness checks | `enum` + `match` — more elegant but... |
-| WASM enum limitation | N/A | **wasm-bindgen cannot export data-carrying enums** (issue #2407, open since 2021). Our 11 ability trigger types with associated data are exactly this. Must serialize through serde — JS consumers see plain objects anyway. |
-| Performance | Microseconds for a 15-tile board. Irrelevant. | ~5-20x faster. Still irrelevant for turn-based play. |
-| Build complexity | `pnpm install` | Rust toolchain + wasm32 target + wasm-bindgen-cli + wasm-opt + napi-rs for Node native |
-| Debugging | `console.log(state)` | DWARF extension, limited source maps, `web_sys::console::log_1(...)` |
-| Testing | Single test suite everywhere | Native tests + separate WASM tests via wasm-bindgen-test |
-| License concerns | None | None (both MIT-compatible) |
+| Factor                    | TypeScript                                         | Rust + WASM                                                                                                                                                                                                                  |
+| ------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Runtime targets           | Browser, Node.js, Deno, Bun, Workers — zero config | Requires wasm-bindgen + napi-rs bindings per target                                                                                                                                                                          |
+| Contributor accessibility | Anyone who knows JS can add card data              | Rust toolchain + borrow checker + WASM setup                                                                                                                                                                                 |
+| Type system for abilities | Discriminated unions + exhaustiveness checks       | `enum` + `match` — more elegant but...                                                                                                                                                                                       |
+| WASM enum limitation      | N/A                                                | **wasm-bindgen cannot export data-carrying enums** (issue #2407, open since 2021). Our 11 ability trigger types with associated data are exactly this. Must serialize through serde — JS consumers see plain objects anyway. |
+| Performance               | Microseconds for a 15-tile board. Irrelevant.      | ~5-20x faster. Still irrelevant for turn-based play.                                                                                                                                                                         |
+| Build complexity          | `pnpm install`                                     | Rust toolchain + wasm32 target + wasm-bindgen-cli + wasm-opt + napi-rs for Node native                                                                                                                                       |
+| Debugging                 | `console.log(state)`                               | DWARF extension, limited source maps, `web_sys::console::log_1(...)`                                                                                                                                                         |
+| Testing                   | Single test suite everywhere                       | Native tests + separate WASM tests via wasm-bindgen-test                                                                                                                                                                     |
+| License concerns          | None                                               | None (both MIT-compatible)                                                                                                                                                                                                   |
 
 **The decisive argument:** The exact feature that makes Rust attractive for this project (algebraic data types for modeling 11 ability triggers with associated data) doesn't work across the WASM boundary. You'd serialize everything through `serde` and TypeScript consumers would see `{ type: 'whenPlayed', ... }` discriminated unions either way. You pay the full cost of Rust's complexity without getting the benefit at the API surface.
 
@@ -65,18 +65,18 @@ With `switch-exhaustiveness-check` (ESLint rule) or the `satisfies never` patter
 
 ### What a framework would help with vs. what we build ourselves
 
-| Component | Complexity | Framework help? |
-|---|---|---|
-| Board state (3x5 grid, pawns) | Low | Neither helps |
-| Card data model | Low | Neither helps |
-| Placement validation | Medium | Neither helps |
-| Pawn placement/capture | Medium | Neither helps |
-| Range pattern resolution | Medium | Neither helps |
-| Turn flow (play/pass/end) | Low | boardgame.io: slight |
-| Lane scoring | Low | Neither helps |
-| **Ability system (triggers, chains)** | **High** | Neither helps meaningfully |
-| **Networked multiplayer** | **High** | Colyseus (chosen — see Server section) |
-| Matchmaking/lobby | Medium | Colyseus (chosen — see Server section) |
+| Component                             | Complexity | Framework help?                        |
+| ------------------------------------- | ---------- | -------------------------------------- |
+| Board state (3x5 grid, pawns)         | Low        | Neither helps                          |
+| Card data model                       | Low        | Neither helps                          |
+| Placement validation                  | Medium     | Neither helps                          |
+| Pawn placement/capture                | Medium     | Neither helps                          |
+| Range pattern resolution              | Medium     | Neither helps                          |
+| Turn flow (play/pass/end)             | Low        | boardgame.io: slight                   |
+| Lane scoring                          | Low        | Neither helps                          |
+| **Ability system (triggers, chains)** | **High**   | Neither helps meaningfully             |
+| **Networked multiplayer**             | **High**   | Colyseus (chosen — see Server section) |
+| Matchmaking/lobby                     | Medium     | Colyseus (chosen — see Server section) |
 
 The two hardest domain-specific problems (ability system, chain cascading) get zero framework help. Networking is handled by Colyseus (see Server section).
 
@@ -142,14 +142,15 @@ The client maps engine card IDs to creative identity:
 ```typescript
 {
   engineCardId: string;
-  name: string;                   // original name
-  art: string;                    // path to original artwork
-  lore: string;                   // flavor text
+  name: string; // original name
+  art: string; // path to original artwork
+  lore: string; // flavor text
   rarity: 'standard' | 'legendary';
 }
 ```
 
 This separation means:
+
 - The engine can be published independently — anyone can build their own game on top
 - The game's creative layer can be swapped, extended, or localized without touching game logic
 - Contributors can work on mechanics or creative identity independently
@@ -182,11 +183,11 @@ pnpm workspaces over Nx or Turborepo. Three packages doesn't justify the config 
 
 ### Alternatives considered
 
-| Framework | Verdict |
-|---|---|
-| Svelte 5 | Less boilerplate, great reactivity — but smaller ecosystem, fewer game-specific libraries |
-| Solid | Excellent perf — but niche community, contributor accessibility matters more |
-| Vue | Viable — but no meaningful advantage over React for this use case |
+| Framework | Verdict                                                                                   |
+| --------- | ----------------------------------------------------------------------------------------- |
+| Svelte 5  | Less boilerplate, great reactivity — but smaller ecosystem, fewer game-specific libraries |
+| Solid     | Excellent perf — but niche community, contributor accessibility matters more              |
+| Vue       | Viable — but no meaningful advantage over React for this use case                         |
 
 ---
 
@@ -197,6 +198,7 @@ pnpm workspaces over Nx or Turborepo. Three packages doesn't justify the config 
 Colyseus is purpose-built for the exact problem Blood Fang needs to solve: authoritative turn-based multiplayer with rooms, matchmaking, and state synchronization.
 
 **Key features for this project:**
+
 - **Room-based architecture** — maps directly to game matches: create room → matchmake → play → dispose
 - **Automatic delta-compressed state sync** via `@colyseus/schema` — define state schema, Colyseus handles serialization, diffing, and broadcasting
 - **`StateView` (new in 0.16)** — per-client state visibility, critical for card games where players see different hands
@@ -206,6 +208,7 @@ Colyseus is purpose-built for the exact problem Blood Fang needs to solve: autho
 - **TypeScript-native** — written in TypeScript, first-class TS support throughout
 
 **How it integrates with the engine:**
+
 - Server rooms import `@bloodfang/engine` for all game logic
 - `@colyseus/schema` state mirrors engine state (thin translation layer)
 - Client actions (play card, pass, mulligan) are Colyseus messages → server validates via engine → state patches broadcast back
@@ -213,18 +216,18 @@ Colyseus is purpose-built for the exact problem Blood Fang needs to solve: autho
 
 ### Alternatives considered
 
-| Framework | Verdict |
-|---|---|
-| Nakama | More battle-tested (11.6K stars, backed by Heroic Labs) and feature-complete (accounts, friends, leaderboards, chat built in). But no automatic state sync — you build serialization and diffing yourself. Server logic runs in an embedded JS runtime inside Go, not native Node.js. Significantly heavier setup for a focused card game. Better suited if we needed the full social platform. |
-| Socket.IO + custom | 62.7K stars, 9.7M weekly downloads — safest long-term maintenance bet. But zero game-specific features: rooms exist but matchmaking, state sync, reconnection with state recovery, schema diffing are all DIY. Would spend weeks rebuilding what Colyseus provides on day one. |
-| PartyKit / PartyServer | Architecturally elegant (stateful edge rooms on Cloudflare Durable Objects). But explicitly "not recommended for production," locked to Cloudflare platform (not self-hostable on a VPS), and no game-specific features. |
-| boardgame.io | Last npm release ~3 years ago. Maintenance concerns (issue #1150). Couples game logic to its API surface. |
+| Framework              | Verdict                                                                                                                                                                                                                                                                                                                                                                                         |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nakama                 | More battle-tested (11.6K stars, backed by Heroic Labs) and feature-complete (accounts, friends, leaderboards, chat built in). But no automatic state sync — you build serialization and diffing yourself. Server logic runs in an embedded JS runtime inside Go, not native Node.js. Significantly heavier setup for a focused card game. Better suited if we needed the full social platform. |
+| Socket.IO + custom     | 62.7K stars, 9.7M weekly downloads — safest long-term maintenance bet. But zero game-specific features: rooms exist but matchmaking, state sync, reconnection with state recovery, schema diffing are all DIY. Would spend weeks rebuilding what Colyseus provides on day one.                                                                                                                  |
+| PartyKit / PartyServer | Architecturally elegant (stateful edge rooms on Cloudflare Durable Objects). But explicitly "not recommended for production," locked to Cloudflare platform (not self-hostable on a VPS), and no game-specific features.                                                                                                                                                                        |
+| boardgame.io           | Last npm release ~3 years ago. Maintenance concerns (issue #1150). Couples game logic to its API surface.                                                                                                                                                                                                                                                                                       |
 
 ### Risks and mitigations
 
-| Risk | Severity | Mitigation |
-|---|---|---|
-| Single-maintainer bus factor (Endel Dreyer) | Medium | MIT-licensed — fork if abandoned. Colyseus targeting 1.0 in 2026 is a positive signal. |
-| Schema 64-field limit per structure | Low | Board is 3x5 with nested schemas. Well within bounds. |
-| No client-side prediction | Low | Irrelevant for turn-based play. Latency tolerance is high. |
-| Horizontal scaling requires Redis + proxy | Low | Not a concern until thousands of concurrent players. |
+| Risk                                        | Severity | Mitigation                                                                             |
+| ------------------------------------------- | -------- | -------------------------------------------------------------------------------------- |
+| Single-maintainer bus factor (Endel Dreyer) | Medium   | MIT-licensed — fork if abandoned. Colyseus targeting 1.0 in 2026 is a positive signal. |
+| Schema 64-field limit per structure         | Low      | Board is 3x5 with nested schemas. Well within bounds.                                  |
+| No client-side prediction                   | Low      | Irrelevant for turn-based play. Latency tolerance is high.                             |
+| Horizontal scaling requires Redis + proxy   | Low      | Not a concern until thousands of concurrent players.                                   |

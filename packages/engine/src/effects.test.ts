@@ -31,7 +31,7 @@ function setupPlayingState(seed = 1) {
 }
 
 function placeCard(state: GameState, position: Position): GameState {
-  const rank1Card = state.players[state.currentPlayerIndex].hand.find(id => {
+  const rank1Card = state.players[state.currentPlayerIndex].hand.find((id) => {
     const def = state.cardDefinitions[id];
     return def && def.rank === 1;
   })!;
@@ -85,7 +85,7 @@ describe('internalDestroyCard', () => {
     const instanceId = state.board[0]![0]!.cardInstanceId!;
 
     const result = internalDestroyCard(state, instanceId);
-    const destroyActions = result.log.filter(a => a.type === 'destroyCard');
+    const destroyActions = result.log.filter((a) => a.type === 'destroyCard');
     expect(destroyActions.length).toBeGreaterThan(0);
   });
 
@@ -128,7 +128,7 @@ describe('applyEnhance', () => {
     const id = state.board[0]![0]!.cardInstanceId!;
 
     const result = applyEnhance(state, id, [id], 5);
-    const enhanceLog = result.state.log.filter(a => a.type === 'enhance');
+    const enhanceLog = result.state.log.filter((a) => a.type === 'enhance');
     expect(enhanceLog).toHaveLength(1);
   });
 
@@ -219,7 +219,7 @@ describe('applyAddCardToHand', () => {
     const id = state.board[0]![0]!.cardInstanceId!;
 
     const result = applyAddCardToHand(state, id, 'token-basic', 1);
-    const addActions = result.state.log.filter(a => a.type === 'addCardToHand');
+    const addActions = result.state.log.filter((a) => a.type === 'addCardToHand');
     expect(addActions).toHaveLength(1);
   });
 
@@ -305,7 +305,7 @@ describe('applyPositionRankManip', () => {
     const id = state.board[0]![0]!.cardInstanceId!;
 
     const result = applyPositionRankManip(state, id, 1, [{ row: 1, col: 0 }]);
-    const bonusActions = result.state.log.filter(a => a.type === 'pawnBonus');
+    const bonusActions = result.state.log.filter((a) => a.type === 'pawnBonus');
     expect(bonusActions.length).toBeGreaterThanOrEqual(1);
   });
 });

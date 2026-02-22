@@ -16,7 +16,11 @@ import { getAllTokenDefinitions } from './cards/token-cards.js';
 const seedRng = (s: number) => createSeededRng(s);
 
 function allDefs() {
-  return { ...getAllTestDefinitions(), ...getAllAbilityTestDefinitions(), ...getAllTokenDefinitions() };
+  return {
+    ...getAllTestDefinitions(),
+    ...getAllAbilityTestDefinitions(),
+    ...getAllTokenDefinitions(),
+  };
 }
 
 function setupPlayingState(seed = 1) {
@@ -59,7 +63,12 @@ function buildAbilityTestState(
       ri === card.position.row
         ? r.map((t, ci) =>
             ci === card.position.col
-              ? { ...t, cardInstanceId: instanceId, owner: card.owner, pawnCount: Math.max(t.pawnCount, 1) }
+              ? {
+                  ...t,
+                  cardInstanceId: instanceId,
+                  owner: card.owner,
+                  pawnCount: Math.max(t.pawnCount, 1),
+                }
               : t,
           )
         : r,
@@ -312,9 +321,7 @@ describe('collectTriggersForEvents', () => {
   });
 
   it('matches whenFirstEnhanced only once', () => {
-    let state = buildAbilityTestState([
-      { id: 'inspirer', position: { row: 0, col: 0 }, owner: 0 },
-    ]);
+    let state = buildAbilityTestState([{ id: 'inspirer', position: { row: 0, col: 0 }, owner: 0 }]);
     const inspirerId = state.board[0]![0]!.cardInstanceId!;
     const events: GameEvent[] = [{ type: 'cardEnhanced', instanceId: inspirerId, owner: 0 }];
 
@@ -373,7 +380,7 @@ describe('collectTriggersForEvents', () => {
 
     const triggers = collectTriggersForEvents(state, events);
     expect(triggers.length).toBeGreaterThanOrEqual(2);
-    const ids = triggers.map(t => parseInt(t.instanceId, 10));
+    const ids = triggers.map((t) => parseInt(t.instanceId, 10));
     for (let i = 1; i < ids.length; i++) {
       expect(ids[i]).toBeGreaterThanOrEqual(ids[i - 1]!);
     }
@@ -433,7 +440,7 @@ describe('recalculateContinuousEffects', () => {
 
     // 2 allied cards in lane → modifier of 4
     const mod = state.continuousModifiers.find(
-      m => m.sourceInstanceId === scalerId && m.targetInstanceId === scalerId,
+      (m) => m.sourceInstanceId === scalerId && m.targetInstanceId === scalerId,
     );
     expect(mod).toBeDefined();
     expect(mod!.value).toBe(4); // 2 allies * 2 per unit
@@ -443,15 +450,15 @@ describe('recalculateContinuousEffects', () => {
     // dual-aura: whileInPlay, dualTargetBuff +1/-1 rangePattern
     const state = buildAbilityTestState([
       { id: 'dual-aura', position: { row: 0, col: 2 }, owner: 0 },
-      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 },  // allied → +1
-      { id: 'r1-cross', position: { row: 0, col: 3 }, owner: 1 },  // enemy → -1
+      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 }, // allied → +1
+      { id: 'r1-cross', position: { row: 0, col: 3 }, owner: 1 }, // enemy → -1
     ]);
 
     const alliedId = state.board[0]![1]!.cardInstanceId!;
     const enemyId = state.board[0]![3]!.cardInstanceId!;
 
-    const alliedMod = state.continuousModifiers.find(m => m.targetInstanceId === alliedId);
-    const enemyMod = state.continuousModifiers.find(m => m.targetInstanceId === enemyId);
+    const alliedMod = state.continuousModifiers.find((m) => m.targetInstanceId === alliedId);
+    const enemyMod = state.continuousModifiers.find((m) => m.targetInstanceId === enemyId);
 
     expect(alliedMod).toBeDefined();
     expect(alliedMod!.value).toBe(1);
@@ -475,7 +482,7 @@ describe('recalculateContinuousEffects', () => {
     };
 
     const result = recalculateContinuousEffects(state);
-    const staleMod = result.continuousModifiers.find(m => m.value === 99);
+    const staleMod = result.continuousModifiers.find((m) => m.value === 99);
     expect(staleMod).toBeUndefined();
   });
 });
@@ -489,15 +496,15 @@ describe('resolveAbilities', () => {
 
   it('throws on cascade depth limit', () => {
     const state = setupPlayingState();
-    expect(() => resolveAbilities(state, [{ type: 'cardPlayed', instanceId: '1', owner: 0 }], 101)).toThrow(
-      'exceeded maximum depth',
-    );
+    expect(() =>
+      resolveAbilities(state, [{ type: 'cardPlayed', instanceId: '1', owner: 0 }], 101),
+    ).toThrow('exceeded maximum depth');
   });
 
   it('handles enfeeble causing death check', () => {
     // Place a card with low power, then enfeeble it to death
     let state = buildAbilityTestState([
-      { id: 'r1-basic', position: { row: 0, col: 2 }, owner: 1 },  // power 2, target
+      { id: 'r1-basic', position: { row: 0, col: 2 }, owner: 1 }, // power 2, target
     ]);
     const targetId = state.board[0]![2]!.cardInstanceId!;
 
@@ -520,7 +527,7 @@ describe('resolveAbilities', () => {
     // enhancer-on-play: whenPlayed → enhance +2 rangePattern(col+1)
     const state = buildAbilityTestState([
       { id: 'enhancer-on-play', position: { row: 0, col: 0 }, owner: 0 },
-      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 },  // target at col+1
+      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 }, // target at col+1
     ]);
     const enhancerId = state.board[0]![0]!.cardInstanceId!;
     const targetId = state.board[0]![1]!.cardInstanceId!;
@@ -536,7 +543,7 @@ describe('resolveAbilities', () => {
     // cascade-grower gains +2 on any destruction
     const state = buildAbilityTestState([
       { id: 'chain-killer', position: { row: 0, col: 0 }, owner: 0 },
-      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 1 },    // power 2, will die
+      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 1 }, // power 2, will die
       { id: 'cascade-grower', position: { row: 1, col: 0 }, owner: 0 }, // +2 on any death
     ]);
     const killerId = state.board[0]![0]!.cardInstanceId!;

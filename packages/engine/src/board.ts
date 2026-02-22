@@ -11,9 +11,7 @@ export function getTile(board: Board, pos: Position): Tile | undefined {
 
 export function setTile(board: Board, pos: Position, tile: Tile): Board {
   return board.map((row, r) =>
-    r === pos.row
-      ? row.map((t, c) => (c === pos.col ? tile : t))
-      : row,
+    r === pos.row ? row.map((t, c) => (c === pos.col ? tile : t)) : row,
   );
 }
 

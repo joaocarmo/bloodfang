@@ -28,15 +28,26 @@ export type CardRank = 1 | 2 | 3 | 'replacement';
 // ── Ability System ────────────────────────────────────────────────────
 
 export type AbilityTriggerType =
-  | 'whenPlayed' | 'whileInPlay' | 'whenDestroyed'
-  | 'whenAlliedDestroyed' | 'whenEnemyDestroyed' | 'whenAnyDestroyed'
-  | 'whenFirstEnfeebled' | 'whenFirstEnhanced' | 'whenPowerReachesN'
-  | 'scaling' | 'endOfGame';
+  | 'whenPlayed'
+  | 'whileInPlay'
+  | 'whenDestroyed'
+  | 'whenAlliedDestroyed'
+  | 'whenEnemyDestroyed'
+  | 'whenAnyDestroyed'
+  | 'whenFirstEnfeebled'
+  | 'whenFirstEnhanced'
+  | 'whenPowerReachesN'
+  | 'scaling'
+  | 'endOfGame';
 
 export type TargetSelectorType =
-  | 'rangePattern' | 'self'
-  | 'allAllied' | 'allEnemy'
-  | 'allInLane' | 'allAlliedInLane' | 'allEnemyInLane';
+  | 'rangePattern'
+  | 'self'
+  | 'allAllied'
+  | 'allEnemy'
+  | 'allInLane'
+  | 'allAlliedInLane'
+  | 'allEnemyInLane';
 
 export interface TargetSelector {
   readonly type: TargetSelectorType;
@@ -127,7 +138,12 @@ export interface AbilityDefinition {
 
 // ── Game Events (internal, for cascade resolution) ────────────────────
 
-export type GameEventType = 'cardPlayed' | 'cardDestroyed' | 'cardEnfeebled' | 'cardEnhanced' | 'powerChanged';
+export type GameEventType =
+  | 'cardPlayed'
+  | 'cardDestroyed'
+  | 'cardEnfeebled'
+  | 'cardEnhanced'
+  | 'powerChanged';
 
 export interface GameEvent {
   readonly type: GameEventType;
@@ -194,19 +210,54 @@ export type GamePhase = 'mulligan' | 'playing' | 'ended';
 
 export type GameAction =
   | { readonly type: 'drawCard'; readonly player: PlayerId; readonly cardId: string }
-  | { readonly type: 'placeCard'; readonly player: PlayerId; readonly cardId: string; readonly instanceId: string; readonly position: Position }
+  | {
+      readonly type: 'placeCard';
+      readonly player: PlayerId;
+      readonly cardId: string;
+      readonly instanceId: string;
+      readonly position: Position;
+    }
   | { readonly type: 'placePawn'; readonly player: PlayerId; readonly position: Position }
   | { readonly type: 'capturePawn'; readonly player: PlayerId; readonly position: Position }
   | { readonly type: 'destroyCard'; readonly instanceId: string; readonly position: Position }
   | { readonly type: 'pass'; readonly player: PlayerId }
-  | { readonly type: 'mulligan'; readonly player: PlayerId; readonly returnedCount: number; readonly drawnCount: number }
+  | {
+      readonly type: 'mulligan';
+      readonly player: PlayerId;
+      readonly returnedCount: number;
+      readonly drawnCount: number;
+    }
   | { readonly type: 'gameEnd'; readonly scores: readonly [number, number] }
-  | { readonly type: 'abilityTrigger'; readonly instanceId: string; readonly abilityTrigger: AbilityTriggerType }
-  | { readonly type: 'enhance'; readonly sourceInstanceId: string; readonly targetInstanceId: string; readonly value: number }
-  | { readonly type: 'enfeeble'; readonly sourceInstanceId: string; readonly targetInstanceId: string; readonly value: number }
-  | { readonly type: 'spawnCard'; readonly instanceId: string; readonly definitionId: string; readonly position: Position }
+  | {
+      readonly type: 'abilityTrigger';
+      readonly instanceId: string;
+      readonly abilityTrigger: AbilityTriggerType;
+    }
+  | {
+      readonly type: 'enhance';
+      readonly sourceInstanceId: string;
+      readonly targetInstanceId: string;
+      readonly value: number;
+    }
+  | {
+      readonly type: 'enfeeble';
+      readonly sourceInstanceId: string;
+      readonly targetInstanceId: string;
+      readonly value: number;
+    }
+  | {
+      readonly type: 'spawnCard';
+      readonly instanceId: string;
+      readonly definitionId: string;
+      readonly position: Position;
+    }
   | { readonly type: 'addCardToHand'; readonly player: PlayerId; readonly cardId: string }
-  | { readonly type: 'pawnBonus'; readonly player: PlayerId; readonly position: Position; readonly bonusPawns: number };
+  | {
+      readonly type: 'pawnBonus';
+      readonly player: PlayerId;
+      readonly position: Position;
+      readonly bonusPawns: number;
+    };
 
 // ── Game Config ────────────────────────────────────────────────────────
 

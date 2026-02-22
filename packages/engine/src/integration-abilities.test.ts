@@ -1,14 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { CardDefinition, GameState, PlayerId, Position } from './types.js';
 import { createSeededRng } from './types.js';
-import {
-  createGame,
-  mulligan,
-  playCard,
-  pass,
-  destroyCard,
-  getEffectivePower,
-} from './game.js';
+import { createGame, mulligan, playCard, pass, destroyCard, getEffectivePower } from './game.js';
 import { recalculateContinuousEffects } from './abilities.js';
 import { calculateFinalScores } from './scoring.js';
 import { getAllTestDefinitions, buildTestDeck } from './cards/test-cards.js';
@@ -18,15 +11,15 @@ import { getAllTokenDefinitions } from './cards/token-cards.js';
 const seedRng = (s: number) => createSeededRng(s);
 
 function allDefs(): Record<string, CardDefinition> {
-  return { ...getAllTestDefinitions(), ...getAllAbilityTestDefinitions(), ...getAllTokenDefinitions() };
+  return {
+    ...getAllTestDefinitions(),
+    ...getAllAbilityTestDefinitions(),
+    ...getAllTokenDefinitions(),
+  };
 }
 
 /** Create a game with controlled hands for testing abilities. */
-function setupControlledGame(
-  p0Hand: string[],
-  p1Hand: string[],
-  seed = 100,
-): GameState {
+function setupControlledGame(p0Hand: string[], p1Hand: string[], seed = 100): GameState {
   const defs = allDefs();
   // Build decks that will have the desired cards in hand after deterministic shuffle
   // Simplest approach: override hands after game creation
@@ -36,7 +29,10 @@ function setupControlledGame(
   state = mulligan(state, 1, [], seedRng(seed + 2));
 
   // Override hands
-  const players: [typeof state.players[0], typeof state.players[1]] = [state.players[0], state.players[1]];
+  const players: [(typeof state.players)[0], (typeof state.players)[1]] = [
+    state.players[0],
+    state.players[1],
+  ];
   players[0] = { ...players[0], hand: p0Hand };
   players[1] = { ...players[1], hand: p1Hand };
   return { ...state, players };
@@ -138,7 +134,7 @@ describe('integration: whenPlayed abilities', () => {
 
     // After turn advances, it's P1's turn. P0's hand should have +2 tokens -1 played card
     // handBefore was 1 (just hand-generator). After playing: 0. Then +2 tokens = 2.
-    expect(state.players[0].hand.filter(id => id === 'token-basic')).toHaveLength(2);
+    expect(state.players[0].hand.filter((id) => id === 'token-basic')).toHaveLength(2);
   });
 
   it('spawner creates token cards on board', () => {
@@ -148,7 +144,7 @@ describe('integration: whenPlayed abilities', () => {
     let board = state.board;
     board = board.map((r, ri) =>
       ri === 0
-        ? r.map((t, ci) => ci === 1 ? { ...t, owner: 0 as PlayerId, pawnCount: 1 } : t)
+        ? r.map((t, ci) => (ci === 1 ? { ...t, owner: 0 as PlayerId, pawnCount: 1 } : t))
         : r,
     );
     state = { ...state, board };
@@ -263,7 +259,7 @@ describe('integration: continuous effects', () => {
     // Recalculate continuous effects
     state = recalculateContinuousEffects(state);
 
-    expect(getEffectivePower(state, leftId)).toBe(3);  // 2 base + 1 aura
+    expect(getEffectivePower(state, leftId)).toBe(3); // 2 base + 1 aura
     expect(getEffectivePower(state, rightId)).toBe(4); // 3 base + 1 aura
   });
 
@@ -278,12 +274,12 @@ describe('integration: continuous effects', () => {
     const targetId = target.instanceId;
 
     state = recalculateContinuousEffects(state);
-    expect(getEffectivePower(state, targetId)).toBe(3);  // 2 + 1 aura
+    expect(getEffectivePower(state, targetId)).toBe(3); // 2 + 1 aura
 
     // Destroy the aura source
     state = destroyCard(state, aura.instanceId);
 
-    expect(getEffectivePower(state, targetId)).toBe(2);  // Back to base
+    expect(getEffectivePower(state, targetId)).toBe(2); // Back to base
   });
 
   it('army-scaler power increases with allied cards in lane', () => {
@@ -330,8 +326,8 @@ describe('integration: continuous effects', () => {
 
     state = recalculateContinuousEffects(state);
 
-    expect(getEffectivePower(state, allyId)).toBe(3);  // 2 + 1
-    expect(getEffectivePower(state, enemyId)).toBe(1);  // 2 - 1
+    expect(getEffectivePower(state, allyId)).toBe(3); // 2 + 1
+    expect(getEffectivePower(state, enemyId)).toBe(1); // 2 - 1
   });
 });
 
@@ -403,8 +399,8 @@ describe('integration: cascade scenarios', () => {
     state = destroyCard(state, victim.instanceId);
 
     // Both should have gained bonuses
-    expect(state.cardInstances[s1Id]!.bonusPower).toBe(1);  // scavenger +1
-    expect(state.cardInstances[s2Id]!.bonusPower).toBe(2);  // cascade-grower +2
+    expect(state.cardInstances[s1Id]!.bonusPower).toBe(1); // scavenger +1
+    expect(state.cardInstances[s2Id]!.bonusPower).toBe(2); // cascade-grower +2
   });
 });
 
@@ -601,7 +597,7 @@ describe('integration: token card support', () => {
     let board = state.board;
     board = board.map((r, ri) =>
       ri === 0
-        ? r.map((t, ci) => ci === 1 ? { ...t, owner: 0 as PlayerId, pawnCount: 1 } : t)
+        ? r.map((t, ci) => (ci === 1 ? { ...t, owner: 0 as PlayerId, pawnCount: 1 } : t))
         : r,
     );
     state = { ...state, board };

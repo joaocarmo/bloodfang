@@ -32,9 +32,7 @@ export function resolveAbilityRangePattern(
     if (cell.type === 'pawn') continue; // Skip pawn-only cells
 
     const row = cardPosition.row + cell.row;
-    const col = player === 0
-      ? cardPosition.col + cell.col
-      : cardPosition.col - cell.col;
+    const col = player === 0 ? cardPosition.col + cell.col : cardPosition.col - cell.col;
 
     const pos = { row, col };
     if (isValidPosition(pos)) {
@@ -80,36 +78,39 @@ export function resolveTargets(
 
     case 'allAllied': {
       const ids = allInstances
-        .filter(c => c.owner === sourceOwner && c.instanceId !== sourceInstanceId)
-        .map(c => c.instanceId);
+        .filter((c) => c.owner === sourceOwner && c.instanceId !== sourceInstanceId)
+        .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
 
     case 'allEnemy': {
-      const ids = allInstances
-        .filter(c => c.owner !== sourceOwner)
-        .map(c => c.instanceId);
+      const ids = allInstances.filter((c) => c.owner !== sourceOwner).map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
 
     case 'allInLane': {
       const ids = allInstances
-        .filter(c => c.position.row === sourceRow && c.instanceId !== sourceInstanceId)
-        .map(c => c.instanceId);
+        .filter((c) => c.position.row === sourceRow && c.instanceId !== sourceInstanceId)
+        .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
 
     case 'allAlliedInLane': {
       const ids = allInstances
-        .filter(c => c.position.row === sourceRow && c.owner === sourceOwner && c.instanceId !== sourceInstanceId)
-        .map(c => c.instanceId);
+        .filter(
+          (c) =>
+            c.position.row === sourceRow &&
+            c.owner === sourceOwner &&
+            c.instanceId !== sourceInstanceId,
+        )
+        .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
 
     case 'allEnemyInLane': {
       const ids = allInstances
-        .filter(c => c.position.row === sourceRow && c.owner !== sourceOwner)
-        .map(c => c.instanceId);
+        .filter((c) => c.position.row === sourceRow && c.owner !== sourceOwner)
+        .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
   }
@@ -159,9 +160,11 @@ export function collectTriggersForEvents(
           break;
 
         case 'whenAlliedDestroyed':
-          if (event.type === 'cardDestroyed' &&
-              event.owner === instance.owner &&
-              event.instanceId !== instance.instanceId) {
+          if (
+            event.type === 'cardDestroyed' &&
+            event.owner === instance.owner &&
+            event.instanceId !== instance.instanceId
+          ) {
             triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
           }
           break;
@@ -179,26 +182,32 @@ export function collectTriggersForEvents(
           break;
 
         case 'whenFirstEnfeebled':
-          if (event.type === 'cardEnfeebled' &&
-              event.instanceId === instance.instanceId &&
-              !instance.hasBeenEnfeebled) {
+          if (
+            event.type === 'cardEnfeebled' &&
+            event.instanceId === instance.instanceId &&
+            !instance.hasBeenEnfeebled
+          ) {
             triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
           }
           break;
 
         case 'whenFirstEnhanced':
-          if (event.type === 'cardEnhanced' &&
-              event.instanceId === instance.instanceId &&
-              !instance.hasBeenEnhanced) {
+          if (
+            event.type === 'cardEnhanced' &&
+            event.instanceId === instance.instanceId &&
+            !instance.hasBeenEnhanced
+          ) {
             triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
           }
           break;
 
         case 'whenPowerReachesN':
-          if (event.type === 'powerChanged' &&
-              event.instanceId === instance.instanceId &&
-              !instance.powerReachedN &&
-              ability.threshold !== undefined) {
+          if (
+            event.type === 'powerChanged' &&
+            event.instanceId === instance.instanceId &&
+            !instance.powerReachedN &&
+            ability.threshold !== undefined
+          ) {
             const power = getEffectivePower(state, instance.instanceId);
             if (power >= ability.threshold) {
               triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
@@ -254,24 +263,26 @@ function countScalingCondition(
   switch (condition.type) {
     case 'alliedCardsInLane':
       return allInstances.filter(
-        c => c.owner === sourceOwner && c.position.row === sourceRow && c.instanceId !== sourceInstance.instanceId,
+        (c) =>
+          c.owner === sourceOwner &&
+          c.position.row === sourceRow &&
+          c.instanceId !== sourceInstance.instanceId,
       ).length;
 
     case 'enemyCardsInLane':
-      return allInstances.filter(
-        c => c.owner !== sourceOwner && c.position.row === sourceRow,
-      ).length;
+      return allInstances.filter((c) => c.owner !== sourceOwner && c.position.row === sourceRow)
+        .length;
 
     case 'alliedCardsOnBoard':
       return allInstances.filter(
-        c => c.owner === sourceOwner && c.instanceId !== sourceInstance.instanceId,
+        (c) => c.owner === sourceOwner && c.instanceId !== sourceInstance.instanceId,
       ).length;
 
     case 'enemyCardsOnBoard':
-      return allInstances.filter(c => c.owner !== sourceOwner).length;
+      return allInstances.filter((c) => c.owner !== sourceOwner).length;
 
     case 'allCardsOnBoard':
-      return allInstances.filter(c => c.instanceId !== sourceInstance.instanceId).length;
+      return allInstances.filter((c) => c.instanceId !== sourceInstance.instanceId).length;
 
     case 'controlledTilesInLane': {
       let count = 0;
@@ -295,7 +306,11 @@ export function recalculateContinuousEffects(state: GameState): GameState {
 
     if (ability.trigger === 'whileInPlay') {
       const effect = ability.effect;
-      if (effect.type === 'enhance' || effect.type === 'enfeeble' || effect.type === 'dualTargetBuff') {
+      if (
+        effect.type === 'enhance' ||
+        effect.type === 'enfeeble' ||
+        effect.type === 'dualTargetBuff'
+      ) {
         const { instanceIds } = resolveTargets(state, instance.instanceId, effect.target);
         if (effect.type === 'dualTargetBuff') {
           for (const targetId of instanceIds) {
@@ -362,7 +377,11 @@ function resolveTargetsForDestroyedCard(
     case 'rangePattern': {
       const def = state.cardDefinitions[snapshot.definitionId];
       if (!def) return { instanceIds: [], positions: [] };
-      const positions = resolveAbilityRangePattern(def.rangePattern, snapshot.position, sourceOwner);
+      const positions = resolveAbilityRangePattern(
+        def.rangePattern,
+        snapshot.position,
+        sourceOwner,
+      );
       const instanceIds: string[] = [];
       for (const pos of positions) {
         const tile = state.board[pos.row]?.[pos.col];
@@ -375,35 +394,37 @@ function resolveTargetsForDestroyedCard(
 
     case 'allAllied':
       return {
-        instanceIds: allInstances.filter(c => c.owner === sourceOwner).map(c => c.instanceId),
+        instanceIds: allInstances.filter((c) => c.owner === sourceOwner).map((c) => c.instanceId),
         positions: [],
       };
 
     case 'allEnemy':
       return {
-        instanceIds: allInstances.filter(c => c.owner !== sourceOwner).map(c => c.instanceId),
+        instanceIds: allInstances.filter((c) => c.owner !== sourceOwner).map((c) => c.instanceId),
         positions: [],
       };
 
     case 'allInLane':
       return {
-        instanceIds: allInstances.filter(c => c.position.row === sourceRow).map(c => c.instanceId),
+        instanceIds: allInstances
+          .filter((c) => c.position.row === sourceRow)
+          .map((c) => c.instanceId),
         positions: [],
       };
 
     case 'allAlliedInLane':
       return {
         instanceIds: allInstances
-          .filter(c => c.position.row === sourceRow && c.owner === sourceOwner)
-          .map(c => c.instanceId),
+          .filter((c) => c.position.row === sourceRow && c.owner === sourceOwner)
+          .map((c) => c.instanceId),
         positions: [],
       };
 
     case 'allEnemyInLane':
       return {
         instanceIds: allInstances
-          .filter(c => c.position.row === sourceRow && c.owner !== sourceOwner)
-          .map(c => c.instanceId),
+          .filter((c) => c.position.row === sourceRow && c.owner !== sourceOwner)
+          .map((c) => c.instanceId),
         positions: [],
       };
   }
@@ -451,7 +472,13 @@ export function resolveAbilities(
         ...currentState,
         cardInstances: { ...currentState.cardInstances, [snapshot.instanceId]: snapshot },
       };
-      const result = applyEffect(stateWithSnapshot, snapshot.instanceId, effect, targetIds, targetPositions);
+      const result = applyEffect(
+        stateWithSnapshot,
+        snapshot.instanceId,
+        effect,
+        targetIds,
+        targetPositions,
+      );
       // Remove the snapshot again from the result
       const resultInstances = { ...result.state.cardInstances };
       delete resultInstances[snapshot.instanceId];
@@ -460,11 +487,14 @@ export function resolveAbilities(
 
       currentState = {
         ...currentState,
-        log: [...currentState.log, {
-          type: 'abilityTrigger' as const,
-          instanceId: trigger.instanceId,
-          abilityTrigger: ability.trigger,
-        }],
+        log: [
+          ...currentState.log,
+          {
+            type: 'abilityTrigger' as const,
+            instanceId: trigger.instanceId,
+            abilityTrigger: ability.trigger,
+          },
+        ],
       };
       continue;
     }
@@ -515,18 +545,27 @@ export function resolveAbilities(
     }
 
     // Apply effect
-    const result = applyEffect(currentState, trigger.instanceId, effect, targetIds, targetPositions);
+    const result = applyEffect(
+      currentState,
+      trigger.instanceId,
+      effect,
+      targetIds,
+      targetPositions,
+    );
     currentState = result.state;
     newEvents.push(...result.events);
 
     // Log ability trigger
     currentState = {
       ...currentState,
-      log: [...currentState.log, {
-        type: 'abilityTrigger' as const,
-        instanceId: trigger.instanceId,
-        abilityTrigger: ability.trigger,
-      }],
+      log: [
+        ...currentState.log,
+        {
+          type: 'abilityTrigger' as const,
+          instanceId: trigger.instanceId,
+          abilityTrigger: ability.trigger,
+        },
+      ],
     };
   }
 

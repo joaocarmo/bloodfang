@@ -87,9 +87,5 @@ export {
 export type { EffectResult } from './effects.js';
 
 // Scoring
-export {
-  calculateLaneScores,
-  calculateFinalScores,
-  determineWinner,
-} from './scoring.js';
+export { calculateLaneScores, calculateFinalScores, determineWinner } from './scoring.js';
 export type { LaneScores } from './scoring.js';

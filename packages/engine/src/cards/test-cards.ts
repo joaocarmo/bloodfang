@@ -25,7 +25,10 @@ export const r1Forward2: CardDefinition = {
   id: 'r1-forward2',
   rank: 1,
   power: 1,
-  rangePattern: [{ row: -1, col: 0, type: 'pawn' }, { row: -2, col: 0, type: 'pawn' }],
+  rangePattern: [
+    { row: -1, col: 0, type: 'pawn' },
+    { row: -2, col: 0, type: 'pawn' },
+  ],
 };
 
 export const r2Basic: CardDefinition = {
@@ -96,9 +99,21 @@ export const filler5: CardDefinition = { id: 'filler-5', rank: 1, power: 1, rang
 // ── Helpers ────────────────────────────────────────────────────────────
 
 const ALL_TEST_CARDS: readonly CardDefinition[] = [
-  r1Basic, r1Cross, r1Forward2, r2Basic, r2Wide,
-  r3Power, r1Empty, r1AbilityCell, r1BothCell, replacement,
-  filler1, filler2, filler3, filler4, filler5,
+  r1Basic,
+  r1Cross,
+  r1Forward2,
+  r2Basic,
+  r2Wide,
+  r3Power,
+  r1Empty,
+  r1AbilityCell,
+  r1BothCell,
+  replacement,
+  filler1,
+  filler2,
+  filler3,
+  filler4,
+  filler5,
 ];
 
 export function getAllTestDefinitions(): Record<string, CardDefinition> {
@@ -110,5 +125,5 @@ export function getAllTestDefinitions(): Record<string, CardDefinition> {
 }
 
 export function buildTestDeck(): string[] {
-  return ALL_TEST_CARDS.map(c => c.id);
+  return ALL_TEST_CARDS.map((c) => c.id);
 }

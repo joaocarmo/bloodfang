@@ -28,9 +28,7 @@ export const rangedToken: CardDefinition = {
 
 // ── Helpers ───────────────────────────────────────────────────────────
 
-const ALL_TOKEN_CARDS: readonly CardDefinition[] = [
-  basicToken, strongToken, rangedToken,
-];
+const ALL_TOKEN_CARDS: readonly CardDefinition[] = [basicToken, strongToken, rangedToken];
 
 export function getAllTokenDefinitions(): Record<string, CardDefinition> {
   const defs: Record<string, CardDefinition> = {};

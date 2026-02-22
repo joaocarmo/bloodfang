@@ -35,7 +35,7 @@ export function internalDestroyCard(state: GameState, instanceId: string): GameS
   delete newInstances[instanceId];
 
   const newModifiers = state.continuousModifiers.filter(
-    m => m.sourceInstanceId !== instanceId && m.targetInstanceId !== instanceId,
+    (m) => m.sourceInstanceId !== instanceId && m.targetInstanceId !== instanceId,
   );
 
   const log = [...state.log, { type: 'destroyCard' as const, instanceId, position: pos }];
@@ -83,12 +83,15 @@ export function applyEnhance(
         ...currentState.cardInstances,
         [targetId]: updatedInstance,
       },
-      log: [...currentState.log, {
-        type: 'enhance' as const,
-        sourceInstanceId,
-        targetInstanceId: targetId,
-        value,
-      }],
+      log: [
+        ...currentState.log,
+        {
+          type: 'enhance' as const,
+          sourceInstanceId,
+          targetInstanceId: targetId,
+          value,
+        },
+      ],
     };
 
     events.push({ type: 'cardEnhanced', instanceId: targetId, owner: target.owner });
@@ -122,12 +125,15 @@ export function applyEnfeeble(
         ...currentState.cardInstances,
         [targetId]: updatedInstance,
       },
-      log: [...currentState.log, {
-        type: 'enfeeble' as const,
-        sourceInstanceId,
-        targetInstanceId: targetId,
-        value,
-      }],
+      log: [
+        ...currentState.log,
+        {
+          type: 'enfeeble' as const,
+          sourceInstanceId,
+          targetInstanceId: targetId,
+          value,
+        },
+      ],
     };
 
     events.push({ type: 'cardEnfeebled', instanceId: targetId, owner: target.owner });
@@ -178,18 +184,23 @@ export function applyAddCardToHand(
     const playerState = currentState.players[sourceOwner];
     const newHand = [...playerState.hand, cardId];
 
-    const players: [typeof currentState.players[0], typeof currentState.players[1]] =
-      [currentState.players[0], currentState.players[1]];
+    const players: [(typeof currentState.players)[0], (typeof currentState.players)[1]] = [
+      currentState.players[0],
+      currentState.players[1],
+    ];
     players[sourceOwner] = { ...playerState, hand: newHand };
 
     currentState = {
       ...currentState,
       players,
-      log: [...currentState.log, {
-        type: 'addCardToHand' as const,
-        player: sourceOwner,
-        cardId,
-      }],
+      log: [
+        ...currentState.log,
+        {
+          type: 'addCardToHand' as const,
+          player: sourceOwner,
+          cardId,
+        },
+      ],
     };
   }
 
@@ -236,12 +247,15 @@ export function applySpawnCard(
       board: newBoard,
       cardInstances: { ...currentState.cardInstances, [instanceId]: instance },
       nextInstanceId: currentState.nextInstanceId + 1,
-      log: [...currentState.log, {
-        type: 'spawnCard' as const,
-        instanceId,
-        definitionId: tokenDefinitionId,
-        position: pos,
-      }],
+      log: [
+        ...currentState.log,
+        {
+          type: 'spawnCard' as const,
+          instanceId,
+          definitionId: tokenDefinitionId,
+          position: pos,
+        },
+      ],
     };
 
     events.push({ type: 'cardPlayed', instanceId, owner: sourceOwner });
@@ -276,12 +290,15 @@ export function applyPositionRankManip(
     currentState = {
       ...currentState,
       board: newBoard,
-      log: [...currentState.log, {
-        type: 'pawnBonus' as const,
-        player: sourceOwner,
-        position: pos,
-        bonusPawns: newPawnCount - tile.pawnCount,
-      }],
+      log: [
+        ...currentState.log,
+        {
+          type: 'pawnBonus' as const,
+          player: sourceOwner,
+          position: pos,
+          bonusPawns: newPawnCount - tile.pawnCount,
+        },
+      ],
     };
   }
 
@@ -356,11 +373,27 @@ export function applyEffect(
     case 'addCardToHand':
       return applyAddCardToHand(state, sourceInstanceId, effect.tokenDefinitionId, effect.count);
     case 'spawnCard':
-      return applySpawnCard(state, sourceInstanceId, effect.tokenDefinitionId, resolvedTargetPositions);
+      return applySpawnCard(
+        state,
+        sourceInstanceId,
+        effect.tokenDefinitionId,
+        resolvedTargetPositions,
+      );
     case 'positionRankManip':
-      return applyPositionRankManip(state, sourceInstanceId, effect.bonusPawns, resolvedTargetPositions);
+      return applyPositionRankManip(
+        state,
+        sourceInstanceId,
+        effect.bonusPawns,
+        resolvedTargetPositions,
+      );
     case 'dualTargetBuff':
-      return applyDualTargetBuff(state, sourceInstanceId, resolvedTargetIds, effect.alliedValue, effect.enemyValue);
+      return applyDualTargetBuff(
+        state,
+        sourceInstanceId,
+        resolvedTargetIds,
+        effect.alliedValue,
+        effect.enemyValue,
+      );
     case 'selfPowerScaling':
     case 'laneScoreBonus':
     case 'scoreRedistribution':

@@ -55,7 +55,11 @@ function fisherYatesShuffle(arr: readonly string[], rng: () => number): string[]
   return result;
 }
 
-function updatePlayer(state: GameState, player: PlayerId, updates: Partial<PlayerState>): readonly [PlayerState, PlayerState] {
+function updatePlayer(
+  state: GameState,
+  player: PlayerId,
+  updates: Partial<PlayerState>,
+): readonly [PlayerState, PlayerState] {
   const players: [PlayerState, PlayerState] = [state.players[0], state.players[1]];
   players[player] = { ...players[player], ...updates };
   return players;
@@ -88,9 +92,7 @@ export function resolveRangePattern(
 
     const row = cardPosition.row + cell.row;
     // Mirror column for P1: negate column offset
-    const col = player === 0
-      ? cardPosition.col + cell.col
-      : cardPosition.col - cell.col;
+    const col = player === 0 ? cardPosition.col + cell.col : cardPosition.col - cell.col;
 
     const pos = { row, col };
     if (isValidPosition(pos)) {
@@ -116,11 +118,10 @@ function advanceTurn(state: GameState): GameState {
       const cardId = playerState.deck[0]!;
       const newDeck = playerState.deck.slice(1);
       const newHand = [...playerState.hand, cardId];
-      const updated = updatePlayer(
-        { ...state, players },
-        nextPlayer,
-        { deck: newDeck, hand: newHand },
-      );
+      const updated = updatePlayer({ ...state, players }, nextPlayer, {
+        deck: newDeck,
+        hand: newHand,
+      });
       players = updated;
       log = appendLog(log, { type: 'drawCard', player: nextPlayer, cardId });
     }
@@ -228,7 +229,7 @@ export function mulligan(
   const returnCount = returnCardIds.length;
 
   // Remove returned cards from hand
-  const remainingHand = playerState.hand.filter(id => !returnCardIds.includes(id));
+  const remainingHand = playerState.hand.filter((id) => !returnCardIds.includes(id));
   // Put returned cards back into deck and shuffle
   const newDeckBeforeShuffle = [...playerState.deck, ...returnCardIds];
   const shuffledDeck = fisherYatesShuffle(newDeckBeforeShuffle, actualRng);
@@ -239,7 +240,12 @@ export function mulligan(
   const finalHand = [...remainingHand, ...drawnCards];
 
   let log = state.log;
-  log = appendLog(log, { type: 'mulligan', player, returnedCount: returnCount, drawnCount: drawnCards.length });
+  log = appendLog(log, {
+    type: 'mulligan',
+    player,
+    returnedCount: returnCount,
+    drawnCount: drawnCards.length,
+  });
 
   const players = updatePlayer(state, player, {
     deck: finalDeck,
@@ -270,11 +276,7 @@ export function mulligan(
 
 // ── canPlayCard ────────────────────────────────────────────────────────
 
-export function canPlayCard(
-  state: GameState,
-  cardId: string,
-  position: Position,
-): boolean {
+export function canPlayCard(state: GameState, cardId: string, position: Position): boolean {
   if (state.phase !== 'playing') return false;
 
   const player = state.currentPlayerIndex;
@@ -312,9 +314,7 @@ export function canPlayCard(
 
 // ── getValidMoves ──────────────────────────────────────────────────────
 
-export function getValidMoves(
-  state: GameState,
-): { cardId: string; positions: Position[] }[] {
+export function getValidMoves(state: GameState): { cardId: string; positions: Position[] }[] {
   if (state.phase !== 'playing') return [];
 
   const player = state.currentPlayerIndex;
@@ -340,10 +340,7 @@ export function getValidMoves(
 
 // ── destroyCard (public — triggers ability cascade) ───────────────────
 
-export function destroyCard(
-  state: GameState,
-  instanceId: string,
-): GameState {
+export function destroyCard(state: GameState, instanceId: string): GameState {
   const instance = getInstance(state, instanceId);
   const owner = instance.owner;
 
@@ -354,9 +351,7 @@ export function destroyCard(
   let newState = internalDestroyCard(state, instanceId);
 
   // Trigger cascade with destroyed card snapshot
-  const events: GameEvent[] = [
-    { type: 'cardDestroyed', instanceId, owner },
-  ];
+  const events: GameEvent[] = [{ type: 'cardDestroyed', instanceId, owner }];
   newState = resolveAbilities(newState, events, 0, destroyedCards);
 
   return newState;
@@ -367,18 +362,14 @@ export function destroyCard(
 export function getEffectivePower(state: GameState, instanceId: string): number {
   const instance = getInstance(state, instanceId);
   const modifierSum = state.continuousModifiers
-    .filter(m => m.targetInstanceId === instanceId)
+    .filter((m) => m.targetInstanceId === instanceId)
     .reduce((sum, m) => sum + m.value, 0);
   return instance.basePower + instance.bonusPower + modifierSum;
 }
 
 // ── playCard ───────────────────────────────────────────────────────────
 
-export function playCard(
-  state: GameState,
-  cardId: string,
-  position: Position,
-): GameState {
+export function playCard(state: GameState, cardId: string, position: Position): GameState {
   if (!canPlayCard(state, cardId, position)) {
     throw new Error(`Cannot play card ${cardId} at (${position.row}, ${position.col})`);
   }
@@ -408,10 +399,14 @@ export function playCard(
       });
       // Remove continuous modifiers referencing this card
       const filteredModifiers = state.continuousModifiers.filter(
-        m => m.sourceInstanceId !== existingId && m.targetInstanceId !== existingId,
+        (m) => m.sourceInstanceId !== existingId && m.targetInstanceId !== existingId,
       );
       delete cardInstances[existingId];
-      log = appendLog(log, { type: 'destroyCard', instanceId: existingId, position: existingInstance.position });
+      log = appendLog(log, {
+        type: 'destroyCard',
+        instanceId: existingId,
+        position: existingInstance.position,
+      });
       // Store filtered modifiers for later state build
       state = { ...state, continuousModifiers: filteredModifiers };
     }
@@ -419,7 +414,7 @@ export function playCard(
 
   // Remove card from hand
   const playerState = state.players[player];
-  const newHand = playerState.hand.filter(id => id !== cardId);
+  const newHand = playerState.hand.filter((id) => id !== cardId);
 
   // Create card instance
   const instance: CardInstance = {
@@ -469,11 +464,7 @@ export function playCard(
   }
 
   // Build intermediate state
-  const players = updatePlayer(
-    { ...state, players: state.players },
-    player,
-    { hand: newHand },
-  );
+  const players = updatePlayer({ ...state, players: state.players }, player, { hand: newHand });
 
   let newState: GameState = {
     ...state,
@@ -488,7 +479,11 @@ export function playCard(
   // Emit events for ability resolution
   const events: GameEvent[] = [];
   if (replacementDestroyedId) {
-    events.push({ type: 'cardDestroyed', instanceId: replacementDestroyedId, owner: replacementDestroyedOwner! });
+    events.push({
+      type: 'cardDestroyed',
+      instanceId: replacementDestroyedId,
+      owner: replacementDestroyedOwner!,
+    });
   }
   events.push({ type: 'cardPlayed', instanceId, owner: player });
 
