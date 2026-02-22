@@ -43,12 +43,21 @@ export {
   MAX_PAWN_COUNT,
   DECK_SIZE,
   INITIAL_HAND_SIZE,
+  RANGE_CELL_TYPES,
+  ABILITY_TRIGGERS,
+  TARGET_SELECTORS,
+  GAME_EVENT_TYPES,
+  GAME_PHASES,
+  EFFECT_TYPES,
   opponent,
   createSeededRng,
 } from './types.js';
 
 // Board
-export { createBoard, getTile, setTile, isValidPosition } from './board.js';
+export { createBoard, getTile, setTile, isValidPosition, isBoardFull } from './board.js';
+
+// Utilities
+export { fisherYatesShuffle } from './utils.js';
 
 // Game lifecycle
 export {

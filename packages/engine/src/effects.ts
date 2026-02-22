@@ -6,7 +6,7 @@ import type {
   PlayerId,
   Position,
 } from './types.js';
-import { MAX_PAWN_COUNT } from './types.js';
+import { EFFECT_TYPES, GAME_EVENT_TYPES, MAX_PAWN_COUNT } from './types.js';
 import { getTile, setTile } from './board.js';
 
 // ── Effect Result ─────────────────────────────────────────────────────
@@ -59,12 +59,16 @@ function getCardOwner(state: GameState, instanceId: string): PlayerId {
 
 // ── Effect Handlers ───────────────────────────────────────────────────
 
-export function applyEnhance(
+function applyPowerModifier(
   state: GameState,
   sourceInstanceId: string,
   targetInstanceIds: readonly string[],
   value: number,
+  type: 'enhance' | 'enfeeble',
 ): EffectResult {
+  const sign = type === 'enhance' ? 1 : -1;
+  const eventType =
+    type === 'enhance' ? GAME_EVENT_TYPES.CARD_ENHANCED : GAME_EVENT_TYPES.CARD_ENFEEBLED;
   let currentState = state;
   const events: GameEvent[] = [];
 
@@ -74,7 +78,7 @@ export function applyEnhance(
 
     const updatedInstance: CardInstance = {
       ...target,
-      bonusPower: target.bonusPower + value,
+      bonusPower: target.bonusPower + sign * value,
     };
 
     currentState = {
@@ -83,22 +87,27 @@ export function applyEnhance(
         ...currentState.cardInstances,
         [targetId]: updatedInstance,
       },
-      log: [
-        ...currentState.log,
-        {
-          type: 'enhance' as const,
-          sourceInstanceId,
-          targetInstanceId: targetId,
-          value,
-        },
-      ],
+      log: [...currentState.log, { type, sourceInstanceId, targetInstanceId: targetId, value }],
     };
 
-    events.push({ type: 'cardEnhanced', instanceId: targetId, owner: target.owner });
-    events.push({ type: 'powerChanged', instanceId: targetId, owner: target.owner });
+    events.push({ type: eventType, instanceId: targetId, owner: target.owner });
+    events.push({
+      type: GAME_EVENT_TYPES.POWER_CHANGED,
+      instanceId: targetId,
+      owner: target.owner,
+    });
   }
 
   return { state: currentState, events };
+}
+
+export function applyEnhance(
+  state: GameState,
+  sourceInstanceId: string,
+  targetInstanceIds: readonly string[],
+  value: number,
+): EffectResult {
+  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, 'enhance');
 }
 
 export function applyEnfeeble(
@@ -107,40 +116,7 @@ export function applyEnfeeble(
   targetInstanceIds: readonly string[],
   value: number,
 ): EffectResult {
-  let currentState = state;
-  const events: GameEvent[] = [];
-
-  for (const targetId of targetInstanceIds) {
-    const target = currentState.cardInstances[targetId];
-    if (!target) continue;
-
-    const updatedInstance: CardInstance = {
-      ...target,
-      bonusPower: target.bonusPower - value,
-    };
-
-    currentState = {
-      ...currentState,
-      cardInstances: {
-        ...currentState.cardInstances,
-        [targetId]: updatedInstance,
-      },
-      log: [
-        ...currentState.log,
-        {
-          type: 'enfeeble' as const,
-          sourceInstanceId,
-          targetInstanceId: targetId,
-          value,
-        },
-      ],
-    };
-
-    events.push({ type: 'cardEnfeebled', instanceId: targetId, owner: target.owner });
-    events.push({ type: 'powerChanged', instanceId: targetId, owner: target.owner });
-  }
-
-  return { state: currentState, events };
+  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, 'enfeeble');
 }
 
 export function applyDestroy(
@@ -158,7 +134,7 @@ export function applyDestroy(
     const owner = target.owner;
     currentState = internalDestroyCard(currentState, targetId);
 
-    events.push({ type: 'cardDestroyed', instanceId: targetId, owner });
+    events.push({ type: GAME_EVENT_TYPES.CARD_DESTROYED, instanceId: targetId, owner });
   }
 
   return { state: currentState, events };
@@ -258,7 +234,7 @@ export function applySpawnCard(
       ],
     };
 
-    events.push({ type: 'cardPlayed', instanceId, owner: sourceOwner });
+    events.push({ type: GAME_EVENT_TYPES.CARD_PLAYED, instanceId, owner: sourceOwner });
   }
 
   return { state: currentState, events };
@@ -364,29 +340,29 @@ export function applyEffect(
   resolvedTargetPositions: readonly Position[],
 ): EffectResult {
   switch (effect.type) {
-    case 'enhance':
+    case EFFECT_TYPES.ENHANCE:
       return applyEnhance(state, sourceInstanceId, resolvedTargetIds, effect.value);
-    case 'enfeeble':
+    case EFFECT_TYPES.ENFEEBLE:
       return applyEnfeeble(state, sourceInstanceId, resolvedTargetIds, effect.value);
-    case 'destroy':
+    case EFFECT_TYPES.DESTROY:
       return applyDestroy(state, sourceInstanceId, resolvedTargetIds);
-    case 'addCardToHand':
+    case EFFECT_TYPES.ADD_CARD_TO_HAND:
       return applyAddCardToHand(state, sourceInstanceId, effect.tokenDefinitionId, effect.count);
-    case 'spawnCard':
+    case EFFECT_TYPES.SPAWN_CARD:
       return applySpawnCard(
         state,
         sourceInstanceId,
         effect.tokenDefinitionId,
         resolvedTargetPositions,
       );
-    case 'positionRankManip':
+    case EFFECT_TYPES.POSITION_RANK_MANIP:
       return applyPositionRankManip(
         state,
         sourceInstanceId,
         effect.bonusPawns,
         resolvedTargetPositions,
       );
-    case 'dualTargetBuff':
+    case EFFECT_TYPES.DUAL_TARGET_BUFF:
       return applyDualTargetBuff(
         state,
         sourceInstanceId,
@@ -394,9 +370,9 @@ export function applyEffect(
         effect.alliedValue,
         effect.enemyValue,
       );
-    case 'selfPowerScaling':
-    case 'laneScoreBonus':
-    case 'scoreRedistribution':
+    case EFFECT_TYPES.SELF_POWER_SCALING:
+    case EFFECT_TYPES.LANE_SCORE_BONUS:
+    case EFFECT_TYPES.SCORE_REDISTRIBUTION:
       // These are handled elsewhere (continuous recalc / scoring time)
       return { state, events: [] };
   }

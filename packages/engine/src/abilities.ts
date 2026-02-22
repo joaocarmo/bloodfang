@@ -1,5 +1,6 @@
 import type {
   AbilityDefinition,
+  AbilityTriggerType,
   CardInstance,
   ContinuousModifier,
   GameEvent,
@@ -10,7 +11,13 @@ import type {
   ScalingCondition,
   TargetSelector,
 } from './types.js';
-import { BOARD_COLS } from './types.js';
+import {
+  ABILITY_TRIGGERS,
+  BOARD_COLS,
+  EFFECT_TYPES,
+  GAME_EVENT_TYPES,
+  RANGE_CELL_TYPES,
+} from './types.js';
 import { isValidPosition } from './board.js';
 import { applyEffect, internalDestroyCard } from './effects.js';
 import { getEffectivePower } from './game.js';
@@ -29,7 +36,7 @@ export function resolveAbilityRangePattern(
 ): Position[] {
   const positions: Position[] = [];
   for (const cell of rangePattern) {
-    if (cell.type === 'pawn') continue; // Skip pawn-only cells
+    if (cell.type === RANGE_CELL_TYPES.PAWN) continue; // Skip pawn-only cells
 
     const row = cardPosition.row + cell.row;
     const col = player === 0 ? cardPosition.col + cell.col : cardPosition.col - cell.col;
@@ -44,13 +51,18 @@ export function resolveAbilityRangePattern(
 
 // ── resolveTargets ────────────────────────────────────────────────────
 
-/** Resolve a TargetSelector to a list of card instance IDs. */
+/**
+ * Resolve a TargetSelector to a list of card instance IDs.
+ * When `snapshot` is provided, the source card is treated as destroyed (already absent from state).
+ */
 export function resolveTargets(
   state: GameState,
   sourceInstanceId: string,
   selector: TargetSelector,
+  snapshot?: CardInstance,
 ): { instanceIds: string[]; positions: Position[] } {
-  const source = state.cardInstances[sourceInstanceId];
+  const isDestroyed = snapshot !== undefined;
+  const source = snapshot ?? state.cardInstances[sourceInstanceId];
   if (!source) return { instanceIds: [], positions: [] };
 
   const sourceOwner = source.owner;
@@ -59,6 +71,7 @@ export function resolveTargets(
 
   switch (selector.type) {
     case 'self':
+      if (isDestroyed) return { instanceIds: [], positions: [] };
       return { instanceIds: [sourceInstanceId], positions: [source.position] };
 
     case 'rangePattern': {
@@ -78,7 +91,9 @@ export function resolveTargets(
 
     case 'allAllied': {
       const ids = allInstances
-        .filter((c) => c.owner === sourceOwner && c.instanceId !== sourceInstanceId)
+        .filter(
+          (c) => c.owner === sourceOwner && (isDestroyed || c.instanceId !== sourceInstanceId),
+        )
         .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
@@ -90,7 +105,9 @@ export function resolveTargets(
 
     case 'allInLane': {
       const ids = allInstances
-        .filter((c) => c.position.row === sourceRow && c.instanceId !== sourceInstanceId)
+        .filter(
+          (c) => c.position.row === sourceRow && (isDestroyed || c.instanceId !== sourceInstanceId),
+        )
         .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
@@ -101,7 +118,7 @@ export function resolveTargets(
           (c) =>
             c.position.row === sourceRow &&
             c.owner === sourceOwner &&
-            c.instanceId !== sourceInstanceId,
+            (isDestroyed || c.instanceId !== sourceInstanceId),
         )
         .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
@@ -148,20 +165,23 @@ export function collectTriggersForEvents(
       const trigger = ability.trigger;
 
       switch (trigger) {
-        case 'whenPlayed':
-          if (event.type === 'cardPlayed' && event.instanceId === instance.instanceId) {
+        case ABILITY_TRIGGERS.WHEN_PLAYED:
+          if (
+            event.type === GAME_EVENT_TYPES.CARD_PLAYED &&
+            event.instanceId === instance.instanceId
+          ) {
             triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
           }
           break;
 
-        case 'whenDestroyed':
+        case ABILITY_TRIGGERS.WHEN_DESTROYED:
           // For live cards matching self-destruction — shouldn't normally happen since
           // destroyed cards are removed. This is handled below via destroyedCards map.
           break;
 
-        case 'whenAlliedDestroyed':
+        case ABILITY_TRIGGERS.WHEN_ALLIED_DESTROYED:
           if (
-            event.type === 'cardDestroyed' &&
+            event.type === GAME_EVENT_TYPES.CARD_DESTROYED &&
             event.owner === instance.owner &&
             event.instanceId !== instance.instanceId
           ) {
@@ -169,21 +189,24 @@ export function collectTriggersForEvents(
           }
           break;
 
-        case 'whenEnemyDestroyed':
-          if (event.type === 'cardDestroyed' && event.owner !== instance.owner) {
+        case ABILITY_TRIGGERS.WHEN_ENEMY_DESTROYED:
+          if (event.type === GAME_EVENT_TYPES.CARD_DESTROYED && event.owner !== instance.owner) {
             triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
           }
           break;
 
-        case 'whenAnyDestroyed':
-          if (event.type === 'cardDestroyed' && event.instanceId !== instance.instanceId) {
-            triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
-          }
-          break;
-
-        case 'whenFirstEnfeebled':
+        case ABILITY_TRIGGERS.WHEN_ANY_DESTROYED:
           if (
-            event.type === 'cardEnfeebled' &&
+            event.type === GAME_EVENT_TYPES.CARD_DESTROYED &&
+            event.instanceId !== instance.instanceId
+          ) {
+            triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
+          }
+          break;
+
+        case ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED:
+          if (
+            event.type === GAME_EVENT_TYPES.CARD_ENFEEBLED &&
             event.instanceId === instance.instanceId &&
             !instance.hasBeenEnfeebled
           ) {
@@ -191,9 +214,9 @@ export function collectTriggersForEvents(
           }
           break;
 
-        case 'whenFirstEnhanced':
+        case ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED:
           if (
-            event.type === 'cardEnhanced' &&
+            event.type === GAME_EVENT_TYPES.CARD_ENHANCED &&
             event.instanceId === instance.instanceId &&
             !instance.hasBeenEnhanced
           ) {
@@ -201,9 +224,9 @@ export function collectTriggersForEvents(
           }
           break;
 
-        case 'whenPowerReachesN':
+        case ABILITY_TRIGGERS.WHEN_POWER_REACHES_N:
           if (
-            event.type === 'powerChanged' &&
+            event.type === GAME_EVENT_TYPES.POWER_CHANGED &&
             event.instanceId === instance.instanceId &&
             !instance.powerReachedN &&
             ability.threshold !== undefined
@@ -215,19 +238,19 @@ export function collectTriggersForEvents(
           }
           break;
 
-        case 'whileInPlay':
-        case 'scaling':
-        case 'endOfGame':
+        case ABILITY_TRIGGERS.WHILE_IN_PLAY:
+        case ABILITY_TRIGGERS.SCALING:
+        case ABILITY_TRIGGERS.END_OF_GAME:
           break;
       }
     }
 
     // Check destroyed cards for whenDestroyed triggers
-    if (destroyedCards && event.type === 'cardDestroyed') {
+    if (destroyedCards && event.type === GAME_EVENT_TYPES.CARD_DESTROYED) {
       const destroyed = destroyedCards[event.instanceId];
       if (destroyed) {
         const def = state.cardDefinitions[destroyed.definitionId];
-        if (def?.ability?.trigger === 'whenDestroyed') {
+        if (def?.ability?.trigger === ABILITY_TRIGGERS.WHEN_DESTROYED) {
           triggers.push({
             instanceId: destroyed.instanceId,
             ability: def.ability,
@@ -304,15 +327,15 @@ export function recalculateContinuousEffects(state: GameState): GameState {
 
     const ability = def.ability;
 
-    if (ability.trigger === 'whileInPlay') {
+    if (ability.trigger === ABILITY_TRIGGERS.WHILE_IN_PLAY) {
       const effect = ability.effect;
       if (
-        effect.type === 'enhance' ||
-        effect.type === 'enfeeble' ||
-        effect.type === 'dualTargetBuff'
+        effect.type === EFFECT_TYPES.ENHANCE ||
+        effect.type === EFFECT_TYPES.ENFEEBLE ||
+        effect.type === EFFECT_TYPES.DUAL_TARGET_BUFF
       ) {
         const { instanceIds } = resolveTargets(state, instance.instanceId, effect.target);
-        if (effect.type === 'dualTargetBuff') {
+        if (effect.type === EFFECT_TYPES.DUAL_TARGET_BUFF) {
           for (const targetId of instanceIds) {
             const target = state.cardInstances[targetId];
             if (!target) continue;
@@ -326,7 +349,7 @@ export function recalculateContinuousEffects(state: GameState): GameState {
             }
           }
         } else {
-          const value = effect.type === 'enhance' ? effect.value : -effect.value;
+          const value = effect.type === EFFECT_TYPES.ENHANCE ? effect.value : -effect.value;
           for (const targetId of instanceIds) {
             newModifiers.push({
               sourceInstanceId: instance.instanceId,
@@ -338,7 +361,10 @@ export function recalculateContinuousEffects(state: GameState): GameState {
       }
     }
 
-    if (ability.trigger === 'scaling' && ability.effect.type === 'selfPowerScaling') {
+    if (
+      ability.trigger === ABILITY_TRIGGERS.SCALING &&
+      ability.effect.type === EFFECT_TYPES.SELF_POWER_SCALING
+    ) {
       const scalingEffect = ability.effect;
       const count = countScalingCondition(state, instance, scalingEffect.condition);
       const value = count * scalingEffect.valuePerUnit;
@@ -358,100 +384,22 @@ export function recalculateContinuousEffects(state: GameState): GameState {
   };
 }
 
-// ── resolveTargets for destroyed card snapshot ────────────────────────
+// ── Trigger Execution ────────────────────────────────────────────────
 
-function resolveTargetsForDestroyedCard(
+const ONE_SHOT_FLAGS: Partial<Record<AbilityTriggerType, keyof CardInstance>> = {
+  [ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED]: 'hasBeenEnfeebled',
+  [ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED]: 'hasBeenEnhanced',
+  [ABILITY_TRIGGERS.WHEN_POWER_REACHES_N]: 'powerReachedN',
+};
+
+function executeTriggers(
   state: GameState,
-  snapshot: CardInstance,
-  selector: TargetSelector,
-): { instanceIds: string[]; positions: Position[] } {
-  const allInstances = Object.values(state.cardInstances);
-  const sourceOwner = snapshot.owner;
-  const sourceRow = snapshot.position.row;
-
-  switch (selector.type) {
-    case 'self':
-      // Self is already destroyed, nothing to target
-      return { instanceIds: [], positions: [] };
-
-    case 'rangePattern': {
-      const def = state.cardDefinitions[snapshot.definitionId];
-      if (!def) return { instanceIds: [], positions: [] };
-      const positions = resolveAbilityRangePattern(
-        def.rangePattern,
-        snapshot.position,
-        sourceOwner,
-      );
-      const instanceIds: string[] = [];
-      for (const pos of positions) {
-        const tile = state.board[pos.row]?.[pos.col];
-        if (tile?.cardInstanceId && state.cardInstances[tile.cardInstanceId]) {
-          instanceIds.push(tile.cardInstanceId);
-        }
-      }
-      return { instanceIds, positions };
-    }
-
-    case 'allAllied':
-      return {
-        instanceIds: allInstances.filter((c) => c.owner === sourceOwner).map((c) => c.instanceId),
-        positions: [],
-      };
-
-    case 'allEnemy':
-      return {
-        instanceIds: allInstances.filter((c) => c.owner !== sourceOwner).map((c) => c.instanceId),
-        positions: [],
-      };
-
-    case 'allInLane':
-      return {
-        instanceIds: allInstances
-          .filter((c) => c.position.row === sourceRow)
-          .map((c) => c.instanceId),
-        positions: [],
-      };
-
-    case 'allAlliedInLane':
-      return {
-        instanceIds: allInstances
-          .filter((c) => c.position.row === sourceRow && c.owner === sourceOwner)
-          .map((c) => c.instanceId),
-        positions: [],
-      };
-
-    case 'allEnemyInLane':
-      return {
-        instanceIds: allInstances
-          .filter((c) => c.position.row === sourceRow && c.owner !== sourceOwner)
-          .map((c) => c.instanceId),
-        positions: [],
-      };
-  }
-}
-
-// ── The Cascade Resolver ──────────────────────────────────────────────
-
-export function resolveAbilities(
-  state: GameState,
-  pendingEvents: readonly GameEvent[],
-  depth: number = 0,
-  destroyedCards?: Readonly<Record<string, CardInstance>>,
-): GameState {
-  if (depth > MAX_CASCADE_DEPTH) {
-    throw new Error(`Ability cascade exceeded maximum depth of ${MAX_CASCADE_DEPTH}`);
-  }
-
-  if (pendingEvents.length === 0) return state;
-
-  // Phase 1: Collect triggers
-  const matchedTriggers = collectTriggersForEvents(state, pendingEvents, destroyedCards);
-
-  // Phase 2: Execute each trigger
+  triggers: readonly MatchedTrigger[],
+): { state: GameState; events: GameEvent[] } {
   let currentState = state;
-  const newEvents: GameEvent[] = [];
+  const events: GameEvent[] = [];
 
-  for (const trigger of matchedTriggers) {
+  for (const trigger of triggers) {
     const ability = trigger.ability;
 
     // Special handling for whenDestroyed: card no longer in state
@@ -462,7 +410,7 @@ export function resolveAbilities(
       let targetPositions: Position[] = [];
 
       if ('target' in effect) {
-        const resolved = resolveTargetsForDestroyedCard(currentState, snapshot, effect.target);
+        const resolved = resolveTargets(currentState, snapshot.instanceId, effect.target, snapshot);
         targetIds = resolved.instanceIds;
         targetPositions = resolved.positions;
       }
@@ -483,7 +431,7 @@ export function resolveAbilities(
       const resultInstances = { ...result.state.cardInstances };
       delete resultInstances[snapshot.instanceId];
       currentState = { ...result.state, cardInstances: resultInstances };
-      newEvents.push(...result.events);
+      events.push(...result.events);
 
       currentState = {
         ...currentState,
@@ -505,30 +453,13 @@ export function resolveAbilities(
     const instance = currentState.cardInstances[trigger.instanceId]!;
 
     // Set one-shot flags if applicable
-    if (ability.trigger === 'whenFirstEnfeebled' && !instance.hasBeenEnfeebled) {
+    const flagName = ONE_SHOT_FLAGS[ability.trigger];
+    if (flagName && !instance[flagName]) {
       currentState = {
         ...currentState,
         cardInstances: {
           ...currentState.cardInstances,
-          [trigger.instanceId]: { ...instance, hasBeenEnfeebled: true },
-        },
-      };
-    }
-    if (ability.trigger === 'whenFirstEnhanced' && !instance.hasBeenEnhanced) {
-      currentState = {
-        ...currentState,
-        cardInstances: {
-          ...currentState.cardInstances,
-          [trigger.instanceId]: { ...instance, hasBeenEnhanced: true },
-        },
-      };
-    }
-    if (ability.trigger === 'whenPowerReachesN' && !instance.powerReachedN) {
-      currentState = {
-        ...currentState,
-        cardInstances: {
-          ...currentState.cardInstances,
-          [trigger.instanceId]: { ...instance, powerReachedN: true },
+          [trigger.instanceId]: { ...instance, [flagName]: true },
         },
       };
     }
@@ -553,7 +484,7 @@ export function resolveAbilities(
       targetPositions,
     );
     currentState = result.state;
-    newEvents.push(...result.events);
+    events.push(...result.events);
 
     // Log ability trigger
     currentState = {
@@ -569,43 +500,78 @@ export function resolveAbilities(
     };
   }
 
-  // Phase 3: Recalculate continuous effects from scratch
-  currentState = recalculateContinuousEffects(currentState);
+  return { state: currentState, events };
+}
 
-  // Phase 4: Death check — batch all cards with effectivePower ≤ 0
-  const deathEvents: GameEvent[] = [];
+// ── Death Check ──────────────────────────────────────────────────────
+
+function performDeathCheck(state: GameState): {
+  state: GameState;
+  deathEvents: GameEvent[];
+  destroyedCards: Record<string, CardInstance>;
+} {
   const toDestroy: string[] = [];
-
-  for (const instance of Object.values(currentState.cardInstances)) {
-    const power = getEffectivePower(currentState, instance.instanceId);
+  for (const instance of Object.values(state.cardInstances)) {
+    const power = getEffectivePower(state, instance.instanceId);
     if (power <= 0) {
       toDestroy.push(instance.instanceId);
     }
   }
 
   // Capture snapshots of dying cards before destroying them (for whenDestroyed)
-  const newDestroyedCards: Record<string, CardInstance> = {};
+  const destroyedCards: Record<string, CardInstance> = {};
   for (const instanceId of toDestroy) {
-    const instance = currentState.cardInstances[instanceId];
+    const instance = state.cardInstances[instanceId];
     if (instance) {
-      newDestroyedCards[instanceId] = instance;
+      destroyedCards[instanceId] = instance;
     }
   }
 
+  let currentState = state;
+  const deathEvents: GameEvent[] = [];
   for (const instanceId of toDestroy) {
     const instance = currentState.cardInstances[instanceId];
     if (!instance) continue;
 
     const owner = instance.owner;
     currentState = internalDestroyCard(currentState, instanceId);
-    deathEvents.push({ type: 'cardDestroyed', instanceId, owner });
+    deathEvents.push({ type: GAME_EVENT_TYPES.CARD_DESTROYED, instanceId, owner });
   }
+
+  return { state: currentState, deathEvents, destroyedCards };
+}
+
+// ── The Cascade Resolver ──────────────────────────────────────────────
+
+export function resolveAbilities(
+  state: GameState,
+  pendingEvents: readonly GameEvent[],
+  depth: number = 0,
+  destroyedCards?: Readonly<Record<string, CardInstance>>,
+): GameState {
+  if (depth > MAX_CASCADE_DEPTH) {
+    throw new Error(`Ability cascade exceeded maximum depth of ${MAX_CASCADE_DEPTH}`);
+  }
+
+  if (pendingEvents.length === 0) return state;
+
+  // Phase 1: Collect triggers
+  const matchedTriggers = collectTriggersForEvents(state, pendingEvents, destroyedCards);
+
+  // Phase 2: Execute triggers and set flags
+  const triggerResult = executeTriggers(state, matchedTriggers);
+
+  // Phase 3: Recalculate continuous effects from scratch
+  const recalculated = recalculateContinuousEffects(triggerResult.state);
+
+  // Phase 4: Batch death check
+  const deathResult = performDeathCheck(recalculated);
 
   // Phase 5: Recurse if any new events
-  const allNewEvents = [...newEvents, ...deathEvents];
+  const allNewEvents = [...triggerResult.events, ...deathResult.deathEvents];
   if (allNewEvents.length > 0) {
-    return resolveAbilities(currentState, allNewEvents, depth + 1, newDestroyedCards);
+    return resolveAbilities(deathResult.state, allNewEvents, depth + 1, deathResult.destroyedCards);
   }
 
-  return currentState;
+  return deathResult.state;
 }

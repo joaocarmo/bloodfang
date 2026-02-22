@@ -16,13 +16,17 @@ import {
   BOARD_COLS,
   BOARD_ROWS,
   DECK_SIZE,
+  GAME_EVENT_TYPES,
+  GAME_PHASES,
   INITIAL_HAND_SIZE,
   MAX_PAWN_COUNT,
+  RANGE_CELL_TYPES,
   opponent,
 } from './types.js';
-import { createBoard, getTile, isValidPosition, setTile } from './board.js';
+import { createBoard, getTile, isBoardFull, isValidPosition, setTile } from './board.js';
 import { resolveAbilities } from './abilities.js';
 import { internalDestroyCard } from './effects.js';
+import { fisherYatesShuffle } from './utils.js';
 
 // ── Internal Helpers ───────────────────────────────────────────────────
 
@@ -44,17 +48,6 @@ function requireTile(board: Board, pos: Position): Tile {
   return tile;
 }
 
-function fisherYatesShuffle(arr: readonly string[], rng: () => number): string[] {
-  const result = [...arr];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    const temp = result[i]!;
-    result[i] = result[j]!;
-    result[j] = temp;
-  }
-  return result;
-}
-
 function updatePlayer(
   state: GameState,
   player: PlayerId,
@@ -69,16 +62,6 @@ function appendLog(log: readonly GameAction[], action: GameAction): readonly Gam
   return [...log, action];
 }
 
-function isBoardFull(board: Board): boolean {
-  for (let r = 0; r < BOARD_ROWS; r++) {
-    for (let c = 0; c < BOARD_COLS; c++) {
-      const tile = board[r]![c]!;
-      if (tile.cardInstanceId === null) return false;
-    }
-  }
-  return true;
-}
-
 // ── resolveRangePattern (exported for testing) ─────────────────────────
 
 export function resolveRangePattern(
@@ -88,7 +71,7 @@ export function resolveRangePattern(
 ): Position[] {
   const positions: Position[] = [];
   for (const cell of rangePattern) {
-    if (cell.type === 'ability') continue; // No-op in Phase 1
+    if (cell.type === RANGE_CELL_TYPES.ABILITY) continue; // No-op in Phase 1
 
     const row = cardPosition.row + cell.row;
     // Mirror column for P1: negate column offset
@@ -192,7 +175,7 @@ export function createGame(
     ],
     currentPlayerIndex: firstPlayer,
     turnNumber: 0,
-    phase: 'mulligan',
+    phase: GAME_PHASES.MULLIGAN,
     consecutivePasses: 0,
     continuousModifiers: [],
     cardInstances: {},
@@ -210,7 +193,7 @@ export function mulligan(
   returnCardIds: readonly string[],
   rng?: () => number,
 ): GameState {
-  if (state.phase !== 'mulligan') {
+  if (state.phase !== GAME_PHASES.MULLIGAN) {
     throw new Error('Mulligan is only available during mulligan phase');
   }
   const playerState = state.players[player];
@@ -260,7 +243,7 @@ export function mulligan(
     ...state,
     players,
     log,
-    phase: bothDone ? 'playing' : 'mulligan',
+    phase: bothDone ? GAME_PHASES.PLAYING : GAME_PHASES.MULLIGAN,
     turnNumber: bothDone ? 1 : 0,
   };
 
@@ -277,7 +260,7 @@ export function mulligan(
 // ── canPlayCard ────────────────────────────────────────────────────────
 
 export function canPlayCard(state: GameState, cardId: string, position: Position): boolean {
-  if (state.phase !== 'playing') return false;
+  if (state.phase !== GAME_PHASES.PLAYING) return false;
 
   const player = state.currentPlayerIndex;
   const playerState = state.players[player];
@@ -315,7 +298,7 @@ export function canPlayCard(state: GameState, cardId: string, position: Position
 // ── getValidMoves ──────────────────────────────────────────────────────
 
 export function getValidMoves(state: GameState): { cardId: string; positions: Position[] }[] {
-  if (state.phase !== 'playing') return [];
+  if (state.phase !== GAME_PHASES.PLAYING) return [];
 
   const player = state.currentPlayerIndex;
   const playerState = state.players[player];
@@ -351,7 +334,7 @@ export function destroyCard(state: GameState, instanceId: string): GameState {
   let newState = internalDestroyCard(state, instanceId);
 
   // Trigger cascade with destroyed card snapshot
-  const events: GameEvent[] = [{ type: 'cardDestroyed', instanceId, owner }];
+  const events: GameEvent[] = [{ type: GAME_EVENT_TYPES.CARD_DESTROYED, instanceId, owner }];
   newState = resolveAbilities(newState, events, 0, destroyedCards);
 
   return newState;
@@ -378,37 +361,16 @@ export function playCard(state: GameState, cardId: string, position: Position): 
   const def = getDefinition(state, cardId);
   const instanceId = String(state.nextInstanceId);
 
-  let board = state.board;
-  let cardInstances = { ...state.cardInstances };
-  let log = state.log;
-  let replacementDestroyedId: string | null = null;
-  let replacementDestroyedOwner: PlayerId | null = null;
+  let replacementDestroyed: { id: string; owner: PlayerId } | null = null;
 
   // Handle replacement card: destroy existing card first
   if (def.rank === 'replacement') {
-    const tile = requireTile(board, position);
+    const tile = requireTile(state.board, position);
     const existingId = tile.cardInstanceId;
     if (existingId) {
-      // Inline destroy logic to update our local variables
       const existingInstance = getInstance(state, existingId);
-      replacementDestroyedId = existingId;
-      replacementDestroyedOwner = existingInstance.owner;
-      board = setTile(board, existingInstance.position, {
-        ...requireTile(board, existingInstance.position),
-        cardInstanceId: null,
-      });
-      // Remove continuous modifiers referencing this card
-      const filteredModifiers = state.continuousModifiers.filter(
-        (m) => m.sourceInstanceId !== existingId && m.targetInstanceId !== existingId,
-      );
-      delete cardInstances[existingId];
-      log = appendLog(log, {
-        type: 'destroyCard',
-        instanceId: existingId,
-        position: existingInstance.position,
-      });
-      // Store filtered modifiers for later state build
-      state = { ...state, continuousModifiers: filteredModifiers };
+      replacementDestroyed = { id: existingId, owner: existingInstance.owner };
+      state = internalDestroyCard(state, existingId);
     }
   }
 
@@ -425,17 +387,17 @@ export function playCard(state: GameState, cardId: string, position: Position): 
     basePower: def.power,
     bonusPower: 0,
   };
-  cardInstances[instanceId] = instance;
+  let cardInstances = { ...state.cardInstances, [instanceId]: instance };
 
   // Place on board
-  const currentTile = requireTile(board, position);
-  board = setTile(board, position, {
+  const currentTile = requireTile(state.board, position);
+  let board = setTile(state.board, position, {
     ...currentTile,
     cardInstanceId: instanceId,
   });
 
   // Log placement
-  log = appendLog(log, { type: 'placeCard', player, cardId, instanceId, position });
+  let log = appendLog(state.log, { type: 'placeCard', player, cardId, instanceId, position });
 
   // Resolve range pattern — pawn placement
   const pawnPositions = resolveRangePattern(def.rangePattern, position, player);
@@ -478,14 +440,14 @@ export function playCard(state: GameState, cardId: string, position: Position): 
 
   // Emit events for ability resolution
   const events: GameEvent[] = [];
-  if (replacementDestroyedId) {
+  if (replacementDestroyed) {
     events.push({
-      type: 'cardDestroyed',
-      instanceId: replacementDestroyedId,
-      owner: replacementDestroyedOwner!,
+      type: GAME_EVENT_TYPES.CARD_DESTROYED,
+      instanceId: replacementDestroyed.id,
+      owner: replacementDestroyed.owner,
     });
   }
-  events.push({ type: 'cardPlayed', instanceId, owner: player });
+  events.push({ type: GAME_EVENT_TYPES.CARD_PLAYED, instanceId, owner: player });
 
   // Resolve ability cascade
   newState = resolveAbilities(newState, events);
@@ -494,7 +456,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
   if (isBoardFull(newState.board)) {
     newState = {
       ...newState,
-      phase: 'ended',
+      phase: GAME_PHASES.ENDED,
     };
     return newState;
   }
@@ -506,7 +468,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
 // ── pass ───────────────────────────────────────────────────────────────
 
 export function pass(state: GameState): GameState {
-  if (state.phase !== 'playing') {
+  if (state.phase !== GAME_PHASES.PLAYING) {
     throw new Error('Can only pass during playing phase');
   }
 
@@ -521,7 +483,7 @@ export function pass(state: GameState): GameState {
       ...state,
       log,
       consecutivePasses: newConsecutivePasses,
-      phase: 'ended',
+      phase: GAME_PHASES.ENDED,
     };
   }
 

@@ -1,5 +1,5 @@
 import type { GameState, PlayerId } from './types.js';
-import { BOARD_COLS, BOARD_ROWS } from './types.js';
+import { ABILITY_TRIGGERS, BOARD_COLS, BOARD_ROWS, EFFECT_TYPES } from './types.js';
 import { getEffectivePower } from './game.js';
 
 export type LaneScores = readonly [number, number][];
@@ -37,30 +37,23 @@ export function calculateFinalScores(state: GameState): readonly [number, number
     ([p0, p1]) => [p0, p1] as [number, number],
   );
 
-  // Apply endOfGame abilities from live cards
+  // Apply endOfGame abilities from live cards (single pass)
+  const redistributionLanes = new Set<number>();
   for (const instance of Object.values(state.cardInstances)) {
     const def = state.cardDefinitions[instance.definitionId];
-    if (!def?.ability || def.ability.trigger !== 'endOfGame') continue;
+    if (!def?.ability || def.ability.trigger !== ABILITY_TRIGGERS.END_OF_GAME) continue;
 
     const effect = def.ability.effect;
     const lane = laneScores[instance.position.row];
     if (!lane) continue;
 
-    if (effect.type === 'laneScoreBonus') {
+    if (effect.type === EFFECT_TYPES.LANE_SCORE_BONUS) {
       if (instance.owner === 0) {
         lane[0] += effect.value;
       } else {
         lane[1] += effect.value;
       }
-    }
-  }
-
-  // Check for scoreRedistribution: lane winner gets both scores
-  const redistributionLanes = new Set<number>();
-  for (const instance of Object.values(state.cardInstances)) {
-    const def = state.cardDefinitions[instance.definitionId];
-    if (!def?.ability || def.ability.trigger !== 'endOfGame') continue;
-    if (def.ability.effect.type === 'scoreRedistribution') {
+    } else if (effect.type === EFFECT_TYPES.SCORE_REDISTRIBUTION) {
       redistributionLanes.add(instance.position.row);
     }
   }

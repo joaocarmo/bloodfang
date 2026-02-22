@@ -1,4 +1,5 @@
 import type { CardDefinition } from '../types.js';
+import { cardsToDefinitionMap } from './utils.js';
 
 // ── Ability Test Cards ────────────────────────────────────────────────
 
@@ -284,9 +285,5 @@ const ALL_ABILITY_CARDS: readonly CardDefinition[] = [
 ];
 
 export function getAllAbilityTestDefinitions(): Record<string, CardDefinition> {
-  const defs: Record<string, CardDefinition> = {};
-  for (const card of ALL_ABILITY_CARDS) {
-    defs[card.id] = card;
-  }
-  return defs;
+  return cardsToDefinitionMap(ALL_ABILITY_CARDS);
 }

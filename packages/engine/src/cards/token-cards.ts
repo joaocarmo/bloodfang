@@ -1,4 +1,5 @@
 import type { CardDefinition } from '../types.js';
+import { cardsToDefinitionMap } from './utils.js';
 
 // ── Token Cards ───────────────────────────────────────────────────────
 
@@ -31,9 +32,5 @@ export const rangedToken: CardDefinition = {
 const ALL_TOKEN_CARDS: readonly CardDefinition[] = [basicToken, strongToken, rangedToken];
 
 export function getAllTokenDefinitions(): Record<string, CardDefinition> {
-  const defs: Record<string, CardDefinition> = {};
-  for (const card of ALL_TOKEN_CARDS) {
-    defs[card.id] = card;
-  }
-  return defs;
+  return cardsToDefinitionMap(ALL_TOKEN_CARDS);
 }

@@ -15,7 +15,8 @@ export interface Position {
   readonly col: number;
 }
 
-export type RangeCellType = 'pawn' | 'ability' | 'both';
+export const RANGE_CELL_TYPES = { PAWN: 'pawn', ABILITY: 'ability', BOTH: 'both' } as const;
+export type RangeCellType = (typeof RANGE_CELL_TYPES)[keyof typeof RANGE_CELL_TYPES];
 
 export interface RangeCell {
   readonly row: number;
@@ -27,27 +28,31 @@ export type CardRank = 1 | 2 | 3 | 'replacement';
 
 // ── Ability System ────────────────────────────────────────────────────
 
-export type AbilityTriggerType =
-  | 'whenPlayed'
-  | 'whileInPlay'
-  | 'whenDestroyed'
-  | 'whenAlliedDestroyed'
-  | 'whenEnemyDestroyed'
-  | 'whenAnyDestroyed'
-  | 'whenFirstEnfeebled'
-  | 'whenFirstEnhanced'
-  | 'whenPowerReachesN'
-  | 'scaling'
-  | 'endOfGame';
+export const ABILITY_TRIGGERS = {
+  WHEN_PLAYED: 'whenPlayed',
+  WHILE_IN_PLAY: 'whileInPlay',
+  WHEN_DESTROYED: 'whenDestroyed',
+  WHEN_ALLIED_DESTROYED: 'whenAlliedDestroyed',
+  WHEN_ENEMY_DESTROYED: 'whenEnemyDestroyed',
+  WHEN_ANY_DESTROYED: 'whenAnyDestroyed',
+  WHEN_FIRST_ENFEEBLED: 'whenFirstEnfeebled',
+  WHEN_FIRST_ENHANCED: 'whenFirstEnhanced',
+  WHEN_POWER_REACHES_N: 'whenPowerReachesN',
+  SCALING: 'scaling',
+  END_OF_GAME: 'endOfGame',
+} as const;
+export type AbilityTriggerType = (typeof ABILITY_TRIGGERS)[keyof typeof ABILITY_TRIGGERS];
 
-export type TargetSelectorType =
-  | 'rangePattern'
-  | 'self'
-  | 'allAllied'
-  | 'allEnemy'
-  | 'allInLane'
-  | 'allAlliedInLane'
-  | 'allEnemyInLane';
+export const TARGET_SELECTORS = {
+  RANGE_PATTERN: 'rangePattern',
+  SELF: 'self',
+  ALL_ALLIED: 'allAllied',
+  ALL_ENEMY: 'allEnemy',
+  ALL_IN_LANE: 'allInLane',
+  ALL_ALLIED_IN_LANE: 'allAlliedInLane',
+  ALL_ENEMY_IN_LANE: 'allEnemyInLane',
+} as const;
+export type TargetSelectorType = (typeof TARGET_SELECTORS)[keyof typeof TARGET_SELECTORS];
 
 export interface TargetSelector {
   readonly type: TargetSelectorType;
@@ -118,6 +123,19 @@ export interface DualTargetBuffEffect {
   readonly target: TargetSelector;
 }
 
+export const EFFECT_TYPES = {
+  ENHANCE: 'enhance',
+  ENFEEBLE: 'enfeeble',
+  DESTROY: 'destroy',
+  SELF_POWER_SCALING: 'selfPowerScaling',
+  LANE_SCORE_BONUS: 'laneScoreBonus',
+  ADD_CARD_TO_HAND: 'addCardToHand',
+  SPAWN_CARD: 'spawnCard',
+  POSITION_RANK_MANIP: 'positionRankManip',
+  SCORE_REDISTRIBUTION: 'scoreRedistribution',
+  DUAL_TARGET_BUFF: 'dualTargetBuff',
+} as const;
+
 export type AbilityEffect =
   | EnhanceEffect
   | EnfeebleEffect
@@ -138,12 +156,14 @@ export interface AbilityDefinition {
 
 // ── Game Events (internal, for cascade resolution) ────────────────────
 
-export type GameEventType =
-  | 'cardPlayed'
-  | 'cardDestroyed'
-  | 'cardEnfeebled'
-  | 'cardEnhanced'
-  | 'powerChanged';
+export const GAME_EVENT_TYPES = {
+  CARD_PLAYED: 'cardPlayed',
+  CARD_DESTROYED: 'cardDestroyed',
+  CARD_ENFEEBLED: 'cardEnfeebled',
+  CARD_ENHANCED: 'cardEnhanced',
+  POWER_CHANGED: 'powerChanged',
+} as const;
+export type GameEventType = (typeof GAME_EVENT_TYPES)[keyof typeof GAME_EVENT_TYPES];
 
 export interface GameEvent {
   readonly type: GameEventType;
@@ -204,7 +224,8 @@ export interface PlayerState {
 
 // ── Game Phase ─────────────────────────────────────────────────────────
 
-export type GamePhase = 'mulligan' | 'playing' | 'ended';
+export const GAME_PHASES = { MULLIGAN: 'mulligan', PLAYING: 'playing', ENDED: 'ended' } as const;
+export type GamePhase = (typeof GAME_PHASES)[keyof typeof GAME_PHASES];
 
 // ── Action Log ─────────────────────────────────────────────────────────
 
