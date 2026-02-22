@@ -4,6 +4,7 @@ import type {
   CardInstance,
   GameAction,
   GameConfig,
+  GameEvent,
   GameState,
   PlayerId,
   PlayerState,
@@ -20,6 +21,8 @@ import {
   opponent,
 } from './types.js';
 import { createBoard, getTile, isValidPosition, setTile } from './board.js';
+import { resolveAbilities } from './abilities.js';
+import { internalDestroyCard } from './effects.js';
 
 // ── Internal Helpers ───────────────────────────────────────────────────
 
@@ -335,40 +338,28 @@ export function getValidMoves(
   return moves;
 }
 
-// ── destroyCard ────────────────────────────────────────────────────────
+// ── destroyCard (public — triggers ability cascade) ───────────────────
 
 export function destroyCard(
   state: GameState,
   instanceId: string,
 ): GameState {
   const instance = getInstance(state, instanceId);
-  const pos = instance.position;
+  const owner = instance.owner;
 
-  // Remove card from board tile (keep pawns and ownership)
-  const tile = requireTile(state.board, pos);
-  const newBoard = setTile(state.board, pos, {
-    ...tile,
-    cardInstanceId: null,
-  });
+  // Snapshot before destruction (for whenDestroyed triggers)
+  const destroyedCards: Record<string, CardInstance> = { [instanceId]: instance };
 
-  // Remove from cardInstances
-  const newInstances = { ...state.cardInstances };
-  delete newInstances[instanceId];
+  // Internal destroy (no cascade)
+  let newState = internalDestroyCard(state, instanceId);
 
-  // Remove continuous modifiers referencing this card
-  const newModifiers = state.continuousModifiers.filter(
-    m => m.sourceInstanceId !== instanceId && m.targetInstanceId !== instanceId,
-  );
+  // Trigger cascade with destroyed card snapshot
+  const events: GameEvent[] = [
+    { type: 'cardDestroyed', instanceId, owner },
+  ];
+  newState = resolveAbilities(newState, events, 0, destroyedCards);
 
-  const log = appendLog(state.log, { type: 'destroyCard', instanceId, position: pos });
-
-  return {
-    ...state,
-    board: newBoard,
-    cardInstances: newInstances,
-    continuousModifiers: newModifiers,
-    log,
-  };
+  return newState;
 }
 
 // ── getEffectivePower ──────────────────────────────────────────────────
@@ -378,7 +369,7 @@ export function getEffectivePower(state: GameState, instanceId: string): number 
   const modifierSum = state.continuousModifiers
     .filter(m => m.targetInstanceId === instanceId)
     .reduce((sum, m) => sum + m.value, 0);
-  return instance.basePower + modifierSum;
+  return instance.basePower + instance.bonusPower + modifierSum;
 }
 
 // ── playCard ───────────────────────────────────────────────────────────
@@ -399,6 +390,8 @@ export function playCard(
   let board = state.board;
   let cardInstances = { ...state.cardInstances };
   let log = state.log;
+  let replacementDestroyedId: string | null = null;
+  let replacementDestroyedOwner: PlayerId | null = null;
 
   // Handle replacement card: destroy existing card first
   if (def.rank === 'replacement') {
@@ -407,12 +400,20 @@ export function playCard(
     if (existingId) {
       // Inline destroy logic to update our local variables
       const existingInstance = getInstance(state, existingId);
+      replacementDestroyedId = existingId;
+      replacementDestroyedOwner = existingInstance.owner;
       board = setTile(board, existingInstance.position, {
         ...requireTile(board, existingInstance.position),
         cardInstanceId: null,
       });
+      // Remove continuous modifiers referencing this card
+      const filteredModifiers = state.continuousModifiers.filter(
+        m => m.sourceInstanceId !== existingId && m.targetInstanceId !== existingId,
+      );
       delete cardInstances[existingId];
       log = appendLog(log, { type: 'destroyCard', instanceId: existingId, position: existingInstance.position });
+      // Store filtered modifiers for later state build
+      state = { ...state, continuousModifiers: filteredModifiers };
     }
   }
 
@@ -427,6 +428,7 @@ export function playCard(
     owner: player,
     position,
     basePower: def.power,
+    bonusPower: 0,
   };
   cardInstances[instanceId] = instance;
 
@@ -483,10 +485,18 @@ export function playCard(
     consecutivePasses: 0,
   };
 
+  // Emit events for ability resolution
+  const events: GameEvent[] = [];
+  if (replacementDestroyedId) {
+    events.push({ type: 'cardDestroyed', instanceId: replacementDestroyedId, owner: replacementDestroyedOwner! });
+  }
+  events.push({ type: 'cardPlayed', instanceId, owner: player });
+
+  // Resolve ability cascade
+  newState = resolveAbilities(newState, events);
+
   // Check board full end condition
-  if (isBoardFull(board)) {
-    // Import scoring inline to avoid circular deps — we'll use a lazy approach
-    // For now, game ends and scoring is computed separately
+  if (isBoardFull(newState.board)) {
     newState = {
       ...newState,
       phase: 'ended',

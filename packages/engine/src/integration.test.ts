@@ -162,9 +162,9 @@ describe('integration: full game flows', () => {
     const crafted: GameState = {
       ...state,
       cardInstances: {
-        '100': { instanceId: '100', definitionId: 'r3-power', owner: 0, position: { row: 0, col: 0 }, basePower: 15 },
-        '101': { instanceId: '101', definitionId: 'r2-basic', owner: 1, position: { row: 1, col: 4 }, basePower: 5 },
-        '102': { instanceId: '102', definitionId: 'r2-basic', owner: 1, position: { row: 2, col: 4 }, basePower: 5 },
+        '100': { instanceId: '100', definitionId: 'r3-power', owner: 0, position: { row: 0, col: 0 }, basePower: 15, bonusPower: 0 },
+        '101': { instanceId: '101', definitionId: 'r2-basic', owner: 1, position: { row: 1, col: 4 }, basePower: 5, bonusPower: 0 },
+        '102': { instanceId: '102', definitionId: 'r2-basic', owner: 1, position: { row: 2, col: 4 }, basePower: 5, bonusPower: 0 },
       },
       board: state.board.map((row, r) =>
         row.map((tile, c) => {

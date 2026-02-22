@@ -607,22 +607,19 @@ describe('destroyCard', () => {
     const tile = state.board[0]![0]!;
     const instanceId = tile.cardInstanceId!;
 
-    // Add a mock modifier
+    // Add a mock modifier referencing the card
     state = {
       ...state,
       continuousModifiers: [
         { sourceInstanceId: instanceId, targetInstanceId: 'other', value: 2 },
         { sourceInstanceId: 'other2', targetInstanceId: instanceId, value: -1 },
-        { sourceInstanceId: 'other3', targetInstanceId: 'other4', value: 3 },
       ],
     };
 
     const result = destroyCard(state, instanceId);
-    expect(result.continuousModifiers).toHaveLength(1);
-    expect(result.continuousModifiers[0]).toMatchObject({
-      sourceInstanceId: 'other3',
-      targetInstanceId: 'other4',
-    });
+    // After destroy + ability resolution, continuous modifiers are rebuilt from scratch.
+    // Since no cards have whileInPlay/scaling abilities, all modifiers are cleared.
+    expect(result.continuousModifiers).toHaveLength(0);
   });
 
   it('logs destroyCard action', () => {

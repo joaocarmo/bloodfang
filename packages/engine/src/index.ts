@@ -15,6 +15,25 @@ export type {
   GameAction,
   GameConfig,
   GameState,
+  // Ability types
+  AbilityTriggerType,
+  TargetSelectorType,
+  TargetSelector,
+  ScalingCondition,
+  AbilityEffect,
+  EnhanceEffect,
+  EnfeebleEffect,
+  DestroyEffect,
+  SelfPowerScalingEffect,
+  LaneScoreBonusEffect,
+  AddCardToHandEffect,
+  SpawnCardEffect,
+  PositionRankManipEffect,
+  ScoreRedistributionEffect,
+  DualTargetBuffEffect,
+  AbilityDefinition,
+  GameEventType,
+  GameEvent,
 } from './types.js';
 
 // Constants & helpers
@@ -43,6 +62,29 @@ export {
   getEffectivePower,
   resolveRangePattern,
 } from './game.js';
+
+// Abilities
+export {
+  resolveAbilities,
+  resolveAbilityRangePattern,
+  resolveTargets,
+  collectTriggersForEvents,
+  recalculateContinuousEffects,
+} from './abilities.js';
+
+// Effects
+export {
+  applyEffect,
+  applyEnhance,
+  applyEnfeeble,
+  applyDestroy,
+  applyAddCardToHand,
+  applySpawnCard,
+  applyPositionRankManip,
+  applyDualTargetBuff,
+  internalDestroyCard,
+} from './effects.js';
+export type { EffectResult } from './effects.js';
 
 // Scoring
 export {

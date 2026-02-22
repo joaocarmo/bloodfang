@@ -25,6 +25,116 @@ export interface RangeCell {
 
 export type CardRank = 1 | 2 | 3 | 'replacement';
 
+// ── Ability System ────────────────────────────────────────────────────
+
+export type AbilityTriggerType =
+  | 'whenPlayed' | 'whileInPlay' | 'whenDestroyed'
+  | 'whenAlliedDestroyed' | 'whenEnemyDestroyed' | 'whenAnyDestroyed'
+  | 'whenFirstEnfeebled' | 'whenFirstEnhanced' | 'whenPowerReachesN'
+  | 'scaling' | 'endOfGame';
+
+export type TargetSelectorType =
+  | 'rangePattern' | 'self'
+  | 'allAllied' | 'allEnemy'
+  | 'allInLane' | 'allAlliedInLane' | 'allEnemyInLane';
+
+export interface TargetSelector {
+  readonly type: TargetSelectorType;
+}
+
+export type ScalingCondition =
+  | { readonly type: 'alliedCardsInLane' }
+  | { readonly type: 'enemyCardsInLane' }
+  | { readonly type: 'alliedCardsOnBoard' }
+  | { readonly type: 'enemyCardsOnBoard' }
+  | { readonly type: 'allCardsOnBoard' }
+  | { readonly type: 'controlledTilesInLane' };
+
+export interface EnhanceEffect {
+  readonly type: 'enhance';
+  readonly value: number;
+  readonly target: TargetSelector;
+}
+
+export interface EnfeebleEffect {
+  readonly type: 'enfeeble';
+  readonly value: number;
+  readonly target: TargetSelector;
+}
+
+export interface DestroyEffect {
+  readonly type: 'destroy';
+  readonly target: TargetSelector;
+}
+
+export interface SelfPowerScalingEffect {
+  readonly type: 'selfPowerScaling';
+  readonly condition: ScalingCondition;
+  readonly valuePerUnit: number;
+}
+
+export interface LaneScoreBonusEffect {
+  readonly type: 'laneScoreBonus';
+  readonly value: number;
+}
+
+export interface AddCardToHandEffect {
+  readonly type: 'addCardToHand';
+  readonly tokenDefinitionId: string;
+  readonly count: number;
+}
+
+export interface SpawnCardEffect {
+  readonly type: 'spawnCard';
+  readonly tokenDefinitionId: string;
+  readonly target: TargetSelector;
+}
+
+export interface PositionRankManipEffect {
+  readonly type: 'positionRankManip';
+  readonly bonusPawns: number;
+  readonly target: TargetSelector;
+}
+
+export interface ScoreRedistributionEffect {
+  readonly type: 'scoreRedistribution';
+}
+
+export interface DualTargetBuffEffect {
+  readonly type: 'dualTargetBuff';
+  readonly alliedValue: number;
+  readonly enemyValue: number;
+  readonly target: TargetSelector;
+}
+
+export type AbilityEffect =
+  | EnhanceEffect
+  | EnfeebleEffect
+  | DestroyEffect
+  | SelfPowerScalingEffect
+  | LaneScoreBonusEffect
+  | AddCardToHandEffect
+  | SpawnCardEffect
+  | PositionRankManipEffect
+  | ScoreRedistributionEffect
+  | DualTargetBuffEffect;
+
+export interface AbilityDefinition {
+  readonly trigger: AbilityTriggerType;
+  readonly effect: AbilityEffect;
+  readonly threshold?: number;
+}
+
+// ── Game Events (internal, for cascade resolution) ────────────────────
+
+export type GameEventType = 'cardPlayed' | 'cardDestroyed' | 'cardEnfeebled' | 'cardEnhanced' | 'powerChanged';
+
+export interface GameEvent {
+  readonly type: GameEventType;
+  readonly instanceId: string;
+  readonly owner: PlayerId;
+}
+
 // ── Card Definition (static data) ──────────────────────────────────────
 
 export interface CardDefinition {
@@ -32,6 +142,8 @@ export interface CardDefinition {
   readonly rank: CardRank;
   readonly power: number;
   readonly rangePattern: readonly RangeCell[];
+  readonly ability?: AbilityDefinition;
+  readonly isToken?: boolean;
 }
 
 // ── Card Instance (runtime, on the board) ──────────────────────────────
@@ -42,6 +154,10 @@ export interface CardInstance {
   readonly owner: PlayerId;
   readonly position: Position;
   readonly basePower: number;
+  readonly bonusPower: number;
+  readonly hasBeenEnfeebled?: boolean;
+  readonly hasBeenEnhanced?: boolean;
+  readonly powerReachedN?: boolean;
 }
 
 // ── Continuous Modifier (tracked on game state) ────────────────────────
@@ -84,7 +200,13 @@ export type GameAction =
   | { readonly type: 'destroyCard'; readonly instanceId: string; readonly position: Position }
   | { readonly type: 'pass'; readonly player: PlayerId }
   | { readonly type: 'mulligan'; readonly player: PlayerId; readonly returnedCount: number; readonly drawnCount: number }
-  | { readonly type: 'gameEnd'; readonly scores: readonly [number, number] };
+  | { readonly type: 'gameEnd'; readonly scores: readonly [number, number] }
+  | { readonly type: 'abilityTrigger'; readonly instanceId: string; readonly abilityTrigger: AbilityTriggerType }
+  | { readonly type: 'enhance'; readonly sourceInstanceId: string; readonly targetInstanceId: string; readonly value: number }
+  | { readonly type: 'enfeeble'; readonly sourceInstanceId: string; readonly targetInstanceId: string; readonly value: number }
+  | { readonly type: 'spawnCard'; readonly instanceId: string; readonly definitionId: string; readonly position: Position }
+  | { readonly type: 'addCardToHand'; readonly player: PlayerId; readonly cardId: string }
+  | { readonly type: 'pawnBonus'; readonly player: PlayerId; readonly position: Position; readonly bonusPawns: number };
 
 // ── Game Config ────────────────────────────────────────────────────────
 
