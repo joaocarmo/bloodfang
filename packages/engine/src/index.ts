@@ -98,3 +98,6 @@ export type { EffectResult } from './effects.js';
 // Scoring
 export { calculateLaneScores, calculateFinalScores, determineWinner } from './scoring.js';
 export type { LaneScores } from './scoring.js';
+
+// Card database
+export { getAllGameDefinitions } from './cards/all-cards.js';
