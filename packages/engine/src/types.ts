@@ -35,6 +35,8 @@ export const ABILITY_TRIGGERS = {
   WHEN_ALLIED_DESTROYED: 'whenAlliedDestroyed',
   WHEN_ENEMY_DESTROYED: 'whenEnemyDestroyed',
   WHEN_ANY_DESTROYED: 'whenAnyDestroyed',
+  WHEN_ALLIED_PLAYED: 'whenAlliedPlayed',
+  WHEN_ENEMY_PLAYED: 'whenEnemyPlayed',
   WHEN_FIRST_ENFEEBLED: 'whenFirstEnfeebled',
   WHEN_FIRST_ENHANCED: 'whenFirstEnhanced',
   WHEN_POWER_REACHES_N: 'whenPowerReachesN',
@@ -51,6 +53,12 @@ export const TARGET_SELECTORS = {
   ALL_IN_LANE: 'allInLane',
   ALL_ALLIED_IN_LANE: 'allAlliedInLane',
   ALL_ENEMY_IN_LANE: 'allEnemyInLane',
+  ALL_ALLIED_ENHANCED: 'allAlliedEnhanced',
+  ALL_ENEMY_ENHANCED: 'allEnemyEnhanced',
+  ALL_ENHANCED: 'allEnhanced',
+  ALL_ALLIED_ENFEEBLED: 'allAlliedEnfeebled',
+  ALL_ENEMY_ENFEEBLED: 'allEnemyEnfeebled',
+  ALL_ENFEEBLED: 'allEnfeebled',
 } as const;
 export type TargetSelectorType = (typeof TARGET_SELECTORS)[keyof typeof TARGET_SELECTORS];
 
@@ -66,16 +74,20 @@ export type ScalingCondition =
   | { readonly type: 'allCardsOnBoard' }
   | { readonly type: 'controlledTilesInLane' };
 
+export type DynamicValue = 'replacedCardPower';
+
 export interface EnhanceEffect {
   readonly type: 'enhance';
   readonly value: number;
   readonly target: TargetSelector;
+  readonly dynamicValue?: DynamicValue;
 }
 
 export interface EnfeebleEffect {
   readonly type: 'enfeeble';
   readonly value: number;
   readonly target: TargetSelector;
+  readonly dynamicValue?: DynamicValue;
 }
 
 export interface DestroyEffect {
@@ -98,6 +110,7 @@ export interface AddCardToHandEffect {
   readonly type: 'addCardToHand';
   readonly tokenDefinitionId: string;
   readonly count: number;
+  readonly additionalTokens?: readonly { readonly tokenDefinitionId: string; readonly count: number }[];
 }
 
 export interface SpawnCardEffect {
@@ -301,6 +314,7 @@ export interface GameState {
   readonly log: readonly GameAction[];
   readonly nextInstanceId: number;
   readonly cardDefinitions: Readonly<Record<string, CardDefinition>>;
+  readonly replacedCardPower?: number | undefined;
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────

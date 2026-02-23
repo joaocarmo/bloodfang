@@ -370,7 +370,10 @@ export function playCard(state: GameState, cardId: string, position: Position): 
     if (existingId) {
       const existingInstance = getInstance(state, existingId);
       replacementDestroyed = { id: existingId, owner: existingInstance.owner };
+      // Capture the replaced card's effective power for dynamicValue resolution
+      const replacedPower = getEffectivePower(state, existingId);
       state = internalDestroyCard(state, existingId);
+      state = { ...state, replacedCardPower: replacedPower };
     }
   }
 
@@ -451,6 +454,11 @@ export function playCard(state: GameState, cardId: string, position: Position): 
 
   // Resolve ability cascade
   newState = resolveAbilities(newState, events);
+
+  // Clean up temporary replacedCardPower after ability resolution
+  if (newState.replacedCardPower !== undefined) {
+    newState = { ...newState, replacedCardPower: undefined };
+  }
 
   // Check board full end condition
   if (isBoardFull(newState.board)) {

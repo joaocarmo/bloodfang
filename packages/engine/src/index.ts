@@ -32,6 +32,7 @@ export type {
   ScoreRedistributionEffect,
   DualTargetBuffEffect,
   AbilityDefinition,
+  DynamicValue,
   GameEventType,
   GameEvent,
 } from './types.js';

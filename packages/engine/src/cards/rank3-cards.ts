@@ -43,12 +43,8 @@ export const thalassicFiend: CardDefinition = {
     { row: 0, col: 1, type: 'pawn' },
   ],
   ability: {
-    trigger: 'scaling',
-    effect: {
-      type: 'selfPowerScaling',
-      condition: { type: 'alliedCardsOnBoard' },
-      valuePerUnit: 1,
-    },
+    trigger: 'whenAlliedPlayed',
+    effect: { type: 'enhance', value: 1, target: { type: 'self' } },
   },
 };
 
@@ -61,7 +57,7 @@ export const serpentOfLerna: CardDefinition = {
     { row: 1, col: 1, type: 'pawn' },
   ],
   ability: {
-    trigger: 'scaling',
+    trigger: 'whenEnemyPlayed',
     effect: { type: 'enhance', value: 1, target: { type: 'self' } },
   },
 };
@@ -170,7 +166,7 @@ export const bronzeFortress: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 3, target: { type: 'allEnemy' } },
+    effect: { type: 'enhance', value: 3, target: { type: 'allEnemyEnhanced' } },
   },
 };
 
@@ -216,7 +212,7 @@ export const pyriphlegethon: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 2, target: { type: 'allAllied' } },
+    effect: { type: 'enhance', value: 2, target: { type: 'allAlliedEnhanced' } },
   },
 };
 
@@ -303,7 +299,7 @@ export const divineColossus: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 3, target: { type: 'allAllied' } },
+    effect: { type: 'enhance', value: 3, target: { type: 'allAlliedEnfeebled' } },
   },
 };
 
@@ -651,7 +647,7 @@ export const arenaMaster: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'allInLane' } },
+    effect: { type: 'enhance', value: 1, target: { type: 'allEnhanced' } },
   },
 };
 
@@ -683,7 +679,7 @@ export const nyxSovereign: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 3, target: { type: 'allInLane' } },
+    effect: { type: 'enhance', value: 3, target: { type: 'allEnfeebled' } },
   },
 };
 

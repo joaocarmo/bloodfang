@@ -259,6 +259,83 @@ export const cascadeGrower: CardDefinition = {
   },
 };
 
+/** whenAlliedPlayed → enhance +1 self */
+export const allyWatcher: CardDefinition = {
+  id: 'ally-watcher',
+  rank: 1,
+  power: 2,
+  rangePattern: [],
+  ability: {
+    trigger: 'whenAlliedPlayed',
+    effect: { type: 'enhance', value: 1, target: { type: 'self' } },
+  },
+};
+
+/** whenEnemyPlayed → enhance +2 self */
+export const enemyWatcher: CardDefinition = {
+  id: 'enemy-watcher',
+  rank: 1,
+  power: 2,
+  rangePattern: [],
+  ability: {
+    trigger: 'whenEnemyPlayed',
+    effect: { type: 'enhance', value: 2, target: { type: 'self' } },
+  },
+};
+
+/** whenPlayed → enfeeble -2 allEnemyEnfeebled */
+export const enfeebledHunter: CardDefinition = {
+  id: 'enfeebled-hunter',
+  rank: 1,
+  power: 2,
+  rangePattern: [],
+  ability: {
+    trigger: 'whenPlayed',
+    effect: { type: 'enfeeble', value: 2, target: { type: 'allEnemyEnfeebled' } },
+  },
+};
+
+/** whenPlayed → enhance +2 allAlliedEnhanced */
+export const enhancedBooster: CardDefinition = {
+  id: 'enhanced-booster',
+  rank: 1,
+  power: 2,
+  rangePattern: [],
+  ability: {
+    trigger: 'whenPlayed',
+    effect: { type: 'enhance', value: 2, target: { type: 'allAlliedEnhanced' } },
+  },
+};
+
+/** replacement card with dynamicValue: enhance self by replaced card's power */
+export const replacementDynamic: CardDefinition = {
+  id: 'replacement-dynamic',
+  rank: 'replacement',
+  power: 1,
+  rangePattern: [],
+  ability: {
+    trigger: 'whenPlayed',
+    effect: { type: 'enhance', value: 0, target: { type: 'self' }, dynamicValue: 'replacedCardPower' },
+  },
+};
+
+/** whenPlayed → addCardToHand with additionalTokens */
+export const multiTokenGenerator: CardDefinition = {
+  id: 'multi-token-generator',
+  rank: 1,
+  power: 1,
+  rangePattern: [],
+  ability: {
+    trigger: 'whenPlayed',
+    effect: {
+      type: 'addCardToHand',
+      tokenDefinitionId: 'token-basic',
+      count: 1,
+      additionalTokens: [{ tokenDefinitionId: 'token-strong', count: 1 }],
+    },
+  },
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────
 
 const ALL_ABILITY_CARDS: readonly CardDefinition[] = [
@@ -282,6 +359,12 @@ const ALL_ABILITY_CARDS: readonly CardDefinition[] = [
   dualAura,
   chainKiller,
   cascadeGrower,
+  allyWatcher,
+  enemyWatcher,
+  enfeebledHunter,
+  enhancedBooster,
+  replacementDynamic,
+  multiTokenGenerator,
 ];
 
 export function getAllAbilityTestDefinitions(): Record<string, CardDefinition> {

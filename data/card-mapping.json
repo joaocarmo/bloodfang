@@ -47,11 +47,7 @@
     { "id": "war-chariot", "originalName": "Hell Rider II" },
     { "id": "pyroclast-soldier", "originalName": "Flametrooper" },
     { "id": "athenas-owl", "originalName": "Spearhawk" },
-    {
-      "id": "thalassic-fiend",
-      "originalName": "Sea Devil",
-      "overrides": { "scalingCondition": "alliedCardsOnBoard", "valuePerUnit": 1 }
-    },
+    { "id": "thalassic-fiend", "originalName": "Sea Devil" },
     { "id": "nautilus-guardian", "originalName": "Shoalopod" },
     { "id": "royal-spear", "originalName": "Crown Lance" },
     { "id": "king-of-shades", "originalName": "Tonberry King" },
@@ -92,17 +88,9 @@
     { "id": "elder-drakon", "originalName": "Dragon" },
     { "id": "twin-headed-oracle", "originalName": "Twin Brain" },
     { "id": "nyx-wing", "originalName": "Black Bat" },
-    {
-      "id": "cerberus-hound",
-      "originalName": "Bahba Velamyu",
-      "overrides": { "scalingCondition": "enemyCardsOnBoard", "valuePerUnit": 2 }
-    },
+    { "id": "cerberus-hound", "originalName": "Bahba Velamyu" },
     { "id": "ghastly-shade", "originalName": "Rictus" },
-    {
-      "id": "minos-judge",
-      "originalName": "Adjudicator",
-      "overrides": { "scalingCondition": "alliedCardsOnBoard", "valuePerUnit": 2 }
-    },
+    { "id": "minos-judge", "originalName": "Adjudicator" },
     { "id": "harmony-duality", "originalName": "Yin & Yang", "overrides": { "dynamicValue": "replacedCardPower" } },
     { "id": "chaotic-shade", "originalName": "Diabolic Variant", "overrides": { "dynamicValue": "replacedCardPower" } },
     { "id": "elite-myrmidon", "originalName": "Special Forces Operator" },
@@ -189,22 +177,52 @@
   "tokens": [
     { "id": "nymph-sprout", "originalName": "Mandragora Minion", "rank": 1, "power": 1 },
     { "id": "battle-sprite", "originalName": "Moogle", "rank": 1, "power": 1 },
-    { "id": "sprite-mage", "originalName": "Moogle Mage", "rank": 1, "power": 2 },
-    { "id": "sprite-bard", "originalName": "Moogle Bard", "rank": 1, "power": 2 },
+    {
+      "id": "sprite-mage", "originalName": "Moogle Mage", "rank": 1, "power": 2,
+      "ability": { "trigger": "whenPlayed", "effect": { "type": "enfeeble", "value": 4, "target": { "type": "rangePattern" } } }
+    },
+    {
+      "id": "sprite-bard", "originalName": "Moogle Bard", "rank": 1, "power": 2,
+      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } } }
+    },
     { "id": "little-shade", "originalName": "Donberry", "rank": 1, "power": 2 },
-    { "id": "junior-nymph", "originalName": "Grangalan Junior", "rank": 1, "power": 1 },
+    {
+      "id": "junior-nymph", "originalName": "Grangalan Junior", "rank": 1, "power": 1,
+      "ability": { "trigger": "whenPlayed", "effect": { "type": "addCardToHand", "tokenDefinitionId": "baby-nymph", "count": 1 } }
+    },
     { "id": "baby-nymph", "originalName": "Baby Grangalan", "rank": 1, "power": 1 },
     { "id": "daedalus-glider", "originalName": "The Tiny Bronco", "rank": 1, "power": 3 },
-    { "id": "lycaon-beast", "originalName": "Galian Beast", "rank": 1, "power": 4 },
+    {
+      "id": "lycaon-beast", "originalName": "Galian Beast", "rank": 1, "power": 4,
+      "ability": { "trigger": "whenPlayed", "effect": { "type": "enfeeble", "value": 3, "target": { "type": "rangePattern" } } }
+    },
     { "id": "heat-fragment", "originalName": "Heatseeker Minion", "rank": 1, "power": 1 },
     { "id": "reformed-protean", "originalName": "Resurrected Amalgam", "rank": 1, "power": 2 },
     { "id": "thorny-imp", "originalName": "Cacneo", "rank": 1, "power": 1 },
-    { "id": "elemental-spark", "originalName": "Elemental", "originalSlug": "elemental-1", "rank": 1, "power": 2 },
-    { "id": "elemental-flame", "originalName": "Elemental", "originalSlug": "elemental-2", "rank": 1, "power": 4 },
-    { "id": "elemental-storm", "originalName": "Elemental", "originalSlug": "elemental-3", "rank": 1, "power": 6 },
-    { "id": "zealot-initiate", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-1", "rank": 1, "power": 1 },
-    { "id": "zealot-warrior", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-2", "rank": 1, "power": 2 },
-    { "id": "zealot-champion", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-3", "rank": 1, "power": 3 },
+    {
+      "id": "elemental-spark", "originalName": "Elemental", "originalSlug": "elemental-1", "rank": 1, "power": 2,
+      "ability": { "trigger": "whenDestroyed", "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } } }
+    },
+    {
+      "id": "elemental-flame", "originalName": "Elemental", "originalSlug": "elemental-2", "rank": 1, "power": 4,
+      "ability": { "trigger": "whenDestroyed", "effect": { "type": "enhance", "value": 4, "target": { "type": "rangePattern" } } }
+    },
+    {
+      "id": "elemental-storm", "originalName": "Elemental", "originalSlug": "elemental-3", "rank": 1, "power": 6,
+      "ability": { "trigger": "whenDestroyed", "effect": { "type": "enhance", "value": 6, "target": { "type": "rangePattern" } } }
+    },
+    {
+      "id": "zealot-initiate", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-1", "rank": 1, "power": 1,
+      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 1, "target": { "type": "rangePattern" } } }
+    },
+    {
+      "id": "zealot-warrior", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-2", "rank": 1, "power": 2,
+      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } } }
+    },
+    {
+      "id": "zealot-champion", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-3", "rank": 1, "power": 3,
+      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 3, "target": { "type": "rangePattern" } } }
+    },
     { "id": "frost-crystal-minor", "originalName": "Diamond Dust", "originalSlug": "diamond-dust-1", "rank": 1, "power": 2 },
     { "id": "frost-crystal-major", "originalName": "Diamond Dust", "originalSlug": "diamond-dust-2", "rank": 1, "power": 4 },
     { "id": "frost-crystal-grand", "originalName": "Diamond Dust", "originalSlug": "diamond-dust-3", "rank": 1, "power": 6 }

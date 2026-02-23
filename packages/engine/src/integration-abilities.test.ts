@@ -613,3 +613,221 @@ describe('integration: token card support', () => {
     expect(spawned.bonusPower).toBe(0);
   });
 });
+
+describe('integration: whenAlliedPlayed / whenEnemyPlayed triggers', () => {
+  it('ally-watcher gains +1 when owner plays another card', () => {
+    let state = setupControlledGame(['r1-basic'], ['filler-1']);
+
+    // Inject ally-watcher already on board for P0
+    const watcher = injectCard(state, 'ally-watcher', { row: 1, col: 0 }, 0);
+    state = watcher.state;
+    const watcherId = watcher.instanceId;
+
+    // P0 plays r1-basic at (0,0) — ally-watcher should trigger
+    state = playCard(state, 'r1-basic', { row: 0, col: 0 });
+
+    expect(state.cardInstances[watcherId]!.bonusPower).toBe(1);
+  });
+
+  it('ally-watcher does NOT trigger for enemy plays', () => {
+    let state = setupControlledGame(['filler-1'], ['r1-basic']);
+
+    // Inject ally-watcher for P0
+    const watcher = injectCard(state, 'ally-watcher', { row: 1, col: 0 }, 0);
+    state = watcher.state;
+    const watcherId = watcher.instanceId;
+
+    // P0 passes
+    state = pass(state);
+
+    // P1 plays r1-basic — ally-watcher (P0) should NOT trigger
+    state = playCard(state, 'r1-basic', { row: 0, col: 4 });
+
+    expect(state.cardInstances[watcherId]!.bonusPower).toBe(0);
+  });
+
+  it('ally-watcher does NOT trigger for its own play', () => {
+    // If ally-watcher is in hand and played, it should not trigger itself
+    let state = setupControlledGame(['ally-watcher'], ['filler-1']);
+
+    state = playCard(state, 'ally-watcher', { row: 0, col: 0 });
+
+    // Find the ally-watcher instance on the board
+    const tile = state.board[0]![0]!;
+    const instanceId = tile.cardInstanceId!;
+    expect(state.cardInstances[instanceId]!.bonusPower).toBe(0);
+  });
+
+  it('enemy-watcher gains +2 when opponent plays a card', () => {
+    let state = setupControlledGame(['filler-1'], ['r1-basic']);
+
+    // Inject enemy-watcher for P0
+    const watcher = injectCard(state, 'enemy-watcher', { row: 1, col: 0 }, 0);
+    state = watcher.state;
+    const watcherId = watcher.instanceId;
+
+    // P0 passes
+    state = pass(state);
+
+    // P1 plays r1-basic — enemy-watcher (P0) should trigger
+    state = playCard(state, 'r1-basic', { row: 0, col: 4 });
+
+    expect(state.cardInstances[watcherId]!.bonusPower).toBe(2);
+  });
+
+  it('enemy-watcher does NOT trigger for allied plays', () => {
+    let state = setupControlledGame(['r1-basic'], ['filler-1']);
+
+    const watcher = injectCard(state, 'enemy-watcher', { row: 1, col: 0 }, 0);
+    state = watcher.state;
+    const watcherId = watcher.instanceId;
+
+    // P0 plays r1-basic — enemy-watcher (P0) should NOT trigger
+    state = playCard(state, 'r1-basic', { row: 0, col: 0 });
+
+    expect(state.cardInstances[watcherId]!.bonusPower).toBe(0);
+  });
+});
+
+describe('integration: filtered target selectors (enhanced/enfeebled)', () => {
+  it('enfeebled-hunter targets only already-enfeebled enemy cards', () => {
+    let state = setupControlledGame(['enfeeble-on-play', 'enfeebled-hunter'], ['filler-1']);
+
+    // Inject enemy at (0,1) to be in enfeeble-on-play's ability range (col+1)
+    const e1 = injectCard(state, 'r2-basic', { row: 0, col: 1 }, 1);
+    state = e1.state;
+    const e1Id = e1.instanceId;
+
+    // Inject another enemy NOT in ability range
+    const e2 = injectCard(state, 'r2-basic', { row: 1, col: 4 }, 1);
+    state = e2.state;
+    const e2Id = e2.instanceId;
+
+    // P0 enfeebles e1 at (0,1) — e1 gets -3, becomes enfeebled
+    state = playCard(state, 'enfeeble-on-play', { row: 0, col: 0 });
+
+    // e1 should have hasBeenEnfeebled = true, power 5-3=2
+    expect(state.cardInstances[e1Id]!.hasBeenEnfeebled).toBe(true);
+    expect(state.cardInstances[e2Id]!.hasBeenEnfeebled).toBeUndefined();
+
+    // Now P1 passes (turn switches to P1 after P0 plays)
+    state = pass(state);
+
+    // P0 plays enfeebled-hunter — targets allEnemyEnfeebled
+    // Should only hit e1 (enfeebled), not e2
+    // e1: base 5, -3 enfeeble = effective 2, then -2 from hunter = effective 0 → dies
+    state = playCard(state, 'enfeebled-hunter', { row: 1, col: 0 });
+
+    // e1 dies (power 5 -3 -2 = 0 → death check destroys it)
+    expect(state.cardInstances[e1Id]).toBeUndefined();
+    // e2 was never enfeebled, so hunter doesn't target it
+    expect(state.cardInstances[e2Id]!.bonusPower).toBe(0);
+  });
+
+  it('enhanced-booster targets only already-enhanced allied cards', () => {
+    let state = setupControlledGame(['enhancer-on-play', 'enhanced-booster'], ['filler-1']);
+
+    // Inject two allied cards
+    const ally1 = injectCard(state, 'r1-basic', { row: 0, col: 1 }, 0);
+    state = ally1.state;
+    const ally1Id = ally1.instanceId;
+
+    const ally2 = injectCard(state, 'r1-basic', { row: 1, col: 1 }, 0);
+    state = ally2.state;
+    const ally2Id = ally2.instanceId;
+
+    // P0 plays enhancer-on-play at (0,0) — targets (0,1) via ability range
+    // ally1 gets +2
+    state = playCard(state, 'enhancer-on-play', { row: 0, col: 0 });
+
+    expect(state.cardInstances[ally1Id]!.hasBeenEnhanced).toBe(true);
+    expect(state.cardInstances[ally2Id]!.hasBeenEnhanced).toBeUndefined();
+
+    // P1 passes
+    state = pass(state);
+
+    // P0 plays enhanced-booster — targets allAlliedEnhanced
+    // Should only hit ally1 (enhanced), not ally2
+    state = playCard(state, 'enhanced-booster', { row: 1, col: 0 });
+
+    expect(state.cardInstances[ally1Id]!.bonusPower).toBe(4); // +2 from enhancer + +2 from booster
+    expect(state.cardInstances[ally2Id]!.bonusPower).toBe(0); // untouched
+  });
+});
+
+describe('integration: dynamicValue replacement effects', () => {
+  it('replacement-dynamic gains power equal to replaced card effective power', () => {
+    let state = setupControlledGame(['replacement-dynamic'], ['filler-1']);
+
+    // Inject an allied card to replace — r2-basic has power 5
+    const target = injectCard(state, 'r2-basic', { row: 0, col: 0 }, 0);
+    state = target.state;
+    const targetId = target.instanceId;
+
+    // P0 plays replacement-dynamic at (0,0) replacing r2-basic
+    state = playCard(state, 'replacement-dynamic', { row: 0, col: 0 });
+
+    // Old card should be destroyed
+    expect(state.cardInstances[targetId]).toBeUndefined();
+
+    // Find the replacement card instance
+    const repInstanceId = state.board[0]![0]!.cardInstanceId;
+    expect(repInstanceId).not.toBeNull();
+    const repInstance = state.cardInstances[repInstanceId!]!;
+    expect(repInstance.definitionId).toBe('replacement-dynamic');
+    // base power 1 + bonus 5 (from replaced card's effective power)
+    expect(repInstance.basePower).toBe(1);
+    expect(repInstance.bonusPower).toBe(5);
+    expect(getEffectivePower(state, repInstanceId!)).toBe(6);
+  });
+
+  it('replacement-dynamic accounts for modifiers on replaced card', () => {
+    let state = setupControlledGame(['replacement-dynamic'], ['filler-1']);
+
+    // Inject a card with bonus power
+    const target = injectCard(state, 'r1-basic', { row: 0, col: 0 }, 0);
+    state = target.state;
+    const targetId = target.instanceId;
+
+    // Manually add bonus power to simulate prior enhancement
+    state = {
+      ...state,
+      cardInstances: {
+        ...state.cardInstances,
+        [targetId]: { ...state.cardInstances[targetId]!, bonusPower: 3 },
+      },
+    };
+    // Effective power = 2 (base) + 3 (bonus) = 5
+
+    state = playCard(state, 'replacement-dynamic', { row: 0, col: 0 });
+
+    const repInstanceId = state.board[0]![0]!.cardInstanceId!;
+    // Should gain +5 from effective power of replaced card (2 base + 3 bonus)
+    expect(getEffectivePower(state, repInstanceId)).toBe(6); // 1 base + 5 bonus
+  });
+
+  it('replacedCardPower is cleaned up after ability resolution', () => {
+    let state = setupControlledGame(['replacement-dynamic'], ['filler-1']);
+
+    const target = injectCard(state, 'r1-basic', { row: 0, col: 0 }, 0);
+    state = target.state;
+
+    state = playCard(state, 'replacement-dynamic', { row: 0, col: 0 });
+
+    // replacedCardPower should be undefined after play completes
+    expect(state.replacedCardPower).toBeUndefined();
+  });
+});
+
+describe('integration: multi-token addCardToHand', () => {
+  it('multi-token-generator adds different token types to hand', () => {
+    let state = setupControlledGame(['multi-token-generator'], ['filler-1']);
+
+    state = playCard(state, 'multi-token-generator', { row: 0, col: 0 });
+
+    // P0 hand should have 1 token-basic + 1 token-strong
+    const p0Hand = state.players[0].hand;
+    expect(p0Hand.filter((id) => id === 'token-basic')).toHaveLength(1);
+    expect(p0Hand.filter((id) => id === 'token-strong')).toHaveLength(1);
+  });
+});

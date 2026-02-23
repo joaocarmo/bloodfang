@@ -268,7 +268,7 @@ export const tripleChimera: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 2, target: { type: 'allEnemy' } },
+    effect: { type: 'enhance', value: 2, target: { type: 'allEnemyEnfeebled' } },
   },
 };
 
@@ -370,7 +370,7 @@ export const phantomVulture: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 2, target: { type: 'allAllied' } },
+    effect: { type: 'enhance', value: 2, target: { type: 'allAlliedEnfeebled' } },
   },
 };
 
@@ -394,12 +394,8 @@ export const minosJudge: CardDefinition = {
   power: 1,
   rangePattern: [],
   ability: {
-    trigger: 'scaling',
-    effect: {
-      type: 'selfPowerScaling',
-      condition: { type: 'alliedCardsOnBoard' },
-      valuePerUnit: 2,
-    },
+    trigger: 'whenPlayed',
+    effect: { type: 'enhance', value: 1, target: { type: 'allEnfeebled' } },
   },
 };
 
@@ -511,7 +507,7 @@ export const aresAllfather: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 2, target: { type: 'allEnemy' } },
+    effect: { type: 'enhance', value: 2, target: { type: 'allEnemyEnhanced' } },
   },
 };
 
@@ -525,7 +521,12 @@ export const spriteTrio: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'sprite-mage', count: 1 },
+    effect: {
+      type: 'addCardToHand',
+      tokenDefinitionId: 'sprite-mage',
+      count: 1,
+      additionalTokens: [{ tokenDefinitionId: 'sprite-bard', count: 1 }],
+    },
   },
 };
 
@@ -551,7 +552,12 @@ export const tyrantAndBeast: CardDefinition = {
   rangePattern: [],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'thorny-imp', count: 1 },
+    effect: {
+      type: 'addCardToHand',
+      tokenDefinitionId: 'thorny-imp',
+      count: 1,
+      additionalTokens: [{ tokenDefinitionId: 'little-shade', count: 1 }],
+    },
   },
 };
 

@@ -5,6 +5,7 @@ import { getRank2Definitions } from './cards/rank2-cards.js';
 import { getRank3Definitions } from './cards/rank3-cards.js';
 import { getReplacementDefinitions } from './cards/replacement-cards.js';
 import { getGameTokenDefinitions } from './cards/game-tokens.js';
+import { ABILITY_TRIGGERS, TARGET_SELECTORS, EFFECT_TYPES } from './types.js';
 
 const allDefs = getAllGameDefinitions();
 const rank1 = getRank1Definitions();
@@ -132,42 +133,9 @@ describe('Card Database', () => {
   });
 
   describe('ability validity', () => {
-    const validTriggers = new Set([
-      'whenPlayed',
-      'whileInPlay',
-      'whenDestroyed',
-      'whenAlliedDestroyed',
-      'whenEnemyDestroyed',
-      'whenAnyDestroyed',
-      'whenFirstEnfeebled',
-      'whenFirstEnhanced',
-      'whenPowerReachesN',
-      'scaling',
-      'endOfGame',
-    ]);
-
-    const validEffectTypes = new Set([
-      'enhance',
-      'enfeeble',
-      'destroy',
-      'selfPowerScaling',
-      'laneScoreBonus',
-      'addCardToHand',
-      'spawnCard',
-      'positionRankManip',
-      'scoreRedistribution',
-      'dualTargetBuff',
-    ]);
-
-    const validTargetTypes = new Set([
-      'rangePattern',
-      'self',
-      'allAllied',
-      'allEnemy',
-      'allInLane',
-      'allAlliedInLane',
-      'allEnemyInLane',
-    ]);
+    const validTriggers: Set<string> = new Set(Object.values(ABILITY_TRIGGERS));
+    const validEffectTypes: Set<string> = new Set(Object.values(EFFECT_TYPES));
+    const validTargetTypes: Set<string> = new Set(Object.values(TARGET_SELECTORS));
 
     it('all abilities have valid triggers', () => {
       for (const def of Object.values(allDefs)) {

@@ -340,14 +340,42 @@ export function applyEffect(
   resolvedTargetPositions: readonly Position[],
 ): EffectResult {
   switch (effect.type) {
-    case EFFECT_TYPES.ENHANCE:
-      return applyEnhance(state, sourceInstanceId, resolvedTargetIds, effect.value);
-    case EFFECT_TYPES.ENFEEBLE:
-      return applyEnfeeble(state, sourceInstanceId, resolvedTargetIds, effect.value);
+    case EFFECT_TYPES.ENHANCE: {
+      const value =
+        effect.dynamicValue === 'replacedCardPower' && state.replacedCardPower !== undefined
+          ? state.replacedCardPower
+          : effect.value;
+      return applyEnhance(state, sourceInstanceId, resolvedTargetIds, value);
+    }
+    case EFFECT_TYPES.ENFEEBLE: {
+      const value =
+        effect.dynamicValue === 'replacedCardPower' && state.replacedCardPower !== undefined
+          ? state.replacedCardPower
+          : effect.value;
+      return applyEnfeeble(state, sourceInstanceId, resolvedTargetIds, value);
+    }
     case EFFECT_TYPES.DESTROY:
       return applyDestroy(state, sourceInstanceId, resolvedTargetIds);
-    case EFFECT_TYPES.ADD_CARD_TO_HAND:
-      return applyAddCardToHand(state, sourceInstanceId, effect.tokenDefinitionId, effect.count);
+    case EFFECT_TYPES.ADD_CARD_TO_HAND: {
+      let result = applyAddCardToHand(
+        state,
+        sourceInstanceId,
+        effect.tokenDefinitionId,
+        effect.count,
+      );
+      if (effect.additionalTokens) {
+        for (const extra of effect.additionalTokens) {
+          const extraResult = applyAddCardToHand(
+            result.state,
+            sourceInstanceId,
+            extra.tokenDefinitionId,
+            extra.count,
+          );
+          result = { state: extraResult.state, events: [...result.events, ...extraResult.events] };
+        }
+      }
+      return result;
+    }
     case EFFECT_TYPES.SPAWN_CARD:
       return applySpawnCard(
         state,

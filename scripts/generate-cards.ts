@@ -57,6 +57,10 @@ interface CardMapping {
     originalSlug?: string;
     rank: number;
     power: number;
+    ability?: {
+      trigger: string;
+      effect: Record<string, unknown>;
+    };
   }>;
 }
 
@@ -242,9 +246,9 @@ function mapTrigger(
     case 'enfeebled':
       return { trigger: 'whenFirstEnfeebled' };
     case 'allies_played_from_hand':
-      return { trigger: 'scaling' };
+      return { trigger: 'whenAlliedPlayed' };
     case 'enemies_played_from_hand':
-      return { trigger: 'scaling' };
+      return { trigger: 'whenEnemyPlayed' };
     case 'win_the_lane':
       return { trigger: 'endOfGame' };
     default: {
@@ -274,14 +278,17 @@ function mapTarget(which: string): string | null {
     case 'empty_positions':
       return 'rangePattern';
     case 'enhanced_allies':
+      return 'allAlliedEnhanced';
     case 'enfeebled_allies':
-      return 'allAllied';
+      return 'allAlliedEnfeebled';
     case 'enhanced_enemies':
+      return 'allEnemyEnhanced';
     case 'enfeebled_enemies':
-      return 'allEnemy';
+      return 'allEnemyEnfeebled';
     case 'enhanced_allies_and_enemies':
+      return 'allEnhanced';
     case 'enfeebled_allies_and_enemies':
-      return 'allInLane';
+      return 'allEnfeebled';
     case '':
       return null;
     default:
@@ -334,7 +341,7 @@ function resolveSecondTokenFromWhere(
   actionValue: string,
   mapping: CardMapping,
 ): string | null {
-  const whereMatch = actionValue.match(/Card\.where\(name:\[([^\]]+)\]\)/);
+  const whereMatch = actionValue.match(/Card\.where\(name:\[([^\]]+)\]/);
   if (whereMatch) {
     const names = whereMatch[1]!.match(/'([^']+)'/g);
     if (names && names.length > 1) {
@@ -395,11 +402,26 @@ function buildEffect(
   // AddCardAbility
   if (abilityType === 'AddCardAbility' || actionType === 'add') {
     const tokenId = resolveTokenId(actionValue, mapping);
-    return {
+    const result: EffectObj = {
       type: 'addCardToHand',
       tokenDefinitionId: tokenId ?? 'unknown-token',
       count: 1,
     };
+    // Handle multi-token adds (e.g. Moogle Trio → Moogle Mage + Moogle Bard)
+    if (overrides?.['additionalTokens']) {
+      const extras = overrides['additionalTokens'] as Array<{ tokenId: string; count: number }>;
+      result['additionalTokens'] = extras.map((e) => ({
+        tokenDefinitionId: e.tokenId,
+        count: e.count,
+      }));
+    } else {
+      // Check for Card.where with multiple names
+      const secondToken = resolveSecondTokenFromWhere(actionValue, mapping);
+      if (secondToken) {
+        result['additionalTokens'] = [{ tokenDefinitionId: secondToken, count: 1 }];
+      }
+    }
+    return result;
   }
 
   // DestroyCardAbility
@@ -429,11 +451,13 @@ function buildEffect(
     }
 
     // ally.power based effects
-    const value = overrides?.['dynamicValue'] === 'replacedCardPower' ? 0 : 1;
+    const isDynamic = overrides?.['dynamicValue'] === 'replacedCardPower';
+    const value = isDynamic ? 0 : 1;
     if (actionType === 'power_up') {
       return {
         type: 'enhance',
         value,
+        ...(isDynamic ? { dynamicValue: 'replacedCardPower' } : {}),
         ...(target ? { target: { type: target } } : { target: { type: 'rangePattern' } }),
       };
     }
@@ -441,6 +465,7 @@ function buildEffect(
       return {
         type: 'enfeeble',
         value,
+        ...(isDynamic ? { dynamicValue: 'replacedCardPower' } : {}),
         ...(target ? { target: { type: target } } : { target: { type: 'rangePattern' } }),
       };
     }
@@ -535,6 +560,15 @@ function formatEffect(effect: EffectObj): string {
     parts.push(`condition: { type: '${cond.type}' }`);
   }
   if (effect['valuePerUnit'] !== undefined) parts.push(`valuePerUnit: ${effect['valuePerUnit']}`);
+  if (effect['dynamicValue'] !== undefined)
+    parts.push(`dynamicValue: '${effect['dynamicValue']}'`);
+  if (effect['additionalTokens'] !== undefined) {
+    const tokens = effect['additionalTokens'] as Array<{ tokenDefinitionId: string; count: number }>;
+    const tokenStr = tokens
+      .map((t) => `{ tokenDefinitionId: '${t.tokenDefinitionId}', count: ${t.count} }`)
+      .join(', ');
+    parts.push(`additionalTokens: [${tokenStr}]`);
+  }
   if (effect['target'] !== undefined) {
     const tgt = effect['target'] as { type: string };
     parts.push(`target: { type: '${tgt.type}' }`);
@@ -690,13 +724,24 @@ function main() {
       console.warn(`No expected_ranges entry for token: ${tokenEntry.originalName} (slug: ${slug})`);
     }
 
-    tokenDefs.push({
+    const tokenDef: CardDef = {
       id: tokenEntry.id,
       rank: tokenEntry.rank as 1 | 2 | 3,
       power: tokenEntry.power,
       rangePattern,
       isToken: true,
-    });
+    };
+
+    // Add ability if defined in mapping
+    if (tokenEntry.ability) {
+      const effect = tokenEntry.ability.effect as EffectObj;
+      tokenDef.ability = {
+        trigger: tokenEntry.ability.trigger,
+        effect,
+      };
+    }
+
+    tokenDefs.push(tokenDef);
   }
 
   console.log(`\nCard counts:`);

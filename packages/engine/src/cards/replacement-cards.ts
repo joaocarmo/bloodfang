@@ -56,7 +56,12 @@ export const goldenGriffin: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 0, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'enhance',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -70,7 +75,12 @@ export const wraithOfTartarus: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 0, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'enfeeble',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -86,7 +96,12 @@ export const harmonyDuality: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 0, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'enhance',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -102,7 +117,12 @@ export const chaoticShade: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 0, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'enfeeble',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -119,7 +139,12 @@ export const frostReaver: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 0, target: { type: 'allInLane' } },
+    effect: {
+      type: 'enfeeble',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'allEnfeebled' },
+    },
   },
 };
 
@@ -139,7 +164,12 @@ export const shadowArtemis: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 0, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'enfeeble',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -155,7 +185,12 @@ export const warriorOfManyArms: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 0, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'enfeeble',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 
@@ -169,7 +204,12 @@ export const shadeCommander: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 0, target: { type: 'rangePattern' } },
+    effect: {
+      type: 'enhance',
+      value: 0,
+      dynamicValue: 'replacedCardPower',
+      target: { type: 'rangePattern' },
+    },
   },
 };
 

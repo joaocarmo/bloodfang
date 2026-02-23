@@ -440,8 +440,8 @@ export const cerberusHound: CardDefinition = {
     { row: 2, col: 1, type: 'ability' },
   ],
   ability: {
-    trigger: 'scaling',
-    effect: { type: 'selfPowerScaling', condition: { type: 'enemyCardsOnBoard' }, valuePerUnit: 2 },
+    trigger: 'whenDestroyed',
+    effect: { type: 'enfeeble', value: 1, target: { type: 'rangePattern' } },
   },
 };
 
@@ -456,7 +456,7 @@ export const ghastlyShade: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'allInLane' } },
+    effect: { type: 'enhance', value: 1, target: { type: 'allEnfeebled' } },
   },
 };
 
@@ -607,7 +607,7 @@ export const gryphonAndSprite: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'allAllied' } },
+    effect: { type: 'enhance', value: 1, target: { type: 'allAlliedEnhanced' } },
   },
 };
 
@@ -695,7 +695,7 @@ export const starVoyager: CardDefinition = {
   ],
   ability: {
     trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'allEnemy' } },
+    effect: { type: 'enhance', value: 1, target: { type: 'allEnemyEnhanced' } },
   },
 };
 

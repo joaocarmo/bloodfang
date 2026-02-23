@@ -29,6 +29,10 @@ export const spriteMage: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [{ row: -2, col: 2, type: 'both' }],
+  ability: {
+    trigger: 'whenPlayed',
+    effect: { type: 'enfeeble', value: 4, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -42,6 +46,10 @@ export const spriteBard: CardDefinition = {
     { row: 1, col: 1, type: 'ability' },
     { row: 2, col: 1, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whileInPlay',
+    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -63,6 +71,10 @@ export const juniorNymph: CardDefinition = {
     { row: 1, col: -1, type: 'pawn' },
     { row: 1, col: 1, type: 'pawn' },
   ],
+  ability: {
+    trigger: 'whenPlayed',
+    effect: { type: 'addCardToHand', tokenDefinitionId: 'baby-nymph', count: 1 },
+  },
   isToken: true,
 };
 
@@ -113,6 +125,10 @@ export const lycaonBeast: CardDefinition = {
     { row: 2, col: 0, type: 'ability' },
     { row: 2, col: 1, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whenPlayed',
+    effect: { type: 'enfeeble', value: 3, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -167,6 +183,10 @@ export const elementalSpark: CardDefinition = {
     { row: 1, col: 0, type: 'ability' },
     { row: 1, col: 1, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whenDestroyed',
+    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -184,6 +204,10 @@ export const elementalFlame: CardDefinition = {
     { row: 1, col: 0, type: 'ability' },
     { row: 1, col: 1, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whenDestroyed',
+    effect: { type: 'enhance', value: 4, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -201,6 +225,10 @@ export const elementalStorm: CardDefinition = {
     { row: 1, col: 0, type: 'ability' },
     { row: 1, col: 1, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whenDestroyed',
+    effect: { type: 'enhance', value: 6, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -218,6 +246,10 @@ export const zealotInitiate: CardDefinition = {
     { row: 2, col: 0, type: 'ability' },
     { row: 2, col: 2, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whileInPlay',
+    effect: { type: 'enhance', value: 1, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -231,6 +263,10 @@ export const zealotWarrior: CardDefinition = {
     { row: 0, col: 2, type: 'ability' },
     { row: 2, col: 0, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whileInPlay',
+    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 
@@ -244,6 +280,10 @@ export const zealotChampion: CardDefinition = {
     { row: 2, col: -2, type: 'ability' },
     { row: 2, col: 2, type: 'ability' },
   ],
+  ability: {
+    trigger: 'whileInPlay',
+    effect: { type: 'enhance', value: 3, target: { type: 'rangePattern' } },
+  },
   isToken: true,
 };
 

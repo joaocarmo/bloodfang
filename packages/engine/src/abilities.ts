@@ -130,6 +130,64 @@ export function resolveTargets(
         .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
     }
+
+    case 'allAlliedEnhanced': {
+      const ids = allInstances
+        .filter(
+          (c) =>
+            c.owner === sourceOwner &&
+            c.hasBeenEnhanced === true &&
+            (isDestroyed || c.instanceId !== sourceInstanceId),
+        )
+        .map((c) => c.instanceId);
+      return { instanceIds: ids, positions: [] };
+    }
+
+    case 'allEnemyEnhanced': {
+      const ids = allInstances
+        .filter((c) => c.owner !== sourceOwner && c.hasBeenEnhanced === true)
+        .map((c) => c.instanceId);
+      return { instanceIds: ids, positions: [] };
+    }
+
+    case 'allEnhanced': {
+      const ids = allInstances
+        .filter(
+          (c) =>
+            c.hasBeenEnhanced === true && (isDestroyed || c.instanceId !== sourceInstanceId),
+        )
+        .map((c) => c.instanceId);
+      return { instanceIds: ids, positions: [] };
+    }
+
+    case 'allAlliedEnfeebled': {
+      const ids = allInstances
+        .filter(
+          (c) =>
+            c.owner === sourceOwner &&
+            c.hasBeenEnfeebled === true &&
+            (isDestroyed || c.instanceId !== sourceInstanceId),
+        )
+        .map((c) => c.instanceId);
+      return { instanceIds: ids, positions: [] };
+    }
+
+    case 'allEnemyEnfeebled': {
+      const ids = allInstances
+        .filter((c) => c.owner !== sourceOwner && c.hasBeenEnfeebled === true)
+        .map((c) => c.instanceId);
+      return { instanceIds: ids, positions: [] };
+    }
+
+    case 'allEnfeebled': {
+      const ids = allInstances
+        .filter(
+          (c) =>
+            c.hasBeenEnfeebled === true && (isDestroyed || c.instanceId !== sourceInstanceId),
+        )
+        .map((c) => c.instanceId);
+      return { instanceIds: ids, positions: [] };
+    }
   }
 }
 
@@ -235,6 +293,25 @@ export function collectTriggersForEvents(
             if (power >= ability.threshold) {
               triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
             }
+          }
+          break;
+
+        case ABILITY_TRIGGERS.WHEN_ALLIED_PLAYED:
+          if (
+            event.type === GAME_EVENT_TYPES.CARD_PLAYED &&
+            event.owner === instance.owner &&
+            event.instanceId !== instance.instanceId
+          ) {
+            triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
+          }
+          break;
+
+        case ABILITY_TRIGGERS.WHEN_ENEMY_PLAYED:
+          if (
+            event.type === GAME_EVENT_TYPES.CARD_PLAYED &&
+            event.owner !== instance.owner
+          ) {
+            triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
           }
           break;
 
@@ -561,8 +638,39 @@ export function resolveAbilities(
   // Phase 2: Execute triggers and set flags
   const triggerResult = executeTriggers(state, matchedTriggers);
 
+  // Phase 2b: Set tracking flags for enfeebled/enhanced events (after trigger execution
+  // so that one-shot triggers like whenFirstEnfeebled fire correctly, but before
+  // the next cascade level so that filtered target selectors can find flagged cards)
+  let flaggedState = triggerResult.state;
+  for (const event of pendingEvents) {
+    if (event.type === GAME_EVENT_TYPES.CARD_ENFEEBLED) {
+      const inst = flaggedState.cardInstances[event.instanceId];
+      if (inst && !inst.hasBeenEnfeebled) {
+        flaggedState = {
+          ...flaggedState,
+          cardInstances: {
+            ...flaggedState.cardInstances,
+            [event.instanceId]: { ...inst, hasBeenEnfeebled: true },
+          },
+        };
+      }
+    }
+    if (event.type === GAME_EVENT_TYPES.CARD_ENHANCED) {
+      const inst = flaggedState.cardInstances[event.instanceId];
+      if (inst && !inst.hasBeenEnhanced) {
+        flaggedState = {
+          ...flaggedState,
+          cardInstances: {
+            ...flaggedState.cardInstances,
+            [event.instanceId]: { ...inst, hasBeenEnhanced: true },
+          },
+        };
+      }
+    }
+  }
+
   // Phase 3: Recalculate continuous effects from scratch
-  const recalculated = recalculateContinuousEffects(triggerResult.state);
+  const recalculated = recalculateContinuousEffects(flaggedState);
 
   // Phase 4: Batch death check
   const deathResult = performDeathCheck(recalculated);
