@@ -27,9 +27,7 @@ export function ActionLog() {
         className="h-40 overflow-y-auto bg-surface-raised rounded-lg p-2 text-xs text-text-muted space-y-0.5"
       >
         {recentLog.map((action, i) => (
-          <div key={log.length - 20 + i}>
-            {formatAction(action, definitions)}
-          </div>
+          <div key={log.length - 20 + i}>{formatAction(action, definitions)}</div>
         ))}
         {recentLog.length === 0 && <div>No actions yet.</div>}
       </div>
@@ -37,13 +35,10 @@ export function ActionLog() {
   );
 }
 
-function formatAction(
-  action: GameAction,
-  definitions: Record<string, { id: string }>,
-): string {
+function formatAction(action: GameAction, definitions: Record<string, { id: string }>): string {
   switch (action.type) {
     case 'placeCard': {
-      const defId = action.cardId.split(':')[0] ?? action.cardId;
+      const defId = action.cardId;
       const name = definitions[defId] ? getCardName(defId) : action.cardId;
       return `P${action.player + 1} played ${name} at (${action.position.row + 1},${action.position.col + 1})`;
     }

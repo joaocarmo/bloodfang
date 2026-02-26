@@ -32,10 +32,7 @@ export function RangeGrid({ rangePattern, size = 'sm' }: RangeGridProps) {
       aria-label="Range pattern"
     >
       {grid.flat().map((cell, i) => (
-        <div
-          key={i}
-          className={`${cellSize} rounded-sm ${getCellColor(cell)}`}
-        />
+        <div key={i} className={`${cellSize} rounded-sm ${getCellColor(cell)}`} />
       ))}
     </div>
   );

@@ -12,11 +12,7 @@ export function CardMini({ definition, effectivePower }: CardMiniProps) {
 
   return (
     <div className="flex flex-col items-center gap-0.5 text-center">
-      <PowerBadge
-        basePower={definition.power}
-        effectivePower={effectivePower}
-        size="sm"
-      />
+      <PowerBadge basePower={definition.power} effectivePower={effectivePower} size="sm" />
       <span className="text-[10px] leading-tight text-text-secondary truncate max-w-full">
         {name}
       </span>

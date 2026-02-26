@@ -8,17 +8,13 @@ interface PawnDotsProps {
 }
 
 export function PawnDots({ count, owner }: PawnDotsProps) {
-  const colorClass =
-    owner === 0 ? 'bg-p0' : owner === 1 ? 'bg-p1' : 'bg-text-muted';
+  const colorClass = owner === 0 ? 'bg-p0' : owner === 1 ? 'bg-p1' : 'bg-text-muted';
   const reduceMotion = useReducedMotion();
 
   if (count === 0) return null;
 
   return (
-    <div
-      className="flex gap-0.5 items-center"
-      aria-label={`${count} of ${MAX_PAWN_COUNT} pawns`}
-    >
+    <div className="flex gap-0.5 items-center" aria-label={`${count} of ${MAX_PAWN_COUNT} pawns`}>
       {Array.from({ length: count }, (_, i) => (
         <motion.div
           key={i}

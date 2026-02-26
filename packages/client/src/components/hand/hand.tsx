@@ -39,11 +39,7 @@ export function Hand() {
   );
 
   if (hand.length === 0) {
-    return (
-      <div className="text-center text-text-muted py-4">
-        No cards in hand
-      </div>
-    );
+    return <div className="text-center text-text-muted py-4">No cards in hand</div>;
   }
 
   return (
@@ -63,7 +59,7 @@ export function Hand() {
 
           return (
             <HandCard
-              key={cardId}
+              key={`${cardId}-${index}`}
               cardId={cardId}
               definition={def}
               isSelected={selectedCardId === cardId}

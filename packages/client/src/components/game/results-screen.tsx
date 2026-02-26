@@ -22,10 +22,7 @@ export function ResultsScreen() {
   const finalScores = calculateFinalScores(gameState);
   const winner = determineWinner(finalScores);
 
-  const winnerText =
-    winner !== null
-      ? `Player ${winner + 1} Wins!`
-      : "It's a Draw!";
+  const winnerText = winner !== null ? `Player ${winner + 1} Wins!` : "It's a Draw!";
 
   return (
     <div className="flex flex-col items-center gap-8 p-8 max-w-lg mx-auto">
@@ -65,9 +62,7 @@ export function ResultsScreen() {
 
       {/* Lane breakdown */}
       <div className="w-full">
-        <h2 className="text-sm text-text-secondary font-medium mb-2 text-center">
-          Lane Breakdown
-        </h2>
+        <h2 className="text-sm text-text-secondary font-medium mb-2 text-center">Lane Breakdown</h2>
         <div className="space-y-1">
           {Array.from({ length: BOARD_ROWS }, (_, row) => {
             const p0 = laneScores[row]?.[0] ?? 0;
@@ -87,9 +82,7 @@ export function ResultsScreen() {
                 >
                   {p0}
                 </span>
-                <span className="text-text-muted text-sm">
-                  Lane {row + 1}
-                </span>
+                <span className="text-text-muted text-sm">Lane {row + 1}</span>
                 <span
                   className={`font-bold tabular-nums w-8 ${laneWinner === 1 ? 'text-p1' : 'text-text-muted'}`}
                 >

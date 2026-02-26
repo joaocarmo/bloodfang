@@ -9,7 +9,5 @@ export function AbilityText({ definition }: AbilityTextProps) {
   const description = getAbilityDescription(definition);
   if (!description) return null;
 
-  return (
-    <p className="text-xs text-text-secondary leading-tight">{description}</p>
-  );
+  return <p className="text-xs text-text-secondary leading-tight">{description}</p>;
 }

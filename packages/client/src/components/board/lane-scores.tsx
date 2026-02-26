@@ -21,9 +21,7 @@ export function LaneScores({ player, side }: LaneScoresProps) {
       role="status"
       aria-label={`Player ${player + 1} scores`}
     >
-      <div className={`text-xs text-text-secondary font-medium`}>
-        P{player + 1}
-      </div>
+      <div className={`text-xs text-text-secondary font-medium`}>P{player + 1}</div>
       {Array.from({ length: BOARD_ROWS }, (_, row) => {
         const score = laneScores[row]?.[player] ?? 0;
         return (
@@ -35,9 +33,7 @@ export function LaneScores({ player, side }: LaneScoresProps) {
           </div>
         );
       })}
-      <div
-        className={`${colorClass} font-bold text-xl border-t border-border pt-1 tabular-nums`}
-      >
+      <div className={`${colorClass} font-bold text-xl border-t border-border pt-1 tabular-nums`}>
         {totalScore}
       </div>
     </div>

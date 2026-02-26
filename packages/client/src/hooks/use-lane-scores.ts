@@ -7,7 +7,12 @@ export function useLaneScores(): LaneScores {
   const gameState = useGameStore((s) => s.gameState);
 
   return useMemo(() => {
-    if (!gameState) return [[0, 0], [0, 0], [0, 0]];
+    if (!gameState)
+      return [
+        [0, 0],
+        [0, 0],
+        [0, 0],
+      ];
     return calculateLaneScores(gameState);
   }, [gameState]);
 }

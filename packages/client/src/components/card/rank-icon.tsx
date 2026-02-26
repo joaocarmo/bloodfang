@@ -21,13 +21,7 @@ export function RankIcon({ rank }: RankIconProps) {
 
   return (
     <span
-      className={
-        rank === 1
-          ? 'text-rank-1'
-          : rank === 2
-            ? 'text-rank-2'
-            : 'text-rank-3'
-      }
+      className={rank === 1 ? 'text-rank-1' : rank === 2 ? 'text-rank-2' : 'text-rank-3'}
       aria-label={`Rank ${rank}`}
     >
       {stars}

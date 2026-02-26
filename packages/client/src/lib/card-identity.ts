@@ -106,7 +106,7 @@ const CARD_NAMES: Record<string, string> = {
   'fortune-sphinx': 'Fortune Sphinx',
   'daedalus-pilot': 'Daedalus Pilot',
   'lycaon-cursed': 'Lycaon Cursed',
-  'pyriphlegethon': 'Pyriphlegethon',
+  pyriphlegethon: 'Pyriphlegethon',
   'boreas-queen': 'Boreas Queen',
   'zeus-thunderlord': 'Zeus Thunderlord',
   'gaia-titan': 'Gaia Titan',

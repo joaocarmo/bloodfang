@@ -73,15 +73,19 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     startGame: () => {
       const { playerDecks, definitions: defs } = get();
-      const gameState = createGame(playerDecks[0], playerDecks[1], defs);
-      set({
-        gameState,
-        screen: 'game',
-        selectedCardId: null,
-        hoveredTilePosition: null,
-        showTransition: false,
-      });
-      get().announce('Game started. Mulligan phase. Player 1, select cards to return.');
+      try {
+        const gameState = createGame(playerDecks[0], playerDecks[1], defs);
+        set({
+          gameState,
+          screen: 'game',
+          selectedCardId: null,
+          hoveredTilePosition: null,
+          showTransition: false,
+        });
+        get().announce('Game started. Mulligan phase. Player 1, select cards to return.');
+      } catch (e) {
+        get().announce(`Failed to start game: ${e instanceof Error ? e.message : 'Unknown error'}`);
+      }
     },
 
     doMulligan: (player, returnCardIds) => {
@@ -94,7 +98,9 @@ export const useGameStore = create<GameStore>((set, get) => {
         get().announce("Mulligan complete. Player 1's turn.");
         set({ showTransition: true });
       } else {
-        get().announce(`Player ${player + 1} mulligan complete. Player ${player === 0 ? 2 : 1}, select cards to return.`);
+        get().announce(
+          `Player ${player + 1} mulligan complete. Player ${player === 0 ? 2 : 1}, select cards to return.`,
+        );
         set({ showTransition: true });
       }
     },
@@ -109,7 +115,7 @@ export const useGameStore = create<GameStore>((set, get) => {
 
       const prevPlayer = gameState.currentPlayerIndex;
       const newState = playCard(gameState, selectedCardId, position);
-      const cardDef = defs[selectedCardId.split(':')[0] ?? ''];
+      const cardDef = defs[selectedCardId];
       const cardName = cardDef ? getCardName(cardDef.id) : selectedCardId;
 
       set({

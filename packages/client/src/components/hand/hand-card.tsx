@@ -57,12 +57,7 @@ export function HandCard({
         focus:outline-3 focus:outline-focus-ring focus:outline-offset-2 focus:rounded-lg
       `}
     >
-      <Card
-        definition={definition}
-        selected={isSelected}
-        disabled={!hasValidMoves}
-        compact
-      />
+      <Card definition={definition} selected={isSelected} disabled={!hasValidMoves} compact />
     </motion.div>
   );
 }

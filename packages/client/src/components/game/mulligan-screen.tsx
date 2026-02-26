@@ -19,9 +19,7 @@ export function MulliganScreen() {
 
   const toggleCard = useCallback((cardId: string) => {
     setSelectedToReturn((prev) =>
-      prev.includes(cardId)
-        ? prev.filter((id) => id !== cardId)
-        : [...prev, cardId],
+      prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId],
     );
   }, []);
 

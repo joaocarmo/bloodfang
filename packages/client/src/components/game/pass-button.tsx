@@ -16,9 +16,10 @@ export function PassButton() {
         px-6 py-2 rounded-lg font-medium min-h-[44px] min-w-[100px]
         focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
         transition-colors
-        ${hasNoMoves
-          ? 'bg-p1/30 border border-p1 text-p1-light hover:bg-p1/40'
-          : 'bg-surface-raised border border-border text-text-secondary hover:bg-border'
+        ${
+          hasNoMoves
+            ? 'bg-p1/30 border border-p1 text-p1-light hover:bg-p1/40'
+            : 'bg-surface-raised border border-border text-text-secondary hover:bg-border'
         }
       `}
     >

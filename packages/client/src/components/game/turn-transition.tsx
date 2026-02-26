@@ -39,9 +39,7 @@ export function TurnTransition() {
       <h2 className={`text-3xl font-bold ${currentPlayer === 0 ? 'text-p0' : 'text-p1'}`}>
         Player {currentPlayer + 1}&apos;s Turn
       </h2>
-      <p className="text-text-secondary">
-        Pass the device to Player {currentPlayer + 1}
-      </p>
+      <p className="text-text-secondary">Pass the device to Player {currentPlayer + 1}</p>
       <button
         ref={buttonRef}
         onClick={() => setShowTransition(false)}

@@ -69,12 +69,8 @@ export function SetupScreen() {
   if (phase === 'p0-transition') {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen gap-6">
-        <h2 className="text-2xl font-bold text-text-primary">
-          Player 1 deck saved!
-        </h2>
-        <p className="text-text-secondary">
-          Pass the device to Player 2.
-        </p>
+        <h2 className="text-2xl font-bold text-text-primary">Player 1 deck saved!</h2>
+        <p className="text-text-secondary">Pass the device to Player 2.</p>
         <button
           ref={transitionButtonRef}
           onClick={() => setPhase('p1-build')}
@@ -111,9 +107,7 @@ export function SetupScreen() {
   // phase === 'ready'
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6">
-      <h2 className="text-2xl font-bold text-text-primary">
-        Both decks are ready!
-      </h2>
+      <h2 className="text-2xl font-bold text-text-primary">Both decks are ready!</h2>
       <button
         ref={startButtonRef}
         onClick={startGame}

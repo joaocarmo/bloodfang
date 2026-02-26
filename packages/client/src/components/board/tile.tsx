@@ -60,11 +60,7 @@ export function Tile({ row, col, isFocused, onFocus }: TileProps) {
   const definition = instance ? definitions[instance.definitionId] : undefined;
 
   const ownerBg =
-    tile.owner === 0
-      ? 'bg-tile-p0'
-      : tile.owner === 1
-        ? 'bg-tile-p1'
-        : 'bg-tile-empty';
+    tile.owner === 0 ? 'bg-tile-p0' : tile.owner === 1 ? 'bg-tile-p1' : 'bg-tile-empty';
 
   const ownerBadge =
     tile.owner !== null ? (
