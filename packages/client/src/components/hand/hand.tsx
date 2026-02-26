@@ -1,0 +1,79 @@
+import { useState, useCallback, type KeyboardEvent } from 'react';
+import { useGameStore } from '../../store/game-store.ts';
+import { HandCard } from './hand-card.tsx';
+
+export function Hand() {
+  const gameState = useGameStore((s) => s.gameState);
+  const definitions = useGameStore((s) => s.definitions);
+  const selectedCardId = useGameStore((s) => s.selectedCardId);
+  const selectCard = useGameStore((s) => s.selectCard);
+  const [focusedIndex, setFocusedIndex] = useState(0);
+
+  const currentPlayer = gameState?.currentPlayerIndex ?? 0;
+  const hand = gameState?.players[currentPlayer]?.hand ?? [];
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (hand.length === 0) return;
+
+      let nextIndex = focusedIndex;
+
+      switch (e.key) {
+        case 'ArrowLeft':
+          nextIndex = Math.max(0, focusedIndex - 1);
+          break;
+        case 'ArrowRight':
+          nextIndex = Math.min(hand.length - 1, focusedIndex + 1);
+          break;
+        case 'Escape':
+          selectCard(null);
+          return;
+        default:
+          return;
+      }
+
+      e.preventDefault();
+      setFocusedIndex(nextIndex);
+    },
+    [focusedIndex, hand.length, selectCard],
+  );
+
+  if (hand.length === 0) {
+    return (
+      <div className="text-center text-text-muted py-4">
+        No cards in hand
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2 className="sr-only">Your Hand</h2>
+      {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus managed via roving tabindex on child options */}
+      <div
+        role="listbox"
+        aria-label={`Player ${currentPlayer + 1}'s hand`}
+        onKeyDown={handleKeyDown}
+        className="flex gap-2 justify-center items-end flex-wrap py-2"
+      >
+        {hand.map((cardId, index) => {
+          // cardId is the definitionId in the hand
+          const def = definitions[cardId];
+          if (!def) return null;
+
+          return (
+            <HandCard
+              key={cardId}
+              cardId={cardId}
+              definition={def}
+              isSelected={selectedCardId === cardId}
+              onSelect={(id) => selectCard(id || null)}
+              isFocused={focusedIndex === index}
+              onFocus={() => setFocusedIndex(index)}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
