@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { GameEvent, GameState, Position, PlayerId } from './types.js';
-import { createSeededRng } from './types.js';
+import { createSeededRng, RANGE_CELL_TYPES, TARGET_SELECTORS } from './types.js';
 import {
   resolveAbilityRangePattern,
   resolveTargets,
@@ -84,9 +84,9 @@ function buildAbilityTestState(
 describe('resolveAbilityRangePattern', () => {
   it('includes ability cells and skips pawn cells', () => {
     const pattern = [
-      { row: 0, col: 1, type: 'pawn' as const },
-      { row: 0, col: 2, type: 'ability' as const },
-      { row: -1, col: 0, type: 'both' as const },
+      { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+      { row: 0, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+      { row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH },
     ];
     const positions = resolveAbilityRangePattern(pattern, { row: 1, col: 1 }, 0);
     expect(positions).toHaveLength(2); // ability + both, not pawn
@@ -95,7 +95,7 @@ describe('resolveAbilityRangePattern', () => {
   });
 
   it('mirrors column for player 1', () => {
-    const pattern = [{ row: 0, col: 1, type: 'ability' as const }];
+    const pattern = [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }];
     const posP0 = resolveAbilityRangePattern(pattern, { row: 1, col: 2 }, 0);
     const posP1 = resolveAbilityRangePattern(pattern, { row: 1, col: 2 }, 1);
     expect(posP0[0]).toEqual({ row: 1, col: 3 }); // right
@@ -103,13 +103,13 @@ describe('resolveAbilityRangePattern', () => {
   });
 
   it('filters out-of-bounds positions', () => {
-    const pattern = [{ row: 0, col: 1, type: 'ability' as const }];
+    const pattern = [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }];
     const positions = resolveAbilityRangePattern(pattern, { row: 0, col: 4 }, 0);
     expect(positions).toHaveLength(0); // col 5 is out of bounds
   });
 
   it('does not mirror row offset', () => {
-    const pattern = [{ row: -1, col: 0, type: 'ability' as const }];
+    const pattern = [{ row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY }];
     const posP0 = resolveAbilityRangePattern(pattern, { row: 1, col: 2 }, 0);
     const posP1 = resolveAbilityRangePattern(pattern, { row: 1, col: 2 }, 1);
     expect(posP0[0]).toEqual({ row: 0, col: 2 });
@@ -123,7 +123,7 @@ describe('resolveTargets', () => {
       { id: 'r1-basic', position: { row: 0, col: 0 }, owner: 0 },
     ]);
     const instanceId = state.board[0]![0]!.cardInstanceId!;
-    const result = resolveTargets(state, instanceId, { type: 'self' });
+    const result = resolveTargets(state, instanceId, { type: TARGET_SELECTORS.SELF });
     expect(result.instanceIds).toEqual([instanceId]);
   });
 
@@ -136,7 +136,7 @@ describe('resolveTargets', () => {
     const sourceId = state.board[0]![0]!.cardInstanceId!;
     const targetId = state.board[0]![1]!.cardInstanceId!;
 
-    const result = resolveTargets(state, sourceId, { type: 'rangePattern' });
+    const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.RANGE_PATTERN });
     expect(result.instanceIds).toContain(targetId);
   });
 
@@ -149,7 +149,7 @@ describe('resolveTargets', () => {
     const sourceId = state.board[0]![0]!.cardInstanceId!;
     const alliedId = state.board[1]![0]!.cardInstanceId!;
 
-    const result = resolveTargets(state, sourceId, { type: 'allAllied' });
+    const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ALLIED });
     expect(result.instanceIds).toContain(alliedId);
     expect(result.instanceIds).not.toContain(sourceId);
     expect(result.instanceIds).toHaveLength(1);
@@ -163,7 +163,7 @@ describe('resolveTargets', () => {
     ]);
     const sourceId = state.board[0]![0]!.cardInstanceId!;
 
-    const result = resolveTargets(state, sourceId, { type: 'allEnemy' });
+    const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ENEMY });
     expect(result.instanceIds).toHaveLength(2);
   });
 
@@ -176,7 +176,7 @@ describe('resolveTargets', () => {
     const sourceId = state.board[0]![0]!.cardInstanceId!;
     const sameLaneId = state.board[0]![1]!.cardInstanceId!;
 
-    const result = resolveTargets(state, sourceId, { type: 'allAlliedInLane' });
+    const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ALLIED_IN_LANE });
     expect(result.instanceIds).toEqual([sameLaneId]);
   });
 
@@ -189,7 +189,7 @@ describe('resolveTargets', () => {
     const sourceId = state.board[0]![0]!.cardInstanceId!;
     const enemyInLane = state.board[0]![4]!.cardInstanceId!;
 
-    const result = resolveTargets(state, sourceId, { type: 'allEnemyInLane' });
+    const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE });
     expect(result.instanceIds).toEqual([enemyInLane]);
   });
 
@@ -201,14 +201,14 @@ describe('resolveTargets', () => {
     ]);
     const sourceId = state.board[0]![0]!.cardInstanceId!;
 
-    const result = resolveTargets(state, sourceId, { type: 'allInLane' });
+    const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_IN_LANE });
     expect(result.instanceIds).toHaveLength(2);
     expect(result.instanceIds).not.toContain(sourceId);
   });
 
   it('returns empty for nonexistent source', () => {
     const state = buildAbilityTestState([]);
-    const result = resolveTargets(state, 'nonexistent', { type: 'self' });
+    const result = resolveTargets(state, 'nonexistent', { type: TARGET_SELECTORS.SELF });
     expect(result.instanceIds).toHaveLength(0);
   });
 });

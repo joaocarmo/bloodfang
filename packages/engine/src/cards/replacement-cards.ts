@@ -1,214 +1,221 @@
 import type { CardDefinition } from '../types.js';
+import {
+  ABILITY_TRIGGERS,
+  CARD_RANKS,
+  EFFECT_TYPES,
+  RANGE_CELL_TYPES,
+  TARGET_SELECTORS,
+} from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 export const mantisChimera: CardDefinition = {
   id: 'mantis-chimera',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'destroy', target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.DESTROY, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
 export const titanFrog: CardDefinition = {
   id: 'titan-frog',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'destroy', target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.DESTROY, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
 export const greatHornedBeast: CardDefinition = {
   id: 'great-horned-beast',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'destroy', target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.DESTROY, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
 export const goldenGriffin: CardDefinition = {
   id: 'golden-griffin',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: -1, col: 1, type: 'ability' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enhance',
+      type: EFFECT_TYPES.ENHANCE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
 
 export const wraithOfTartarus: CardDefinition = {
   id: 'wraith-of-tartarus',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 1, col: 1, type: 'both' },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 1, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enfeeble',
+      type: EFFECT_TYPES.ENFEEBLE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
 
 export const harmonyDuality: CardDefinition = {
   id: 'harmony-duality',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -2, col: 0, type: 'ability' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 2, col: 0, type: 'ability' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enhance',
+      type: EFFECT_TYPES.ENHANCE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
 
 export const chaoticShade: CardDefinition = {
   id: 'chaotic-shade',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'ability' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'ability' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enfeeble',
+      type: EFFECT_TYPES.ENFEEBLE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
 
 export const frostReaver: CardDefinition = {
   id: 'frost-reaver',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -2, col: 1, type: 'ability' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 2, col: 1, type: 'ability' },
+    { row: -2, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enfeeble',
+      type: EFFECT_TYPES.ENFEEBLE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'allEnfeebled' },
+      target: { type: TARGET_SELECTORS.ALL_ENFEEBLED },
     },
   },
 };
 
 export const shadowArtemis: CardDefinition = {
   id: 'shadow-artemis',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -1, col: -1, type: 'ability' },
-    { row: -1, col: 0, type: 'both' },
-    { row: -1, col: 1, type: 'ability' },
-    { row: 0, col: -1, type: 'both' },
-    { row: 0, col: 1, type: 'both' },
-    { row: 1, col: -1, type: 'ability' },
-    { row: 1, col: 0, type: 'both' },
-    { row: 1, col: 1, type: 'ability' },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: -1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enfeeble',
+      type: EFFECT_TYPES.ENFEEBLE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
 
 export const warriorOfManyArms: CardDefinition = {
   id: 'warrior-of-many-arms',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -2, col: -2, type: 'ability' },
-    { row: -2, col: 2, type: 'ability' },
-    { row: 2, col: -2, type: 'ability' },
-    { row: 2, col: 2, type: 'ability' },
+    { row: -2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enfeeble',
+      type: EFFECT_TYPES.ENFEEBLE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
 
 export const shadeCommander: CardDefinition = {
   id: 'shade-commander',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'both' },
-    { row: 1, col: 0, type: 'both' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'enhance',
+      type: EFFECT_TYPES.ENHANCE,
       value: 0,
       dynamicValue: 'replacedCardPower',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };

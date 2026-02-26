@@ -1,4 +1,5 @@
 import type { CardDefinition } from '../types.js';
+import { CARD_RANKS, RANGE_CELL_TYPES } from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 // ── Test Cards ─────────────────────────────────────────────────────────
@@ -7,7 +8,7 @@ export const r1Basic: CardDefinition = {
   id: 'r1-basic',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: -1, col: 0, type: 'pawn' }], // 1 cell forward (up)
+  rangePattern: [{ row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN }], // 1 cell forward (up)
 };
 
 export const r1Cross: CardDefinition = {
@@ -15,10 +16,10 @@ export const r1Cross: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -27,8 +28,8 @@ export const r1Forward2: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: -2, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -36,7 +37,7 @@ export const r2Basic: CardDefinition = {
   id: 'r2-basic',
   rank: 2,
   power: 5,
-  rangePattern: [{ row: -1, col: 0, type: 'pawn' }],
+  rangePattern: [{ row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN }],
 };
 
 export const r2Wide: CardDefinition = {
@@ -44,8 +45,8 @@ export const r2Wide: CardDefinition = {
   rank: 2,
   power: 4,
   rangePattern: [
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -54,10 +55,10 @@ export const r3Power: CardDefinition = {
   rank: 3,
   power: 8,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -72,19 +73,19 @@ export const r1AbilityCell: CardDefinition = {
   id: 'r1-ability-cell',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: -1, col: 0, type: 'ability' }],
+  rangePattern: [{ row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY }],
 };
 
 export const r1BothCell: CardDefinition = {
   id: 'r1-both-cell',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: -1, col: 0, type: 'both' }],
+  rangePattern: [{ row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH }],
 };
 
 export const replacement: CardDefinition = {
   id: 'replacement',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 6,
   rangePattern: [],
 };

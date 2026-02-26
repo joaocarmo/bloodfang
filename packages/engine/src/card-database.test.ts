@@ -5,7 +5,7 @@ import { getRank2Definitions } from './cards/rank2-cards.js';
 import { getRank3Definitions } from './cards/rank3-cards.js';
 import { getReplacementDefinitions } from './cards/replacement-cards.js';
 import { getGameTokenDefinitions } from './cards/game-tokens.js';
-import { ABILITY_TRIGGERS, TARGET_SELECTORS, EFFECT_TYPES } from './types.js';
+import { ABILITY_TRIGGERS, TARGET_SELECTORS, EFFECT_TYPES, RANGE_CELL_TYPES, CARD_RANKS } from './types.js';
 
 const allDefs = getAllGameDefinitions();
 const rank1 = getRank1Definitions();
@@ -79,12 +79,12 @@ describe('Card Database', () => {
 
   it('replacement cards all have rank "replacement"', () => {
     for (const def of Object.values(replacement)) {
-      expect(def.rank).toBe('replacement');
+      expect(def.rank).toBe(CARD_RANKS.REPLACEMENT);
     }
   });
 
   it('all range patterns have valid cell types', () => {
-    const validTypes = new Set(['pawn', 'ability', 'both']);
+    const validTypes = new Set([RANGE_CELL_TYPES.PAWN, RANGE_CELL_TYPES.ABILITY, RANGE_CELL_TYPES.BOTH]);
     for (const def of Object.values(allDefs)) {
       for (const cell of def.rangePattern) {
         expect(validTypes.has(cell.type)).toBe(true);
@@ -166,7 +166,7 @@ describe('Card Database', () => {
 
     it('whenPowerReachesN abilities have a threshold', () => {
       for (const def of Object.values(allDefs)) {
-        if (def.ability?.trigger === 'whenPowerReachesN') {
+        if (def.ability?.trigger === ABILITY_TRIGGERS.WHEN_POWER_REACHES_N) {
           expect(def.ability.threshold).toBeDefined();
           expect(def.ability.threshold).toBeGreaterThan(0);
         }

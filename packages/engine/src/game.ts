@@ -15,10 +15,12 @@ import type {
 import {
   BOARD_COLS,
   BOARD_ROWS,
+  CARD_RANKS,
   DECK_SIZE,
   GAME_EVENT_TYPES,
   GAME_PHASES,
   INITIAL_HAND_SIZE,
+  LOG_ACTION_TYPES,
   MAX_PAWN_COUNT,
   RANGE_CELL_TYPES,
   opponent,
@@ -106,7 +108,7 @@ function advanceTurn(state: GameState): GameState {
         hand: newHand,
       });
       players = updated;
-      log = appendLog(log, { type: 'drawCard', player: nextPlayer, cardId });
+      log = appendLog(log, { type: LOG_ACTION_TYPES.DRAW_CARD, player: nextPlayer, cardId });
     }
   }
 
@@ -161,10 +163,10 @@ export function createGame(
   // Build log
   let log: readonly GameAction[] = [];
   for (const cardId of hand0) {
-    log = appendLog(log, { type: 'drawCard', player: 0, cardId });
+    log = appendLog(log, { type: LOG_ACTION_TYPES.DRAW_CARD, player: 0, cardId });
   }
   for (const cardId of hand1) {
-    log = appendLog(log, { type: 'drawCard', player: 1, cardId });
+    log = appendLog(log, { type: LOG_ACTION_TYPES.DRAW_CARD, player: 1, cardId });
   }
 
   return {
@@ -224,7 +226,7 @@ export function mulligan(
 
   let log = state.log;
   log = appendLog(log, {
-    type: 'mulligan',
+    type: LOG_ACTION_TYPES.MULLIGAN,
     player,
     returnedCount: returnCount,
     drawnCount: drawnCards.length,
@@ -274,7 +276,7 @@ export function canPlayCard(state: GameState, cardId: string, position: Position
   const tile = requireTile(state.board, position);
   const def = getDefinition(state, cardId);
 
-  if (def.rank === 'replacement') {
+  if (def.rank === CARD_RANKS.REPLACEMENT) {
     // Replacement cards must target a tile with an allied card
     if (tile.owner !== player) return false;
     if (tile.cardInstanceId === null) return false;
@@ -364,7 +366,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
   let replacementDestroyed: { id: string; owner: PlayerId } | null = null;
 
   // Handle replacement card: destroy existing card first
-  if (def.rank === 'replacement') {
+  if (def.rank === CARD_RANKS.REPLACEMENT) {
     const tile = requireTile(state.board, position);
     const existingId = tile.cardInstanceId;
     if (existingId) {
@@ -400,7 +402,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
   });
 
   // Log placement
-  let log = appendLog(state.log, { type: 'placeCard', player, cardId, instanceId, position });
+  let log = appendLog(state.log, { type: LOG_ACTION_TYPES.PLACE_CARD, player, cardId, instanceId, position });
 
   // Resolve range pattern — pawn placement
   const pawnPositions = resolveRangePattern(def.rangePattern, position, player);
@@ -415,7 +417,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
           pawnCount: tile.pawnCount + 1,
           cardInstanceId: tile.cardInstanceId,
         });
-        log = appendLog(log, { type: 'placePawn', player, position: pawnPos });
+        log = appendLog(log, { type: LOG_ACTION_TYPES.PLACE_PAWN, player, position: pawnPos });
       }
     } else {
       // Opponent tile: capture — flip owner, pawnCount stays
@@ -424,7 +426,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
         pawnCount: tile.pawnCount,
         cardInstanceId: tile.cardInstanceId,
       });
-      log = appendLog(log, { type: 'capturePawn', player, position: pawnPos });
+      log = appendLog(log, { type: LOG_ACTION_TYPES.CAPTURE_PAWN, player, position: pawnPos });
     }
   }
 
@@ -481,7 +483,7 @@ export function pass(state: GameState): GameState {
   }
 
   const player = state.currentPlayerIndex;
-  let log = appendLog(state.log, { type: 'pass', player });
+  let log = appendLog(state.log, { type: LOG_ACTION_TYPES.PASS, player });
 
   const newConsecutivePasses = state.consecutivePasses + 1;
 

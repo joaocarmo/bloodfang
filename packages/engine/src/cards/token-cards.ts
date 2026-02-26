@@ -1,4 +1,5 @@
 import type { CardDefinition } from '../types.js';
+import { RANGE_CELL_TYPES } from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 // ── Token Cards ───────────────────────────────────────────────────────
@@ -23,7 +24,7 @@ export const rangedToken: CardDefinition = {
   id: 'token-ranged',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: -1, col: 0, type: 'pawn' }],
+  rangePattern: [{ row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN }],
   isToken: true,
 };
 

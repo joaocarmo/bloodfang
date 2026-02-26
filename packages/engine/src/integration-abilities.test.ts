@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { CardDefinition, GameState, PlayerId, Position } from './types.js';
-import { createSeededRng } from './types.js';
+import { createSeededRng, GAME_PHASES } from './types.js';
 import { createGame, mulligan, playCard, pass, destroyCard, getEffectivePower } from './game.js';
 import { recalculateContinuousEffects } from './abilities.js';
 import { calculateFinalScores } from './scoring.js';
@@ -455,7 +455,7 @@ describe('integration: endOfGame scoring', () => {
     state = lb.state;
 
     // End game
-    state = { ...state, phase: 'ended' as const };
+    state = { ...state, phase: GAME_PHASES.ENDED };
 
     const finalScores = calculateFinalScores(state);
 
@@ -478,7 +478,7 @@ describe('integration: endOfGame scoring', () => {
     const sr = injectCard(state, 'score-redistributor', { row: 0, col: 2 }, 0);
     state = sr.state;
 
-    state = { ...state, phase: 'ended' as const };
+    state = { ...state, phase: GAME_PHASES.ENDED };
 
     const finalScores = calculateFinalScores(state);
     // P0 wins lane 0: normally gets 5+1 = 6 (r2-basic 5 + redistributor 1)
@@ -575,7 +575,7 @@ describe('integration: full game flow with abilities', () => {
     // P0: pass → game ends
     state = pass(state);
 
-    expect(state.phase).toBe('ended');
+    expect(state.phase).toBe(GAME_PHASES.ENDED);
     const scores = calculateFinalScores(state);
     // Game should produce valid scores
     expect(scores[0]).toBeGreaterThanOrEqual(0);

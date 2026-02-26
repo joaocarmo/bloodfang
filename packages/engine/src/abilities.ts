@@ -16,6 +16,7 @@ import {
   BOARD_COLS,
   EFFECT_TYPES,
   GAME_EVENT_TYPES,
+  LOG_ACTION_TYPES,
   RANGE_CELL_TYPES,
 } from './types.js';
 import { isValidPosition } from './board.js';
@@ -515,7 +516,7 @@ function executeTriggers(
         log: [
           ...currentState.log,
           {
-            type: 'abilityTrigger' as const,
+            type: LOG_ACTION_TYPES.ABILITY_TRIGGER,
             instanceId: trigger.instanceId,
             abilityTrigger: ability.trigger,
           },
@@ -569,7 +570,7 @@ function executeTriggers(
       log: [
         ...currentState.log,
         {
-          type: 'abilityTrigger' as const,
+          type: LOG_ACTION_TYPES.ABILITY_TRIGGER,
           instanceId: trigger.instanceId,
           abilityTrigger: ability.trigger,
         },

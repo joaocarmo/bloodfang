@@ -50,6 +50,8 @@ export {
   GAME_EVENT_TYPES,
   GAME_PHASES,
   EFFECT_TYPES,
+  LOG_ACTION_TYPES,
+  CARD_RANKS,
   opponent,
   createSeededRng,
 } from './types.js';

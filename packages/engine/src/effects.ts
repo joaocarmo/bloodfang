@@ -6,7 +6,7 @@ import type {
   PlayerId,
   Position,
 } from './types.js';
-import { EFFECT_TYPES, GAME_EVENT_TYPES, MAX_PAWN_COUNT } from './types.js';
+import { EFFECT_TYPES, GAME_EVENT_TYPES, LOG_ACTION_TYPES, MAX_PAWN_COUNT } from './types.js';
 import { getTile, setTile } from './board.js';
 
 // ── Effect Result ─────────────────────────────────────────────────────
@@ -38,7 +38,7 @@ export function internalDestroyCard(state: GameState, instanceId: string): GameS
     (m) => m.sourceInstanceId !== instanceId && m.targetInstanceId !== instanceId,
   );
 
-  const log = [...state.log, { type: 'destroyCard' as const, instanceId, position: pos }];
+  const log = [...state.log, { type: LOG_ACTION_TYPES.DESTROY_CARD, instanceId, position: pos }];
 
   return {
     ...state,
@@ -64,11 +64,11 @@ function applyPowerModifier(
   sourceInstanceId: string,
   targetInstanceIds: readonly string[],
   value: number,
-  type: 'enhance' | 'enfeeble',
+  type: typeof LOG_ACTION_TYPES.ENHANCE | typeof LOG_ACTION_TYPES.ENFEEBLE,
 ): EffectResult {
-  const sign = type === 'enhance' ? 1 : -1;
+  const sign = type === LOG_ACTION_TYPES.ENHANCE ? 1 : -1;
   const eventType =
-    type === 'enhance' ? GAME_EVENT_TYPES.CARD_ENHANCED : GAME_EVENT_TYPES.CARD_ENFEEBLED;
+    type === LOG_ACTION_TYPES.ENHANCE ? GAME_EVENT_TYPES.CARD_ENHANCED : GAME_EVENT_TYPES.CARD_ENFEEBLED;
   let currentState = state;
   const events: GameEvent[] = [];
 
@@ -107,7 +107,7 @@ export function applyEnhance(
   targetInstanceIds: readonly string[],
   value: number,
 ): EffectResult {
-  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, 'enhance');
+  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, LOG_ACTION_TYPES.ENHANCE);
 }
 
 export function applyEnfeeble(
@@ -116,7 +116,7 @@ export function applyEnfeeble(
   targetInstanceIds: readonly string[],
   value: number,
 ): EffectResult {
-  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, 'enfeeble');
+  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, LOG_ACTION_TYPES.ENFEEBLE);
 }
 
 export function applyDestroy(
@@ -172,7 +172,7 @@ export function applyAddCardToHand(
       log: [
         ...currentState.log,
         {
-          type: 'addCardToHand' as const,
+          type: LOG_ACTION_TYPES.ADD_CARD_TO_HAND,
           player: sourceOwner,
           cardId,
         },
@@ -226,7 +226,7 @@ export function applySpawnCard(
       log: [
         ...currentState.log,
         {
-          type: 'spawnCard' as const,
+          type: LOG_ACTION_TYPES.SPAWN_CARD,
           instanceId,
           definitionId: tokenDefinitionId,
           position: pos,
@@ -269,7 +269,7 @@ export function applyPositionRankManip(
       log: [
         ...currentState.log,
         {
-          type: 'pawnBonus' as const,
+          type: LOG_ACTION_TYPES.PAWN_BONUS,
           player: sourceOwner,
           position: pos,
           bonusPawns: newPawnCount - tile.pawnCount,

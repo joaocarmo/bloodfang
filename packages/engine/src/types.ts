@@ -24,6 +24,7 @@ export interface RangeCell {
   readonly type: RangeCellType;
 }
 
+export const CARD_RANKS = { REPLACEMENT: 'replacement' } as const;
 export type CardRank = 1 | 2 | 3 | 'replacement';
 
 // ── Ability System ────────────────────────────────────────────────────
@@ -241,6 +242,23 @@ export const GAME_PHASES = { MULLIGAN: 'mulligan', PLAYING: 'playing', ENDED: 'e
 export type GamePhase = (typeof GAME_PHASES)[keyof typeof GAME_PHASES];
 
 // ── Action Log ─────────────────────────────────────────────────────────
+
+export const LOG_ACTION_TYPES = {
+  DRAW_CARD: 'drawCard',
+  PLACE_CARD: 'placeCard',
+  PLACE_PAWN: 'placePawn',
+  CAPTURE_PAWN: 'capturePawn',
+  DESTROY_CARD: 'destroyCard',
+  PASS: 'pass',
+  MULLIGAN: 'mulligan',
+  GAME_END: 'gameEnd',
+  ABILITY_TRIGGER: 'abilityTrigger',
+  ENHANCE: 'enhance',
+  ENFEEBLE: 'enfeeble',
+  SPAWN_CARD: 'spawnCard',
+  ADD_CARD_TO_HAND: 'addCardToHand',
+  PAWN_BONUS: 'pawnBonus',
+} as const;
 
 export type GameAction =
   | { readonly type: 'drawCard'; readonly player: PlayerId; readonly cardId: string }

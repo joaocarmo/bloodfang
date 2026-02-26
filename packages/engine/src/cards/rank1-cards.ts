@@ -1,4 +1,5 @@
 import type { CardDefinition } from '../types.js';
+import { ABILITY_TRIGGERS, EFFECT_TYPES, RANGE_CELL_TYPES, TARGET_SELECTORS } from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 export const hopliteGuard: CardDefinition = {
@@ -6,10 +7,10 @@ export const hopliteGuard: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -18,8 +19,8 @@ export const sirenQueen: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -2, col: 0, type: 'pawn' },
-    { row: 2, col: 0, type: 'pawn' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -28,8 +29,8 @@ export const swiftHare: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -38,8 +39,8 @@ export const arcadianWolf: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -48,12 +49,12 @@ export const dryadSeedling: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'nymph-sprout', count: 1 },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'nymph-sprout', count: 1 },
   },
 };
 
@@ -62,13 +63,17 @@ export const goldenBramble: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 2, col: 1, type: 'ability' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -77,13 +82,17 @@ export const crystalKarkinos: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'both' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -92,9 +101,9 @@ export const amorphousOoze: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -1, col: -1, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 1, col: -1, type: 'pawn' },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -103,10 +112,10 @@ export const myrmexCrawler: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -1, col: -1, type: 'pawn' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 1, col: -1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -115,13 +124,17 @@ export const ancientDrakon: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: -1, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'both' },
-    { row: 1, col: -1, type: 'pawn' },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -130,12 +143,16 @@ export const chariotOfAres: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -2, col: 2, type: 'ability' },
-    { row: 2, col: 2, type: 'ability' },
+    { row: -2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -144,10 +161,10 @@ export const pegasusScout: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: -2, col: -2, type: 'pawn' },
-    { row: -1, col: -1, type: 'pawn' },
-    { row: 1, col: -1, type: 'pawn' },
-    { row: 2, col: -2, type: 'pawn' },
+    { row: -2, col: -2, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: -2, type: RANGE_CELL_TYPES.PAWN },
   ],
 };
 
@@ -156,12 +173,16 @@ export const emberSalamander: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: 1, type: 'both' },
-    { row: 2, col: 0, type: 'both' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -170,13 +191,17 @@ export const copperAutomaton: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: -1, col: 0, type: 'both' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'both' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 1, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -185,14 +210,18 @@ export const allSeeingEye: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -2, col: 0, type: 'pawn' },
-    { row: -1, col: 0, type: 'ability' },
-    { row: 1, col: 0, type: 'ability' },
-    { row: 2, col: 0, type: 'pawn' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 1, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -201,15 +230,19 @@ export const pyroclastSoldier: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: -1, col: -1, type: 'both' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'both' },
-    { row: 1, col: -1, type: 'both' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.BOTH },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'enfeeble', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -218,13 +251,17 @@ export const athenasOwl: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'both' },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -233,12 +270,16 @@ export const sandGorgon: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'both' },
-    { row: 0, col: 1, type: 'both' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'enhance', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -247,13 +288,17 @@ export const resilientPolyp: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 0, col: 2, type: 'ability' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'enfeeble', value: 4, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 4,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -262,14 +307,14 @@ export const heatGolem: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'heat-fragment', count: 1 },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'heat-fragment', count: 1 },
   },
 };
 
@@ -278,12 +323,12 @@ export const stygianClaw: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenEnemyDestroyed',
-    effect: { type: 'enhance', value: 1, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ENEMY_DESTROYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -292,13 +337,17 @@ export const twinSerpent: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -2, col: 0, type: 'both' },
-    { row: -1, col: 0, type: 'ability' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenFirstEnhanced',
-    effect: { type: 'enhance', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -307,22 +356,26 @@ export const narcissusTrap: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -2, col: -2, type: 'ability' },
-    { row: -2, col: 0, type: 'ability' },
-    { row: -2, col: 2, type: 'ability' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -2, type: 'ability' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 0, col: 2, type: 'ability' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 2, col: -2, type: 'ability' },
-    { row: 2, col: 0, type: 'ability' },
-    { row: 2, col: 2, type: 'ability' },
+    { row: -2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -331,12 +384,16 @@ export const proteanMass: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'reformed-protean', count: 1 },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: {
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
+      tokenDefinitionId: 'reformed-protean',
+      count: 1,
+    },
   },
 };
 
@@ -345,13 +402,13 @@ export const carrionHarpy: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenAlliedDestroyed',
-    effect: { type: 'enhance', value: 1, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ALLIED_DESTROYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -360,14 +417,18 @@ export const scorpionOfArtemis: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: -2, col: 1, type: 'ability' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: -1, col: 1, type: 'ability' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -2, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenFirstEnfeebled',
-    effect: { type: 'enfeeble', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -376,12 +437,16 @@ export const desertTriton: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'both' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whenFirstEnfeebled',
-    effect: { type: 'enhance', value: 4, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 4,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -389,10 +454,14 @@ export const marbleColossus: CardDefinition = {
   id: 'marble-colossus',
   rank: 1,
   power: 4,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
-    trigger: 'whenFirstEnhanced',
-    effect: { type: 'enfeeble', value: 4, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 4,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -401,12 +470,16 @@ export const twinHeadedOracle: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -2, col: 0, type: 'pawn' },
-    { row: 2, col: 0, type: 'pawn' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'positionRankManip', bonusPawns: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.POSITION_RANK_MANIP,
+      bonusPawns: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -415,14 +488,18 @@ export const nyxWing: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -1, col: 0, type: 'both' },
-    { row: 0, col: -1, type: 'both' },
-    { row: 0, col: 1, type: 'both' },
-    { row: 1, col: 0, type: 'both' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 1, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -431,17 +508,21 @@ export const cerberusHound: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -2, col: 1, type: 'ability' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: -1, col: 1, type: 'ability' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'both' },
-    { row: 1, col: 1, type: 'ability' },
-    { row: 2, col: 1, type: 'ability' },
+    { row: -2, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH },
+    { row: 1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'enfeeble', value: 1, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -450,13 +531,17 @@ export const ghastlyShade: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'allEnfeebled' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.ALL_ENFEEBLED },
+    },
   },
 };
 
@@ -465,13 +550,17 @@ export const eliteMyrmidon: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -2, col: 0, type: 'both' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 2, col: 0, type: 'both' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.BOTH },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.BOTH },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -480,18 +569,22 @@ export const hundredEyedArgus: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -2, col: -2, type: 'ability' },
-    { row: -2, col: 0, type: 'ability' },
-    { row: -2, col: 2, type: 'ability' },
-    { row: 0, col: -2, type: 'ability' },
-    { row: 0, col: 2, type: 'ability' },
-    { row: 2, col: -2, type: 'ability' },
-    { row: 2, col: 0, type: 'ability' },
-    { row: 2, col: 2, type: 'ability' },
+    { row: -2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'enhance', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -500,18 +593,22 @@ export const phantomWraith: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: -1, type: 'ability' },
-    { row: -1, col: 0, type: 'ability' },
-    { row: -1, col: 1, type: 'ability' },
-    { row: 0, col: -1, type: 'ability' },
-    { row: 0, col: 1, type: 'ability' },
-    { row: 1, col: -1, type: 'ability' },
-    { row: 1, col: 0, type: 'ability' },
-    { row: 1, col: 1, type: 'ability' },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 1, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -520,13 +617,13 @@ export const amazonStriker: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 2, col: 0, type: 'pawn' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'endOfGame',
-    effect: { type: 'enhance', value: 5, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.END_OF_GAME,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 5, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -535,20 +632,24 @@ export const flameOfPrometheus: CardDefinition = {
   rank: 1,
   power: 3,
   rangePattern: [
-    { row: -2, col: -2, type: 'ability' },
-    { row: -2, col: 0, type: 'ability' },
-    { row: -2, col: 2, type: 'ability' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -2, type: 'ability' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 0, col: 2, type: 'ability' },
-    { row: 2, col: -2, type: 'ability' },
-    { row: 2, col: 0, type: 'ability' },
-    { row: 2, col: 2, type: 'ability' },
+    { row: -2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: -2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 2, col: 2, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenFirstEnfeebled',
-    effect: { type: 'enfeeble', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -557,13 +658,13 @@ export const fortuneSphinx: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'battle-sprite', count: 1 },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'battle-sprite', count: 1 },
   },
 };
 
@@ -572,12 +673,12 @@ export const daedalusPilot: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -2, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'daedalus-glider', count: 1 },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'daedalus-glider', count: 1 },
   },
 };
 
@@ -586,13 +687,13 @@ export const lycaonCursed: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'lycaon-beast', count: 1 },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'lycaon-beast', count: 1 },
   },
 };
 
@@ -601,13 +702,17 @@ export const gryphonAndSprite: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'allAlliedEnhanced' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.ALL_ALLIED_ENHANCED },
+    },
   },
 };
 
@@ -616,12 +721,12 @@ export const goldenGryphon: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'endOfGame',
-    effect: { type: 'enhance', value: 3, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.END_OF_GAME,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 3, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -630,14 +735,18 @@ export const swiftBlade: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: -1, type: 'ability' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 2, col: 0, type: 'ability' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enfeeble', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -646,14 +755,18 @@ export const ironFist: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -2, col: 0, type: 'ability' },
-    { row: -1, col: -1, type: 'ability' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -661,10 +774,14 @@ export const silentDagger: CardDefinition = {
   id: 'silent-dagger',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'both' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH }],
   ability: {
-    trigger: 'whenFirstEnhanced',
-    effect: { type: 'enfeeble', value: 99, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED,
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 99,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -673,14 +790,18 @@ export const shadowCommander: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 0, col: 2, type: 'ability' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenFirstEnhanced',
-    effect: { type: 'enhance', value: 4, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 4,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -689,13 +810,17 @@ export const starVoyager: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: -2, col: 0, type: 'pawn' },
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
+    { row: -2, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'allEnemyEnhanced' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.ALL_ENEMY_ENHANCED },
+    },
   },
 };
 
@@ -704,16 +829,20 @@ export const houseOfHades: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: -1, col: 1, type: 'ability' },
-    { row: -1, col: 2, type: 'ability' },
-    { row: 1, col: 0, type: 'pawn' },
-    { row: 1, col: 1, type: 'ability' },
-    { row: 1, col: 2, type: 'ability' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: -1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 2, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 2, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -722,18 +851,22 @@ export const tragicMuse: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: -1, type: 'ability' },
-    { row: -1, col: 0, type: 'ability' },
-    { row: -1, col: 1, type: 'ability' },
-    { row: 0, col: -1, type: 'ability' },
-    { row: 0, col: 1, type: 'ability' },
-    { row: 1, col: -1, type: 'ability' },
-    { row: 1, col: 0, type: 'ability' },
-    { row: 1, col: 1, type: 'ability' },
+    { row: -1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: -1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: -1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 1, col: 1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -742,14 +875,14 @@ export const dionysusReveler: CardDefinition = {
   rank: 1,
   power: 1,
   rangePattern: [
-    { row: -1, col: 0, type: 'pawn' },
-    { row: 0, col: -1, type: 'pawn' },
-    { row: 0, col: 1, type: 'pawn' },
-    { row: 1, col: 0, type: 'pawn' },
+    { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
+    { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
   ],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'scoreRedistribution' },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.SCORE_REDISTRIBUTION },
   },
 };
 

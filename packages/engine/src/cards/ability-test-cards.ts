@@ -1,4 +1,11 @@
 import type { CardDefinition } from '../types.js';
+import {
+  ABILITY_TRIGGERS,
+  CARD_RANKS,
+  EFFECT_TYPES,
+  RANGE_CELL_TYPES,
+  TARGET_SELECTORS,
+} from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 // ── Ability Test Cards ────────────────────────────────────────────────
@@ -8,10 +15,10 @@ export const enhancerOnPlay: CardDefinition = {
   id: 'enhancer-on-play',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
   },
 };
 
@@ -20,10 +27,10 @@ export const enfeebleOnPlay: CardDefinition = {
   id: 'enfeeble-on-play',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 3, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 3, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
   },
 };
 
@@ -32,10 +39,10 @@ export const destroyerOnPlay: CardDefinition = {
   id: 'destroyer-on-play',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'destroy', target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.DESTROY, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
   },
 };
 
@@ -45,12 +52,12 @@ export const auraBuffer: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: 0, col: 1, type: 'ability' },
-    { row: 0, col: -1, type: 'ability' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whileInPlay',
-    effect: { type: 'enhance', value: 1, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
   },
 };
 
@@ -61,8 +68,8 @@ export const deathCurse: CardDefinition = {
   power: 2,
   rangePattern: [],
   ability: {
-    trigger: 'whenDestroyed',
-    effect: { type: 'enfeeble', value: 2, target: { type: 'allEnemyInLane' } },
+    trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
+    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 2, target: { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE } },
   },
 };
 
@@ -73,8 +80,8 @@ export const avenger: CardDefinition = {
   power: 3,
   rangePattern: [],
   ability: {
-    trigger: 'whenAlliedDestroyed',
-    effect: { type: 'enhance', value: 2, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ALLIED_DESTROYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -85,8 +92,8 @@ export const predator: CardDefinition = {
   power: 3,
   rangePattern: [],
   ability: {
-    trigger: 'whenEnemyDestroyed',
-    effect: { type: 'enhance', value: 3, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ENEMY_DESTROYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 3, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -97,8 +104,8 @@ export const scavenger: CardDefinition = {
   power: 3,
   rangePattern: [],
   ability: {
-    trigger: 'whenAnyDestroyed',
-    effect: { type: 'enhance', value: 1, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ANY_DESTROYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -109,8 +116,8 @@ export const resilient: CardDefinition = {
   power: 4,
   rangePattern: [],
   ability: {
-    trigger: 'whenFirstEnfeebled',
-    effect: { type: 'enhance', value: 3, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 3, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -121,8 +128,8 @@ export const inspirer: CardDefinition = {
   power: 2,
   rangePattern: [],
   ability: {
-    trigger: 'whenFirstEnhanced',
-    effect: { type: 'enhance', value: 1, target: { type: 'allAlliedInLane' } },
+    trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.ALL_ALLIED_IN_LANE } },
   },
 };
 
@@ -133,8 +140,8 @@ export const threshold5Destroyer: CardDefinition = {
   power: 3,
   rangePattern: [],
   ability: {
-    trigger: 'whenPowerReachesN',
-    effect: { type: 'destroy', target: { type: 'allEnemyInLane' } },
+    trigger: ABILITY_TRIGGERS.WHEN_POWER_REACHES_N,
+    effect: { type: EFFECT_TYPES.DESTROY, target: { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE } },
     threshold: 5,
   },
 };
@@ -146,8 +153,8 @@ export const armyScaler: CardDefinition = {
   power: 1,
   rangePattern: [],
   ability: {
-    trigger: 'scaling',
-    effect: { type: 'selfPowerScaling', condition: { type: 'alliedCardsInLane' }, valuePerUnit: 2 },
+    trigger: ABILITY_TRIGGERS.SCALING,
+    effect: { type: EFFECT_TYPES.SELF_POWER_SCALING, condition: { type: 'alliedCardsInLane' }, valuePerUnit: 2 },
   },
 };
 
@@ -158,8 +165,8 @@ export const laneBonus: CardDefinition = {
   power: 1,
   rangePattern: [],
   ability: {
-    trigger: 'endOfGame',
-    effect: { type: 'laneScoreBonus', value: 5 },
+    trigger: ABILITY_TRIGGERS.END_OF_GAME,
+    effect: { type: EFFECT_TYPES.LANE_SCORE_BONUS, value: 5 },
   },
 };
 
@@ -170,8 +177,8 @@ export const handGenerator: CardDefinition = {
   power: 1,
   rangePattern: [],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'addCardToHand', tokenDefinitionId: 'token-basic', count: 2 },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'token-basic', count: 2 },
   },
 };
 
@@ -180,13 +187,13 @@ export const spawner: CardDefinition = {
   id: 'spawner',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'spawnCard',
+      type: EFFECT_TYPES.SPAWN_CARD,
       tokenDefinitionId: 'token-basic',
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
@@ -196,10 +203,10 @@ export const rankBooster: CardDefinition = {
   id: 'rank-booster',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'positionRankManip', bonusPawns: 2, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.POSITION_RANK_MANIP, bonusPawns: 2, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
   },
 };
 
@@ -210,8 +217,8 @@ export const scoreRedistributor: CardDefinition = {
   power: 1,
   rangePattern: [],
   ability: {
-    trigger: 'endOfGame',
-    effect: { type: 'scoreRedistribution' },
+    trigger: ABILITY_TRIGGERS.END_OF_GAME,
+    effect: { type: EFFECT_TYPES.SCORE_REDISTRIBUTION },
   },
 };
 
@@ -221,16 +228,16 @@ export const dualAura: CardDefinition = {
   rank: 1,
   power: 2,
   rangePattern: [
-    { row: 0, col: 1, type: 'ability' },
-    { row: 0, col: -1, type: 'ability' },
+    { row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY },
+    { row: 0, col: -1, type: RANGE_CELL_TYPES.ABILITY },
   ],
   ability: {
-    trigger: 'whileInPlay',
+    trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
     effect: {
-      type: 'dualTargetBuff',
+      type: EFFECT_TYPES.DUAL_TARGET_BUFF,
       alliedValue: 1,
       enemyValue: -1,
-      target: { type: 'rangePattern' },
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
 };
@@ -240,10 +247,10 @@ export const chainKiller: CardDefinition = {
   id: 'chain-killer',
   rank: 1,
   power: 2,
-  rangePattern: [{ row: 0, col: 1, type: 'ability' }],
+  rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 5, target: { type: 'rangePattern' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 5, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
   },
 };
 
@@ -254,8 +261,8 @@ export const cascadeGrower: CardDefinition = {
   power: 2,
   rangePattern: [],
   ability: {
-    trigger: 'whenAnyDestroyed',
-    effect: { type: 'enhance', value: 2, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ANY_DESTROYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -266,8 +273,8 @@ export const allyWatcher: CardDefinition = {
   power: 2,
   rangePattern: [],
   ability: {
-    trigger: 'whenAlliedPlayed',
-    effect: { type: 'enhance', value: 1, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ALLIED_PLAYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -278,8 +285,8 @@ export const enemyWatcher: CardDefinition = {
   power: 2,
   rangePattern: [],
   ability: {
-    trigger: 'whenEnemyPlayed',
-    effect: { type: 'enhance', value: 2, target: { type: 'self' } },
+    trigger: ABILITY_TRIGGERS.WHEN_ENEMY_PLAYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.SELF } },
   },
 };
 
@@ -290,8 +297,8 @@ export const enfeebledHunter: CardDefinition = {
   power: 2,
   rangePattern: [],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enfeeble', value: 2, target: { type: 'allEnemyEnfeebled' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 2, target: { type: TARGET_SELECTORS.ALL_ENEMY_ENFEEBLED } },
   },
 };
 
@@ -302,20 +309,20 @@ export const enhancedBooster: CardDefinition = {
   power: 2,
   rangePattern: [],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 2, target: { type: 'allAlliedEnhanced' } },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.ALL_ALLIED_ENHANCED } },
   },
 };
 
 /** replacement card with dynamicValue: enhance self by replaced card's power */
 export const replacementDynamic: CardDefinition = {
   id: 'replacement-dynamic',
-  rank: 'replacement',
+  rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [],
   ability: {
-    trigger: 'whenPlayed',
-    effect: { type: 'enhance', value: 0, target: { type: 'self' }, dynamicValue: 'replacedCardPower' },
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
+    effect: { type: EFFECT_TYPES.ENHANCE, value: 0, target: { type: TARGET_SELECTORS.SELF }, dynamicValue: 'replacedCardPower' },
   },
 };
 
@@ -326,9 +333,9 @@ export const multiTokenGenerator: CardDefinition = {
   power: 1,
   rangePattern: [],
   ability: {
-    trigger: 'whenPlayed',
+    trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
-      type: 'addCardToHand',
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
       tokenDefinitionId: 'token-basic',
       count: 1,
       additionalTokens: [{ tokenDefinitionId: 'token-strong', count: 1 }],

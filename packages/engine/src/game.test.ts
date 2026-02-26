@@ -10,7 +10,7 @@ import {
   getEffectivePower,
   resolveRangePattern,
 } from './game.js';
-import { createSeededRng, DECK_SIZE, INITIAL_HAND_SIZE } from './types.js';
+import { createSeededRng, DECK_SIZE, INITIAL_HAND_SIZE, GAME_PHASES, LOG_ACTION_TYPES, RANGE_CELL_TYPES } from './types.js';
 import type { GameState, PlayerId } from './types.js';
 import { buildTestDeck, getAllTestDefinitions } from './cards/test-cards.js';
 
@@ -38,7 +38,7 @@ function skipMulligan(state: GameState, rng?: () => number): GameState {
 describe('createGame', () => {
   it('creates a game in mulligan phase', () => {
     const state = createTestGame();
-    expect(state.phase).toBe('mulligan');
+    expect(state.phase).toBe(GAME_PHASES.MULLIGAN);
     expect(state.turnNumber).toBe(0);
   });
 
@@ -56,7 +56,7 @@ describe('createGame', () => {
 
   it('logs draw actions for all initial cards', () => {
     const state = createTestGame();
-    const drawActions = state.log.filter((a) => a.type === 'drawCard');
+    const drawActions = state.log.filter((a) => a.type === LOG_ACTION_TYPES.DRAW_CARD);
     expect(drawActions).toHaveLength(INITIAL_HAND_SIZE * 2);
   });
 
@@ -123,9 +123,9 @@ describe('mulligan', () => {
   it('transitions to playing when both players mulligan', () => {
     const state = createTestGame();
     const s1 = mulligan(state, 0, [], seedRng());
-    expect(s1.phase).toBe('mulligan');
+    expect(s1.phase).toBe(GAME_PHASES.MULLIGAN);
     const s2 = mulligan(s1, 1, [], seedRng());
-    expect(s2.phase).toBe('playing');
+    expect(s2.phase).toBe(GAME_PHASES.PLAYING);
     expect(s2.turnNumber).toBe(1);
   });
 
@@ -150,10 +150,10 @@ describe('mulligan', () => {
     const state = createTestGame();
     const hand = state.players[0].hand;
     const result = mulligan(state, 0, [hand[0]!], seedRng());
-    const mulliganActions = result.log.filter((a) => a.type === 'mulligan');
+    const mulliganActions = result.log.filter((a) => a.type === LOG_ACTION_TYPES.MULLIGAN);
     expect(mulliganActions).toHaveLength(1);
     expect(mulliganActions[0]).toMatchObject({
-      type: 'mulligan',
+      type: LOG_ACTION_TYPES.MULLIGAN,
       player: 0,
       returnedCount: 1,
       drawnCount: 1,
@@ -172,9 +172,9 @@ describe('mulligan', () => {
   it('can mulligan in any order', () => {
     const state = createTestGame();
     const s1 = mulligan(state, 1, [], seedRng());
-    expect(s1.phase).toBe('mulligan');
+    expect(s1.phase).toBe(GAME_PHASES.MULLIGAN);
     const s2 = mulligan(s1, 0, [], seedRng());
-    expect(s2.phase).toBe('playing');
+    expect(s2.phase).toBe(GAME_PHASES.PLAYING);
   });
 });
 
@@ -306,25 +306,25 @@ describe('getValidMoves', () => {
 
 describe('resolveRangePattern', () => {
   it('returns positions for pawn cells', () => {
-    const pattern = [{ row: -1, col: 0, type: 'pawn' as const }];
+    const pattern = [{ row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN }];
     const result = resolveRangePattern(pattern, { row: 1, col: 2 }, 0);
     expect(result).toEqual([{ row: 0, col: 2 }]);
   });
 
   it('skips ability-only cells', () => {
-    const pattern = [{ row: -1, col: 0, type: 'ability' as const }];
+    const pattern = [{ row: -1, col: 0, type: RANGE_CELL_TYPES.ABILITY }];
     const result = resolveRangePattern(pattern, { row: 1, col: 2 }, 0);
     expect(result).toEqual([]);
   });
 
   it('includes both cells', () => {
-    const pattern = [{ row: -1, col: 0, type: 'both' as const }];
+    const pattern = [{ row: -1, col: 0, type: RANGE_CELL_TYPES.BOTH }];
     const result = resolveRangePattern(pattern, { row: 1, col: 2 }, 0);
     expect(result).toEqual([{ row: 0, col: 2 }]);
   });
 
   it('mirrors column for player 1', () => {
-    const pattern = [{ row: 0, col: 1, type: 'pawn' as const }];
+    const pattern = [{ row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN }];
     // P0: col + 1
     expect(resolveRangePattern(pattern, { row: 1, col: 2 }, 0)).toEqual([{ row: 1, col: 3 }]);
     // P1: col - 1
@@ -332,24 +332,24 @@ describe('resolveRangePattern', () => {
   });
 
   it('does not mirror row offset', () => {
-    const pattern = [{ row: -1, col: 0, type: 'pawn' as const }];
+    const pattern = [{ row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN }];
     // Both players: row - 1
     expect(resolveRangePattern(pattern, { row: 2, col: 2 }, 0)).toEqual([{ row: 1, col: 2 }]);
     expect(resolveRangePattern(pattern, { row: 2, col: 2 }, 1)).toEqual([{ row: 1, col: 2 }]);
   });
 
   it('filters out-of-bounds positions', () => {
-    const pattern = [{ row: -1, col: 0, type: 'pawn' as const }];
+    const pattern = [{ row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN }];
     // Row 0 - 1 = -1 (out of bounds)
     expect(resolveRangePattern(pattern, { row: 0, col: 0 }, 0)).toEqual([]);
   });
 
   it('handles cross pattern', () => {
     const pattern = [
-      { row: -1, col: 0, type: 'pawn' as const },
-      { row: 1, col: 0, type: 'pawn' as const },
-      { row: 0, col: -1, type: 'pawn' as const },
-      { row: 0, col: 1, type: 'pawn' as const },
+      { row: -1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+      { row: 1, col: 0, type: RANGE_CELL_TYPES.PAWN },
+      { row: 0, col: -1, type: RANGE_CELL_TYPES.PAWN },
+      { row: 0, col: 1, type: RANGE_CELL_TYPES.PAWN },
     ];
     const result = resolveRangePattern(pattern, { row: 1, col: 2 }, 0);
     expect(result).toHaveLength(4);
@@ -450,11 +450,11 @@ describe('playCard', () => {
     const state = skipMulligan(createTestGame());
     const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
-    const placeActions = result.log.filter((a) => a.type === 'placeCard');
+    const placeActions = result.log.filter((a) => a.type === LOG_ACTION_TYPES.PLACE_CARD);
     expect(placeActions.length).toBeGreaterThanOrEqual(1);
     const last = placeActions[placeActions.length - 1]!;
     expect(last).toMatchObject({
-      type: 'placeCard',
+      type: LOG_ACTION_TYPES.PLACE_CARD,
       player: 0,
       cardId: rank1Card,
       position: { row: 0, col: 0 },
@@ -525,16 +525,16 @@ describe('pass', () => {
     let state = skipMulligan(createTestGame());
     state = pass(state); // P0 passes
     state = pass(state); // P1 passes
-    expect(state.phase).toBe('ended');
+    expect(state.phase).toBe(GAME_PHASES.ENDED);
     expect(state.consecutivePasses).toBe(2);
   });
 
   it('logs pass action', () => {
     const state = skipMulligan(createTestGame());
     const result = pass(state);
-    const passActions = result.log.filter((a) => a.type === 'pass');
+    const passActions = result.log.filter((a) => a.type === LOG_ACTION_TYPES.PASS);
     expect(passActions).toHaveLength(1);
-    expect(passActions[0]).toMatchObject({ type: 'pass', player: 0 });
+    expect(passActions[0]).toMatchObject({ type: LOG_ACTION_TYPES.PASS, player: 0 });
   });
 
   it('resets consecutive passes when a card is played between', () => {
@@ -550,7 +550,7 @@ describe('pass', () => {
     // P0 passes again
     state = pass(state);
     expect(state.consecutivePasses).toBe(1);
-    expect(state.phase).toBe('playing');
+    expect(state.phase).toBe(GAME_PHASES.PLAYING);
   });
 
   it('throws if not in playing phase', () => {
@@ -630,11 +630,11 @@ describe('destroyCard', () => {
     const instanceId = tile.cardInstanceId!;
 
     const result = destroyCard(state, instanceId);
-    const destroyActions = result.log.filter((a) => a.type === 'destroyCard');
+    const destroyActions = result.log.filter((a) => a.type === LOG_ACTION_TYPES.DESTROY_CARD);
     expect(destroyActions.length).toBeGreaterThanOrEqual(1);
     const last = destroyActions[destroyActions.length - 1]!;
     expect(last).toMatchObject({
-      type: 'destroyCard',
+      type: LOG_ACTION_TYPES.DESTROY_CARD,
       instanceId,
       position: { row: 0, col: 0 },
     });
