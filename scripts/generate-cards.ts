@@ -2,7 +2,7 @@
 /**
  * Card Database Generator
  *
- * Parses expected_ranges.json (range patterns) and seeds.rb (stats + abilities),
+ * Parses expected_ranges.json (range patterns) and seeds.json (stats + abilities),
  * cross-references with card-mapping.json (Greek mythology names), and generates
  * typed CardDefinition files for the engine.
  *
@@ -114,87 +114,10 @@ function parseExpectedRanges(): Record<string, { name: string; rangePattern: Ran
   return result;
 }
 
-// ── Step 2: Parse seeds.rb ─────────────────────────────────────────────
+// ── Step 2: Load seeds.json ──────────────────────────────────────────────
 
-function parseSeedsRb(): SeedsCard[] {
-  const content = readFileSync(resolve(DATA, 'seeds.rb'), 'utf-8');
-  const cards: SeedsCard[] = [];
-
-  // Match Card.create! blocks
-  const cardRegex =
-    /card\s*=\s*(?:Card|ReplacementCard)\.create!\(\{(.+?)\}\)([\s\S]*?)(?=(?:card\s*=)|$)/g;
-  // Actually, let's split by "card = " to get blocks
-  const blocks = content.split(/^card\s*=\s*/m).filter((b) => b.trim().length > 0);
-
-  for (const block of blocks) {
-    // Parse the Card.create! line
-    const createMatch = block.match(
-      /(?:Card|ReplacementCard)\.create!\(\{(.+?)\}\)/,
-    );
-    if (!createMatch) continue;
-
-    const attrs = createMatch[1]!;
-
-    const nameMatch = attrs.match(/"name"=>"([^"]+)"/);
-    const typeMatch = attrs.match(/"type"=>"([^"]+)"/);
-    const categoryMatch = attrs.match(/"category"=>"([^"]+)"/);
-    const numberMatch = attrs.match(/"card_number"=>(\d+)/);
-    const rankMatch = attrs.match(/"pawn_rank"=>(-?\d+)/);
-    const powerMatch = attrs.match(/"power"=>(\d+)/);
-
-    if (!nameMatch || !numberMatch || !rankMatch || !powerMatch) continue;
-
-    const card: SeedsCard = {
-      name: nameMatch[1]!,
-      type: typeMatch?.[1] === 'ReplacementCard' ? 'ReplacementCard' : 'Card',
-      category: categoryMatch?.[1] ?? 'Standard',
-      cardNumber: parseInt(numberMatch[1]!, 10),
-      pawnRank: parseInt(rankMatch[1]!, 10),
-      power: parseInt(powerMatch[1]!, 10),
-      tiles: [],
-      abilities: [],
-    };
-
-    // Parse card_tiles
-    const tileRegex = /card_tiles\.create!\(\{(.+?)\}\)/g;
-    let tileMatch;
-    while ((tileMatch = tileRegex.exec(block)) !== null) {
-      const tileAttrs = tileMatch[1]!;
-      const tileType = tileAttrs.match(/"type"=>"([^"]+)"/)?.[1];
-      const tileX = tileAttrs.match(/"x"=>(-?\d+)/)?.[1];
-      const tileY = tileAttrs.match(/"y"=>(-?\d+)/)?.[1];
-      if (tileType && tileX !== undefined && tileY !== undefined) {
-        card.tiles.push({
-          type: tileType as 'Pawn' | 'Affected',
-          x: parseInt(tileX, 10),
-          y: parseInt(tileY, 10),
-        });
-      }
-    }
-
-    // Parse card_abilities
-    const abilityRegex = /card_abilities\.create!\(\{(.+?)\}\)/g;
-    let abilityMatch;
-    while ((abilityMatch = abilityRegex.exec(block)) !== null) {
-      const aAttrs = abilityMatch[1]!;
-      const aType = aAttrs.match(/"type"=>"([^"]+)"/)?.[1] ?? '';
-      const aWhen = aAttrs.match(/"when"=>"([^"]+)"/)?.[1] ?? '';
-      const aWhich = aAttrs.match(/"which"=>"([^"]*)"/)?.[1] ?? '';
-      const aActionType = aAttrs.match(/"action_type"=>"([^"]+)"/)?.[1] ?? '';
-      const aActionValue = aAttrs.match(/"action_value"=>"([^"]*)"/)?.[1] ?? '';
-      card.abilities.push({
-        type: aType,
-        when: aWhen,
-        which: aWhich,
-        actionType: aActionType,
-        actionValue: aActionValue,
-      });
-    }
-
-    cards.push(card);
-  }
-
-  return cards;
+function loadSeedsJson(): SeedsCard[] {
+  return JSON.parse(readFileSync(resolve(DATA, 'seeds.json'), 'utf-8')) as SeedsCard[];
 }
 
 // ── Step 3: Load card-mapping.json ─────────────────────────────────────
@@ -533,6 +456,58 @@ function buildDualEffect(abilities: SeedsCard['abilities']): EffectObj {
 
 // ── Step 10: Generate card definition code ─────────────────────────────
 
+// Reverse maps: string value → constant expression for code generation
+const RANGE_TYPE_EXPR: Record<string, string> = {
+  pawn: 'RANGE_CELL_TYPES.PAWN',
+  ability: 'RANGE_CELL_TYPES.ABILITY',
+  both: 'RANGE_CELL_TYPES.BOTH',
+};
+
+const TRIGGER_EXPR: Record<string, string> = {
+  whenPlayed: 'ABILITY_TRIGGERS.WHEN_PLAYED',
+  whileInPlay: 'ABILITY_TRIGGERS.WHILE_IN_PLAY',
+  whenDestroyed: 'ABILITY_TRIGGERS.WHEN_DESTROYED',
+  whenAlliedDestroyed: 'ABILITY_TRIGGERS.WHEN_ALLIED_DESTROYED',
+  whenEnemyDestroyed: 'ABILITY_TRIGGERS.WHEN_ENEMY_DESTROYED',
+  whenAnyDestroyed: 'ABILITY_TRIGGERS.WHEN_ANY_DESTROYED',
+  whenAlliedPlayed: 'ABILITY_TRIGGERS.WHEN_ALLIED_PLAYED',
+  whenEnemyPlayed: 'ABILITY_TRIGGERS.WHEN_ENEMY_PLAYED',
+  whenFirstEnfeebled: 'ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED',
+  whenFirstEnhanced: 'ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED',
+  whenPowerReachesN: 'ABILITY_TRIGGERS.WHEN_POWER_REACHES_N',
+  scaling: 'ABILITY_TRIGGERS.SCALING',
+  endOfGame: 'ABILITY_TRIGGERS.END_OF_GAME',
+};
+
+const EFFECT_TYPE_EXPR: Record<string, string> = {
+  enhance: 'EFFECT_TYPES.ENHANCE',
+  enfeeble: 'EFFECT_TYPES.ENFEEBLE',
+  destroy: 'EFFECT_TYPES.DESTROY',
+  selfPowerScaling: 'EFFECT_TYPES.SELF_POWER_SCALING',
+  laneScoreBonus: 'EFFECT_TYPES.LANE_SCORE_BONUS',
+  addCardToHand: 'EFFECT_TYPES.ADD_CARD_TO_HAND',
+  spawnCard: 'EFFECT_TYPES.SPAWN_CARD',
+  positionRankManip: 'EFFECT_TYPES.POSITION_RANK_MANIP',
+  scoreRedistribution: 'EFFECT_TYPES.SCORE_REDISTRIBUTION',
+  dualTargetBuff: 'EFFECT_TYPES.DUAL_TARGET_BUFF',
+};
+
+const TARGET_EXPR: Record<string, string> = {
+  rangePattern: 'TARGET_SELECTORS.RANGE_PATTERN',
+  self: 'TARGET_SELECTORS.SELF',
+  allAllied: 'TARGET_SELECTORS.ALL_ALLIED',
+  allEnemy: 'TARGET_SELECTORS.ALL_ENEMY',
+  allInLane: 'TARGET_SELECTORS.ALL_IN_LANE',
+  allAlliedInLane: 'TARGET_SELECTORS.ALL_ALLIED_IN_LANE',
+  allEnemyInLane: 'TARGET_SELECTORS.ALL_ENEMY_IN_LANE',
+  allAlliedEnhanced: 'TARGET_SELECTORS.ALL_ALLIED_ENHANCED',
+  allEnemyEnhanced: 'TARGET_SELECTORS.ALL_ENEMY_ENHANCED',
+  allEnhanced: 'TARGET_SELECTORS.ALL_ENHANCED',
+  allAlliedEnfeebled: 'TARGET_SELECTORS.ALL_ALLIED_ENFEEBLED',
+  allEnemyEnfeebled: 'TARGET_SELECTORS.ALL_ENEMY_ENFEEBLED',
+  allEnfeebled: 'TARGET_SELECTORS.ALL_ENFEEBLED',
+};
+
 function toVarName(id: string): string {
   return id.replace(/-([a-z0-9])/g, (_, c: string) => c.toUpperCase());
 }
@@ -540,13 +515,14 @@ function toVarName(id: string): string {
 function formatRangePattern(cells: RangeCell[]): string {
   if (cells.length === 0) return '[]';
   const lines = cells.map(
-    (c) => `    { row: ${c.row}, col: ${c.col}, type: '${c.type}' },`,
+    (c) => `    { row: ${c.row}, col: ${c.col}, type: ${RANGE_TYPE_EXPR[c.type] ?? `'${c.type}'`} },`,
   );
   return `[\n${lines.join('\n')}\n  ]`;
 }
 
 function formatEffect(effect: EffectObj): string {
-  const parts: string[] = [`type: '${effect['type']}'`];
+  const effectType = effect['type'] as string;
+  const parts: string[] = [`type: ${EFFECT_TYPE_EXPR[effectType] ?? `'${effectType}'`}`];
 
   if (effect['value'] !== undefined) parts.push(`value: ${effect['value']}`);
   if (effect['bonusPawns'] !== undefined) parts.push(`bonusPawns: ${effect['bonusPawns']}`);
@@ -571,7 +547,7 @@ function formatEffect(effect: EffectObj): string {
   }
   if (effect['target'] !== undefined) {
     const tgt = effect['target'] as { type: string };
-    parts.push(`target: { type: '${tgt.type}' }`);
+    parts.push(`target: { type: ${TARGET_EXPR[tgt.type] ?? `'${tgt.type}'`} }`);
   }
 
   return `{ ${parts.join(', ')} }`;
@@ -594,13 +570,14 @@ function formatCardDef(card: CardDef, varName: string): string {
   const lines: string[] = [];
   lines.push(`export const ${varName}: CardDefinition = {`);
   lines.push(`  id: '${card.id}',`);
-  lines.push(`  rank: ${card.rank === 'replacement' ? "'replacement'" : card.rank},`);
+  lines.push(`  rank: ${card.rank === 'replacement' ? 'CARD_RANKS.REPLACEMENT' : card.rank},`);
   lines.push(`  power: ${card.power},`);
   lines.push(`  rangePattern: ${formatRangePattern(card.rangePattern)},`);
 
   if (card.ability) {
     const abilityParts: string[] = [];
-    abilityParts.push(`trigger: '${card.ability.trigger}'`);
+    const triggerExpr = TRIGGER_EXPR[card.ability.trigger] ?? `'${card.ability.trigger}'`;
+    abilityParts.push(`trigger: ${triggerExpr}`);
     abilityParts.push(`effect: ${formatEffect(card.ability.effect)}`);
     if (card.ability.threshold !== undefined) {
       abilityParts.push(`threshold: ${card.ability.threshold}`);
@@ -627,8 +604,8 @@ function main() {
   const ranges = parseExpectedRanges();
   console.log(`  Found ${Object.keys(ranges).length} range entries`);
 
-  console.log('Parsing seeds.rb...');
-  const seedsCards = parseSeedsRb();
+  console.log('Loading seeds.json...');
+  const seedsCards = loadSeedsJson();
   console.log(`  Found ${seedsCards.length} cards`);
 
   console.log('Loading card-mapping.json...');
@@ -784,6 +761,24 @@ function generateFile(
 ): void {
   const lines: string[] = [];
   lines.push("import type { CardDefinition } from '../types.js';");
+
+  // Determine which constants are needed by scanning cards
+  const needsRangeCellTypes = cards.some((c) => c.rangePattern.length > 0);
+  const needsAbilityTriggers = cards.some((c) => c.ability);
+  const needsEffectTypes = cards.some((c) => c.ability);
+  const needsTargetSelectors = cards.some((c) => c.ability?.effect['target']);
+  const needsCardRanks = cards.some((c) => c.rank === 'replacement');
+
+  const imports: string[] = [];
+  if (needsAbilityTriggers) imports.push('ABILITY_TRIGGERS');
+  if (needsCardRanks) imports.push('CARD_RANKS');
+  if (needsEffectTypes) imports.push('EFFECT_TYPES');
+  if (needsRangeCellTypes) imports.push('RANGE_CELL_TYPES');
+  if (needsTargetSelectors) imports.push('TARGET_SELECTORS');
+
+  if (imports.length > 0) {
+    lines.push(`import { ${imports.join(', ')} } from '../types.js';`);
+  }
   lines.push("import { cardsToDefinitionMap } from './utils.js';");
   lines.push('');
 

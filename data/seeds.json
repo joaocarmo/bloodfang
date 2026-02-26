@@ -1,0 +1,5525 @@
+[
+  {
+    "name": "Security Officer",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 1,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Riot Trooper",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 2,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Grenadier",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 3,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Cactuar",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 12,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Cloud",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 86,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "power_first_reaches_7",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Cid",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 93,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "played",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.find_by(name:'Tiny Bronco')"
+      }
+    ]
+  },
+  {
+    "name": "Vincent",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 94,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "destroyed",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.find_by(name:'Galian Beast')"
+      }
+    ]
+  },
+  {
+    "name": "Odin",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 100,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enhanced_enemies",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Phoenix",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 101,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "destroyed",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "5"
+      }
+    ]
+  },
+  {
+    "name": "Gi Nattak",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 123,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "J-Squad",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 134,
+    "pawnRank": 3,
+    "power": 2,
+    "tiles": [],
+    "abilities": [
+      {
+        "type": "SpawnAbility",
+        "when": "played",
+        "which": "empty_positions",
+        "actionType": "spawn",
+        "actionValue": "Card.find_by(name:'Hype Johnny')"
+      }
+    ]
+  },
+  {
+    "name": "J-Unit Sweeper",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 4,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Queen Bee",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 5,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Toxirat",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 6,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Levrikon",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 7,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Grasslands Wolf",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 8,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Mu",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 9,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Mandragora",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 10,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "played",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.find_by(name:'Mandragora Minion')"
+      }
+    ]
+  },
+  {
+    "name": "Elphadunk",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 11,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Crystalline Crab",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 13,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Quetzalcoatl",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 14,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Zu",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 15,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Devil Rider",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 16,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Screamer",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 17,
+    "pawnRank": 3,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Flan",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 18,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Crawler",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 19,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Archdragon",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 20,
+    "pawnRank": 1,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Ogre",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 21,
+    "pawnRank": 2,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Deathwheel",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 22,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Fleetwing",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 23,
+    "pawnRank": 1,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Zemzelett",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 24,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Ignilisk",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 25,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Capparwire",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 26,
+    "pawnRank": 1,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Mindflayer",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 27,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "in_play",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Scrutineye",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 28,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Hell Rider II",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 29,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Flametrooper",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 30,
+    "pawnRank": 1,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "destroyed",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Spearhawk",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 31,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Sea Devil",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 32,
+    "pawnRank": 3,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "allies_played_from_hand",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Shoalopod",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 33,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Crown Lance",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 34,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Tonberry King",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 35,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "allies_destroyed",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Sandhog Pie",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 36,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "destroyed",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Bloatfloat",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 37,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "destroyed",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Bagnadrana",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 38,
+    "pawnRank": 3,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enemies_played_from_hand",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Cockatrice",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 39,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "DestroyCardAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "destroy",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Heatseeker",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 40,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "destroyed",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.find_by(name:'Heatseeker Minion')"
+      }
+    ]
+  },
+  {
+    "name": "Bomb",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 41,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "destroyed",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Thug",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 42,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Death Claw",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 43,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enemies_destroyed",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Landworm",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 44,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enemies_destroyed",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Sandspitter",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 45,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Chimera",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 46,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enfeebled_enemies",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Joker",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 47,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "allies_and_enemies_destroyed",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Amphidex",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 48,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enhanced",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Frightflower",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 49,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "destroyed",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Gagighandi",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 50,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enhanced",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Insectoid Chimera",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 51,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "DestroyCardAbility",
+        "when": "played",
+        "which": "self",
+        "actionType": "destroy",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Gigantoad",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 52,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "self",
+        "actionType": "destroy",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Maloceros",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 53,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "win_the_lane",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "10"
+      }
+    ]
+  },
+  {
+    "name": "Grandhorn",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 54,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "self",
+        "actionType": "destroy",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Great Malboro",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 55,
+    "pawnRank": 3,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "6"
+      }
+    ]
+  },
+  {
+    "name": "Grangalan",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 56,
+    "pawnRank": 3,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "played",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.find_by(name:'Grangalan Minion')"
+      }
+    ]
+  },
+  {
+    "name": "Amalgam",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 57,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "destroyed",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.find_by(name:'Resurrected Amalgam')"
+      }
+    ]
+  },
+  {
+    "name": "Skeeskee",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 58,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "allies_destroyed",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Griffon",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 59,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Basilisk",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 60,
+    "pawnRank": 3,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "DestroyCardAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "destroy",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Reapertail",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 61,
+    "pawnRank": 1,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enfeebled",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Jabberwock",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 62,
+    "pawnRank": 2,
+    "power": 6,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Desert Sahagin",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 63,
+    "pawnRank": 1,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enfeebled",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Cavestalker",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 64,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enfeebled",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Stone Golem",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 65,
+    "pawnRank": 1,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enhanced",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Two Face",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 66,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enhanced",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "4"
+      },
+      {
+        "type": "EnfeebleAbility",
+        "when": "enfeebled",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Gi Specter",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 67,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Valron",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 68,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enfeebled_allies",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Disgorgon",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 69,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "RaiseRankAbility",
+        "when": "played",
+        "which": "positions",
+        "actionType": "raise_rank",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Dragon",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 70,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Twin Brain",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 71,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "RaiseRankAbility",
+        "when": "played",
+        "which": "positions",
+        "actionType": "raise_rank",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Black Bat",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 72,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Bahba Velamyu",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 73,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "destroyed",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Rictus",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 74,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enfeebled_allies_and_enemies",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Adjudicator",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 75,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enfeebled_allies_and_enemies",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Yin & Yang",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 76,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Diabolic Variant",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 77,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Special Forces Operator",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 78,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "2-C SOLDIER Operator",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 79,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Kelzmelzer",
+    "type": "ReplacementCard",
+    "category": "Standard",
+    "cardNumber": 80,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "enfeebled_allies_and_enemies",
+        "actionType": "power_down",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Panthera Protector",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 81,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enhanced",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Hecteyes",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 82,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "destroyed",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Floating Death",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 83,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Ironclad",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 84,
+    "pawnRank": 3,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enhanced_enemies",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Moss-Grown Adamantoise",
+    "type": "Card",
+    "category": "Standard",
+    "cardNumber": 85,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "RaiseRankAbility",
+        "when": "played",
+        "which": "positions",
+        "actionType": "raise_rank",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Barret",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 87,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "8"
+      }
+    ]
+  },
+  {
+    "name": "Tifa",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 88,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "win_the_lane",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "5"
+      }
+    ]
+  },
+  {
+    "name": "Aerith",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 89,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Red XIII",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 90,
+    "pawnRank": 1,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enfeebled",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Yuffie",
+    "type": "ReplacementCard",
+    "category": "Legendary",
+    "cardNumber": 91,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Cait Sith",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 92,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "played",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.find_by(name:'Moogle')"
+      }
+    ]
+  },
+  {
+    "name": "Ifrit",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 95,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enhanced_allies",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Shiva",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 96,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [],
+    "abilities": [
+      {
+        "type": "SpawnAbility",
+        "when": "played",
+        "which": "empty_positions",
+        "actionType": "spawn",
+        "actionValue": "target_tile.pawn_value*2"
+      }
+    ]
+  },
+  {
+    "name": "Ramuh",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 97,
+    "pawnRank": 3,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Titan",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 98,
+    "pawnRank": 2,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "RaiseRankAbility",
+        "when": "played",
+        "which": "positions",
+        "actionType": "raise_rank",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Kujata",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 99,
+    "pawnRank": 3,
+    "power": 6,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enhanced",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "5"
+      }
+    ]
+  },
+  {
+    "name": "Leviathan",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 102,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "in_play",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Alexander",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 103,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enfeebled_allies",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Bahamut",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 104,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "5"
+      }
+    ]
+  },
+  {
+    "name": "Bahamut Arisen",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 105,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [],
+    "abilities": [
+      {
+        "type": "SpawnAbility",
+        "when": "played",
+        "which": "empty_positions",
+        "actionType": "spawn",
+        "actionValue": "Card.find_by(name:'Elemental')"
+      }
+    ]
+  },
+  {
+    "name": "Gilgamesh",
+    "type": "ReplacementCard",
+    "category": "Legendary",
+    "cardNumber": 106,
+    "pawnRank": -1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "ReplacementAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "ally.power"
+      }
+    ]
+  },
+  {
+    "name": "Chocobo & Moogle",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 107,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enhanced_allies",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Fat Chocobo",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 108,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Posh Chocobo",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 109,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "win_the_lane",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Moogle Trio",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 110,
+    "pawnRank": 2,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "played",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.where(name:['Moogle Mage', 'Moogle Bard'] ).all"
+      }
+    ]
+  },
+  {
+    "name": "Magic Pot",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 111,
+    "pawnRank": 3,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Materia Guardian",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 112,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enfeebled",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "6"
+      }
+    ]
+  },
+  {
+    "name": "Midgardsormr",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 113,
+    "pawnRank": 3,
+    "power": 6,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "allies_and_enemies_destroyed",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Mythril Golem",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 114,
+    "pawnRank": 3,
+    "power": 8,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Terror of the Deep",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 115,
+    "pawnRank": 3,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "in_play",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Grasptropod",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 116,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enhanced",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Custom Valkyrie",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 117,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Gigatrice",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 118,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "DestroyCardAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "destroy",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Dyne",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 119,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "5"
+      }
+    ]
+  },
+  {
+    "name": "Anuran Suppressor",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 120,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enemies_destroyed",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Specimen H1024",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 121,
+    "pawnRank": 3,
+    "power": 6,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Crimson Mare Mk. II",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 122,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enfeebled",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "5"
+      }
+    ]
+  },
+  {
+    "name": "Forgotten Specimen",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 124,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Don Corneo & Abzu",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 125,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [],
+    "abilities": [
+      {
+        "type": "AddCardAbility",
+        "when": "played",
+        "which": "",
+        "actionType": "add",
+        "actionValue": "Card.where(name:['Cacneo', 'Donberry'] ).all"
+      }
+    ]
+  },
+  {
+    "name": "Red Dragon",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 126,
+    "pawnRank": 3,
+    "power": 6,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Demon Gate",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 127,
+    "pawnRank": 3,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "destroyed",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "9"
+      }
+    ]
+  },
+  {
+    "name": "Reno",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 128,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Rude",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 129,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Elena",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 130,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "enhanced",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "99"
+      }
+    ]
+  },
+  {
+    "name": "Tseng",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 131,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "enhanced",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "4"
+      }
+    ]
+  },
+  {
+    "name": "Rufus",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 132,
+    "pawnRank": 2,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Roche",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 133,
+    "pawnRank": 2,
+    "power": 5,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnfeebleAbility",
+        "when": "played",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_down",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Chocobo Jockey",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 135,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "win_the_lane",
+        "which": "self",
+        "actionType": "power_up",
+        "actionValue": "10"
+      }
+    ]
+  },
+  {
+    "name": "Space Ranger",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 136,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enhanced_enemies",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Haunted Hotel",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 137,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Skywheel",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 138,
+    "pawnRank": 3,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 2,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -2,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 2,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 2
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Loveless",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 139,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Saucer Squad",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 140,
+    "pawnRank": 2,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -2
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 2
+      }
+    ],
+    "abilities": []
+  },
+  {
+    "name": "Dio",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 141,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enhanced_allies_and_enemies",
+        "actionType": "power_up",
+        "actionValue": "1"
+      }
+    ]
+  },
+  {
+    "name": "Ultimate Party Animal",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 142,
+    "pawnRank": 1,
+    "power": 1,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "VictorReceivesAllScoresAbility",
+        "when": "played",
+        "which": "",
+        "actionType": "victor_receives_all_scores",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Sephiroth",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 143,
+    "pawnRank": 3,
+    "power": 4,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "DestroyCardAbility",
+        "when": "played",
+        "which": "enemies_on_affected_tiles",
+        "actionType": "destroy",
+        "actionValue": ""
+      }
+    ]
+  },
+  {
+    "name": "Emerald Witch",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 144,
+    "pawnRank": 2,
+    "power": 2,
+    "tiles": [
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": -2
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Affected",
+        "x": -2,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": -1,
+        "y": 0
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "type": "Affected",
+        "x": -1,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "type": "Affected",
+        "x": 0,
+        "y": 2
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "in_play",
+        "which": "allies_and_enemies_on_affected_tiles",
+        "actionType": "power_up",
+        "actionValue": "2"
+      }
+    ]
+  },
+  {
+    "name": "Shadowblood Queen",
+    "type": "Card",
+    "category": "Legendary",
+    "cardNumber": 145,
+    "pawnRank": 3,
+    "power": 3,
+    "tiles": [
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": -1
+      },
+      {
+        "type": "Pawn",
+        "x": 0,
+        "y": 1
+      },
+      {
+        "type": "Pawn",
+        "x": 1,
+        "y": 1
+      }
+    ],
+    "abilities": [
+      {
+        "type": "EnhanceAbility",
+        "when": "played",
+        "which": "enfeebled_allies_and_enemies",
+        "actionType": "power_up",
+        "actionValue": "3"
+      }
+    ]
+  },
+  {
+    "name": "Diamond Dust",
+    "type": "Card",
+    "category": "Child",
+    "cardNumber": 200,
+    "pawnRank": 1,
+    "power": 2,
+    "tiles": [],
+    "abilities": []
+  }
+]
