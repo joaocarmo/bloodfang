@@ -222,10 +222,7 @@ function mapTarget(which: string): string | null {
 
 // ── Step 7: Resolve token references ───────────────────────────────────
 
-function resolveTokenId(
-  actionValue: string,
-  mapping: CardMapping,
-): string | null {
+function resolveTokenId(actionValue: string, mapping: CardMapping): string | null {
   // Extract card name from Card.find_by(name:'X') or Card.where(name:['X', 'Y'])
   const singleMatch = actionValue.match(/Card\.find_by\(name:'([^']+)'\)/);
   if (singleMatch) {
@@ -260,10 +257,7 @@ function resolveTokenName(name: string, mapping: CardMapping): string {
   return 'unknown-token';
 }
 
-function resolveSecondTokenFromWhere(
-  actionValue: string,
-  mapping: CardMapping,
-): string | null {
+function resolveSecondTokenFromWhere(actionValue: string, mapping: CardMapping): string | null {
   const whereMatch = actionValue.match(/Card\.where\(name:\[([^\]]+)\]/);
   if (whereMatch) {
     const names = whereMatch[1]!.match(/'([^']+)'/g);
@@ -291,7 +285,10 @@ function buildEffect(
   const target = mapTarget(which);
 
   // VictorReceivesAllScoresAbility
-  if (abilityType === 'VictorReceivesAllScoresAbility' || actionType === 'victor_receives_all_scores') {
+  if (
+    abilityType === 'VictorReceivesAllScoresAbility' ||
+    actionType === 'victor_receives_all_scores'
+  ) {
     return { type: 'scoreRedistribution' };
   }
 
@@ -515,7 +512,8 @@ function toVarName(id: string): string {
 function formatRangePattern(cells: RangeCell[]): string {
   if (cells.length === 0) return '[]';
   const lines = cells.map(
-    (c) => `    { row: ${c.row}, col: ${c.col}, type: ${RANGE_TYPE_EXPR[c.type] ?? `'${c.type}'`} },`,
+    (c) =>
+      `    { row: ${c.row}, col: ${c.col}, type: ${RANGE_TYPE_EXPR[c.type] ?? `'${c.type}'`} },`,
   );
   return `[\n${lines.join('\n')}\n  ]`;
 }
@@ -536,10 +534,12 @@ function formatEffect(effect: EffectObj): string {
     parts.push(`condition: { type: '${cond.type}' }`);
   }
   if (effect['valuePerUnit'] !== undefined) parts.push(`valuePerUnit: ${effect['valuePerUnit']}`);
-  if (effect['dynamicValue'] !== undefined)
-    parts.push(`dynamicValue: '${effect['dynamicValue']}'`);
+  if (effect['dynamicValue'] !== undefined) parts.push(`dynamicValue: '${effect['dynamicValue']}'`);
   if (effect['additionalTokens'] !== undefined) {
-    const tokens = effect['additionalTokens'] as Array<{ tokenDefinitionId: string; count: number }>;
+    const tokens = effect['additionalTokens'] as Array<{
+      tokenDefinitionId: string;
+      count: number;
+    }>;
     const tokenStr = tokens
       .map((t) => `{ tokenDefinitionId: '${t.tokenDefinitionId}', count: ${t.count} }`)
       .join(', ');
@@ -698,7 +698,9 @@ function main() {
     if (slug && ranges[slug]) {
       rangePattern = ranges[slug].rangePattern;
     } else {
-      console.warn(`No expected_ranges entry for token: ${tokenEntry.originalName} (slug: ${slug})`);
+      console.warn(
+        `No expected_ranges entry for token: ${tokenEntry.originalName} (slug: ${slug})`,
+      );
     }
 
     const tokenDef: CardDef = {
@@ -727,7 +729,9 @@ function main() {
   console.log(`  Rank 3: ${rank3Cards.length}`);
   console.log(`  Replacement: ${replacementCards.length}`);
   console.log(`  Tokens: ${tokenDefs.length}`);
-  console.log(`  Total: ${rank1Cards.length + rank2Cards.length + rank3Cards.length + replacementCards.length + tokenDefs.length}`);
+  console.log(
+    `  Total: ${rank1Cards.length + rank2Cards.length + rank3Cards.length + replacementCards.length + tokenDefs.length}`,
+  );
 
   // Generate files
   mkdirSync(CARDS_DIR, { recursive: true });
@@ -753,12 +757,7 @@ function main() {
   console.log('\nDone! Generated card definition files.');
 }
 
-function generateFile(
-  fileName: string,
-  cards: CardDef[],
-  prefix: string,
-  outDir: string,
-): void {
+function generateFile(fileName: string, cards: CardDef[], prefix: string, outDir: string): void {
   const lines: string[] = [];
   lines.push("import type { CardDefinition } from '../types.js';");
 
@@ -799,9 +798,7 @@ function generateFile(
   lines.push('');
 
   const funcName = `get${prefix}Definitions`;
-  lines.push(
-    `export function ${funcName}(): Record<string, CardDefinition> {`,
-  );
+  lines.push(`export function ${funcName}(): Record<string, CardDefinition> {`);
   lines.push(`  return cardsToDefinitionMap(${allVarName});`);
   lines.push('}');
   lines.push('');

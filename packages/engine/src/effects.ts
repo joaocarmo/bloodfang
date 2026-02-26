@@ -68,7 +68,9 @@ function applyPowerModifier(
 ): EffectResult {
   const sign = type === LOG_ACTION_TYPES.ENHANCE ? 1 : -1;
   const eventType =
-    type === LOG_ACTION_TYPES.ENHANCE ? GAME_EVENT_TYPES.CARD_ENHANCED : GAME_EVENT_TYPES.CARD_ENFEEBLED;
+    type === LOG_ACTION_TYPES.ENHANCE
+      ? GAME_EVENT_TYPES.CARD_ENHANCED
+      : GAME_EVENT_TYPES.CARD_ENFEEBLED;
   let currentState = state;
   const events: GameEvent[] = [];
 
@@ -107,7 +109,13 @@ export function applyEnhance(
   targetInstanceIds: readonly string[],
   value: number,
 ): EffectResult {
-  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, LOG_ACTION_TYPES.ENHANCE);
+  return applyPowerModifier(
+    state,
+    sourceInstanceId,
+    targetInstanceIds,
+    value,
+    LOG_ACTION_TYPES.ENHANCE,
+  );
 }
 
 export function applyEnfeeble(
@@ -116,7 +124,13 @@ export function applyEnfeeble(
   targetInstanceIds: readonly string[],
   value: number,
 ): EffectResult {
-  return applyPowerModifier(state, sourceInstanceId, targetInstanceIds, value, LOG_ACTION_TYPES.ENFEEBLE);
+  return applyPowerModifier(
+    state,
+    sourceInstanceId,
+    targetInstanceIds,
+    value,
+    LOG_ACTION_TYPES.ENFEEBLE,
+  );
 }
 
 export function applyDestroy(

@@ -5,7 +5,13 @@ import { getRank2Definitions } from './cards/rank2-cards.js';
 import { getRank3Definitions } from './cards/rank3-cards.js';
 import { getReplacementDefinitions } from './cards/replacement-cards.js';
 import { getGameTokenDefinitions } from './cards/game-tokens.js';
-import { ABILITY_TRIGGERS, TARGET_SELECTORS, EFFECT_TYPES, RANGE_CELL_TYPES, CARD_RANKS } from './types.js';
+import {
+  ABILITY_TRIGGERS,
+  TARGET_SELECTORS,
+  EFFECT_TYPES,
+  RANGE_CELL_TYPES,
+  CARD_RANKS,
+} from './types.js';
 
 const allDefs = getAllGameDefinitions();
 const rank1 = getRank1Definitions();
@@ -84,7 +90,11 @@ describe('Card Database', () => {
   });
 
   it('all range patterns have valid cell types', () => {
-    const validTypes = new Set([RANGE_CELL_TYPES.PAWN, RANGE_CELL_TYPES.ABILITY, RANGE_CELL_TYPES.BOTH]);
+    const validTypes = new Set([
+      RANGE_CELL_TYPES.PAWN,
+      RANGE_CELL_TYPES.ABILITY,
+      RANGE_CELL_TYPES.BOTH,
+    ]);
     for (const def of Object.values(allDefs)) {
       for (const cell of def.rangePattern) {
         expect(validTypes.has(cell.type)).toBe(true);

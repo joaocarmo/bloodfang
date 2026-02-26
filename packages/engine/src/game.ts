@@ -402,7 +402,13 @@ export function playCard(state: GameState, cardId: string, position: Position): 
   });
 
   // Log placement
-  let log = appendLog(state.log, { type: LOG_ACTION_TYPES.PLACE_CARD, player, cardId, instanceId, position });
+  let log = appendLog(state.log, {
+    type: LOG_ACTION_TYPES.PLACE_CARD,
+    player,
+    cardId,
+    instanceId,
+    position,
+  });
 
   // Resolve range pattern — pawn placement
   const pawnPositions = resolveRangePattern(def.rangePattern, position, player);

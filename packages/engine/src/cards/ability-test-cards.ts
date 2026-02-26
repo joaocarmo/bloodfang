@@ -18,7 +18,11 @@ export const enhancerOnPlay: CardDefinition = {
   rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -30,7 +34,11 @@ export const enfeebleOnPlay: CardDefinition = {
   rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 3, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 3,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -57,7 +65,11 @@ export const auraBuffer: CardDefinition = {
   ],
   ability: {
     trigger: ABILITY_TRIGGERS.WHILE_IN_PLAY,
-    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -69,7 +81,11 @@ export const deathCurse: CardDefinition = {
   rangePattern: [],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
-    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 2, target: { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE } },
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE },
+    },
   },
 };
 
@@ -129,7 +145,11 @@ export const inspirer: CardDefinition = {
   rangePattern: [],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENHANCED,
-    effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.ALL_ALLIED_IN_LANE } },
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 1,
+      target: { type: TARGET_SELECTORS.ALL_ALLIED_IN_LANE },
+    },
   },
 };
 
@@ -154,7 +174,11 @@ export const armyScaler: CardDefinition = {
   rangePattern: [],
   ability: {
     trigger: ABILITY_TRIGGERS.SCALING,
-    effect: { type: EFFECT_TYPES.SELF_POWER_SCALING, condition: { type: 'alliedCardsInLane' }, valuePerUnit: 2 },
+    effect: {
+      type: EFFECT_TYPES.SELF_POWER_SCALING,
+      condition: { type: 'alliedCardsInLane' },
+      valuePerUnit: 2,
+    },
   },
 };
 
@@ -206,7 +230,11 @@ export const rankBooster: CardDefinition = {
   rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.POSITION_RANK_MANIP, bonusPawns: 2, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
+    effect: {
+      type: EFFECT_TYPES.POSITION_RANK_MANIP,
+      bonusPawns: 2,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -250,7 +278,11 @@ export const chainKiller: CardDefinition = {
   rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 5, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 5,
+      target: { type: TARGET_SELECTORS.RANGE_PATTERN },
+    },
   },
 };
 
@@ -298,7 +330,11 @@ export const enfeebledHunter: CardDefinition = {
   rangePattern: [],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ENFEEBLE, value: 2, target: { type: TARGET_SELECTORS.ALL_ENEMY_ENFEEBLED } },
+    effect: {
+      type: EFFECT_TYPES.ENFEEBLE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.ALL_ENEMY_ENFEEBLED },
+    },
   },
 };
 
@@ -310,7 +346,11 @@ export const enhancedBooster: CardDefinition = {
   rangePattern: [],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.ALL_ALLIED_ENHANCED } },
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 2,
+      target: { type: TARGET_SELECTORS.ALL_ALLIED_ENHANCED },
+    },
   },
 };
 
@@ -322,7 +362,12 @@ export const replacementDynamic: CardDefinition = {
   rangePattern: [],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ENHANCE, value: 0, target: { type: TARGET_SELECTORS.SELF }, dynamicValue: 'replacedCardPower' },
+    effect: {
+      type: EFFECT_TYPES.ENHANCE,
+      value: 0,
+      target: { type: TARGET_SELECTORS.SELF },
+      dynamicValue: 'replacedCardPower',
+    },
   },
 };
 

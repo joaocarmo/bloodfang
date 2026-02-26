@@ -74,7 +74,11 @@
     { "id": "mother-nymph", "originalName": "Grangalan" },
     { "id": "protean-mass", "originalName": "Amalgam" },
     { "id": "carrion-harpy", "originalName": "Skeeskee" },
-    { "id": "golden-griffin", "originalName": "Griffon", "overrides": { "dynamicValue": "replacedCardPower" } },
+    {
+      "id": "golden-griffin",
+      "originalName": "Griffon",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
     { "id": "stone-basilisk", "originalName": "Basilisk" },
     { "id": "scorpion-of-artemis", "originalName": "Reapertail" },
     { "id": "chaos-wyvern", "originalName": "Jabberwock" },
@@ -82,7 +86,11 @@
     { "id": "cave-lurker", "originalName": "Cavestalker" },
     { "id": "marble-colossus", "originalName": "Stone Golem" },
     { "id": "janus-mask", "originalName": "Two Face" },
-    { "id": "wraith-of-tartarus", "originalName": "Gi Specter", "overrides": { "dynamicValue": "replacedCardPower" } },
+    {
+      "id": "wraith-of-tartarus",
+      "originalName": "Gi Specter",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
     { "id": "phantom-vulture", "originalName": "Valron" },
     { "id": "gorgo-serpent", "originalName": "Disgorgon" },
     { "id": "elder-drakon", "originalName": "Dragon" },
@@ -91,11 +99,23 @@
     { "id": "cerberus-hound", "originalName": "Bahba Velamyu" },
     { "id": "ghastly-shade", "originalName": "Rictus" },
     { "id": "minos-judge", "originalName": "Adjudicator" },
-    { "id": "harmony-duality", "originalName": "Yin & Yang", "overrides": { "dynamicValue": "replacedCardPower" } },
-    { "id": "chaotic-shade", "originalName": "Diabolic Variant", "overrides": { "dynamicValue": "replacedCardPower" } },
+    {
+      "id": "harmony-duality",
+      "originalName": "Yin & Yang",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
+    {
+      "id": "chaotic-shade",
+      "originalName": "Diabolic Variant",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
     { "id": "elite-myrmidon", "originalName": "Special Forces Operator" },
     { "id": "iron-myrmidon", "originalName": "2-C SOLDIER Operator" },
-    { "id": "frost-reaver", "originalName": "Kelzmelzer", "overrides": { "dynamicValue": "replacedCardPower" } },
+    {
+      "id": "frost-reaver",
+      "originalName": "Kelzmelzer",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
     { "id": "nemean-guardian", "originalName": "Panthera Protector" },
     { "id": "hundred-eyed-argus", "originalName": "Hecteyes" },
     { "id": "phantom-wraith", "originalName": "Floating Death" },
@@ -106,7 +126,11 @@
     { "id": "amazon-striker", "originalName": "Tifa" },
     { "id": "oracle-of-delphi", "originalName": "Aerith" },
     { "id": "flame-of-prometheus", "originalName": "Red XIII" },
-    { "id": "shadow-artemis", "originalName": "Yuffie", "overrides": { "dynamicValue": "replacedCardPower" } },
+    {
+      "id": "shadow-artemis",
+      "originalName": "Yuffie",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
     { "id": "fortune-sphinx", "originalName": "Cait Sith" },
     { "id": "daedalus-pilot", "originalName": "Cid" },
     { "id": "lycaon-cursed", "originalName": "Vincent" },
@@ -125,7 +149,11 @@
     { "id": "divine-colossus", "originalName": "Alexander" },
     { "id": "king-of-dragons", "originalName": "Bahamut" },
     { "id": "drakon-ascendant", "originalName": "Bahamut Arisen" },
-    { "id": "warrior-of-many-arms", "originalName": "Gilgamesh", "overrides": { "dynamicValue": "replacedCardPower" } },
+    {
+      "id": "warrior-of-many-arms",
+      "originalName": "Gilgamesh",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
     { "id": "gryphon-and-sprite", "originalName": "Chocobo & Moogle" },
     { "id": "plump-gryphon", "originalName": "Fat Chocobo" },
     { "id": "golden-gryphon", "originalName": "Posh Chocobo" },
@@ -146,7 +174,11 @@
     { "id": "frog-hunter", "originalName": "Anuran Suppressor" },
     { "id": "labyrinth-experiment", "originalName": "Specimen H1024" },
     { "id": "crimson-chariot", "originalName": "Crimson Mare Mk. II" },
-    { "id": "shade-commander", "originalName": "Gi Nattak", "overrides": { "dynamicValue": "replacedCardPower" } },
+    {
+      "id": "shade-commander",
+      "originalName": "Gi Nattak",
+      "overrides": { "dynamicValue": "replacedCardPower" }
+    },
     { "id": "forgotten-chimera", "originalName": "Forgotten Specimen" },
     {
       "id": "tyrant-and-beast",
@@ -178,53 +210,137 @@
     { "id": "nymph-sprout", "originalName": "Mandragora Minion", "rank": 1, "power": 1 },
     { "id": "battle-sprite", "originalName": "Moogle", "rank": 1, "power": 1 },
     {
-      "id": "sprite-mage", "originalName": "Moogle Mage", "rank": 1, "power": 2,
-      "ability": { "trigger": "whenPlayed", "effect": { "type": "enfeeble", "value": 4, "target": { "type": "rangePattern" } } }
+      "id": "sprite-mage",
+      "originalName": "Moogle Mage",
+      "rank": 1,
+      "power": 2,
+      "ability": {
+        "trigger": "whenPlayed",
+        "effect": { "type": "enfeeble", "value": 4, "target": { "type": "rangePattern" } }
+      }
     },
     {
-      "id": "sprite-bard", "originalName": "Moogle Bard", "rank": 1, "power": 2,
-      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } } }
+      "id": "sprite-bard",
+      "originalName": "Moogle Bard",
+      "rank": 1,
+      "power": 2,
+      "ability": {
+        "trigger": "whileInPlay",
+        "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } }
+      }
     },
     { "id": "little-shade", "originalName": "Donberry", "rank": 1, "power": 2 },
     {
-      "id": "junior-nymph", "originalName": "Grangalan Junior", "rank": 1, "power": 1,
-      "ability": { "trigger": "whenPlayed", "effect": { "type": "addCardToHand", "tokenDefinitionId": "baby-nymph", "count": 1 } }
+      "id": "junior-nymph",
+      "originalName": "Grangalan Junior",
+      "rank": 1,
+      "power": 1,
+      "ability": {
+        "trigger": "whenPlayed",
+        "effect": { "type": "addCardToHand", "tokenDefinitionId": "baby-nymph", "count": 1 }
+      }
     },
     { "id": "baby-nymph", "originalName": "Baby Grangalan", "rank": 1, "power": 1 },
     { "id": "daedalus-glider", "originalName": "The Tiny Bronco", "rank": 1, "power": 3 },
     {
-      "id": "lycaon-beast", "originalName": "Galian Beast", "rank": 1, "power": 4,
-      "ability": { "trigger": "whenPlayed", "effect": { "type": "enfeeble", "value": 3, "target": { "type": "rangePattern" } } }
+      "id": "lycaon-beast",
+      "originalName": "Galian Beast",
+      "rank": 1,
+      "power": 4,
+      "ability": {
+        "trigger": "whenPlayed",
+        "effect": { "type": "enfeeble", "value": 3, "target": { "type": "rangePattern" } }
+      }
     },
     { "id": "heat-fragment", "originalName": "Heatseeker Minion", "rank": 1, "power": 1 },
     { "id": "reformed-protean", "originalName": "Resurrected Amalgam", "rank": 1, "power": 2 },
     { "id": "thorny-imp", "originalName": "Cacneo", "rank": 1, "power": 1 },
     {
-      "id": "elemental-spark", "originalName": "Elemental", "originalSlug": "elemental-1", "rank": 1, "power": 2,
-      "ability": { "trigger": "whenDestroyed", "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } } }
+      "id": "elemental-spark",
+      "originalName": "Elemental",
+      "originalSlug": "elemental-1",
+      "rank": 1,
+      "power": 2,
+      "ability": {
+        "trigger": "whenDestroyed",
+        "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } }
+      }
     },
     {
-      "id": "elemental-flame", "originalName": "Elemental", "originalSlug": "elemental-2", "rank": 1, "power": 4,
-      "ability": { "trigger": "whenDestroyed", "effect": { "type": "enhance", "value": 4, "target": { "type": "rangePattern" } } }
+      "id": "elemental-flame",
+      "originalName": "Elemental",
+      "originalSlug": "elemental-2",
+      "rank": 1,
+      "power": 4,
+      "ability": {
+        "trigger": "whenDestroyed",
+        "effect": { "type": "enhance", "value": 4, "target": { "type": "rangePattern" } }
+      }
     },
     {
-      "id": "elemental-storm", "originalName": "Elemental", "originalSlug": "elemental-3", "rank": 1, "power": 6,
-      "ability": { "trigger": "whenDestroyed", "effect": { "type": "enhance", "value": 6, "target": { "type": "rangePattern" } } }
+      "id": "elemental-storm",
+      "originalName": "Elemental",
+      "originalSlug": "elemental-3",
+      "rank": 1,
+      "power": 6,
+      "ability": {
+        "trigger": "whenDestroyed",
+        "effect": { "type": "enhance", "value": 6, "target": { "type": "rangePattern" } }
+      }
     },
     {
-      "id": "zealot-initiate", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-1", "rank": 1, "power": 1,
-      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 1, "target": { "type": "rangePattern" } } }
+      "id": "zealot-initiate",
+      "originalName": "Hype Johnny",
+      "originalSlug": "hype-johnny-1",
+      "rank": 1,
+      "power": 1,
+      "ability": {
+        "trigger": "whileInPlay",
+        "effect": { "type": "enhance", "value": 1, "target": { "type": "rangePattern" } }
+      }
     },
     {
-      "id": "zealot-warrior", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-2", "rank": 1, "power": 2,
-      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } } }
+      "id": "zealot-warrior",
+      "originalName": "Hype Johnny",
+      "originalSlug": "hype-johnny-2",
+      "rank": 1,
+      "power": 2,
+      "ability": {
+        "trigger": "whileInPlay",
+        "effect": { "type": "enhance", "value": 2, "target": { "type": "rangePattern" } }
+      }
     },
     {
-      "id": "zealot-champion", "originalName": "Hype Johnny", "originalSlug": "hype-johnny-3", "rank": 1, "power": 3,
-      "ability": { "trigger": "whileInPlay", "effect": { "type": "enhance", "value": 3, "target": { "type": "rangePattern" } } }
+      "id": "zealot-champion",
+      "originalName": "Hype Johnny",
+      "originalSlug": "hype-johnny-3",
+      "rank": 1,
+      "power": 3,
+      "ability": {
+        "trigger": "whileInPlay",
+        "effect": { "type": "enhance", "value": 3, "target": { "type": "rangePattern" } }
+      }
     },
-    { "id": "frost-crystal-minor", "originalName": "Diamond Dust", "originalSlug": "diamond-dust-1", "rank": 1, "power": 2 },
-    { "id": "frost-crystal-major", "originalName": "Diamond Dust", "originalSlug": "diamond-dust-2", "rank": 1, "power": 4 },
-    { "id": "frost-crystal-grand", "originalName": "Diamond Dust", "originalSlug": "diamond-dust-3", "rank": 1, "power": 6 }
+    {
+      "id": "frost-crystal-minor",
+      "originalName": "Diamond Dust",
+      "originalSlug": "diamond-dust-1",
+      "rank": 1,
+      "power": 2
+    },
+    {
+      "id": "frost-crystal-major",
+      "originalName": "Diamond Dust",
+      "originalSlug": "diamond-dust-2",
+      "rank": 1,
+      "power": 4
+    },
+    {
+      "id": "frost-crystal-grand",
+      "originalName": "Diamond Dust",
+      "originalSlug": "diamond-dust-3",
+      "rank": 1,
+      "power": 6
+    }
   ]
 }

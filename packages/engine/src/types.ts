@@ -111,7 +111,10 @@ export interface AddCardToHandEffect {
   readonly type: 'addCardToHand';
   readonly tokenDefinitionId: string;
   readonly count: number;
-  readonly additionalTokens?: readonly { readonly tokenDefinitionId: string; readonly count: number }[];
+  readonly additionalTokens?: readonly {
+    readonly tokenDefinitionId: string;
+    readonly count: number;
+  }[];
 }
 
 export interface SpawnCardEffect {

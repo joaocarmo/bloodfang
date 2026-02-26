@@ -154,8 +154,7 @@ export function resolveTargets(
     case 'allEnhanced': {
       const ids = allInstances
         .filter(
-          (c) =>
-            c.hasBeenEnhanced === true && (isDestroyed || c.instanceId !== sourceInstanceId),
+          (c) => c.hasBeenEnhanced === true && (isDestroyed || c.instanceId !== sourceInstanceId),
         )
         .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
@@ -183,8 +182,7 @@ export function resolveTargets(
     case 'allEnfeebled': {
       const ids = allInstances
         .filter(
-          (c) =>
-            c.hasBeenEnfeebled === true && (isDestroyed || c.instanceId !== sourceInstanceId),
+          (c) => c.hasBeenEnfeebled === true && (isDestroyed || c.instanceId !== sourceInstanceId),
         )
         .map((c) => c.instanceId);
       return { instanceIds: ids, positions: [] };
@@ -308,10 +306,7 @@ export function collectTriggersForEvents(
           break;
 
         case ABILITY_TRIGGERS.WHEN_ENEMY_PLAYED:
-          if (
-            event.type === GAME_EVENT_TYPES.CARD_PLAYED &&
-            event.owner !== instance.owner
-          ) {
+          if (event.type === GAME_EVENT_TYPES.CARD_PLAYED && event.owner !== instance.owner) {
             triggers.push({ instanceId: instance.instanceId, ability, triggeringEvent: event });
           }
           break;
