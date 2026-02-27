@@ -26,7 +26,7 @@ export function LaneScores({ player, side, previewLaneScores }: LaneScoresProps)
 
   return (
     <div
-      className={`flex flex-col items-center ${side === 'left' ? 'pr-1 sm:pr-2' : 'pl-1 sm:pl-2'}`}
+      className={`flex flex-col items-center shrink-0 w-16 sm:w-20 md:w-24 ${side === 'left' ? 'pr-1 sm:pr-2' : 'pl-1 sm:pl-2'}`}
       role="status"
       aria-label={t`Player ${player + 1} scores`}
     >
