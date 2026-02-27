@@ -70,6 +70,19 @@ Always run `pnpm -F @bloodfang/client build` after client changes — it runs bo
 - `forwardRef` for UI primitives (e.g., `Button`) that need ref forwarding.
 - Tailwind classes via template literals with conditional expressions.
 - Focus management via `useRef` + `useEffect`, never `autoFocus`.
+- Extract shared UI patterns into reusable components in `components/ui/`. Prefer composing existing primitives over duplicating markup.
+
+## Semantic HTML and accessibility
+
+Follow WCAG 2.1 AA. This is enforced by `eslint-plugin-jsx-a11y` but the linter only catches a subset — apply these rules by default:
+
+- **Semantic elements first**: use `<main>`, `<section>`, `<aside>`, `<nav>`, `<h1>`-`<h6>`, `<dialog>`, `<table>`, `<button>` over generic `<div>`/`<span>`. Only reach for `<div>` when no semantic element fits.
+- **Heading hierarchy**: one `<h1>` per page/screen, then `<h2>`, `<h3>` in order. Never skip levels.
+- **Interactive elements**: use `<button>` for actions, `<a>` for navigation. Add `role`, `aria-label`, `aria-pressed`, `aria-disabled` when native semantics are insufficient.
+- **Keyboard navigation**: all interactive elements must be reachable via Tab. Custom widgets (grids, listboxes) use roving tabindex with arrow key handlers.
+- **Screen readers**: use `sr-only` class for visually hidden labels, `aria-live="polite"` for dynamic content (e.g., ActionLog), `role="status"` for live score regions.
+- **Reduced motion**: always check `useReducedMotion()` from Motion and disable animations accordingly.
+- **Color contrast**: never rely on color alone to convey meaning — pair with text labels, icons, or patterns.
 
 ## Tailwind responsive design
 
