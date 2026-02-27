@@ -18,7 +18,7 @@ import {
   CARD_RANKS,
   DECK_SIZE,
   GAME_EVENT_TYPES,
-  GAME_PHASES,
+  GamePhase,
   INITIAL_HAND_SIZE,
   LOG_ACTION_TYPES,
   MAX_PAWN_COUNT,
@@ -177,7 +177,7 @@ export function createGame(
     ],
     currentPlayerIndex: firstPlayer,
     turnNumber: 0,
-    phase: GAME_PHASES.MULLIGAN,
+    phase: GamePhase.Mulligan,
     consecutivePasses: 0,
     continuousModifiers: [],
     cardInstances: {},
@@ -195,7 +195,7 @@ export function mulligan(
   returnCardIds: readonly string[],
   rng?: () => number,
 ): GameState {
-  if (state.phase !== GAME_PHASES.MULLIGAN) {
+  if (state.phase !== GamePhase.Mulligan) {
     throw new Error('Mulligan is only available during mulligan phase');
   }
   const playerState = state.players[player];
@@ -245,7 +245,7 @@ export function mulligan(
     ...state,
     players,
     log,
-    phase: bothDone ? GAME_PHASES.PLAYING : GAME_PHASES.MULLIGAN,
+    phase: bothDone ? GamePhase.Playing : GamePhase.Mulligan,
     turnNumber: bothDone ? 1 : 0,
   };
 
@@ -262,7 +262,7 @@ export function mulligan(
 // ── canPlayCard ────────────────────────────────────────────────────────
 
 export function canPlayCard(state: GameState, cardId: string, position: Position): boolean {
-  if (state.phase !== GAME_PHASES.PLAYING) return false;
+  if (state.phase !== GamePhase.Playing) return false;
 
   const player = state.currentPlayerIndex;
   const playerState = state.players[player];
@@ -300,7 +300,7 @@ export function canPlayCard(state: GameState, cardId: string, position: Position
 // ── getValidMoves ──────────────────────────────────────────────────────
 
 export function getValidMoves(state: GameState): { cardId: string; positions: Position[] }[] {
-  if (state.phase !== GAME_PHASES.PLAYING) return [];
+  if (state.phase !== GamePhase.Playing) return [];
 
   const player = state.currentPlayerIndex;
   const playerState = state.players[player];
@@ -472,7 +472,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
   if (isBoardFull(newState.board)) {
     newState = {
       ...newState,
-      phase: GAME_PHASES.ENDED,
+      phase: GamePhase.Ended,
     };
     return newState;
   }
@@ -484,7 +484,7 @@ export function playCard(state: GameState, cardId: string, position: Position): 
 // ── pass ───────────────────────────────────────────────────────────────
 
 export function pass(state: GameState): GameState {
-  if (state.phase !== GAME_PHASES.PLAYING) {
+  if (state.phase !== GamePhase.Playing) {
     throw new Error('Can only pass during playing phase');
   }
 
@@ -499,7 +499,7 @@ export function pass(state: GameState): GameState {
       ...state,
       log,
       consecutivePasses: newConsecutivePasses,
-      phase: GAME_PHASES.ENDED,
+      phase: GamePhase.Ended,
     };
   }
 

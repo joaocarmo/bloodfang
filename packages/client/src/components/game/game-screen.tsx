@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { t } from '@lingui/core/macro';
 import { useNavigate, useBlocker } from '@tanstack/react-router';
+import { GamePhase } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Route } from '../../routes.ts';
 import { Board } from '../board/board.tsx';
@@ -18,19 +19,19 @@ export function GameScreen() {
 
   // Navigate to results when game ends
   useEffect(() => {
-    if (gameState?.phase === 'ended') {
+    if (gameState?.phase === GamePhase.Ended) {
       navigate({ to: Route.Results });
     }
   }, [gameState?.phase, navigate]);
 
   // Block navigation when game is in progress
   const { proceed, reset, status } = useBlocker({
-    condition: gameState !== null && gameState.phase !== 'ended',
+    condition: gameState !== null && gameState.phase !== GamePhase.Ended,
   });
 
   if (!gameState) return null;
 
-  if (gameState.phase === 'mulligan') {
+  if (gameState.phase === GamePhase.Mulligan) {
     return (
       <>
         <ConfirmDialog

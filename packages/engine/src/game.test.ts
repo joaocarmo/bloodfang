@@ -14,7 +14,7 @@ import {
   createSeededRng,
   DECK_SIZE,
   INITIAL_HAND_SIZE,
-  GAME_PHASES,
+  GamePhase,
   LOG_ACTION_TYPES,
   RANGE_CELL_TYPES,
 } from './types.js';
@@ -45,7 +45,7 @@ function skipMulligan(state: GameState, rng?: () => number): GameState {
 describe('createGame', () => {
   it('creates a game in mulligan phase', () => {
     const state = createTestGame();
-    expect(state.phase).toBe(GAME_PHASES.MULLIGAN);
+    expect(state.phase).toBe(GamePhase.Mulligan);
     expect(state.turnNumber).toBe(0);
   });
 
@@ -130,9 +130,9 @@ describe('mulligan', () => {
   it('transitions to playing when both players mulligan', () => {
     const state = createTestGame();
     const s1 = mulligan(state, 0, [], seedRng());
-    expect(s1.phase).toBe(GAME_PHASES.MULLIGAN);
+    expect(s1.phase).toBe(GamePhase.Mulligan);
     const s2 = mulligan(s1, 1, [], seedRng());
-    expect(s2.phase).toBe(GAME_PHASES.PLAYING);
+    expect(s2.phase).toBe(GamePhase.Playing);
     expect(s2.turnNumber).toBe(1);
   });
 
@@ -179,9 +179,9 @@ describe('mulligan', () => {
   it('can mulligan in any order', () => {
     const state = createTestGame();
     const s1 = mulligan(state, 1, [], seedRng());
-    expect(s1.phase).toBe(GAME_PHASES.MULLIGAN);
+    expect(s1.phase).toBe(GamePhase.Mulligan);
     const s2 = mulligan(s1, 0, [], seedRng());
-    expect(s2.phase).toBe(GAME_PHASES.PLAYING);
+    expect(s2.phase).toBe(GamePhase.Playing);
   });
 });
 
@@ -532,7 +532,7 @@ describe('pass', () => {
     let state = skipMulligan(createTestGame());
     state = pass(state); // P0 passes
     state = pass(state); // P1 passes
-    expect(state.phase).toBe(GAME_PHASES.ENDED);
+    expect(state.phase).toBe(GamePhase.Ended);
     expect(state.consecutivePasses).toBe(2);
   });
 
@@ -557,7 +557,7 @@ describe('pass', () => {
     // P0 passes again
     state = pass(state);
     expect(state.consecutivePasses).toBe(1);
-    expect(state.phase).toBe(GAME_PHASES.PLAYING);
+    expect(state.phase).toBe(GamePhase.Playing);
   });
 
   it('throws if not in playing phase', () => {

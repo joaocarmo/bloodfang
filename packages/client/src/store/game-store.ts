@@ -3,6 +3,7 @@ import { create } from 'zustand';
 import { t } from '@lingui/core/macro';
 import type { CardDefinition, GameState, PlayerId, Position } from '@bloodfang/engine';
 import {
+  GamePhase,
   createGame,
   mulligan,
   playCard,
@@ -93,7 +94,7 @@ export const useGameStore = create<GameStore>((set, get) => {
       const newState = mulligan(gameState, player, returnCardIds);
       set({ gameState: newState, selectedCardId: null });
 
-      if (newState.phase === 'playing') {
+      if (newState.phase === GamePhase.Playing) {
         const p = newState.currentPlayerIndex + 1;
         get().announce(t`Mulligan complete. Player ${p}'s turn.`);
         set({ showTransition: true });
@@ -132,7 +133,7 @@ export const useGameStore = create<GameStore>((set, get) => {
       const colNum = position.col + 1;
       get().announce(t`Player ${pNum} played ${cardName} at row ${rowNum}, column ${colNum}.`);
 
-      if (newState.phase === 'ended') {
+      if (newState.phase === GamePhase.Ended) {
         const scores = calculateFinalScores(newState);
         const winner = determineWinner(scores);
         const winMsg =
@@ -158,7 +159,7 @@ export const useGameStore = create<GameStore>((set, get) => {
       const passP = prevPlayer + 1;
       get().announce(t`Player ${passP} passed.`);
 
-      if (newState.phase === 'ended') {
+      if (newState.phase === GamePhase.Ended) {
         const scores = calculateFinalScores(newState);
         const winner = determineWinner(scores);
         const winMsg =
@@ -207,7 +208,7 @@ export function useValidMoves() {
   // (getValidMoves returns new array refs, failing Object.is equality)
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useMemo(() => {
-    if (!gameState || gameState.phase !== 'playing') return [];
+    if (!gameState || gameState.phase !== GamePhase.Playing) return [];
     return getValidMoves(gameState);
   }, [gameState]);
 }

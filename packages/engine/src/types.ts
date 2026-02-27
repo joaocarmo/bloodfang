@@ -241,8 +241,11 @@ export interface PlayerState {
 
 // ── Game Phase ─────────────────────────────────────────────────────────
 
-export const GAME_PHASES = { MULLIGAN: 'mulligan', PLAYING: 'playing', ENDED: 'ended' } as const;
-export type GamePhase = (typeof GAME_PHASES)[keyof typeof GAME_PHASES];
+export enum GamePhase {
+  Mulligan = 'mulligan',
+  Playing = 'playing',
+  Ended = 'ended',
+}
 
 // ── Action Log ─────────────────────────────────────────────────────────
 

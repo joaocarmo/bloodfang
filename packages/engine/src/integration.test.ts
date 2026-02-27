@@ -8,7 +8,7 @@ import {
   resolveRangePattern,
 } from './game.js';
 import { calculateLaneScores, calculateFinalScores, determineWinner } from './scoring.js';
-import { createSeededRng, GAME_PHASES, LOG_ACTION_TYPES, RANGE_CELL_TYPES } from './types.js';
+import { createSeededRng, GamePhase, LOG_ACTION_TYPES, RANGE_CELL_TYPES } from './types.js';
 import type { GameState } from './types.js';
 import { buildTestDeck, getAllTestDefinitions } from './cards/test-cards.js';
 
@@ -35,7 +35,7 @@ describe('integration: full game flows', () => {
     state = pass(state); // P0
     state = pass(state); // P1
 
-    expect(state.phase).toBe(GAME_PHASES.ENDED);
+    expect(state.phase).toBe(GamePhase.Ended);
     const scores = calculateFinalScores(state);
     expect(scores).toEqual([0, 0]);
     expect(determineWinner(scores)).toBeNull();
@@ -56,7 +56,7 @@ describe('integration: full game flows', () => {
     // Both pass to end
     state = pass(state); // P0
     state = pass(state); // P1
-    expect(state.phase).toBe(GAME_PHASES.ENDED);
+    expect(state.phase).toBe(GamePhase.Ended);
 
     const laneScores = calculateLaneScores(state);
     const p0Power = defs[p0Card]!.power;
@@ -93,7 +93,7 @@ describe('integration: full game flows', () => {
       // Seed doesn't give us r1-cross, just check basic flow
       const card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
       state = playCard(state, card, { row: 1, col: 0 });
-      expect(state.phase).toBe(GAME_PHASES.PLAYING);
+      expect(state.phase).toBe(GamePhase.Playing);
       return;
     }
 
@@ -115,7 +115,7 @@ describe('integration: full game flows', () => {
 
     // Play many turns to deplete decks
     let turns = 0;
-    while (state.phase === GAME_PHASES.PLAYING && turns < 40) {
+    while (state.phase === GamePhase.Playing && turns < 40) {
       const moves = getValidMoves(state);
       if (moves.length > 0 && moves[0]!.positions.length > 0) {
         state = playCard(state, moves[0]!.cardId, moves[0]!.positions[0]!);
@@ -127,7 +127,7 @@ describe('integration: full game flows', () => {
 
     // Game should end without throwing
     // Either both passed or board filled
-    expect([GAME_PHASES.PLAYING, GAME_PHASES.ENDED]).toContain(state.phase);
+    expect([GamePhase.Playing, GamePhase.Ended]).toContain(state.phase);
   });
 
   it('mulligan changes hand composition deterministically', () => {
@@ -216,7 +216,7 @@ describe('integration: full game flows', () => {
     state = pass(state); // P1 passes
     state = pass(state); // P0 passes → game ends
 
-    expect(state.phase).toBe(GAME_PHASES.ENDED);
+    expect(state.phase).toBe(GamePhase.Ended);
 
     // Verify log has expected action types in order
     const actionTypes = state.log.map((a) => a.type);
@@ -338,7 +338,7 @@ describe('integration: edge cases', () => {
     state = skipMulligan(state);
     state = pass(state);
     state = pass(state);
-    expect(state.phase).toBe(GAME_PHASES.ENDED);
+    expect(state.phase).toBe(GamePhase.Ended);
 
     const card = state.players[0].hand.find((id) => defs[id]?.rank === 1);
     if (card) {

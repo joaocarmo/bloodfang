@@ -1,16 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
+import { GamePhase } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { playerTextColor } from '../../lib/player-color.ts';
 import { Button } from '../ui/button.tsx';
 
 function getNextPlayer(gameState: {
-  phase: string;
+  phase: GamePhase;
   currentPlayerIndex: PlayerId;
   players: readonly { mulliganUsed: boolean }[];
 }): PlayerId {
-  if (gameState.phase === 'mulligan') {
+  if (gameState.phase === GamePhase.Mulligan) {
     const first = gameState.currentPlayerIndex;
     if (gameState.players[first]?.mulliganUsed === false) return first;
     const second: PlayerId = first === 0 ? 1 : 0;

@@ -1,4 +1,5 @@
 import { t } from '@lingui/core/macro';
+import { GamePhase } from '@bloodfang/engine';
 import { useGameStore, useValidMoves } from '../../store/game-store.ts';
 import { Button } from '../ui/button.tsx';
 
@@ -7,7 +8,7 @@ export function PassButton() {
   const doPass = useGameStore((s) => s.doPass);
   const validMoves = useValidMoves();
 
-  if (!gameState || gameState.phase !== 'playing') return null;
+  if (!gameState || gameState.phase !== GamePhase.Playing) return null;
 
   const hasNoMoves = validMoves.length === 0;
 

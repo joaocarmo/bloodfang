@@ -8,14 +8,19 @@ import { DeckBuilder } from '../deck-builder/deck-builder.tsx';
 import { Button } from '../ui/button.tsx';
 import { BackButton } from '../ui/back-button.tsx';
 
-type SetupPhase = 'p0-build' | 'p0-transition' | 'p1-build' | 'ready';
+enum SetupPhase {
+  P0Build = 'p0-build',
+  P0Transition = 'p0-transition',
+  P1Build = 'p1-build',
+  Ready = 'ready',
+}
 
 export function SetupScreen() {
   const setPlayerDeck = useGameStore((s) => s.setPlayerDeck);
   const startGame = useGameStore((s) => s.startGame);
   const definitions = useGameStore((s) => s.definitions);
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<SetupPhase>('p0-build');
+  const [phase, setPhase] = useState(SetupPhase.P0Build);
   const transitionButtonRef = useRef<HTMLButtonElement>(null);
   const startButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -31,7 +36,7 @@ export function SetupScreen() {
   const handleP0Confirm = useCallback(
     (deck: string[]) => {
       setPlayerDeck(0, deck);
-      setPhase('p0-transition');
+      setPhase(SetupPhase.P0Transition);
     },
     [setPlayerDeck],
   );
@@ -39,7 +44,7 @@ export function SetupScreen() {
   const handleP1Confirm = useCallback(
     (deck: string[]) => {
       setPlayerDeck(1, deck);
-      setPhase('ready');
+      setPhase(SetupPhase.Ready);
     },
     [setPlayerDeck],
   );
@@ -50,14 +55,14 @@ export function SetupScreen() {
   }, [startGame, navigate]);
 
   useEffect(() => {
-    if (phase === 'p0-transition') {
+    if (phase === SetupPhase.P0Transition) {
       transitionButtonRef.current?.focus();
-    } else if (phase === 'ready') {
+    } else if (phase === SetupPhase.Ready) {
       startButtonRef.current?.focus();
     }
   }, [phase]);
 
-  if (phase === 'p0-build') {
+  if (phase === SetupPhase.P0Build) {
     return (
       <main tabIndex={-1} className="outline-none">
         <div className="p-4">
@@ -68,7 +73,7 @@ export function SetupScreen() {
           <Button
             onClick={() => {
               setPlayerDeck(0, buildRandomDeck());
-              setPhase('p0-transition');
+              setPhase(SetupPhase.P0Transition);
             }}
             variant="ghost"
             size="sm"
@@ -80,7 +85,7 @@ export function SetupScreen() {
     );
   }
 
-  if (phase === 'p0-transition') {
+  if (phase === SetupPhase.P0Transition) {
     return (
       <main
         tabIndex={-1}
@@ -90,7 +95,7 @@ export function SetupScreen() {
         <p className="text-text-secondary">{t`Pass the device to Player 2.`}</p>
         <Button
           ref={transitionButtonRef}
-          onClick={() => setPhase('p1-build')}
+          onClick={() => setPhase(SetupPhase.P1Build)}
           variant="primary"
           size="lg"
           className="bg-p1/20 border-p1 text-p1-light hover:bg-p1/30"
@@ -101,7 +106,7 @@ export function SetupScreen() {
     );
   }
 
-  if (phase === 'p1-build') {
+  if (phase === SetupPhase.P1Build) {
     return (
       <main tabIndex={-1} className="outline-none">
         <DeckBuilder playerNumber={2} onConfirm={handleP1Confirm} />
@@ -109,7 +114,7 @@ export function SetupScreen() {
           <Button
             onClick={() => {
               setPlayerDeck(1, buildRandomDeck());
-              setPhase('ready');
+              setPhase(SetupPhase.Ready);
             }}
             variant="ghost"
             size="sm"
@@ -121,7 +126,7 @@ export function SetupScreen() {
     );
   }
 
-  // phase === 'ready'
+  // phase === SetupPhase.Ready
   return (
     <main
       tabIndex={-1}
