@@ -375,8 +375,8 @@ msgstr "Drakon Ascendant"
 
 #. placeholder {0}: scores[0]
 #. placeholder {1}: scores[1]
-#: src/store/game-store.ts:147
-#: src/store/game-store.ts:174
+#: src/store/game-store.ts:145
+#: src/store/game-store.ts:172
 msgid "Draw! {0} to {1}."
 msgstr "Draw! {0} to {1}."
 
@@ -530,8 +530,8 @@ msgstr "Game Board"
 msgid "Game ended: {0} - {1}"
 msgstr "Game ended: {0} - {1}"
 
-#: src/store/game-store.ts:148
-#: src/store/game-store.ts:175
+#: src/store/game-store.ts:146
+#: src/store/game-store.ts:173
 msgid "Game over. {winMsg}"
 msgstr "Game over. {winMsg}"
 
@@ -866,8 +866,8 @@ msgstr "Player {0} scores"
 #. placeholder {0}: winner + 1
 #. placeholder {1}: scores[winner]
 #. placeholder {2}: scores[winner === 0 ? 1 : 0]
-#: src/store/game-store.ts:146
-#: src/store/game-store.ts:173
+#: src/store/game-store.ts:144
+#: src/store/game-store.ts:171
 msgid "Player {0} wins {1} to {2}."
 msgstr "Player {0} wins {1} to {2}."
 
@@ -888,12 +888,12 @@ msgstr "Player {0}'s hand"
 msgid "Player {0}'s Turn"
 msgstr "Player {0}'s Turn"
 
-#: src/store/game-store.ts:153
-#: src/store/game-store.ts:180
+#: src/store/game-store.ts:151
+#: src/store/game-store.ts:178
 msgid "Player {nextP}'s turn."
 msgstr "Player {nextP}'s turn."
 
-#: src/store/game-store.ts:166
+#: src/store/game-store.ts:164
 msgid "Player {passP} passed."
 msgstr "Player {passP} passed."
 
@@ -905,7 +905,7 @@ msgstr "Player {pDone} mulligan complete. Player {pNext}, select cards to return
 msgid "Player {playerNumber} — Build Your Deck"
 msgstr "Player {playerNumber} — Build Your Deck"
 
-#: src/store/game-store.ts:138
+#: src/store/game-store.ts:137
 msgid "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 msgstr "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 
@@ -929,15 +929,15 @@ msgstr "Player 2 — Build Deck"
 msgid "Plump Gryphon"
 msgstr "Plump Gryphon"
 
-#: src/components/card/power-badge.tsx:26
+#: src/components/card/power-badge.tsx:31
 msgid "Power {effectivePower}"
 msgstr "Power {effectivePower}"
 
-#: src/components/card/power-badge.tsx:26
+#: src/components/card/power-badge.tsx:28
 msgid "Power {effectivePower}, buffed"
 msgstr "Power {effectivePower}, buffed"
 
-#: src/components/card/power-badge.tsx:26
+#: src/components/card/power-badge.tsx:30
 msgid "Power {effectivePower}, debuffed"
 msgstr "Power {effectivePower}, debuffed"
 
