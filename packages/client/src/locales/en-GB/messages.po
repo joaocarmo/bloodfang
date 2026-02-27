@@ -54,6 +54,18 @@ msgstr "{pawnCount} pawns"
 msgid "{trigger}: {effect}"
 msgstr "{trigger}: {effect}"
 
+#: src/components/screens/rules-screen.tsx:39
+msgid "← →"
+msgstr "← →"
+
+#: src/components/screens/rules-screen.tsx:45
+msgid "← → ↑ ↓"
+msgstr "← → ↑ ↓"
+
+#: src/components/ui/back-button.tsx:12
+msgid "← Home"
+msgstr "← Home"
+
 #: src/lib/card-identity.ts:321
 #~ msgid "+{0} pawns to {1}"
 #~ msgstr "+{0} pawns to {1}"
@@ -100,6 +112,10 @@ msgstr "+{vpu} power per {0}"
 msgid "+replaced card's power to {target}"
 msgstr "+replaced card's power to {target}"
 
+#: src/components/screens/rules-screen.tsx:16
+msgid "2-player hot-seat game on a 3×5 grid (3 lanes, 5 columns)."
+msgstr "2-player hot-seat game on a 3×5 grid (3 lanes, 5 columns)."
+
 #: src/components/screens/home-screen.tsx:24
 msgid "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
 msgstr "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
@@ -114,9 +130,19 @@ msgstr "Ability triggered: {0}"
 msgid "Ability: {0}"
 msgstr "Ability: {0}"
 
+#: src/components/screens/about-screen.tsx:11
+#: src/components/screens/home-screen.tsx:40
+#: src/components/ui/route-announcer.tsx:21
+msgid "About"
+msgstr "About"
+
 #: src/lib/card-identity.ts:103
 msgid "Achilles Reborn"
 msgstr "Achilles Reborn"
+
+#: src/components/screens/rules-screen.tsx:33
+msgid "Action"
+msgstr "Action"
 
 #: src/components/game/action-log.tsx:22
 msgid "Action log"
@@ -210,9 +236,17 @@ msgstr "Athena's Owl"
 msgid "Atlas Gunner"
 msgstr "Atlas Gunner"
 
+#: src/components/screens/about-screen.tsx:16
+msgid "Author"
+msgstr "Author"
+
 #: src/lib/card-identity.ts:173
 msgid "Baby Nymph"
 msgstr "Baby Nymph"
+
+#: src/components/screens/rules-screen.tsx:14
+msgid "Basic Rules"
+msgstr "Basic Rules"
 
 #: src/lib/card-identity.ts:168
 msgid "Battle Sprite"
@@ -222,7 +256,7 @@ msgstr "Battle Sprite"
 msgid "Blood Fang"
 msgstr "Blood Fang"
 
-#: src/components/game/game-screen.tsx:35
+#: src/components/game/game-screen.tsx:76
 msgid "Board"
 msgstr "Board"
 
@@ -230,9 +264,13 @@ msgstr "Board"
 msgid "Boreas Queen"
 msgstr "Boreas Queen"
 
-#: src/components/screens/setup-screen.tsx:112
+#: src/components/screens/setup-screen.tsx:124
 msgid "Both decks are ready!"
 msgstr "Both decks are ready!"
+
+#: src/components/screens/rules-screen.tsx:18
+msgid "Both players draw a starting hand with an optional mulligan phase."
+msgstr "Both players draw a starting hand with an optional mulligan phase."
 
 #: src/lib/card-identity.ts:99
 msgid "Bronze Fortress"
@@ -241,6 +279,12 @@ msgstr "Bronze Fortress"
 #: src/lib/card-identity.ts:17
 msgid "Bronze Sweeper"
 msgstr "Bronze Sweeper"
+
+#: src/components/game/exit-confirm-dialog.tsx:19
+#: src/components/game/game-screen.tsx:41
+#: src/components/game/game-screen.tsx:63
+msgid "Cancel"
+msgstr "Cancel"
 
 #: src/components/deck-builder/card-catalog.tsx:35
 msgid "Card catalog"
@@ -257,6 +301,10 @@ msgstr "Card name..."
 #: src/lib/card-identity.ts:272
 msgid "card on board"
 msgstr "card on board"
+
+#: src/components/screens/rules-screen.tsx:20
+msgid "Cards have power, range, rank (1★ / 2★ / 3★ / Replacement), and abilities."
+msgstr "Cards have power, range, rank (1★ / 2★ / 3★ / Replacement), and abilities."
 
 #: src/lib/card-identity.ts:246
 msgid "cards in range"
@@ -343,10 +391,18 @@ msgstr "Daedalus Glider"
 msgid "Daedalus Pilot"
 msgstr "Daedalus Pilot"
 
+#: src/components/screens/settings-screen.tsx:42
+msgid "Dark"
+msgstr "Dark"
+
 #. placeholder {0}: selectedCards.length
 #: src/components/deck-builder/deck-slots.tsx:15
 msgid "Deck ({0}/{DECK_SIZE})"
 msgstr "Deck ({0}/{DECK_SIZE})"
+
+#: src/components/screens/rules-screen.tsx:59
+msgid "Deselect card"
+msgstr "Deselect card"
 
 #: src/lib/card-identity.ts:60
 msgid "Desert Naga"
@@ -375,14 +431,18 @@ msgstr "Drakon Ascendant"
 
 #. placeholder {0}: scores[0]
 #. placeholder {1}: scores[1]
-#: src/store/game-store.ts:145
-#: src/store/game-store.ts:172
+#: src/store/game-store.ts:141
+#: src/store/game-store.ts:167
 msgid "Draw! {0} to {1}."
 msgstr "Draw! {0} to {1}."
 
 #: src/lib/card-identity.ts:23
 msgid "Dryad Seedling"
 msgstr "Dryad Seedling"
+
+#: src/components/screens/rules-screen.tsx:17
+msgid "Each player builds a 15-card deck before the game begins."
+msgstr "Each player builds a 15-card deck before the game begins."
 
 #: src/lib/card-identity.ts:59
 msgid "Earthen Wyrm"
@@ -458,11 +518,19 @@ msgstr "Enhanced card +{0} power"
 msgid "enhanced enemies"
 msgstr "enhanced enemies"
 
+#: src/components/screens/rules-screen.tsx:51
+msgid "Enter / Space"
+msgstr "Enter / Space"
+
+#: src/components/screens/rules-screen.tsx:57
+msgid "Escape"
+msgstr "Escape"
+
 #: src/lib/card-identity.ts:118
 msgid "Eternal Phoenix"
 msgstr "Eternal Phoenix"
 
-#: src/store/game-store.ts:90
+#: src/store/game-store.ts:86
 msgid "Failed to start game: {reason}"
 msgstr "Failed to start game: {reason}"
 
@@ -516,11 +584,15 @@ msgstr "Frost Reaver"
 msgid "Gaia Titan"
 msgstr "Gaia Titan"
 
+#: src/components/ui/route-announcer.tsx:13
+msgid "Game"
+msgstr "Game"
+
 #: src/components/board/board.tsx:52
 msgid "Game board"
 msgstr "Game board"
 
-#: src/components/game/game-screen.tsx:31
+#: src/components/game/game-screen.tsx:72
 msgid "Game Board"
 msgstr "Game Board"
 
@@ -530,12 +602,16 @@ msgstr "Game Board"
 msgid "Game ended: {0} - {1}"
 msgstr "Game ended: {0} - {1}"
 
-#: src/store/game-store.ts:146
-#: src/store/game-store.ts:173
+#: src/store/game-store.ts:142
+#: src/store/game-store.ts:168
 msgid "Game over. {winMsg}"
 msgstr "Game over. {winMsg}"
 
-#: src/store/game-store.ts:87
+#: src/components/ui/route-announcer.tsx:11
+msgid "Game Setup"
+msgstr "Game Setup"
+
+#: src/store/game-store.ts:83
 msgid "Game started. Mulligan phase. Player 1, select cards to return."
 msgstr "Game started. Mulligan phase. Player 1, select cards to return."
 
@@ -583,7 +659,7 @@ msgstr "Gryphon & Sprite"
 msgid "Gryphon Rider"
 msgstr "Gryphon Rider"
 
-#: src/components/game/game-screen.tsx:43
+#: src/components/game/game-screen.tsx:84
 msgid "Hand"
 msgstr "Hand"
 
@@ -607,7 +683,8 @@ msgstr "Heat Golem"
 msgid "Hermes Trickster"
 msgstr "Hermes Trickster"
 
-#: src/components/game/results-screen.tsx:119
+#: src/components/game/results-screen.tsx:135
+#: src/components/ui/route-announcer.tsx:9
 msgid "Home"
 msgstr "Home"
 
@@ -635,7 +712,7 @@ msgstr "Iron Giant"
 msgid "Iron Myrmidon"
 msgstr "Iron Myrmidon"
 
-#: src/components/game/results-screen.tsx:27
+#: src/components/game/results-screen.tsx:31
 msgid "It's a Draw!"
 msgstr "It's a Draw!"
 
@@ -650,6 +727,14 @@ msgstr "Junior Nymph"
 #: src/components/game/mulligan-screen.tsx:88
 msgid "Keep All"
 msgstr "Keep All"
+
+#: src/components/screens/rules-screen.tsx:32
+msgid "Key"
+msgstr "Key"
+
+#: src/components/screens/rules-screen.tsx:27
+msgid "Keyboard Shortcuts"
+msgstr "Keyboard Shortcuts"
 
 #: src/lib/card-identity.ts:121
 msgid "King of Dragons"
@@ -668,25 +753,45 @@ msgid "Labyrinth Experiment"
 msgstr "Labyrinth Experiment"
 
 #. placeholder {0}: row + 1
-#: src/components/game/results-screen.tsx:96
+#: src/components/game/results-screen.tsx:112
 msgid "Lane {0}"
 msgstr "Lane {0}"
 
-#: src/components/game/results-screen.tsx:77
+#: src/components/game/results-screen.tsx:93
 msgid "Lane {laneNum}: Player 1 wins {p0} to {p1}"
 msgstr "Lane {laneNum}: Player 1 wins {p0} to {p1}"
 
-#: src/components/game/results-screen.tsx:79
+#: src/components/game/results-screen.tsx:95
 msgid "Lane {laneNum}: Player 2 wins {p1} to {p0}"
 msgstr "Lane {laneNum}: Player 2 wins {p1} to {p0}"
 
-#: src/components/game/results-screen.tsx:80
+#: src/components/game/results-screen.tsx:96
 msgid "Lane {laneNum}: Tied {p0} to {p1}"
 msgstr "Lane {laneNum}: Tied {p0} to {p1}"
 
-#: src/components/game/results-screen.tsx:67
+#: src/components/game/results-screen.tsx:83
 msgid "Lane Breakdown"
 msgstr "Lane Breakdown"
+
+#: src/components/screens/settings-screen.tsx:17
+msgid "Language"
+msgstr "Language"
+
+#: src/components/game/exit-confirm-dialog.tsx:18
+#: src/components/game/game-screen.tsx:40
+#: src/components/game/game-screen.tsx:62
+msgid "Leave"
+msgstr "Leave"
+
+#: src/components/game/exit-confirm-dialog.tsx:16
+#: src/components/game/game-screen.tsx:38
+#: src/components/game/game-screen.tsx:60
+msgid "Leave game?"
+msgstr "Leave game?"
+
+#: src/components/screens/about-screen.tsx:24
+msgid "Licence"
+msgstr "Licence"
 
 #: src/lib/card-identity.ts:171
 msgid "Little Shade"
@@ -720,11 +825,27 @@ msgstr "Minos Judge"
 msgid "Minotaur Thug"
 msgstr "Minotaur Thug"
 
+#: src/components/screens/about-screen.tsx:25
+msgid "MIT — Copyright (c) 2026 Blood Fang Contributors"
+msgstr "MIT — Copyright (c) 2026 Blood Fang Contributors"
+
+#: src/components/screens/settings-screen.tsx:28
+msgid "More languages coming soon."
+msgstr "More languages coming soon."
+
+#: src/components/screens/settings-screen.tsx:44
+msgid "More themes coming soon."
+msgstr "More themes coming soon."
+
 #: src/lib/card-identity.ts:71
 msgid "Mother Nymph"
 msgstr "Mother Nymph"
 
-#: src/store/game-store.ts:102
+#: src/components/screens/rules-screen.tsx:65
+msgid "Move between sections"
+msgstr "Move between sections"
+
+#: src/store/game-store.ts:98
 msgid "Mulligan complete. Player {p}'s turn."
 msgstr "Mulligan complete. Player {p}'s turn."
 
@@ -739,6 +860,18 @@ msgstr "Narcissus Trap"
 #: src/lib/card-identity.ts:48
 msgid "Nautilus Guardian"
 msgstr "Nautilus Guardian"
+
+#: src/components/screens/rules-screen.tsx:47
+msgid "Navigate board"
+msgstr "Navigate board"
+
+#: src/components/screens/rules-screen.tsx:41
+msgid "Navigate hand"
+msgstr "Navigate hand"
+
+#: src/components/ui/back-button.tsx:10
+msgid "Navigation"
+msgstr "Navigation"
 
 #: src/lib/card-identity.ts:96
 msgid "Nemean Guardian"
@@ -816,6 +949,10 @@ msgstr "P{p} played {name} at ({row},{col})"
 msgid "P{p} received a card"
 msgstr "P{p} received a card"
 
+#: src/components/ui/route-announcer.tsx:23
+msgid "Page"
+msgstr "Page"
+
 #: src/lib/card-identity.ts:128
 msgid "Pandora's Jar"
 msgstr "Pandora's Jar"
@@ -833,9 +970,13 @@ msgstr "Pass (No Moves)"
 msgid "Pass the device to Player {0}"
 msgstr "Pass the device to Player {0}"
 
-#: src/components/screens/setup-screen.tsx:75
+#: src/components/screens/setup-screen.tsx:87
 msgid "Pass the device to Player 2."
 msgstr "Pass the device to Player 2."
+
+#: src/components/screens/rules-screen.tsx:21
+msgid "Pawns on tiles determine control. Each lane's score is the sum of card power."
+msgstr "Pawns on tiles determine control. Each lane's score is the sum of card power."
 
 #: src/lib/card-identity.ts:36
 msgid "Pegasus Scout"
@@ -866,13 +1007,13 @@ msgstr "Player {0} scores"
 #. placeholder {0}: winner + 1
 #. placeholder {1}: scores[winner]
 #. placeholder {2}: scores[winner === 0 ? 1 : 0]
-#: src/store/game-store.ts:144
-#: src/store/game-store.ts:171
+#: src/store/game-store.ts:140
+#: src/store/game-store.ts:166
 msgid "Player {0} wins {1} to {2}."
 msgstr "Player {0} wins {1} to {2}."
 
 #. placeholder {0}: winner + 1
-#: src/components/game/results-screen.tsx:27
+#: src/components/game/results-screen.tsx:31
 msgid "Player {0} Wins!"
 msgstr "Player {0} Wins!"
 
@@ -888,16 +1029,16 @@ msgstr "Player {0}'s hand"
 msgid "Player {0}'s Turn"
 msgstr "Player {0}'s Turn"
 
-#: src/store/game-store.ts:151
-#: src/store/game-store.ts:178
+#: src/store/game-store.ts:146
+#: src/store/game-store.ts:172
 msgid "Player {nextP}'s turn."
 msgstr "Player {nextP}'s turn."
 
-#: src/store/game-store.ts:164
+#: src/store/game-store.ts:159
 msgid "Player {passP} passed."
 msgstr "Player {passP} passed."
 
-#: src/store/game-store.ts:109
+#: src/store/game-store.ts:105
 msgid "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
 msgstr "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
 
@@ -905,25 +1046,29 @@ msgstr "Player {pDone} mulligan complete. Player {pNext}, select cards to return
 msgid "Player {playerNumber} — Build Your Deck"
 msgstr "Player {playerNumber} — Build Your Deck"
 
-#: src/store/game-store.ts:137
+#: src/store/game-store.ts:133
 msgid "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 msgstr "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 
-#: src/components/game/results-screen.tsx:51
+#: src/components/game/results-screen.tsx:67
 msgid "Player 1"
 msgstr "Player 1"
 
-#: src/components/screens/setup-screen.tsx:74
+#: src/components/screens/setup-screen.tsx:86
 msgid "Player 1 deck saved!"
 msgstr "Player 1 deck saved!"
 
-#: src/components/game/results-screen.tsx:60
+#: src/components/game/results-screen.tsx:76
 msgid "Player 2"
 msgstr "Player 2"
 
-#: src/components/screens/setup-screen.tsx:83
+#: src/components/screens/setup-screen.tsx:95
 msgid "Player 2 — Build Deck"
 msgstr "Player 2 — Build Deck"
+
+#: src/components/screens/rules-screen.tsx:19
+msgid "Players take turns placing a card on the board or passing."
+msgstr "Players take turns placing a card on the board or passing."
 
 #: src/lib/card-identity.ts:125
 msgid "Plump Gryphon"
@@ -986,7 +1131,7 @@ msgstr "Ready"
 msgid "Reformed Protean"
 msgstr "Reformed Protean"
 
-#: src/components/game/results-screen.tsx:116
+#: src/components/game/results-screen.tsx:132
 msgid "Rematch"
 msgstr "Rematch"
 
@@ -1007,6 +1152,10 @@ msgstr "Replacement card"
 msgid "Resilient Polyp"
 msgstr "Resilient Polyp"
 
+#: src/components/ui/route-announcer.tsx:15
+msgid "Results"
+msgstr "Results"
+
 #: src/lib/card-identity.ts:28
 msgid "Roc of Olympus"
 msgstr "Roc of Olympus"
@@ -1018,6 +1167,12 @@ msgstr "Row {rowNum}, Column {colNum}"
 #: src/lib/card-identity.ts:49
 msgid "Royal Spear"
 msgstr "Royal Spear"
+
+#: src/components/screens/home-screen.tsx:34
+#: src/components/screens/rules-screen.tsx:10
+#: src/components/ui/route-announcer.tsx:17
+msgid "Rules"
+msgstr "Rules"
 
 #: src/lib/card-identity.ts:153
 msgid "Sacred Band"
@@ -1043,6 +1198,10 @@ msgstr "Scorpion of Artemis"
 msgid "Search"
 msgstr "Search"
 
+#: src/components/screens/rules-screen.tsx:53
+msgid "Select card or place on tile"
+msgstr "Select card or place on tile"
+
 #: src/components/game/mulligan-screen.tsx:61
 msgid "Select cards to return to your deck. You'll draw the same number of replacements."
 msgstr "Select cards to return to your deck. You'll draw the same number of replacements."
@@ -1058,6 +1217,12 @@ msgstr "self"
 #: src/lib/card-identity.ts:53
 msgid "Serpent of Lerna"
 msgstr "Serpent of Lerna"
+
+#: src/components/screens/home-screen.tsx:37
+#: src/components/screens/settings-screen.tsx:11
+#: src/components/ui/route-announcer.tsx:19
+msgid "Settings"
+msgstr "Settings"
 
 #: src/lib/card-identity.ts:142
 msgid "Shade Commander"
@@ -1108,11 +1273,11 @@ msgstr "Sprite Trio"
 msgid "Star Voyager"
 msgstr "Star Voyager"
 
-#: src/components/screens/setup-screen.tsx:114
+#: src/components/screens/setup-screen.tsx:126
 msgid "Start Game"
 msgstr "Start Game"
 
-#: src/components/screens/home-screen.tsx:33
+#: src/components/screens/home-screen.tsx:29
 msgid "Start Local Game"
 msgstr "Start Local Game"
 
@@ -1132,6 +1297,10 @@ msgstr "Swift Blade"
 msgid "Swift Hare"
 msgstr "Swift Hare"
 
+#: src/components/screens/rules-screen.tsx:63
+msgid "Tab"
+msgstr "Tab"
+
 #: src/lib/card-identity.ts:262
 msgid "targets"
 msgstr "targets"
@@ -1147,6 +1316,14 @@ msgstr "Tentacle Horror"
 #: src/lib/card-identity.ts:47
 msgid "Thalassic Fiend"
 msgstr "Thalassic Fiend"
+
+#: src/components/screens/rules-screen.tsx:22
+msgid "The player with the higher lane score wins that lane. Win the most lanes to win the game."
+msgstr "The player with the higher lane score wins that lane. Win the most lanes to win the game."
+
+#: src/components/screens/settings-screen.tsx:33
+msgid "Theme"
+msgstr "Theme"
 
 #: src/lib/card-identity.ts:178
 msgid "Thorny Imp"
@@ -1197,12 +1374,12 @@ msgstr "Tyrant & Beast"
 msgid "unit"
 msgstr "unit"
 
-#: src/store/game-store.ts:89
+#: src/store/game-store.ts:85
 msgid "Unknown error"
 msgstr "Unknown error"
 
-#: src/components/screens/setup-screen.tsx:64
-#: src/components/screens/setup-screen.tsx:102
+#: src/components/screens/setup-screen.tsx:76
+#: src/components/screens/setup-screen.tsx:114
 msgid "Use Random Deck"
 msgstr "Use Random Deck"
 
@@ -1214,11 +1391,15 @@ msgstr "Valid target"
 msgid "Venomous Asp"
 msgstr "Venomous Asp"
 
+#: src/components/screens/about-screen.tsx:20
+msgid "Version"
+msgstr "Version"
+
 #: src/lib/card-identity.ts:56
 msgid "Volcanic Imp"
 msgstr "Volcanic Imp"
 
-#: src/components/game/results-screen.tsx:54
+#: src/components/game/results-screen.tsx:70
 msgid "vs"
 msgstr "vs"
 
@@ -1301,6 +1482,12 @@ msgstr "World Serpent"
 #: src/lib/card-identity.ts:82
 msgid "Wraith of Tartarus"
 msgstr "Wraith of Tartarus"
+
+#: src/components/game/exit-confirm-dialog.tsx:17
+#: src/components/game/game-screen.tsx:39
+#: src/components/game/game-screen.tsx:61
+msgid "Your game progress will be lost."
+msgstr "Your game progress will be lost."
 
 #: src/components/hand/hand.tsx:53
 msgid "Your Hand"

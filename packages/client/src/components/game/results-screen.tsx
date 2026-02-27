@@ -1,16 +1,20 @@
 import { useRef, useEffect } from 'react';
 import { t } from '@lingui/core/macro';
+import { useNavigate } from '@tanstack/react-router';
 import { motion, useReducedMotion } from 'motion/react';
 import { useGameStore } from '../../store/game-store.ts';
 import { calculateFinalScores, determineWinner } from '@bloodfang/engine';
 import { useLaneScores } from '../../hooks/use-lane-scores.ts';
 import { BOARD_ROWS } from '@bloodfang/engine';
+import { Route } from '../../routes.ts';
 import { Button } from '../ui/button.tsx';
+import { BackButton } from '../ui/back-button.tsx';
 
 export function ResultsScreen() {
   const gameState = useGameStore((s) => s.gameState);
   const resetToHome = useGameStore((s) => s.resetToHome);
   const startGame = useGameStore((s) => s.startGame);
+  const navigate = useNavigate();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const laneScores = useLaneScores();
   const reduceMotion = useReducedMotion();
@@ -26,8 +30,23 @@ export function ResultsScreen() {
 
   const winnerText = winner !== null ? t`Player ${winner + 1} Wins!` : t`It's a Draw!`;
 
+  const handleRematch = () => {
+    startGame();
+    navigate({ to: Route.Game });
+  };
+
+  const handleHome = () => {
+    resetToHome();
+    navigate({ to: Route.Home });
+  };
+
   return (
-    <main className="flex flex-col items-center gap-8 p-8 max-w-lg mx-auto">
+    <main
+      tabIndex={-1}
+      className="flex flex-col items-center gap-8 p-8 max-w-lg mx-auto outline-none"
+    >
+      <BackButton />
+
       <motion.h1
         ref={headingRef}
         tabIndex={-1}
@@ -112,10 +131,10 @@ export function ResultsScreen() {
         transition={{ delay: 0.9 }}
         className="flex gap-3"
       >
-        <Button onClick={startGame} variant="primary" size="lg">
+        <Button onClick={handleRematch} variant="primary" size="lg">
           {t`Rematch`}
         </Button>
-        <Button onClick={resetToHome} size="lg">
+        <Button onClick={handleHome} size="lg">
           {t`Home`}
         </Button>
       </motion.div>

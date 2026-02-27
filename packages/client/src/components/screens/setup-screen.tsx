@@ -1,9 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { t } from '@lingui/core/macro';
+import { useNavigate } from '@tanstack/react-router';
 import type { CardDefinition } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
+import { Route } from '../../routes.ts';
 import { DeckBuilder } from '../deck-builder/deck-builder.tsx';
 import { Button } from '../ui/button.tsx';
+import { BackButton } from '../ui/back-button.tsx';
 
 type SetupPhase = 'p0-build' | 'p0-transition' | 'p1-build' | 'ready';
 
@@ -11,6 +14,7 @@ export function SetupScreen() {
   const setPlayerDeck = useGameStore((s) => s.setPlayerDeck);
   const startGame = useGameStore((s) => s.startGame);
   const definitions = useGameStore((s) => s.definitions);
+  const navigate = useNavigate();
   const [phase, setPhase] = useState<SetupPhase>('p0-build');
   const transitionButtonRef = useRef<HTMLButtonElement>(null);
   const startButtonRef = useRef<HTMLButtonElement>(null);
@@ -40,6 +44,11 @@ export function SetupScreen() {
     [setPlayerDeck],
   );
 
+  const handleStartGame = useCallback(() => {
+    startGame();
+    navigate({ to: Route.Game });
+  }, [startGame, navigate]);
+
   useEffect(() => {
     if (phase === 'p0-transition') {
       transitionButtonRef.current?.focus();
@@ -50,7 +59,10 @@ export function SetupScreen() {
 
   if (phase === 'p0-build') {
     return (
-      <main>
+      <main tabIndex={-1} className="outline-none">
+        <div className="p-4">
+          <BackButton />
+        </div>
         <DeckBuilder playerNumber={1} onConfirm={handleP0Confirm} />
         <div className="text-center mt-4">
           <Button
@@ -70,7 +82,10 @@ export function SetupScreen() {
 
   if (phase === 'p0-transition') {
     return (
-      <main className="flex flex-col items-center justify-center min-h-screen gap-6">
+      <main
+        tabIndex={-1}
+        className="flex flex-col items-center justify-center min-h-screen gap-6 outline-none"
+      >
         <h2 className="text-2xl font-bold text-text-primary">{t`Player 1 deck saved!`}</h2>
         <p className="text-text-secondary">{t`Pass the device to Player 2.`}</p>
         <Button
@@ -88,7 +103,7 @@ export function SetupScreen() {
 
   if (phase === 'p1-build') {
     return (
-      <main>
+      <main tabIndex={-1} className="outline-none">
         <DeckBuilder playerNumber={2} onConfirm={handleP1Confirm} />
         <div className="text-center mt-4">
           <Button
@@ -108,9 +123,12 @@ export function SetupScreen() {
 
   // phase === 'ready'
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen gap-6">
+    <main
+      tabIndex={-1}
+      className="flex flex-col items-center justify-center min-h-screen gap-6 outline-none"
+    >
       <h2 className="text-2xl font-bold text-text-primary">{t`Both decks are ready!`}</h2>
-      <Button ref={startButtonRef} onClick={startGame} variant="primary" size="lg">
+      <Button ref={startButtonRef} onClick={handleStartGame} variant="primary" size="lg">
         {t`Start Game`}
       </Button>
     </main>

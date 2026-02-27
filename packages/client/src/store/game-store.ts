@@ -14,12 +14,7 @@ import {
 } from '@bloodfang/engine';
 import { getCardName } from '../lib/card-identity.ts';
 
-type Screen = 'home' | 'setup' | 'game' | 'results';
-
 interface GameStore {
-  screen: Screen;
-  setScreen: (screen: Screen) => void;
-
   definitions: Record<string, CardDefinition>;
   gameState: GameState | null;
 
@@ -47,15 +42,17 @@ interface GameStore {
   // Hot-seat transition
   showTransition: boolean;
   setShowTransition: (show: boolean) => void;
+
+  // Exit confirmation
+  showExitConfirm: boolean;
+  setShowExitConfirm: (show: boolean) => void;
+  confirmExitToHome: () => void;
 }
 
 export const useGameStore = create<GameStore>((set, get) => {
   const definitions = getAllGameDefinitions();
 
   return {
-    screen: 'home',
-    setScreen: (screen) => set({ screen }),
-
     definitions,
     gameState: null,
 
@@ -79,7 +76,6 @@ export const useGameStore = create<GameStore>((set, get) => {
         const gameState = createGame(playerDecks[0], playerDecks[1], defs);
         set({
           gameState,
-          screen: 'game',
           selectedCardId: null,
           hoveredTilePosition: null,
           showTransition: false,
@@ -144,7 +140,6 @@ export const useGameStore = create<GameStore>((set, get) => {
             ? t`Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
             : t`Draw! ${scores[0]} to ${scores[1]}.`;
         get().announce(t`Game over. ${winMsg}`);
-        set({ screen: 'results' });
       } else if (newState.currentPlayerIndex !== prevPlayer) {
         set({ showTransition: true });
         const nextP = newState.currentPlayerIndex + 1;
@@ -171,7 +166,6 @@ export const useGameStore = create<GameStore>((set, get) => {
             ? t`Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
             : t`Draw! ${scores[0]} to ${scores[1]}.`;
         get().announce(t`Game over. ${winMsg}`);
-        set({ screen: 'results' });
       } else {
         set({ showTransition: true });
         const nextP = newState.currentPlayerIndex + 1;
@@ -181,16 +175,28 @@ export const useGameStore = create<GameStore>((set, get) => {
 
     resetToHome: () =>
       set({
-        screen: 'home',
         gameState: null,
         selectedCardId: null,
         hoveredTilePosition: null,
         playerDecks: [[], []],
         showTransition: false,
+        showExitConfirm: false,
       }),
 
     showTransition: false,
     setShowTransition: (show) => set({ showTransition: show }),
+
+    showExitConfirm: false,
+    setShowExitConfirm: (show) => set({ showExitConfirm: show }),
+    confirmExitToHome: () =>
+      set({
+        gameState: null,
+        selectedCardId: null,
+        hoveredTilePosition: null,
+        playerDecks: [[], []],
+        showTransition: false,
+        showExitConfirm: false,
+      }),
   };
 });
 
