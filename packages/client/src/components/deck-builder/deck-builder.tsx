@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { t } from '@lingui/core/macro';
 import { DECK_SIZE } from '@bloodfang/engine';
 import { useDeckStore } from '../../store/deck-store.ts';
-import { playerLightTextColor } from '../../lib/player-color.ts';
+
 import { FilterBar } from './filter-bar.tsx';
 import { CardCatalog } from './card-catalog.tsx';
 import { DeckSlots } from './deck-slots.tsx';

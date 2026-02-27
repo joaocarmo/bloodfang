@@ -33,6 +33,7 @@ export function TurnTransition() {
   useEffect(() => {
     if (showTransition) {
       dialogRef.current?.showModal();
+      buttonRef.current?.focus();
     } else {
       dialogRef.current?.close();
     }
@@ -58,7 +59,6 @@ export function TurnTransition() {
         ref={buttonRef}
         onClick={() => setShowTransition(false)}
         size="lg"
-        autoFocus
         className="min-w-[120px]"
       >
         {t`Ready`}

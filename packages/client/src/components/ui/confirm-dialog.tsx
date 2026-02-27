@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import { Button } from './button.tsx';
 
 interface ConfirmDialogProps {
@@ -21,10 +21,12 @@ export function ConfirmDialog({
   cancelLabel,
 }: ConfirmDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const cancelRef: RefObject<HTMLButtonElement | null> = useRef(null);
 
   useEffect(() => {
     if (open) {
       dialogRef.current?.showModal();
+      cancelRef.current?.focus();
     } else {
       dialogRef.current?.close();
     }
@@ -47,7 +49,7 @@ export function ConfirmDialog({
         <h2 className="text-xl font-bold text-text-primary">{title}</h2>
         <p className="text-text-secondary">{description}</p>
         <div className="flex gap-3 justify-center">
-          <Button onClick={onCancel} autoFocus>
+          <Button ref={cancelRef} onClick={onCancel}>
             {cancelLabel ?? 'Cancel'}
           </Button>
           <Button onClick={onConfirm} variant="danger">

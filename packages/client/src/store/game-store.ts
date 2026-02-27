@@ -206,7 +206,6 @@ export function useValidMoves() {
   const gameState = useGameStore((s) => s.gameState);
   // useMemo prevents the infinite re-render that a raw Zustand selector would cause
   // (getValidMoves returns new array refs, failing Object.is equality)
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   return useMemo(() => {
     if (!gameState || gameState.phase !== GamePhase.Playing) return [];
     return getValidMoves(gameState);
