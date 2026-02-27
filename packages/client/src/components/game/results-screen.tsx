@@ -86,7 +86,7 @@ export function ResultsScreen() {
       </div>
 
       {/* Lane breakdown */}
-      <div className="w-full">
+      <section className="w-full">
         <h2 className="text-sm text-text-secondary font-medium mb-2 text-center">{t`Lane Breakdown`}</h2>
         <div className="space-y-1">
           {Array.from({ length: BOARD_ROWS }, (_, row) => {
@@ -126,7 +126,7 @@ export function ResultsScreen() {
             );
           })}
         </div>
-      </div>
+      </section>
 
       {/* Actions */}
       <motion.div

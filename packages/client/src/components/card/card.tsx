@@ -37,30 +37,16 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
     .filter(Boolean)
     .join(', ');
 
-  return (
-    <div
-      className={`
-        relative flex flex-col rounded-lg border bg-gradient-to-b ${rankBg} to-surface-raised
-        ${selected ? 'border-focus-ring ring-2 ring-focus-ring' : 'border-border'}
-        ${disabled ? 'opacity-50' : 'cursor-pointer hover:border-text-secondary'}
-        ${compact ? 'w-24 sm:w-28 md:w-32 p-1 sm:p-1.5 gap-0.5' : 'w-32 sm:w-36 md:w-40 p-1.5 sm:p-2 gap-1'}
-        transition-colors
-      `}
-      onClick={disabled ? undefined : onClick}
-      onKeyDown={
-        disabled || !onClick
-          ? undefined
-          : (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                onClick();
-              }
-            }
-      }
-      role={onClick ? 'button' : undefined}
-      tabIndex={onClick && !disabled ? 0 : undefined}
-      aria-label={ariaLabel}
-    >
+  const classes = `
+    relative flex flex-col rounded-lg border bg-gradient-to-b ${rankBg} to-surface-raised
+    ${selected ? 'border-focus-ring ring-2 ring-focus-ring' : 'border-border'}
+    ${disabled ? 'opacity-50' : 'cursor-pointer hover:border-text-secondary'}
+    ${compact ? 'w-24 sm:w-28 md:w-32 p-1 sm:p-1.5 gap-0.5' : 'w-32 sm:w-36 md:w-40 p-1.5 sm:p-2 gap-1'}
+    transition-colors
+  `;
+
+  const content = (
+    <>
       {/* Header: Rank + Power */}
       <div className="flex items-center justify-between">
         <RankIcon rank={definition.rank} />
@@ -91,6 +77,26 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
           </div>
         </div>
       )}
+    </>
+  );
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        className={`${classes} text-left`}
+        onClick={disabled ? undefined : onClick}
+        aria-disabled={disabled || undefined}
+        aria-label={ariaLabel}
+      >
+        {content}
+      </button>
+    );
+  }
+
+  return (
+    <div className={classes} aria-label={ariaLabel}>
+      {content}
     </div>
   );
 }

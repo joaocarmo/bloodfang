@@ -39,7 +39,7 @@ export function DeckSlots() {
                 aria-label={t`Remove ${getCardName(cardId)} from deck`}
               >
                 <span className="truncate">{getCardName(cardId)}</span>
-                <span className="text-text-muted ml-1 tabular-nums">P{def.power}</span>
+                <span className="text-text-muted ml-1 tabular-nums">{t`P${def.power}`}</span>
               </button>
             </li>
           );

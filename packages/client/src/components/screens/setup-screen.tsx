@@ -91,6 +91,7 @@ export function SetupScreen() {
         tabIndex={-1}
         className="flex flex-col items-center justify-center min-h-screen gap-4 sm:gap-6 outline-none"
       >
+        <h1 className="sr-only">{t`Game Setup`}</h1>
         <h2 className="text-xl sm:text-2xl font-bold text-text-primary">{t`Player 1 deck saved!`}</h2>
         <p className="text-text-secondary">{t`Pass the device to Player 2.`}</p>
         <Button
@@ -132,6 +133,7 @@ export function SetupScreen() {
       tabIndex={-1}
       className="flex flex-col items-center justify-center min-h-screen gap-4 sm:gap-6 outline-none"
     >
+      <h1 className="sr-only">{t`Game Setup`}</h1>
       <h2 className="text-xl sm:text-2xl font-bold text-text-primary">{t`Both decks are ready!`}</h2>
       <Button ref={startButtonRef} onClick={handleStartGame} variant="primary" size="lg">
         {t`Start Game`}

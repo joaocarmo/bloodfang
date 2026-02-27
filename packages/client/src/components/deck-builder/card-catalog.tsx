@@ -31,7 +31,6 @@ export function CardCatalog() {
 
   return (
     <div
-      role="grid"
       aria-label={t`Card catalog`}
       className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 overflow-y-auto max-h-[50vh] sm:max-h-[60vh] p-1"
     >
@@ -40,18 +39,16 @@ export function CardCatalog() {
         const canAdd = !isInDeck && !isDeckFull();
 
         return (
-          <div key={card.id} role="gridcell">
-            <div className={isInDeck ? 'opacity-40' : ''}>
-              <Card
-                definition={card}
-                disabled={!canAdd}
-                selected={isInDeck}
-                onClick={() => {
-                  if (canAdd) addCard(card.id);
-                }}
-                compact
-              />
-            </div>
+          <div key={card.id} className={isInDeck ? 'opacity-40' : ''}>
+            <Card
+              definition={card}
+              disabled={!canAdd}
+              selected={isInDeck}
+              onClick={() => {
+                if (canAdd) addCard(card.id);
+              }}
+              compact
+            />
           </div>
         );
       })}

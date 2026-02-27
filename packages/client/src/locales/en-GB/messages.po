@@ -116,7 +116,7 @@ msgstr "+replaced card's power to {target}"
 msgid "2-player hot-seat game on a 3×5 grid (3 lanes, 5 columns)."
 msgstr "2-player hot-seat game on a 3×5 grid (3 lanes, 5 columns)."
 
-#: src/components/screens/home-screen.tsx:27
+#: src/components/screens/home-screen.tsx:26
 msgid "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
 msgstr "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
 
@@ -131,7 +131,7 @@ msgid "Ability: {0}"
 msgstr "Ability: {0}"
 
 #: src/components/screens/about-screen.tsx:17
-#: src/components/screens/home-screen.tsx:43
+#: src/components/screens/home-screen.tsx:52
 #: src/components/ui/route-announcer.tsx:21
 msgid "About"
 msgstr "About"
@@ -252,7 +252,7 @@ msgstr "Basic Rules"
 msgid "Battle Sprite"
 msgstr "Battle Sprite"
 
-#: src/components/screens/home-screen.tsx:24
+#: src/components/screens/home-screen.tsx:23
 msgid "Blood Fang"
 msgstr "Blood Fang"
 
@@ -264,7 +264,7 @@ msgstr "Board"
 msgid "Boreas Queen"
 msgstr "Boreas Queen"
 
-#: src/components/screens/setup-screen.tsx:135
+#: src/components/screens/setup-screen.tsx:137
 msgid "Both decks are ready!"
 msgstr "Both decks are ready!"
 
@@ -283,10 +283,11 @@ msgstr "Bronze Sweeper"
 #: src/components/game/exit-confirm-dialog.tsx:19
 #: src/components/game/game-screen.tsx:42
 #: src/components/game/game-screen.tsx:64
+#: src/components/ui/confirm-dialog.tsx:54
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/components/deck-builder/card-catalog.tsx:35
+#: src/components/deck-builder/card-catalog.tsx:34
 msgid "Card catalog"
 msgstr "Card catalog"
 
@@ -353,6 +354,10 @@ msgstr "Circe Enchantress"
 #: src/components/deck-builder/deck-builder.tsx:48
 msgid "Clear"
 msgstr "Clear"
+
+#: src/components/ui/confirm-dialog.tsx:57
+msgid "Confirm"
+msgstr "Confirm"
 
 #. placeholder {0}: selectedCards.length
 #: src/components/deck-builder/deck-builder.tsx:62
@@ -607,6 +612,8 @@ msgstr "Game ended: {0} - {1}"
 msgid "Game over. {winMsg}"
 msgstr "Game over. {winMsg}"
 
+#: src/components/screens/setup-screen.tsx:94
+#: src/components/screens/setup-screen.tsx:136
 #: src/components/ui/route-announcer.tsx:11
 msgid "Game Setup"
 msgstr "Game Setup"
@@ -809,6 +816,10 @@ msgstr "Lycaon Beast"
 msgid "Lycaon Cursed"
 msgstr "Lycaon Cursed"
 
+#: src/components/screens/home-screen.tsx:28
+msgid "Main menu"
+msgstr "Main menu"
+
 #: src/lib/card-identity.ts:66
 msgid "Mantis Chimera"
 msgstr "Mantis Chimera"
@@ -885,7 +896,7 @@ msgstr "No actions yet."
 msgid "No cards in hand"
 msgstr "No cards in hand"
 
-#: src/components/deck-builder/card-catalog.tsx:60
+#: src/components/deck-builder/card-catalog.tsx:57
 msgid "No cards match your filters."
 msgstr "No cards match your filters."
 
@@ -916,6 +927,15 @@ msgstr "Orichalcum Golem"
 #: src/components/board/tile.tsx:79
 msgid "Owned by Player {ownerNum}"
 msgstr "Owned by Player {ownerNum}"
+
+#. placeholder {0}: def.power
+#. placeholder {0}: player + 1
+#. placeholder {0}: tile.owner + 1
+#: src/components/board/lane-scores.tsx:25
+#: src/components/board/tile.tsx:69
+#: src/components/deck-builder/deck-slots.tsx:42
+msgid "P{0}"
+msgstr "P{0}"
 
 #: src/components/game/action-log.tsx:67
 msgid "P{p} captured pawn at ({row},{col})"
@@ -970,7 +990,7 @@ msgstr "Pass (No Moves)"
 msgid "Pass the device to Player {0}"
 msgstr "Pass the device to Player {0}"
 
-#: src/components/screens/setup-screen.tsx:95
+#: src/components/screens/setup-screen.tsx:96
 msgid "Pass the device to Player 2."
 msgstr "Pass the device to Player 2."
 
@@ -1054,7 +1074,7 @@ msgstr "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 msgid "Player 1"
 msgstr "Player 1"
 
-#: src/components/screens/setup-screen.tsx:94
+#: src/components/screens/setup-screen.tsx:95
 msgid "Player 1 deck saved!"
 msgstr "Player 1 deck saved!"
 
@@ -1062,7 +1082,7 @@ msgstr "Player 1 deck saved!"
 msgid "Player 2"
 msgstr "Player 2"
 
-#: src/components/screens/setup-screen.tsx:103
+#: src/components/screens/setup-screen.tsx:104
 msgid "Player 2 — Build Deck"
 msgstr "Player 2 — Build Deck"
 
@@ -1105,6 +1125,10 @@ msgstr "Pyriphlegethon"
 #: src/lib/card-identity.ts:45
 msgid "Pyroclast Soldier"
 msgstr "Pyroclast Soldier"
+
+#: src/components/card/range-grid.tsx:33
+msgid "Range pattern"
+msgstr "Range pattern"
 
 #: src/components/card/card.tsx:33
 #: src/components/card/rank-icon.tsx:26
@@ -1168,7 +1192,7 @@ msgstr "Row {rowNum}, Column {colNum}"
 msgid "Royal Spear"
 msgstr "Royal Spear"
 
-#: src/components/screens/home-screen.tsx:37
+#: src/components/screens/home-screen.tsx:40
 #: src/components/screens/rules-screen.tsx:16
 #: src/components/ui/route-announcer.tsx:17
 msgid "Rules"
@@ -1218,7 +1242,7 @@ msgstr "self"
 msgid "Serpent of Lerna"
 msgstr "Serpent of Lerna"
 
-#: src/components/screens/home-screen.tsx:40
+#: src/components/screens/home-screen.tsx:46
 #: src/components/screens/settings-screen.tsx:17
 #: src/components/ui/route-announcer.tsx:19
 msgid "Settings"
@@ -1273,11 +1297,11 @@ msgstr "Sprite Trio"
 msgid "Star Voyager"
 msgstr "Star Voyager"
 
-#: src/components/screens/setup-screen.tsx:137
+#: src/components/screens/setup-screen.tsx:139
 msgid "Start Game"
 msgstr "Start Game"
 
-#: src/components/screens/home-screen.tsx:32
+#: src/components/screens/home-screen.tsx:33
 msgid "Start Local Game"
 msgstr "Start Local Game"
 
@@ -1379,7 +1403,7 @@ msgid "Unknown error"
 msgstr "Unknown error"
 
 #: src/components/screens/setup-screen.tsx:81
-#: src/components/screens/setup-screen.tsx:122
+#: src/components/screens/setup-screen.tsx:123
 msgid "Use Random Deck"
 msgstr "Use Random Deck"
 

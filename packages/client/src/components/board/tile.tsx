@@ -66,7 +66,7 @@ export function Tile({ row, col, isFocused, onFocus }: TileProps) {
   const ownerBadge =
     tile.owner !== null ? (
       <span className="absolute top-0.5 left-0.5 text-[9px] text-text-muted font-medium">
-        P{tile.owner + 1}
+        {t`P${tile.owner + 1}`}
       </span>
     ) : null;
 

@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import type { RangeCell } from '@bloodfang/engine';
 
 interface RangeGridProps {
@@ -29,7 +30,7 @@ export function RangeGrid({ rangePattern, size = 'sm' }: RangeGridProps) {
     <div
       className={`inline-grid grid-cols-5 grid-rows-5 ${gap}`}
       role="img"
-      aria-label="Range pattern"
+      aria-label={t`Range pattern`}
     >
       {grid.flat().map((cell, i) => (
         <div key={i} className={`${cellSize} rounded-sm ${getCellColor(cell)}`} />

@@ -26,7 +26,7 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
   const isReady = selectedCards.length === DECK_SIZE;
 
   return (
-    <div className="flex flex-col gap-3 p-2 sm:gap-4 sm:p-4 max-w-6xl mx-auto">
+    <section className="flex flex-col gap-3 p-2 sm:gap-4 sm:p-4 max-w-6xl mx-auto">
       <h1
         ref={headingRef}
         tabIndex={-1}
@@ -64,6 +64,6 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

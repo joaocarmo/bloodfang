@@ -1,4 +1,5 @@
 import { useEffect, useRef, type RefObject } from 'react';
+import { t } from '@lingui/core/macro';
 import { Button } from './button.tsx';
 
 interface ConfirmDialogProps {
@@ -50,10 +51,10 @@ export function ConfirmDialog({
         <p className="text-text-secondary">{description}</p>
         <div className="flex gap-3 justify-center">
           <Button ref={cancelRef} onClick={onCancel}>
-            {cancelLabel ?? 'Cancel'}
+            {cancelLabel ?? t`Cancel`}
           </Button>
           <Button onClick={onConfirm} variant="danger">
-            {confirmLabel ?? 'Confirm'}
+            {confirmLabel ?? t`Confirm`}
           </Button>
         </div>
       </div>
