@@ -3,10 +3,12 @@ import { t } from '@lingui/core/macro';
 import { BOARD_ROWS, BOARD_COLS } from '@bloodfang/engine';
 import { Tile } from './tile.tsx';
 import { LaneScores } from './lane-scores.tsx';
+import { usePlacementPreview } from '../../hooks/use-placement-preview.ts';
 
 export function Board() {
   const [focusedRow, setFocusedRow] = useState(0);
   const [focusedCol, setFocusedCol] = useState(0);
+  const preview = usePlacementPreview();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -65,6 +67,7 @@ export function Board() {
                     setFocusedRow(row);
                     setFocusedCol(col);
                   }}
+                  preview={preview.get(`${row},${col}`)}
                 />
               </div>
             ))}

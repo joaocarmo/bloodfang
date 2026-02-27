@@ -7,15 +7,17 @@ import { PawnDots } from './pawn-dots.tsx';
 import { PlacedCard } from './placed-card.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 import { getEffectivePower } from '@bloodfang/engine';
+import type { TilePreview } from '../../hooks/use-placement-preview.ts';
 
 interface TileProps {
   row: number;
   col: number;
   isFocused: boolean;
   onFocus: () => void;
+  preview?: TilePreview | undefined;
 }
 
-export function Tile({ row, col, isFocused, onFocus }: TileProps) {
+export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
   const gameState = useGameStore((s) => s.gameState);
   const selectedCardId = useGameStore((s) => s.selectedCardId);
   const placeCard = useGameStore((s) => s.placeCard);
@@ -89,6 +91,21 @@ export function Tile({ row, col, isFocused, onFocus }: TileProps) {
   }
   if (isValidTarget) parts.push(t`Valid target`);
 
+  // Preview overlay classes
+  const currentPlayer = gameState.currentPlayerIndex;
+  let previewOverlay: string | null = null;
+  if (preview?.isPlacementTile) {
+    previewOverlay = currentPlayer === 0 ? 'bg-p0/30' : 'bg-p1/30';
+  } else if (preview?.willBeDestroyed) {
+    previewOverlay = 'bg-power-debuff/30';
+  } else if (preview?.isPawnRange && preview.isAbilityRange) {
+    previewOverlay = currentPlayer === 0 ? 'bg-p0/20' : 'bg-p1/20';
+  } else if (preview?.isPawnRange) {
+    previewOverlay = currentPlayer === 0 ? 'bg-p0/20' : 'bg-p1/20';
+  } else if (preview?.isAbilityRange) {
+    previewOverlay = 'bg-power-buff/15';
+  }
+
   return (
     <div
       role="gridcell"
@@ -103,10 +120,15 @@ export function Tile({ row, col, isFocused, onFocus }: TileProps) {
         relative flex flex-col items-center justify-center
         ${ownerBg} rounded-md min-h-10 min-w-8 sm:min-h-14 sm:min-w-12 md:min-h-16 md:min-w-14 p-0.5 sm:p-1
         ${isValidTarget ? 'ring-2 ring-power-buff cursor-pointer' : ''}
+        ${preview?.isPlacementTile ? 'ring-3 ring-power-buff' : ''}
+        ${preview?.willBeDestroyed ? 'ring-2 ring-power-debuff animate-pulse' : ''}
         focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
         transition-all
       `}
     >
+      {previewOverlay && (
+        <div className={`absolute inset-0 rounded-md ${previewOverlay} pointer-events-none z-0`} />
+      )}
       {ownerBadge}
       <PawnDots count={tile.pawnCount} owner={tile.owner} />
       <AnimatePresence>
@@ -119,6 +141,15 @@ export function Tile({ row, col, isFocused, onFocus }: TileProps) {
           />
         )}
       </AnimatePresence>
+      {preview?.powerDelta != null && preview.powerDelta !== 0 && (
+        <span
+          className={`absolute bottom-0.5 right-0.5 text-[10px] font-bold z-10 px-0.5 rounded ${
+            preview.powerDelta > 0 ? 'text-power-buff' : 'text-power-debuff'
+          }`}
+        >
+          {preview.powerDelta > 0 ? `+${preview.powerDelta}` : preview.powerDelta}
+        </span>
+      )}
     </div>
   );
 }

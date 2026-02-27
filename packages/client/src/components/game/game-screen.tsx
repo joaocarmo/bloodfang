@@ -11,6 +11,8 @@ import { TurnIndicator } from './turn-indicator.tsx';
 import { TurnTransition } from './turn-transition.tsx';
 import { PassButton } from './pass-button.tsx';
 import { ActionLog } from './action-log.tsx';
+import { GameMenu } from './game-menu.tsx';
+import { SelectedCardDetail } from './selected-card-detail.tsx';
 import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 
 export function GameScreen() {
@@ -75,7 +77,11 @@ export function GameScreen() {
       >
         <h1 className="sr-only">{t`Game Board`}</h1>
 
-        <TurnIndicator />
+        <div className="flex items-center justify-between">
+          <GameMenu />
+          <TurnIndicator />
+          <div className="w-10" />
+        </div>
 
         <section aria-label={t`Board`}>
           <Board />
@@ -88,6 +94,8 @@ export function GameScreen() {
         <section aria-label={t`Hand`}>
           <Hand />
         </section>
+
+        <SelectedCardDetail />
 
         <ActionLog />
       </main>
