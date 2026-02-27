@@ -33,29 +33,6 @@ export function GameScreen() {
 
   if (!gameState) return null;
 
-  if (gameState.phase === GamePhase.Mulligan) {
-    return (
-      <>
-        <ConfirmDialog
-          open={status === 'blocked'}
-          title={t`Leave game?`}
-          description={t`Your game progress will be lost.`}
-          confirmLabel={t`Leave`}
-          cancelLabel={t`Cancel`}
-          onConfirm={() => {
-            useGameStore.getState().resetToHome();
-            proceed?.();
-          }}
-          onCancel={() => reset?.()}
-        />
-        <TurnTransition />
-        <main tabIndex={-1} className="outline-none">
-          <MulliganScreen />
-        </main>
-      </>
-    );
-  }
-
   return (
     <>
       <ConfirmDialog
@@ -71,34 +48,40 @@ export function GameScreen() {
         onCancel={() => reset?.()}
       />
       <TurnTransition />
-      <main
-        tabIndex={-1}
-        className="flex flex-col gap-2 p-2 sm:gap-3 sm:p-3 md:gap-4 md:p-4 max-w-4xl mx-auto outline-none"
-      >
-        <h1 className="sr-only">{t`Game Board`}</h1>
+      {gameState.phase === GamePhase.Mulligan ? (
+        <main tabIndex={-1} className="outline-none">
+          <MulliganScreen />
+        </main>
+      ) : (
+        <main
+          tabIndex={-1}
+          className="flex flex-col gap-2 p-2 sm:gap-3 sm:p-3 md:gap-4 md:p-4 max-w-4xl mx-auto outline-none"
+        >
+          <h1 className="sr-only">{t`Game Board`}</h1>
 
-        <div className="flex items-center justify-between">
-          <GameMenu />
-          <TurnIndicator />
-          <div className="w-10" />
-        </div>
+          <div className="flex items-center justify-between">
+            <GameMenu />
+            <TurnIndicator />
+            <div className="w-10" />
+          </div>
 
-        <section aria-label={t`Board`}>
-          <Board />
-        </section>
+          <section aria-label={t`Board`}>
+            <Board />
+          </section>
 
-        <div className="flex items-center justify-center gap-4">
-          <PassButton />
-        </div>
+          <div className="flex items-center justify-center gap-4">
+            <PassButton />
+          </div>
 
-        <section aria-label={t`Hand`}>
-          <Hand />
-        </section>
+          <section aria-label={t`Hand`}>
+            <Hand />
+          </section>
 
-        <SelectedCardDetail />
+          <SelectedCardDetail />
 
-        <ActionLog />
-      </main>
+          <ActionLog />
+        </main>
+      )}
     </>
   );
 }

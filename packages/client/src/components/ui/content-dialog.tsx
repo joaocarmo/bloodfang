@@ -1,5 +1,6 @@
-import { useEffect, useRef, type ReactNode, type RefObject } from 'react';
+import { useRef, type ReactNode, type RefObject } from 'react';
 import { t } from '@lingui/core/macro';
+import { useDialog } from '../../hooks/use-dialog.ts';
 import { Button } from './button.tsx';
 
 interface ContentDialogProps {
@@ -13,14 +14,7 @@ export function ContentDialog({ open, onClose, title, children }: ContentDialogP
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef: RefObject<HTMLButtonElement | null> = useRef(null);
 
-  useEffect(() => {
-    if (open) {
-      dialogRef.current?.showModal();
-      closeRef.current?.focus();
-    } else {
-      dialogRef.current?.close();
-    }
-  }, [open]);
+  useDialog(open, dialogRef, closeRef);
 
   if (!open) return null;
 

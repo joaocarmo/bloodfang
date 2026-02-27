@@ -211,7 +211,3 @@ export function useValidMoves() {
     return getValidMoves(gameState);
   }, [gameState]);
 }
-
-export function useCurrentPlayer(): PlayerId {
-  return useGameStore((s) => s.gameState?.currentPlayerIndex ?? 0);
-}

@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { MAX_PAWN_COUNT } from '@bloodfang/engine';
 import { motion, useReducedMotion } from 'motion/react';
+import { playerBgColor } from '../../lib/player-color.ts';
 
 interface PawnDotsProps {
   count: number;
@@ -9,7 +10,7 @@ interface PawnDotsProps {
 }
 
 export function PawnDots({ count, owner }: PawnDotsProps) {
-  const colorClass = owner === 0 ? 'bg-p0' : owner === 1 ? 'bg-p1' : 'bg-text-muted';
+  const colorClass = owner !== null ? playerBgColor(owner) : 'bg-text-muted';
   const reduceMotion = useReducedMotion();
 
   if (count === 0) return null;

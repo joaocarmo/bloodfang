@@ -1,21 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { t, plural } from '@lingui/core/macro';
-import type { PlayerId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Card } from '../card/card.tsx';
 import { playerTextColor } from '../../lib/player-color.ts';
+import { getMulliganPlayer } from '../../lib/get-mulligan-player.ts';
 import { Button } from '../ui/button.tsx';
-
-function getMulliganPlayer(gameState: {
-  currentPlayerIndex: PlayerId;
-  players: readonly { mulliganUsed: boolean }[];
-}): PlayerId {
-  const first = gameState.currentPlayerIndex;
-  if (gameState.players[first]?.mulliganUsed === false) return first;
-  const second: PlayerId = first === 0 ? 1 : 0;
-  if (gameState.players[second]?.mulliganUsed === false) return second;
-  return first;
-}
 
 export function MulliganScreen() {
   const gameState = useGameStore((s) => s.gameState);

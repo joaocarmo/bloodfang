@@ -1,9 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { GamePhase } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { playerTextColor } from '../../lib/player-color.ts';
+import { getMulliganPlayer } from '../../lib/get-mulligan-player.ts';
+import { useDialog } from '../../hooks/use-dialog.ts';
 import { Button } from '../ui/button.tsx';
 
 function getNextPlayer(gameState: {
@@ -12,11 +14,7 @@ function getNextPlayer(gameState: {
   players: readonly { mulliganUsed: boolean }[];
 }): PlayerId {
   if (gameState.phase === GamePhase.Mulligan) {
-    const first = gameState.currentPlayerIndex;
-    if (gameState.players[first]?.mulliganUsed === false) return first;
-    const second: PlayerId = first === 0 ? 1 : 0;
-    if (gameState.players[second]?.mulliganUsed === false) return second;
-    return first;
+    return getMulliganPlayer(gameState);
   }
   return gameState.currentPlayerIndex;
 }
@@ -30,14 +28,7 @@ export function TurnTransition() {
 
   const currentPlayer = gameState ? getNextPlayer(gameState) : 0;
 
-  useEffect(() => {
-    if (showTransition) {
-      dialogRef.current?.showModal();
-      buttonRef.current?.focus();
-    } else {
-      dialogRef.current?.close();
-    }
-  }, [showTransition]);
+  useDialog(showTransition, dialogRef, buttonRef);
 
   const handleCancel = (e: React.SyntheticEvent) => e.preventDefault();
 

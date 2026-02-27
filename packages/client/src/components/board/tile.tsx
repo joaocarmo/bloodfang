@@ -6,6 +6,7 @@ import { useValidMovesForCard } from '../../hooks/use-valid-moves.ts';
 import { PawnDots } from './pawn-dots.tsx';
 import { PlacedCard } from './placed-card.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
+import { tileBgColor, playerBgOpacity } from '../../lib/player-color.ts';
 import { getEffectivePower } from '@bloodfang/engine';
 import type { TilePreview } from '../../hooks/use-placement-preview.ts';
 
@@ -62,8 +63,7 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
     tile.cardInstanceId !== null ? gameState.cardInstances[tile.cardInstanceId] : undefined;
   const definition = instance ? definitions[instance.definitionId] : undefined;
 
-  const ownerBg =
-    tile.owner === 0 ? 'bg-tile-p0' : tile.owner === 1 ? 'bg-tile-p1' : 'bg-tile-empty';
+  const ownerBg = tileBgColor(tile.owner);
 
   const ownerBadge =
     tile.owner !== null ? (
@@ -95,13 +95,13 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
   const currentPlayer = gameState.currentPlayerIndex;
   let previewOverlay: string | null = null;
   if (preview?.isPlacementTile) {
-    previewOverlay = currentPlayer === 0 ? 'bg-p0/30' : 'bg-p1/30';
+    previewOverlay = playerBgOpacity(currentPlayer, 30);
   } else if (preview?.willBeDestroyed) {
     previewOverlay = 'bg-power-debuff/30';
   } else if (preview?.isPawnRange && preview.isAbilityRange) {
-    previewOverlay = currentPlayer === 0 ? 'bg-p0/20' : 'bg-p1/20';
+    previewOverlay = playerBgOpacity(currentPlayer, 20);
   } else if (preview?.isPawnRange) {
-    previewOverlay = currentPlayer === 0 ? 'bg-p0/20' : 'bg-p1/20';
+    previewOverlay = playerBgOpacity(currentPlayer, 20);
   } else if (preview?.isAbilityRange) {
     previewOverlay = 'bg-power-buff/15';
   }

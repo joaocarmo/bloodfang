@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
 import type { CardDefinition } from '@bloodfang/engine';
+import { fisherYatesShuffle } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Route } from '../../routes.ts';
 import { DeckBuilder } from '../deck-builder/deck-builder.tsx';
@@ -26,11 +27,10 @@ export function SetupScreen() {
 
   // Build a random deck for quick start
   const buildRandomDeck = useCallback((): string[] => {
-    const nonTokenCards = Object.values(definitions).filter(
-      (d): d is CardDefinition => d !== undefined && !d.isToken,
-    );
-    const shuffled = [...nonTokenCards].sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 15).map((c) => c.id);
+    const ids = Object.values(definitions)
+      .filter((d): d is CardDefinition => d !== undefined && !d.isToken)
+      .map((c) => c.id);
+    return fisherYatesShuffle(ids, Math.random).slice(0, 15);
   }, [definitions]);
 
   const handleP0Confirm = useCallback(
@@ -97,9 +97,8 @@ export function SetupScreen() {
         <Button
           ref={transitionButtonRef}
           onClick={() => setPhase(SetupPhase.P1Build)}
-          variant="primary"
+          variant="danger"
           size="lg"
-          className="bg-p1/20 border-p1 text-p1-light hover:bg-p1/30"
         >
           {t`Player 2 — Build Deck`}
         </Button>

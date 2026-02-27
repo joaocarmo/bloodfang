@@ -1,5 +1,6 @@
-import { useEffect, useRef, type RefObject } from 'react';
+import { useRef, type RefObject } from 'react';
 import { t } from '@lingui/core/macro';
+import { useDialog } from '../../hooks/use-dialog.ts';
 import { Button } from './button.tsx';
 
 interface ConfirmDialogProps {
@@ -24,14 +25,7 @@ export function ConfirmDialog({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const cancelRef: RefObject<HTMLButtonElement | null> = useRef(null);
 
-  useEffect(() => {
-    if (open) {
-      dialogRef.current?.showModal();
-      cancelRef.current?.focus();
-    } else {
-      dialogRef.current?.close();
-    }
-  }, [open]);
+  useDialog(open, dialogRef, cancelRef);
 
   if (!open) return null;
 

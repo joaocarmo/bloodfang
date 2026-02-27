@@ -7,6 +7,7 @@ import { FilterBar } from './filter-bar.tsx';
 import { CardCatalog } from './card-catalog.tsx';
 import { DeckSlots } from './deck-slots.tsx';
 import { Button } from '../ui/button.tsx';
+import { playerTextColor } from '../../lib/player-color.ts';
 
 interface DeckBuilderProps {
   playerNumber: 1 | 2;
@@ -30,7 +31,7 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className={`text-xl sm:text-2xl font-bold outline-none ${playerNumber === 1 ? 'text-p0' : 'text-p1'}`}
+        className={`text-xl sm:text-2xl font-bold outline-none ${playerTextColor(playerNumber === 1 ? 0 : 1)}`}
       >
         {t`Player ${playerNumber} — Build Your Deck`}
       </h1>
@@ -47,20 +48,15 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
             <Button onClick={clear} size="sm">
               {t`Clear`}
             </Button>
-            <button
+            <Button
               onClick={() => onConfirm([...selectedCards])}
               aria-disabled={!isReady}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium min-h-[36px] transition-colors
-                focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-                ${
-                  isReady
-                    ? 'bg-p0/20 border border-p0 text-p0-light hover:bg-p0/30'
-                    : 'bg-surface-raised border border-border text-text-muted cursor-not-allowed'
-                }
-              `}
+              variant={isReady ? 'primary' : 'secondary'}
+              size="sm"
+              className={isReady ? '' : 'text-text-muted cursor-not-allowed'}
             >
               {t`Confirm (${selectedCards.length}/${DECK_SIZE})`}
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { BOARD_ROWS } from '@bloodfang/engine';
 import { useLaneScores } from '../../hooks/use-lane-scores.ts';
+import { playerTextColor } from '../../lib/player-color.ts';
 
 interface LaneScoresProps {
   player: PlayerId;
@@ -10,7 +11,7 @@ interface LaneScoresProps {
 
 export function LaneScores({ player, side }: LaneScoresProps) {
   const laneScores = useLaneScores();
-  const colorClass = player === 0 ? 'text-p0' : 'text-p1';
+  const colorClass = playerTextColor(player);
   const totalScore = laneScores.reduce((sum, lane) => {
     const score = lane?.[player];
     return sum + (score ?? 0);
