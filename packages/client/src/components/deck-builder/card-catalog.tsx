@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { t } from '@lingui/core/macro';
 import type { CardDefinition } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
@@ -31,7 +32,7 @@ export function CardCatalog() {
   return (
     <div
       role="grid"
-      aria-label="Card catalog"
+      aria-label={t`Card catalog`}
       className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 overflow-y-auto max-h-[60vh] p-1"
     >
       {filteredCards.map((card) => {
@@ -56,7 +57,7 @@ export function CardCatalog() {
       })}
       {filteredCards.length === 0 && (
         <div className="col-span-full text-center text-text-muted py-8">
-          No cards match your filters.
+          {t`No cards match your filters.`}
         </div>
       )}
     </div>

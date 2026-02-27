@@ -1,3 +1,5 @@
+import { t } from '@lingui/core/macro';
+
 interface PowerBadgeProps {
   basePower: number;
   effectivePower: number;
@@ -21,7 +23,13 @@ export function PowerBadge({ basePower, effectivePower, size = 'md' }: PowerBadg
   return (
     <span
       className={`${colorClass} ${sizeClass} font-bold tabular-nums`}
-      aria-label={`Power ${effectivePower}${isBuffed ? ', buffed' : isDebuffed ? ', debuffed' : ''}`}
+      aria-label={
+        isBuffed
+          ? t`Power ${effectivePower}, buffed`
+          : isDebuffed
+            ? t`Power ${effectivePower}, debuffed`
+            : t`Power ${effectivePower}`
+      }
     >
       {effectivePower}
       {arrow && <span className="text-xs">{arrow}</span>}

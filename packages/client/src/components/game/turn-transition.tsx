@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { playerTextColor } from '../../lib/player-color.ts';
@@ -44,14 +45,14 @@ export function TurnTransition() {
     <dialog
       ref={dialogRef}
       onCancel={handleCancel}
-      aria-label="Turn transition"
+      aria-label={t`Turn transition`}
       className="fixed inset-0 z-50 bg-surface-overlay flex flex-col items-center justify-center gap-6
         w-full h-full max-w-none max-h-none border-none m-0 p-0"
     >
       <h2 className={`text-3xl font-bold ${playerTextColor(currentPlayer)}`}>
-        Player {currentPlayer + 1}&apos;s Turn
+        {t`Player ${currentPlayer + 1}'s Turn`}
       </h2>
-      <p className="text-text-secondary">Pass the device to Player {currentPlayer + 1}</p>
+      <p className="text-text-secondary">{t`Pass the device to Player ${currentPlayer + 1}`}</p>
       <Button
         ref={buttonRef}
         onClick={() => setShowTransition(false)}
@@ -59,7 +60,7 @@ export function TurnTransition() {
         autoFocus
         className="min-w-[120px]"
       >
-        Ready
+        {t`Ready`}
       </Button>
     </dialog>
   );

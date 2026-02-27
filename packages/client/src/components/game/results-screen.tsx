@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { t } from '@lingui/core/macro';
 import { motion, useReducedMotion } from 'motion/react';
 import { useGameStore } from '../../store/game-store.ts';
 import { calculateFinalScores, determineWinner } from '@bloodfang/engine';
@@ -23,7 +24,7 @@ export function ResultsScreen() {
   const finalScores = calculateFinalScores(gameState);
   const winner = determineWinner(finalScores);
 
-  const winnerText = winner !== null ? `Player ${winner + 1} Wins!` : "It's a Draw!";
+  const winnerText = winner !== null ? t`Player ${winner + 1} Wins!` : t`It's a Draw!`;
 
   return (
     <main className="flex flex-col items-center gap-8 p-8 max-w-lg mx-auto">
@@ -47,35 +48,36 @@ export function ResultsScreen() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="text-text-secondary text-sm">Player 1</div>
+          <div className="text-text-secondary text-sm">{t`Player 1`}</div>
           <div className="text-p0 text-5xl font-bold tabular-nums">{finalScores[0]}</div>
         </motion.div>
-        <div className="text-text-muted text-2xl self-center">vs</div>
+        <div className="text-text-muted text-2xl self-center">{t`vs`}</div>
         <motion.div
           initial={reduceMotion ? false : { x: 20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="text-text-secondary text-sm">Player 2</div>
+          <div className="text-text-secondary text-sm">{t`Player 2`}</div>
           <div className="text-p1 text-5xl font-bold tabular-nums">{finalScores[1]}</div>
         </motion.div>
       </div>
 
       {/* Lane breakdown */}
       <div className="w-full">
-        <h2 className="text-sm text-text-secondary font-medium mb-2 text-center">Lane Breakdown</h2>
+        <h2 className="text-sm text-text-secondary font-medium mb-2 text-center">{t`Lane Breakdown`}</h2>
         <div className="space-y-1">
           {Array.from({ length: BOARD_ROWS }, (_, row) => {
             const p0 = laneScores[row]?.[0] ?? 0;
             const p1 = laneScores[row]?.[1] ?? 0;
             const laneWinner = p0 > p1 ? 0 : p1 > p0 ? 1 : null;
 
+            const laneNum = row + 1;
             const laneLabel =
               laneWinner === 0
-                ? `Lane ${row + 1}: Player 1 wins ${p0} to ${p1}`
+                ? t`Lane ${laneNum}: Player 1 wins ${p0} to ${p1}`
                 : laneWinner === 1
-                  ? `Lane ${row + 1}: Player 2 wins ${p1} to ${p0}`
-                  : `Lane ${row + 1}: Tied ${p0} to ${p1}`;
+                  ? t`Lane ${laneNum}: Player 2 wins ${p1} to ${p0}`
+                  : t`Lane ${laneNum}: Tied ${p0} to ${p1}`;
 
             return (
               <motion.div
@@ -91,7 +93,7 @@ export function ResultsScreen() {
                 >
                   {p0}
                 </span>
-                <span className="text-text-muted text-sm">Lane {row + 1}</span>
+                <span className="text-text-muted text-sm">{t`Lane ${row + 1}`}</span>
                 <span
                   className={`font-bold tabular-nums w-8 ${laneWinner === 1 ? 'text-p1' : 'text-text-muted'}`}
                 >
@@ -111,10 +113,10 @@ export function ResultsScreen() {
         className="flex gap-3"
       >
         <Button onClick={startGame} variant="primary" size="lg">
-          Rematch
+          {t`Rematch`}
         </Button>
         <Button onClick={resetToHome} size="lg">
-          Home
+          {t`Home`}
         </Button>
       </motion.div>
     </main>

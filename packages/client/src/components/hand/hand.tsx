@@ -1,4 +1,5 @@
 import { useRef, useState, useCallback, type KeyboardEvent } from 'react';
+import { t } from '@lingui/core/macro';
 import { useGameStore } from '../../store/game-store.ts';
 import { HandCard } from './hand-card.tsx';
 
@@ -44,17 +45,17 @@ export function Hand() {
   );
 
   if (hand.length === 0) {
-    return <div className="text-center text-text-muted py-4">No cards in hand</div>;
+    return <div className="text-center text-text-muted py-4">{t`No cards in hand`}</div>;
   }
 
   return (
     <div>
-      <h2 className="sr-only">Your Hand</h2>
+      <h2 className="sr-only">{t`Your Hand`}</h2>
       {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus managed via roving tabindex on child options */}
       <div
         ref={listRef}
         role="listbox"
-        aria-label={`Player ${currentPlayer + 1}'s hand`}
+        aria-label={t`Player ${currentPlayer + 1}'s hand`}
         onKeyDown={handleKeyDown}
         className="flex gap-2 justify-center items-end flex-wrap py-2"
       >

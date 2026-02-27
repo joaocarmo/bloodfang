@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { t, plural } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Card } from '../card/card.tsx';
@@ -54,15 +55,15 @@ export function MulliganScreen() {
         tabIndex={-1}
         className={`text-2xl font-bold ${playerTextColor(currentPlayer)} outline-none`}
       >
-        Player {currentPlayer + 1} — Mulligan
+        {t`Player ${currentPlayer + 1} — Mulligan`}
       </h1>
       <p className="text-text-secondary text-center max-w-md">
-        Select cards to return to your deck. You&apos;ll draw the same number of replacements.
+        {t`Select cards to return to your deck. You'll draw the same number of replacements.`}
       </p>
 
       <div
         role="group"
-        aria-label="Cards to mulligan"
+        aria-label={t`Cards to mulligan`}
         className="flex gap-3 flex-wrap justify-center"
       >
         {hand.map((cardId) => {
@@ -84,10 +85,10 @@ export function MulliganScreen() {
       </div>
 
       <div className="flex gap-3">
-        <Button onClick={handleKeep}>Keep All</Button>
+        <Button onClick={handleKeep}>{t`Keep All`}</Button>
         {selectedToReturn.length > 0 && (
           <Button onClick={handleConfirm} variant="primary">
-            Return {selectedToReturn.length} Card{selectedToReturn.length > 1 ? 's' : ''}
+            {plural(selectedToReturn.length, { one: 'Return # Card', other: 'Return # Cards' })}
           </Button>
         )}
       </div>

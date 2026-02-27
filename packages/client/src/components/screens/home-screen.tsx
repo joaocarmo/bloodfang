@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { t } from '@lingui/core/macro';
 import { useGameStore } from '../../store/game-store.ts';
 import { Button } from '../ui/button.tsx';
 
@@ -17,11 +18,10 @@ export function HomeScreen() {
         tabIndex={-1}
         className="text-5xl font-bold text-text-primary outline-none"
       >
-        Blood Fang
+        {t`Blood Fang`}
       </h1>
       <p className="text-text-secondary text-lg text-center max-w-md">
-        A strategic card game on a 3&times;5 grid. Place cards, control lanes, outscore your
-        opponent.
+        {t`A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent.`}
       </p>
       <div className="flex flex-col gap-3">
         <Button
@@ -30,7 +30,7 @@ export function HomeScreen() {
           size="lg"
           className="min-w-[200px]"
         >
-          Start Local Game
+          {t`Start Local Game`}
         </Button>
       </div>
     </main>

@@ -1,0 +1,1327 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-02-27 17:32+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en-GB\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/lib/card-identity.ts:304
+#~ msgid "-{0} power to {target}"
+#~ msgstr "-{0} power to {target}"
+
+#: src/lib/card-identity.ts:306
+msgid "-{val} power to {target}"
+msgstr "-{val} power to {target}"
+
+#: src/lib/card-identity.ts:304
+msgid "-replaced card's power to {target}"
+msgstr "-replaced card's power to {target}"
+
+#. placeholder {0}: selectedToReturn.length
+#: src/components/game/mulligan-screen.tsx:91
+msgid "{0, plural, one {Return # Card} other {Return # Cards}}"
+msgstr "{0, plural, one {Return # Card} other {Return # Cards}}"
+
+#: src/components/board/pawn-dots.tsx:18
+msgid "{count} of {MAX_PAWN_COUNT} pawns"
+msgstr "{count} of {MAX_PAWN_COUNT} pawns"
+
+#: src/components/board/tile.tsx:88
+msgid "{name} (power {power})"
+msgstr "{name} (power {power})"
+
+#: src/components/hand/hand-card.tsx:33
+msgid "{name}, Rank {rank}, Power {power}"
+msgstr "{name}, Rank {rank}, Power {power}"
+
+#: src/components/hand/hand-card.tsx:32
+msgid "{name}, Rank {rank}, Power {power}, no valid moves"
+msgstr "{name}, Rank {rank}, Power {power}, no valid moves"
+
+#: src/components/board/tile.tsx:83
+msgid "{pawnCount} pawns"
+msgstr "{pawnCount} pawns"
+
+#: src/lib/card-identity.ts:221
+msgid "{trigger}: {effect}"
+msgstr "{trigger}: {effect}"
+
+#: src/lib/card-identity.ts:321
+#~ msgid "+{0} pawns to {1}"
+#~ msgstr "+{0} pawns to {1}"
+
+#: src/lib/card-identity.ts:309
+#~ msgid "+{0} power per {1}"
+#~ msgstr "+{0} power per {1}"
+
+#: src/lib/card-identity.ts:299
+#~ msgid "+{0} power to {target}"
+#~ msgstr "+{0} power to {target}"
+
+#: src/lib/card-identity.ts:328
+#~ msgid "+{0} to allies, {enemyStr} to enemies ({target})"
+#~ msgstr "+{0} to allies, {enemyStr} to enemies ({target})"
+
+#: src/lib/card-identity.ts:311
+#~ msgid "+{0} to lane score"
+#~ msgstr "+{0} to lane score"
+
+#: src/lib/card-identity.ts:338
+msgid "+{allied} to allies, {enemyStr} to enemies ({target})"
+msgstr "+{allied} to allies, {enemyStr} to enemies ({target})"
+
+#. placeholder {0}: describeTarget(effect.target)
+#: src/lib/card-identity.ts:329
+msgid "+{pawns} pawns to {0}"
+msgstr "+{pawns} pawns to {0}"
+
+#: src/lib/card-identity.ts:300
+msgid "+{val} power to {target}"
+msgstr "+{val} power to {target}"
+
+#: src/lib/card-identity.ts:316
+msgid "+{val} to lane score"
+msgstr "+{val} to lane score"
+
+#. placeholder {0}: describeCondition(effect.condition)
+#: src/lib/card-identity.ts:312
+msgid "+{vpu} power per {0}"
+msgstr "+{vpu} power per {0}"
+
+#: src/lib/card-identity.ts:298
+msgid "+replaced card's power to {target}"
+msgstr "+replaced card's power to {target}"
+
+#: src/components/screens/home-screen.tsx:24
+msgid "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
+msgstr "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
+
+#. placeholder {0}: action.abilityTrigger
+#: src/components/game/action-log.tsx:96
+msgid "Ability triggered: {0}"
+msgstr "Ability triggered: {0}"
+
+#. placeholder {0}: definition.ability.effect.type
+#: src/components/card/card.tsx:35
+msgid "Ability: {0}"
+msgstr "Ability: {0}"
+
+#: src/lib/card-identity.ts:103
+msgid "Achilles Reborn"
+msgstr "Achilles Reborn"
+
+#: src/components/game/action-log.tsx:22
+msgid "Action log"
+msgstr "Action log"
+
+#: src/lib/card-identity.ts:314
+#~ msgid "Add {0} {tokenName} to hand"
+#~ msgstr "Add {0} {tokenName} to hand"
+
+#: src/lib/card-identity.ts:321
+msgid "Add {count} {tokenName} to hand"
+msgstr "Add {count} {tokenName} to hand"
+
+#: src/lib/card-identity.ts:129
+msgid "Aegis Keeper"
+msgstr "Aegis Keeper"
+
+#: src/components/deck-builder/filter-bar.tsx:13
+msgid "All"
+msgstr "All"
+
+#: src/lib/card-identity.ts:248
+msgid "all allies"
+msgstr "all allies"
+
+#: src/lib/card-identity.ts:250
+msgid "all cards in lane"
+msgstr "all cards in lane"
+
+#: src/lib/card-identity.ts:249
+msgid "all enemies"
+msgstr "all enemies"
+
+#: src/lib/card-identity.ts:258
+msgid "all enfeebled cards"
+msgstr "all enfeebled cards"
+
+#: src/lib/card-identity.ts:255
+msgid "all enhanced cards"
+msgstr "all enhanced cards"
+
+#: src/lib/card-identity.ts:43
+msgid "All-Seeing Eye"
+msgstr "All-Seeing Eye"
+
+#: src/lib/card-identity.ts:268
+msgid "allied card in lane"
+msgstr "allied card in lane"
+
+#: src/lib/card-identity.ts:270
+msgid "allied card on board"
+msgstr "allied card on board"
+
+#: src/lib/card-identity.ts:251
+msgid "allies in lane"
+msgstr "allies in lane"
+
+#: src/lib/card-identity.ts:105
+msgid "Amazon Striker"
+msgstr "Amazon Striker"
+
+#: src/lib/card-identity.ts:31
+msgid "Amorphous Ooze"
+msgstr "Amorphous Ooze"
+
+#: src/lib/card-identity.ts:100
+msgid "Ancient Adamantine"
+msgstr "Ancient Adamantine"
+
+#: src/lib/card-identity.ts:33
+msgid "Ancient Drakon"
+msgstr "Ancient Drakon"
+
+#: src/lib/card-identity.ts:21
+msgid "Arcadian Wolf"
+msgstr "Arcadian Wolf"
+
+#: src/lib/card-identity.ts:160
+msgid "Arena Master"
+msgstr "Arena Master"
+
+#: src/lib/card-identity.ts:117
+msgid "Ares Allfather"
+msgstr "Ares Allfather"
+
+#: src/lib/card-identity.ts:46
+msgid "Athena's Owl"
+msgstr "Athena's Owl"
+
+#: src/lib/card-identity.ts:104
+msgid "Atlas Gunner"
+msgstr "Atlas Gunner"
+
+#: src/lib/card-identity.ts:173
+msgid "Baby Nymph"
+msgstr "Baby Nymph"
+
+#: src/lib/card-identity.ts:168
+msgid "Battle Sprite"
+msgstr "Battle Sprite"
+
+#: src/components/screens/home-screen.tsx:21
+msgid "Blood Fang"
+msgstr "Blood Fang"
+
+#: src/components/game/game-screen.tsx:35
+msgid "Board"
+msgstr "Board"
+
+#: src/lib/card-identity.ts:113
+msgid "Boreas Queen"
+msgstr "Boreas Queen"
+
+#: src/components/screens/setup-screen.tsx:112
+msgid "Both decks are ready!"
+msgstr "Both decks are ready!"
+
+#: src/lib/card-identity.ts:99
+msgid "Bronze Fortress"
+msgstr "Bronze Fortress"
+
+#: src/lib/card-identity.ts:17
+msgid "Bronze Sweeper"
+msgstr "Bronze Sweeper"
+
+#: src/components/deck-builder/card-catalog.tsx:35
+msgid "Card catalog"
+msgstr "Card catalog"
+
+#: src/components/game/action-log.tsx:72
+msgid "Card destroyed at ({row},{col})"
+msgstr "Card destroyed at ({row},{col})"
+
+#: src/components/deck-builder/filter-bar.tsx:31
+msgid "Card name..."
+msgstr "Card name..."
+
+#: src/lib/card-identity.ts:272
+msgid "card on board"
+msgstr "card on board"
+
+#: src/lib/card-identity.ts:246
+msgid "cards in range"
+msgstr "cards in range"
+
+#: src/components/game/mulligan-screen.tsx:66
+msgid "Cards to mulligan"
+msgstr "Cards to mulligan"
+
+#: src/lib/card-identity.ts:73
+msgid "Carrion Harpy"
+msgstr "Carrion Harpy"
+
+#: src/lib/card-identity.ts:79
+msgid "Cave Lurker"
+msgstr "Cave Lurker"
+
+#: src/lib/card-identity.ts:22
+msgid "Cave Sprite"
+msgstr "Cave Sprite"
+
+#: src/lib/card-identity.ts:29
+msgid "Centaur Charger"
+msgstr "Centaur Charger"
+
+#: src/lib/card-identity.ts:88
+msgid "Cerberus Hound"
+msgstr "Cerberus Hound"
+
+#: src/lib/card-identity.ts:77
+msgid "Chaos Wyvern"
+msgstr "Chaos Wyvern"
+
+#: src/lib/card-identity.ts:92
+msgid "Chaotic Shade"
+msgstr "Chaotic Shade"
+
+#: src/lib/card-identity.ts:35
+msgid "Chariot of Ares"
+msgstr "Chariot of Ares"
+
+#: src/lib/card-identity.ts:163
+msgid "Circe Enchantress"
+msgstr "Circe Enchantress"
+
+#: src/components/deck-builder/deck-builder.tsx:48
+msgid "Clear"
+msgstr "Clear"
+
+#. placeholder {0}: selectedCards.length
+#: src/components/deck-builder/deck-builder.tsx:62
+msgid "Confirm ({0}/{DECK_SIZE})"
+msgstr "Confirm ({0}/{DECK_SIZE})"
+
+#: src/lib/card-identity.ts:273
+msgid "controlled tile in lane"
+msgstr "controlled tile in lane"
+
+#: src/lib/card-identity.ts:39
+msgid "Copper Automaton"
+msgstr "Copper Automaton"
+
+#: src/lib/card-identity.ts:141
+msgid "Crimson Chariot"
+msgstr "Crimson Chariot"
+
+#: src/lib/card-identity.ts:26
+msgid "Crystal Karkinos"
+msgstr "Crystal Karkinos"
+
+#: src/lib/card-identity.ts:68
+msgid "Cursed Stag"
+msgstr "Cursed Stag"
+
+#: src/lib/card-identity.ts:34
+msgid "Cyclops Brute"
+msgstr "Cyclops Brute"
+
+#: src/lib/card-identity.ts:174
+msgid "Daedalus Glider"
+msgstr "Daedalus Glider"
+
+#: src/lib/card-identity.ts:110
+msgid "Daedalus Pilot"
+msgstr "Daedalus Pilot"
+
+#. placeholder {0}: selectedCards.length
+#: src/components/deck-builder/deck-slots.tsx:15
+msgid "Deck ({0}/{DECK_SIZE})"
+msgstr "Deck ({0}/{DECK_SIZE})"
+
+#: src/lib/card-identity.ts:60
+msgid "Desert Naga"
+msgstr "Desert Naga"
+
+#: src/lib/card-identity.ts:78
+msgid "Desert Triton"
+msgstr "Desert Triton"
+
+#. placeholder {0}: describeTarget(effect.target)
+#: src/lib/card-identity.ts:309
+msgid "Destroy {0}"
+msgstr "Destroy {0}"
+
+#: src/lib/card-identity.ts:161
+msgid "Dionysus Reveler"
+msgstr "Dionysus Reveler"
+
+#: src/lib/card-identity.ts:120
+msgid "Divine Colossus"
+msgstr "Divine Colossus"
+
+#: src/lib/card-identity.ts:122
+msgid "Drakon Ascendant"
+msgstr "Drakon Ascendant"
+
+#. placeholder {0}: scores[0]
+#. placeholder {1}: scores[1]
+#: src/store/game-store.ts:147
+#: src/store/game-store.ts:174
+msgid "Draw! {0} to {1}."
+msgstr "Draw! {0} to {1}."
+
+#: src/lib/card-identity.ts:23
+msgid "Dryad Seedling"
+msgstr "Dryad Seedling"
+
+#: src/lib/card-identity.ts:59
+msgid "Earthen Wyrm"
+msgstr "Earthen Wyrm"
+
+#: src/lib/card-identity.ts:85
+msgid "Elder Drakon"
+msgstr "Elder Drakon"
+
+#: src/lib/card-identity.ts:180
+msgid "Elemental Flame"
+msgstr "Elemental Flame"
+
+#: src/lib/card-identity.ts:179
+msgid "Elemental Spark"
+msgstr "Elemental Spark"
+
+#: src/lib/card-identity.ts:181
+msgid "Elemental Storm"
+msgstr "Elemental Storm"
+
+#: src/lib/card-identity.ts:93
+msgid "Elite Myrmidon"
+msgstr "Elite Myrmidon"
+
+#: src/lib/card-identity.ts:38
+msgid "Ember Salamander"
+msgstr "Ember Salamander"
+
+#: src/components/deck-builder/deck-slots.tsx:28
+msgid "Empty"
+msgstr "Empty"
+
+#: src/lib/card-identity.ts:237
+msgid "End of game"
+msgstr "End of game"
+
+#: src/lib/card-identity.ts:252
+msgid "enemies in lane"
+msgstr "enemies in lane"
+
+#: src/lib/card-identity.ts:269
+msgid "enemy card in lane"
+msgstr "enemy card in lane"
+
+#: src/lib/card-identity.ts:271
+msgid "enemy card on board"
+msgstr "enemy card on board"
+
+#: src/lib/card-identity.ts:256
+msgid "enfeebled allies"
+msgstr "enfeebled allies"
+
+#. placeholder {0}: action.value
+#: src/components/game/action-log.tsx:77
+msgid "Enfeebled card -{0} power"
+msgstr "Enfeebled card -{0} power"
+
+#: src/lib/card-identity.ts:257
+msgid "enfeebled enemies"
+msgstr "enfeebled enemies"
+
+#: src/lib/card-identity.ts:253
+msgid "enhanced allies"
+msgstr "enhanced allies"
+
+#. placeholder {0}: action.value
+#: src/components/game/action-log.tsx:75
+msgid "Enhanced card +{0} power"
+msgstr "Enhanced card +{0} power"
+
+#: src/lib/card-identity.ts:254
+msgid "enhanced enemies"
+msgstr "enhanced enemies"
+
+#: src/lib/card-identity.ts:118
+msgid "Eternal Phoenix"
+msgstr "Eternal Phoenix"
+
+#: src/store/game-store.ts:90
+msgid "Failed to start game: {reason}"
+msgstr "Failed to start game: {reason}"
+
+#: src/lib/card-identity.ts:162
+msgid "Fallen Seraph"
+msgstr "Fallen Seraph"
+
+#: src/lib/card-identity.ts:27
+msgid "Feathered Drake"
+msgstr "Feathered Drake"
+
+#: src/lib/card-identity.ts:159
+msgid "Festival Guard"
+msgstr "Festival Guard"
+
+#: src/components/deck-builder/filter-bar.tsx:38
+msgid "Filter by rank"
+msgstr "Filter by rank"
+
+#: src/lib/card-identity.ts:16
+msgid "Fire Hurler"
+msgstr "Fire Hurler"
+
+#: src/lib/card-identity.ts:107
+msgid "Flame of Prometheus"
+msgstr "Flame of Prometheus"
+
+#: src/lib/card-identity.ts:143
+msgid "Forgotten Chimera"
+msgstr "Forgotten Chimera"
+
+#: src/lib/card-identity.ts:109
+msgid "Fortune Sphinx"
+msgstr "Fortune Sphinx"
+
+#: src/lib/card-identity.ts:139
+msgid "Frog Hunter"
+msgstr "Frog Hunter"
+
+#: src/lib/card-identity.ts:185
+#: src/lib/card-identity.ts:186
+#: src/lib/card-identity.ts:187
+msgid "Frost Crystal"
+msgstr "Frost Crystal"
+
+#: src/lib/card-identity.ts:95
+msgid "Frost Reaver"
+msgstr "Frost Reaver"
+
+#: src/lib/card-identity.ts:115
+msgid "Gaia Titan"
+msgstr "Gaia Titan"
+
+#: src/components/board/board.tsx:52
+msgid "Game board"
+msgstr "Game board"
+
+#: src/components/game/game-screen.tsx:31
+msgid "Game Board"
+msgstr "Game Board"
+
+#. placeholder {0}: action.scores[0]
+#. placeholder {1}: action.scores[1]
+#: src/components/game/action-log.tsx:84
+msgid "Game ended: {0} - {1}"
+msgstr "Game ended: {0} - {1}"
+
+#: src/store/game-store.ts:148
+#: src/store/game-store.ts:175
+msgid "Game over. {winMsg}"
+msgstr "Game over. {winMsg}"
+
+#: src/store/game-store.ts:87
+msgid "Game started. Mulligan phase. Player 1, select cards to return."
+msgstr "Game started. Mulligan phase. Player 1, select cards to return."
+
+#: src/lib/card-identity.ts:146
+msgid "Gates of Erebus"
+msgstr "Gates of Erebus"
+
+#: src/lib/card-identity.ts:89
+msgid "Ghastly Shade"
+msgstr "Ghastly Shade"
+
+#: src/lib/card-identity.ts:25
+msgid "Golden Bramble"
+msgstr "Golden Bramble"
+
+#: src/lib/card-identity.ts:74
+msgid "Golden Griffin"
+msgstr "Golden Griffin"
+
+#: src/lib/card-identity.ts:126
+msgid "Golden Gryphon"
+msgstr "Golden Gryphon"
+
+#: src/lib/card-identity.ts:151
+msgid "Golden Tyrant"
+msgstr "Golden Tyrant"
+
+#: src/lib/card-identity.ts:84
+msgid "Gorgo Serpent"
+msgstr "Gorgo Serpent"
+
+#: src/lib/card-identity.ts:135
+msgid "Grand Cockatrice"
+msgstr "Grand Cockatrice"
+
+#: src/lib/card-identity.ts:69
+msgid "Great Horned Beast"
+msgstr "Great Horned Beast"
+
+#: src/lib/card-identity.ts:124
+msgid "Gryphon & Sprite"
+msgstr "Gryphon & Sprite"
+
+#: src/lib/card-identity.ts:154
+msgid "Gryphon Rider"
+msgstr "Gryphon Rider"
+
+#: src/components/game/game-screen.tsx:43
+msgid "Hand"
+msgstr "Hand"
+
+#: src/lib/card-identity.ts:91
+msgid "Harmony Duality"
+msgstr "Harmony Duality"
+
+#: src/lib/card-identity.ts:30
+msgid "Harpy Screamer"
+msgstr "Harpy Screamer"
+
+#: src/lib/card-identity.ts:176
+msgid "Heat Fragment"
+msgstr "Heat Fragment"
+
+#: src/lib/card-identity.ts:55
+msgid "Heat Golem"
+msgstr "Heat Golem"
+
+#: src/lib/card-identity.ts:62
+msgid "Hermes Trickster"
+msgstr "Hermes Trickster"
+
+#: src/components/game/results-screen.tsx:119
+msgid "Home"
+msgstr "Home"
+
+#: src/lib/card-identity.ts:14
+msgid "Hoplite Guard"
+msgstr "Hoplite Guard"
+
+#: src/lib/card-identity.ts:156
+msgid "House of Hades"
+msgstr "House of Hades"
+
+#: src/lib/card-identity.ts:97
+msgid "Hundred-Eyed Argus"
+msgstr "Hundred-Eyed Argus"
+
+#: src/lib/card-identity.ts:148
+msgid "Iron Fist"
+msgstr "Iron Fist"
+
+#: src/lib/card-identity.ts:65
+msgid "Iron Giant"
+msgstr "Iron Giant"
+
+#: src/lib/card-identity.ts:94
+msgid "Iron Myrmidon"
+msgstr "Iron Myrmidon"
+
+#: src/components/game/results-screen.tsx:27
+msgid "It's a Draw!"
+msgstr "It's a Draw!"
+
+#: src/lib/card-identity.ts:81
+msgid "Janus Mask"
+msgstr "Janus Mask"
+
+#: src/lib/card-identity.ts:172
+msgid "Junior Nymph"
+msgstr "Junior Nymph"
+
+#: src/components/game/mulligan-screen.tsx:88
+msgid "Keep All"
+msgstr "Keep All"
+
+#: src/lib/card-identity.ts:121
+msgid "King of Dragons"
+msgstr "King of Dragons"
+
+#: src/lib/card-identity.ts:50
+msgid "King of Shades"
+msgstr "King of Shades"
+
+#: src/lib/card-identity.ts:132
+msgid "Kraken Terror"
+msgstr "Kraken Terror"
+
+#: src/lib/card-identity.ts:140
+msgid "Labyrinth Experiment"
+msgstr "Labyrinth Experiment"
+
+#. placeholder {0}: row + 1
+#: src/components/game/results-screen.tsx:96
+msgid "Lane {0}"
+msgstr "Lane {0}"
+
+#: src/components/game/results-screen.tsx:77
+msgid "Lane {laneNum}: Player 1 wins {p0} to {p1}"
+msgstr "Lane {laneNum}: Player 1 wins {p0} to {p1}"
+
+#: src/components/game/results-screen.tsx:79
+msgid "Lane {laneNum}: Player 2 wins {p1} to {p0}"
+msgstr "Lane {laneNum}: Player 2 wins {p1} to {p0}"
+
+#: src/components/game/results-screen.tsx:80
+msgid "Lane {laneNum}: Tied {p0} to {p1}"
+msgstr "Lane {laneNum}: Tied {p0} to {p1}"
+
+#: src/components/game/results-screen.tsx:67
+msgid "Lane Breakdown"
+msgstr "Lane Breakdown"
+
+#: src/lib/card-identity.ts:171
+msgid "Little Shade"
+msgstr "Little Shade"
+
+#: src/components/game/action-log.tsx:23
+msgid "Log"
+msgstr "Log"
+
+#: src/lib/card-identity.ts:175
+msgid "Lycaon Beast"
+msgstr "Lycaon Beast"
+
+#: src/lib/card-identity.ts:111
+msgid "Lycaon Cursed"
+msgstr "Lycaon Cursed"
+
+#: src/lib/card-identity.ts:66
+msgid "Mantis Chimera"
+msgstr "Mantis Chimera"
+
+#: src/lib/card-identity.ts:80
+msgid "Marble Colossus"
+msgstr "Marble Colossus"
+
+#: src/lib/card-identity.ts:90
+msgid "Minos Judge"
+msgstr "Minos Judge"
+
+#: src/lib/card-identity.ts:57
+msgid "Minotaur Thug"
+msgstr "Minotaur Thug"
+
+#: src/lib/card-identity.ts:71
+msgid "Mother Nymph"
+msgstr "Mother Nymph"
+
+#: src/store/game-store.ts:102
+msgid "Mulligan complete. Player {p}'s turn."
+msgstr "Mulligan complete. Player {p}'s turn."
+
+#: src/lib/card-identity.ts:32
+msgid "Myrmex Crawler"
+msgstr "Myrmex Crawler"
+
+#: src/lib/card-identity.ts:64
+msgid "Narcissus Trap"
+msgstr "Narcissus Trap"
+
+#: src/lib/card-identity.ts:48
+msgid "Nautilus Guardian"
+msgstr "Nautilus Guardian"
+
+#: src/lib/card-identity.ts:96
+msgid "Nemean Guardian"
+msgstr "Nemean Guardian"
+
+#: src/components/game/action-log.tsx:33
+msgid "No actions yet."
+msgstr "No actions yet."
+
+#: src/components/hand/hand.tsx:48
+msgid "No cards in hand"
+msgstr "No cards in hand"
+
+#: src/components/deck-builder/card-catalog.tsx:60
+msgid "No cards match your filters."
+msgstr "No cards match your filters."
+
+#: src/lib/card-identity.ts:167
+msgid "Nymph Sprout"
+msgstr "Nymph Sprout"
+
+#: src/lib/card-identity.ts:164
+msgid "Nyx Sovereign"
+msgstr "Nyx Sovereign"
+
+#: src/lib/card-identity.ts:87
+msgid "Nyx Wing"
+msgstr "Nyx Wing"
+
+#: src/lib/card-identity.ts:119
+msgid "Ocean Leviathan"
+msgstr "Ocean Leviathan"
+
+#: src/lib/card-identity.ts:106
+msgid "Oracle of Delphi"
+msgstr "Oracle of Delphi"
+
+#: src/lib/card-identity.ts:131
+msgid "Orichalcum Golem"
+msgstr "Orichalcum Golem"
+
+#: src/components/board/tile.tsx:79
+msgid "Owned by Player {ownerNum}"
+msgstr "Owned by Player {ownerNum}"
+
+#: src/components/game/action-log.tsx:67
+msgid "P{p} captured pawn at ({row},{col})"
+msgstr "P{p} captured pawn at ({row},{col})"
+
+#: src/components/game/action-log.tsx:55
+msgid "P{p} drew a card"
+msgstr "P{p} drew a card"
+
+#: src/components/game/action-log.tsx:102
+msgid "P{p} gained {bonus} bonus pawns at ({row},{col})"
+msgstr "P{p} gained {bonus} bonus pawns at ({row},{col})"
+
+#: src/components/game/action-log.tsx:81
+msgid "P{p} mulliganed {count} cards"
+msgstr "P{p} mulliganed {count} cards"
+
+#: src/components/game/action-log.tsx:51
+msgid "P{p} passed"
+msgstr "P{p} passed"
+
+#: src/components/game/action-log.tsx:61
+msgid "P{p} placed pawn at ({row},{col})"
+msgstr "P{p} placed pawn at ({row},{col})"
+
+#: src/components/game/action-log.tsx:47
+msgid "P{p} played {name} at ({row},{col})"
+msgstr "P{p} played {name} at ({row},{col})"
+
+#: src/components/game/action-log.tsx:93
+msgid "P{p} received a card"
+msgstr "P{p} received a card"
+
+#: src/lib/card-identity.ts:128
+msgid "Pandora's Jar"
+msgstr "Pandora's Jar"
+
+#: src/components/game/pass-button.tsx:21
+msgid "Pass"
+msgstr "Pass"
+
+#: src/components/game/pass-button.tsx:21
+msgid "Pass (No Moves)"
+msgstr "Pass (No Moves)"
+
+#. placeholder {0}: currentPlayer + 1
+#: src/components/game/turn-transition.tsx:55
+msgid "Pass the device to Player {0}"
+msgstr "Pass the device to Player {0}"
+
+#: src/components/screens/setup-screen.tsx:75
+msgid "Pass the device to Player 2."
+msgstr "Pass the device to Player 2."
+
+#: src/lib/card-identity.ts:36
+msgid "Pegasus Scout"
+msgstr "Pegasus Scout"
+
+#: src/lib/card-identity.ts:54
+msgid "Petrifying Rooster"
+msgstr "Petrifying Rooster"
+
+#: src/lib/card-identity.ts:83
+msgid "Phantom Vulture"
+msgstr "Phantom Vulture"
+
+#: src/lib/card-identity.ts:98
+msgid "Phantom Wraith"
+msgstr "Phantom Wraith"
+
+#. placeholder {0}: currentPlayer + 1
+#: src/components/game/mulligan-screen.tsx:58
+msgid "Player {0} — Mulligan"
+msgstr "Player {0} — Mulligan"
+
+#. placeholder {0}: player + 1
+#: src/components/board/lane-scores.tsx:23
+msgid "Player {0} scores"
+msgstr "Player {0} scores"
+
+#. placeholder {0}: winner + 1
+#. placeholder {1}: scores[winner]
+#. placeholder {2}: scores[winner === 0 ? 1 : 0]
+#: src/store/game-store.ts:146
+#: src/store/game-store.ts:173
+msgid "Player {0} wins {1} to {2}."
+msgstr "Player {0} wins {1} to {2}."
+
+#. placeholder {0}: winner + 1
+#: src/components/game/results-screen.tsx:27
+msgid "Player {0} Wins!"
+msgstr "Player {0} Wins!"
+
+#. placeholder {0}: currentPlayer + 1
+#: src/components/hand/hand.tsx:58
+msgid "Player {0}'s hand"
+msgstr "Player {0}'s hand"
+
+#. placeholder {0}: currentPlayer + 1
+#. placeholder {0}: player + 1
+#: src/components/game/turn-indicator.tsx:14
+#: src/components/game/turn-transition.tsx:53
+msgid "Player {0}'s Turn"
+msgstr "Player {0}'s Turn"
+
+#: src/store/game-store.ts:153
+#: src/store/game-store.ts:180
+msgid "Player {nextP}'s turn."
+msgstr "Player {nextP}'s turn."
+
+#: src/store/game-store.ts:166
+msgid "Player {passP} passed."
+msgstr "Player {passP} passed."
+
+#: src/store/game-store.ts:109
+msgid "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
+msgstr "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
+
+#: src/components/deck-builder/deck-builder.tsx:35
+msgid "Player {playerNumber} — Build Your Deck"
+msgstr "Player {playerNumber} — Build Your Deck"
+
+#: src/store/game-store.ts:138
+msgid "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
+msgstr "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
+
+#: src/components/game/results-screen.tsx:51
+msgid "Player 1"
+msgstr "Player 1"
+
+#: src/components/screens/setup-screen.tsx:74
+msgid "Player 1 deck saved!"
+msgstr "Player 1 deck saved!"
+
+#: src/components/game/results-screen.tsx:60
+msgid "Player 2"
+msgstr "Player 2"
+
+#: src/components/screens/setup-screen.tsx:83
+msgid "Player 2 — Build Deck"
+msgstr "Player 2 — Build Deck"
+
+#: src/lib/card-identity.ts:125
+msgid "Plump Gryphon"
+msgstr "Plump Gryphon"
+
+#: src/components/card/power-badge.tsx:26
+msgid "Power {effectivePower}"
+msgstr "Power {effectivePower}"
+
+#: src/components/card/power-badge.tsx:26
+msgid "Power {effectivePower}, buffed"
+msgstr "Power {effectivePower}, buffed"
+
+#: src/components/card/power-badge.tsx:26
+msgid "Power {effectivePower}, debuffed"
+msgstr "Power {effectivePower}, debuffed"
+
+#: src/components/card/card.tsx:34
+msgid "Power {power}"
+msgstr "Power {power}"
+
+#: src/lib/card-identity.ts:72
+msgid "Protean Mass"
+msgstr "Protean Mass"
+
+#: src/lib/card-identity.ts:42
+msgid "Psyche Leech"
+msgstr "Psyche Leech"
+
+#: src/lib/card-identity.ts:112
+msgid "Pyriphlegethon"
+msgstr "Pyriphlegethon"
+
+#: src/lib/card-identity.ts:45
+msgid "Pyroclast Soldier"
+msgstr "Pyroclast Soldier"
+
+#: src/components/card/card.tsx:33
+#: src/components/card/rank-icon.tsx:26
+msgid "Rank {rank}"
+msgstr "Rank {rank}"
+
+#: src/components/deck-builder/filter-bar.tsx:14
+msgid "Rank 1"
+msgstr "Rank 1"
+
+#: src/components/deck-builder/filter-bar.tsx:15
+msgid "Rank 2"
+msgstr "Rank 2"
+
+#: src/components/deck-builder/filter-bar.tsx:16
+msgid "Rank 3"
+msgstr "Rank 3"
+
+#: src/components/game/turn-transition.tsx:63
+msgid "Ready"
+msgstr "Ready"
+
+#: src/lib/card-identity.ts:177
+msgid "Reformed Protean"
+msgstr "Reformed Protean"
+
+#: src/components/game/results-screen.tsx:116
+msgid "Rematch"
+msgstr "Rematch"
+
+#. placeholder {0}: getCardName(cardId)
+#: src/components/deck-builder/deck-slots.tsx:39
+msgid "Remove {0} from deck"
+msgstr "Remove {0} from deck"
+
+#: src/components/deck-builder/filter-bar.tsx:17
+msgid "Replace"
+msgstr "Replace"
+
+#: src/components/card/rank-icon.tsx:11
+msgid "Replacement card"
+msgstr "Replacement card"
+
+#: src/lib/card-identity.ts:52
+msgid "Resilient Polyp"
+msgstr "Resilient Polyp"
+
+#: src/lib/card-identity.ts:28
+msgid "Roc of Olympus"
+msgstr "Roc of Olympus"
+
+#: src/components/board/tile.tsx:76
+msgid "Row {rowNum}, Column {colNum}"
+msgstr "Row {rowNum}, Column {colNum}"
+
+#: src/lib/card-identity.ts:49
+msgid "Royal Spear"
+msgstr "Royal Spear"
+
+#: src/lib/card-identity.ts:153
+msgid "Sacred Band"
+msgstr "Sacred Band"
+
+#: src/lib/card-identity.ts:51
+msgid "Sand Gorgon"
+msgstr "Sand Gorgon"
+
+#: src/lib/card-identity.ts:236
+msgid "Scaling"
+msgstr "Scaling"
+
+#: src/lib/card-identity.ts:145
+msgid "Scarlet Drakon"
+msgstr "Scarlet Drakon"
+
+#: src/lib/card-identity.ts:76
+msgid "Scorpion of Artemis"
+msgstr "Scorpion of Artemis"
+
+#: src/components/deck-builder/filter-bar.tsx:24
+msgid "Search"
+msgstr "Search"
+
+#: src/components/game/mulligan-screen.tsx:61
+msgid "Select cards to return to your deck. You'll draw the same number of replacements."
+msgstr "Select cards to return to your deck. You'll draw the same number of replacements."
+
+#: src/components/deck-builder/deck-slots.tsx:17
+msgid "Selected deck cards"
+msgstr "Selected deck cards"
+
+#: src/lib/card-identity.ts:247
+msgid "self"
+msgstr "self"
+
+#: src/lib/card-identity.ts:53
+msgid "Serpent of Lerna"
+msgstr "Serpent of Lerna"
+
+#: src/lib/card-identity.ts:142
+msgid "Shade Commander"
+msgstr "Shade Commander"
+
+#: src/lib/card-identity.ts:108
+msgid "Shadow Artemis"
+msgstr "Shadow Artemis"
+
+#: src/lib/card-identity.ts:150
+msgid "Shadow Commander"
+msgstr "Shadow Commander"
+
+#: src/lib/card-identity.ts:149
+msgid "Silent Dagger"
+msgstr "Silent Dagger"
+
+#: src/lib/card-identity.ts:18
+msgid "Siren Queen"
+msgstr "Siren Queen"
+
+#: src/lib/card-identity.ts:15
+msgid "Spartan Sentinel"
+msgstr "Spartan Sentinel"
+
+#. placeholder {0}: describeTarget(effect.target)
+#: src/lib/card-identity.ts:325
+msgid "Spawn {tokenName} at {0}"
+msgstr "Spawn {tokenName} at {0}"
+
+#: src/components/game/action-log.tsx:89
+msgid "Spawned {name} at ({row},{col})"
+msgstr "Spawned {name} at ({row},{col})"
+
+#: src/lib/card-identity.ts:170
+msgid "Sprite Bard"
+msgstr "Sprite Bard"
+
+#: src/lib/card-identity.ts:169
+msgid "Sprite Mage"
+msgstr "Sprite Mage"
+
+#: src/lib/card-identity.ts:127
+msgid "Sprite Trio"
+msgstr "Sprite Trio"
+
+#: src/lib/card-identity.ts:155
+msgid "Star Voyager"
+msgstr "Star Voyager"
+
+#: src/components/screens/setup-screen.tsx:114
+msgid "Start Game"
+msgstr "Start Game"
+
+#: src/components/screens/home-screen.tsx:33
+msgid "Start Local Game"
+msgstr "Start Local Game"
+
+#: src/lib/card-identity.ts:75
+msgid "Stone Basilisk"
+msgstr "Stone Basilisk"
+
+#: src/lib/card-identity.ts:58
+msgid "Stygian Claw"
+msgstr "Stygian Claw"
+
+#: src/lib/card-identity.ts:147
+msgid "Swift Blade"
+msgstr "Swift Blade"
+
+#: src/lib/card-identity.ts:20
+msgid "Swift Hare"
+msgstr "Swift Hare"
+
+#: src/lib/card-identity.ts:262
+msgid "targets"
+msgstr "targets"
+
+#: src/lib/card-identity.ts:116
+msgid "Taurus Primeval"
+msgstr "Taurus Primeval"
+
+#: src/lib/card-identity.ts:133
+msgid "Tentacle Horror"
+msgstr "Tentacle Horror"
+
+#: src/lib/card-identity.ts:47
+msgid "Thalassic Fiend"
+msgstr "Thalassic Fiend"
+
+#: src/lib/card-identity.ts:178
+msgid "Thorny Imp"
+msgstr "Thorny Imp"
+
+#: src/lib/card-identity.ts:67
+msgid "Titan Frog"
+msgstr "Titan Frog"
+
+#: src/lib/card-identity.ts:70
+msgid "Toxic Hydra"
+msgstr "Toxic Hydra"
+
+#: src/lib/card-identity.ts:138
+msgid "Tragic Hero"
+msgstr "Tragic Hero"
+
+#: src/lib/card-identity.ts:158
+msgid "Tragic Muse"
+msgstr "Tragic Muse"
+
+#: src/lib/card-identity.ts:61
+msgid "Triple Chimera"
+msgstr "Triple Chimera"
+
+#. placeholder {0}: gameState.turnNumber
+#: src/components/game/turn-indicator.tsx:16
+msgid "Turn {0}"
+msgstr "Turn {0}"
+
+#: src/components/game/turn-transition.tsx:48
+msgid "Turn transition"
+msgstr "Turn transition"
+
+#: src/lib/card-identity.ts:63
+msgid "Twin Serpent"
+msgstr "Twin Serpent"
+
+#: src/lib/card-identity.ts:86
+msgid "Twin-Headed Oracle"
+msgstr "Twin-Headed Oracle"
+
+#: src/lib/card-identity.ts:144
+msgid "Tyrant & Beast"
+msgstr "Tyrant & Beast"
+
+#: src/lib/card-identity.ts:277
+msgid "unit"
+msgstr "unit"
+
+#: src/store/game-store.ts:89
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#: src/components/screens/setup-screen.tsx:64
+#: src/components/screens/setup-screen.tsx:102
+msgid "Use Random Deck"
+msgstr "Use Random Deck"
+
+#: src/components/board/tile.tsx:90
+msgid "Valid target"
+msgstr "Valid target"
+
+#: src/lib/card-identity.ts:19
+msgid "Venomous Asp"
+msgstr "Venomous Asp"
+
+#: src/lib/card-identity.ts:56
+msgid "Volcanic Imp"
+msgstr "Volcanic Imp"
+
+#: src/components/game/results-screen.tsx:54
+msgid "vs"
+msgstr "vs"
+
+#: src/lib/card-identity.ts:44
+msgid "War Chariot"
+msgstr "War Chariot"
+
+#: src/lib/card-identity.ts:24
+msgid "War Elephant"
+msgstr "War Elephant"
+
+#: src/lib/card-identity.ts:152
+msgid "War Rider"
+msgstr "War Rider"
+
+#: src/lib/card-identity.ts:123
+msgid "Warrior of Many Arms"
+msgstr "Warrior of Many Arms"
+
+#: src/lib/card-identity.ts:157
+msgid "Wheel of Fortune"
+msgstr "Wheel of Fortune"
+
+#: src/lib/card-identity.ts:228
+msgid "When an ally is destroyed"
+msgstr "When an ally is destroyed"
+
+#: src/lib/card-identity.ts:231
+msgid "When an ally is played"
+msgstr "When an ally is played"
+
+#: src/lib/card-identity.ts:229
+msgid "When an enemy is destroyed"
+msgstr "When an enemy is destroyed"
+
+#: src/lib/card-identity.ts:232
+msgid "When an enemy is played"
+msgstr "When an enemy is played"
+
+#: src/lib/card-identity.ts:230
+msgid "When any card is destroyed"
+msgstr "When any card is destroyed"
+
+#: src/lib/card-identity.ts:227
+msgid "When destroyed"
+msgstr "When destroyed"
+
+#: src/lib/card-identity.ts:233
+msgid "When first enfeebled"
+msgstr "When first enfeebled"
+
+#: src/lib/card-identity.ts:234
+msgid "When first enhanced"
+msgstr "When first enhanced"
+
+#: src/lib/card-identity.ts:225
+msgid "When played"
+msgstr "When played"
+
+#: src/lib/card-identity.ts:235
+msgid "When power reaches threshold"
+msgstr "When power reaches threshold"
+
+#: src/lib/card-identity.ts:226
+msgid "While in play"
+msgstr "While in play"
+
+#: src/lib/card-identity.ts:134
+msgid "Winged Fury"
+msgstr "Winged Fury"
+
+#: src/lib/card-identity.ts:332
+msgid "Winner takes all points in lane"
+msgstr "Winner takes all points in lane"
+
+#: src/lib/card-identity.ts:130
+msgid "World Serpent"
+msgstr "World Serpent"
+
+#: src/lib/card-identity.ts:82
+msgid "Wraith of Tartarus"
+msgstr "Wraith of Tartarus"
+
+#: src/components/hand/hand.tsx:53
+msgid "Your Hand"
+msgstr "Your Hand"
+
+#: src/lib/card-identity.ts:184
+msgid "Zealot Champion"
+msgstr "Zealot Champion"
+
+#: src/lib/card-identity.ts:182
+msgid "Zealot Initiate"
+msgstr "Zealot Initiate"
+
+#: src/lib/card-identity.ts:183
+msgid "Zealot Warrior"
+msgstr "Zealot Warrior"
+
+#: src/lib/card-identity.ts:37
+msgid "Zephyr Spirit"
+msgstr "Zephyr Spirit"
+
+#: src/lib/card-identity.ts:114
+msgid "Zeus Thunderlord"
+msgstr "Zeus Thunderlord"

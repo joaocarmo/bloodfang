@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import { useGameStore } from '../../store/game-store.ts';
 import { playerTextColor } from '../../lib/player-color.ts';
 
@@ -10,9 +11,9 @@ export function TurnIndicator() {
   return (
     <div className="text-center" role="status">
       <span className={`${playerTextColor(player)} font-bold text-lg`}>
-        Player {player + 1}&apos;s Turn
+        {t`Player ${player + 1}'s Turn`}
       </span>
-      <span className="text-text-muted text-sm ml-2">Turn {gameState.turnNumber}</span>
+      <span className="text-text-muted text-sm ml-2">{t`Turn ${gameState.turnNumber}`}</span>
     </div>
   );
 }

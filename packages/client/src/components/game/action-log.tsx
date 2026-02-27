@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { t } from '@lingui/core/macro';
 import type { GameAction } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { getCardName } from '../../lib/card-identity.ts';
@@ -18,8 +19,8 @@ export function ActionLog() {
   const recentLog = log.slice(-20);
 
   return (
-    <aside aria-label="Action log">
-      <h2 className="text-sm font-medium text-text-secondary mb-1">Log</h2>
+    <aside aria-label={t`Action log`}>
+      <h2 className="text-sm font-medium text-text-secondary mb-1">{t`Log`}</h2>
       <div
         ref={scrollRef}
         role="log"
@@ -29,7 +30,7 @@ export function ActionLog() {
         {recentLog.map((action, i) => (
           <div key={log.length - 20 + i}>{formatAction(action, definitions)}</div>
         ))}
-        {recentLog.length === 0 && <div>No actions yet.</div>}
+        {recentLog.length === 0 && <div>{t`No actions yet.`}</div>}
       </div>
     </aside>
   );
@@ -40,35 +41,65 @@ function formatAction(action: GameAction, definitions: Record<string, { id: stri
     case 'placeCard': {
       const defId = action.cardId;
       const name = definitions[defId] ? getCardName(defId) : action.cardId;
-      return `P${action.player + 1} played ${name} at (${action.position.row + 1},${action.position.col + 1})`;
+      const p = action.player + 1;
+      const row = action.position.row + 1;
+      const col = action.position.col + 1;
+      return t`P${p} played ${name} at (${row},${col})`;
     }
-    case 'pass':
-      return `P${action.player + 1} passed`;
-    case 'drawCard':
-      return `P${action.player + 1} drew a card`;
-    case 'placePawn':
-      return `P${action.player + 1} placed pawn at (${action.position.row + 1},${action.position.col + 1})`;
-    case 'capturePawn':
-      return `P${action.player + 1} captured pawn at (${action.position.row + 1},${action.position.col + 1})`;
-    case 'destroyCard':
-      return `Card destroyed at (${action.position.row + 1},${action.position.col + 1})`;
+    case 'pass': {
+      const p = action.player + 1;
+      return t`P${p} passed`;
+    }
+    case 'drawCard': {
+      const p = action.player + 1;
+      return t`P${p} drew a card`;
+    }
+    case 'placePawn': {
+      const p = action.player + 1;
+      const row = action.position.row + 1;
+      const col = action.position.col + 1;
+      return t`P${p} placed pawn at (${row},${col})`;
+    }
+    case 'capturePawn': {
+      const p = action.player + 1;
+      const row = action.position.row + 1;
+      const col = action.position.col + 1;
+      return t`P${p} captured pawn at (${row},${col})`;
+    }
+    case 'destroyCard': {
+      const row = action.position.row + 1;
+      const col = action.position.col + 1;
+      return t`Card destroyed at (${row},${col})`;
+    }
     case 'enhance':
-      return `Enhanced card +${action.value} power`;
+      return t`Enhanced card +${action.value} power`;
     case 'enfeeble':
-      return `Enfeebled card -${action.value} power`;
-    case 'mulligan':
-      return `P${action.player + 1} mulliganed ${action.returnedCount} cards`;
+      return t`Enfeebled card -${action.value} power`;
+    case 'mulligan': {
+      const p = action.player + 1;
+      const count = action.returnedCount;
+      return t`P${p} mulliganed ${count} cards`;
+    }
     case 'gameEnd':
-      return `Game ended: ${action.scores[0]} - ${action.scores[1]}`;
+      return t`Game ended: ${action.scores[0]} - ${action.scores[1]}`;
     case 'spawnCard': {
       const name = getCardName(action.definitionId);
-      return `Spawned ${name} at (${action.position.row + 1},${action.position.col + 1})`;
+      const row = action.position.row + 1;
+      const col = action.position.col + 1;
+      return t`Spawned ${name} at (${row},${col})`;
     }
-    case 'addCardToHand':
-      return `P${action.player + 1} received a card`;
+    case 'addCardToHand': {
+      const p = action.player + 1;
+      return t`P${p} received a card`;
+    }
     case 'abilityTrigger':
-      return `Ability triggered: ${action.abilityTrigger}`;
-    case 'pawnBonus':
-      return `P${action.player + 1} gained ${action.bonusPawns} bonus pawns at (${action.position.row + 1},${action.position.col + 1})`;
+      return t`Ability triggered: ${action.abilityTrigger}`;
+    case 'pawnBonus': {
+      const p = action.player + 1;
+      const bonus = action.bonusPawns;
+      const row = action.position.row + 1;
+      const col = action.position.col + 1;
+      return t`P${p} gained ${bonus} bonus pawns at (${row},${col})`;
+    }
   }
 }

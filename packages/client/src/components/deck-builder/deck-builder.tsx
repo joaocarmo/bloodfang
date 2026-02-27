@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { t } from '@lingui/core/macro';
 import { DECK_SIZE } from '@bloodfang/engine';
 import { useDeckStore } from '../../store/deck-store.ts';
 import { playerLightTextColor } from '../../lib/player-color.ts';
@@ -31,7 +32,7 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
         tabIndex={-1}
         className={`text-2xl font-bold outline-none ${playerNumber === 1 ? 'text-p0' : 'text-p1'}`}
       >
-        Player {playerNumber} — Build Your Deck
+        {t`Player ${playerNumber} — Build Your Deck`}
       </h1>
 
       <FilterBar />
@@ -44,7 +45,7 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
           <DeckSlots />
           <div className="mt-3 flex gap-2">
             <Button onClick={clear} size="sm">
-              Clear
+              {t`Clear`}
             </Button>
             <button
               onClick={() => onConfirm([...selectedCards])}
@@ -58,7 +59,7 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
                 }
               `}
             >
-              Confirm ({selectedCards.length}/{DECK_SIZE})
+              {t`Confirm (${selectedCards.length}/${DECK_SIZE})`}
             </button>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { BOARD_ROWS } from '@bloodfang/engine';
 import { useLaneScores } from '../../hooks/use-lane-scores.ts';
@@ -19,7 +20,7 @@ export function LaneScores({ player, side }: LaneScoresProps) {
     <div
       className={`flex flex-col gap-1 items-center justify-between ${side === 'left' ? 'pr-2' : 'pl-2'}`}
       role="status"
-      aria-label={`Player ${player + 1} scores`}
+      aria-label={t`Player ${player + 1} scores`}
     >
       <div className={`text-xs text-text-secondary font-medium`}>P{player + 1}</div>
       {Array.from({ length: BOARD_ROWS }, (_, row) => {

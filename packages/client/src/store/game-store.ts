@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { create } from 'zustand';
+import { t } from '@lingui/core/macro';
 import type { CardDefinition, GameState, PlayerId, Position } from '@bloodfang/engine';
 import {
   createGame,
@@ -83,9 +84,10 @@ export const useGameStore = create<GameStore>((set, get) => {
           hoveredTilePosition: null,
           showTransition: false,
         });
-        get().announce('Game started. Mulligan phase. Player 1, select cards to return.');
+        get().announce(t`Game started. Mulligan phase. Player 1, select cards to return.`);
       } catch (e) {
-        get().announce(`Failed to start game: ${e instanceof Error ? e.message : 'Unknown error'}`);
+        const reason = e instanceof Error ? e.message : t`Unknown error`;
+        get().announce(t`Failed to start game: ${reason}`);
       }
     },
 
@@ -96,12 +98,15 @@ export const useGameStore = create<GameStore>((set, get) => {
       set({ gameState: newState, selectedCardId: null });
 
       if (newState.phase === 'playing') {
-        get().announce(`Mulligan complete. Player ${newState.currentPlayerIndex + 1}'s turn.`);
+        const p = newState.currentPlayerIndex + 1;
+        get().announce(t`Mulligan complete. Player ${p}'s turn.`);
         set({ showTransition: true });
       } else {
         const nextPlayer = player === 0 ? 1 : 0;
+        const pDone = player + 1;
+        const pNext = nextPlayer + 1;
         get().announce(
-          `Player ${player + 1} mulligan complete. Player ${nextPlayer + 1}, select cards to return.`,
+          t`Player ${pDone} mulligan complete. Player ${pNext}, select cards to return.`,
         );
         set({ showTransition: true });
       }
@@ -126,22 +131,24 @@ export const useGameStore = create<GameStore>((set, get) => {
         hoveredTilePosition: null,
       });
 
-      get().announce(
-        `Player ${prevPlayer + 1} played ${cardName} at row ${position.row + 1}, column ${position.col + 1}.`,
-      );
+      const pNum = prevPlayer + 1;
+      const rowNum = position.row + 1;
+      const colNum = position.col + 1;
+      get().announce(t`Player ${pNum} played ${cardName} at row ${rowNum}, column ${colNum}.`);
 
       if (newState.phase === 'ended') {
         const scores = calculateFinalScores(newState);
         const winner = determineWinner(scores);
         const winMsg =
           winner !== null
-            ? `Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
-            : `Draw! ${scores[0]} to ${scores[1]}.`;
-        get().announce(`Game over. ${winMsg}`);
+            ? t`Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
+            : t`Draw! ${scores[0]} to ${scores[1]}.`;
+        get().announce(t`Game over. ${winMsg}`);
         set({ screen: 'results' });
       } else if (newState.currentPlayerIndex !== prevPlayer) {
         set({ showTransition: true });
-        get().announce(`Player ${newState.currentPlayerIndex + 1}'s turn.`);
+        const nextP = newState.currentPlayerIndex + 1;
+        get().announce(t`Player ${nextP}'s turn.`);
       }
     },
 
@@ -153,20 +160,22 @@ export const useGameStore = create<GameStore>((set, get) => {
       const newState = pass(gameState);
       set({ gameState: newState, selectedCardId: null });
 
-      get().announce(`Player ${prevPlayer + 1} passed.`);
+      const passP = prevPlayer + 1;
+      get().announce(t`Player ${passP} passed.`);
 
       if (newState.phase === 'ended') {
         const scores = calculateFinalScores(newState);
         const winner = determineWinner(scores);
         const winMsg =
           winner !== null
-            ? `Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
-            : `Draw! ${scores[0]} to ${scores[1]}.`;
-        get().announce(`Game over. ${winMsg}`);
+            ? t`Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
+            : t`Draw! ${scores[0]} to ${scores[1]}.`;
+        get().announce(t`Game over. ${winMsg}`);
         set({ screen: 'results' });
       } else {
         set({ showTransition: true });
-        get().announce(`Player ${newState.currentPlayerIndex + 1}'s turn.`);
+        const nextP = newState.currentPlayerIndex + 1;
+        get().announce(t`Player ${nextP}'s turn.`);
       }
     },
 

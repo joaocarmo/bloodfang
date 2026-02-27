@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import type { CardDefinition } from '@bloodfang/engine';
 import { motion, useReducedMotion } from 'motion/react';
 import { Card } from '../card/card.tsx';
@@ -25,7 +26,11 @@ export function HandCard({
   const reduceMotion = useReducedMotion();
 
   const name = getCardName(definition.id);
-  const label = `${name}, Rank ${definition.rank}, Power ${definition.power}${!hasValidMoves ? ', no valid moves' : ''}`;
+  const rank = definition.rank;
+  const power = definition.power;
+  const label = !hasValidMoves
+    ? t`${name}, Rank ${rank}, Power ${power}, no valid moves`
+    : t`${name}, Rank ${rank}, Power ${power}`;
 
   return (
     <motion.div

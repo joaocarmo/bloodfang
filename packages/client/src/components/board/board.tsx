@@ -1,4 +1,5 @@
 import { useState, useCallback, type KeyboardEvent } from 'react';
+import { t } from '@lingui/core/macro';
 import { BOARD_ROWS, BOARD_COLS } from '@bloodfang/engine';
 import { Tile } from './tile.tsx';
 import { LaneScores } from './lane-scores.tsx';
@@ -48,7 +49,7 @@ export function Board() {
       {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus is managed via roving tabindex on child cells */}
       <div
         role="grid"
-        aria-label="Game board"
+        aria-label={t`Game board`}
         onKeyDown={handleKeyDown}
         className="grid grid-cols-5 grid-rows-3 gap-1 flex-1"
       >

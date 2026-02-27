@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import type { CardDefinition } from '@bloodfang/engine';
 import { RankIcon } from './rank-icon.tsx';
 import { PowerBadge } from './power-badge.tsx';
@@ -25,11 +26,13 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
           ? 'from-rank-3/20'
           : 'from-rank-replacement/20';
 
+  const rank = definition.rank;
+  const power = definition.power;
   const ariaLabel = [
     name,
-    `Rank ${definition.rank}`,
-    `Power ${definition.power}`,
-    definition.ability ? `Ability: ${definition.ability.effect.type}` : '',
+    t`Rank ${rank}`,
+    t`Power ${power}`,
+    definition.ability ? t`Ability: ${definition.ability.effect.type}` : '',
   ]
     .filter(Boolean)
     .join(', ');

@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { MAX_PAWN_COUNT } from '@bloodfang/engine';
 import { motion, useReducedMotion } from 'motion/react';
@@ -14,7 +15,7 @@ export function PawnDots({ count, owner }: PawnDotsProps) {
   if (count === 0) return null;
 
   return (
-    <div className="flex gap-0.5 items-center" aria-label={`${count} of ${MAX_PAWN_COUNT} pawns`}>
+    <div className="flex gap-0.5 items-center" aria-label={t`${count} of ${MAX_PAWN_COUNT} pawns`}>
       {Array.from({ length: count }, (_, i) => (
         <motion.div
           key={i}

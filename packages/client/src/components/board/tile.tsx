@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { t } from '@lingui/core/macro';
 import { AnimatePresence } from 'motion/react';
 import { useGameStore } from '../../store/game-store.ts';
 import { useValidMovesForCard } from '../../hooks/use-valid-moves.ts';
@@ -70,14 +71,23 @@ export function Tile({ row, col, isFocused, onFocus }: TileProps) {
     ) : null;
 
   // Build aria label
-  const parts: string[] = [`Row ${row + 1}, Column ${col + 1}`];
-  if (tile.owner !== null) parts.push(`Owned by Player ${tile.owner + 1}`);
-  if (tile.pawnCount > 0) parts.push(`${tile.pawnCount} pawns`);
+  const rowNum = row + 1;
+  const colNum = col + 1;
+  const parts: string[] = [t`Row ${rowNum}, Column ${colNum}`];
+  if (tile.owner !== null) {
+    const ownerNum = tile.owner + 1;
+    parts.push(t`Owned by Player ${ownerNum}`);
+  }
+  if (tile.pawnCount > 0) {
+    const pawnCount = tile.pawnCount;
+    parts.push(t`${pawnCount} pawns`);
+  }
   if (instance && definition) {
     const power = getEffectivePower(gameState, instance.instanceId);
-    parts.push(`${getCardName(definition.id)} (power ${power})`);
+    const name = getCardName(definition.id);
+    parts.push(t`${name} (power ${power})`);
   }
-  if (isValidTarget) parts.push('Valid target');
+  if (isValidTarget) parts.push(t`Valid target`);
 
   return (
     <div

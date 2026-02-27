@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { t } from '@lingui/core/macro';
 import type { CardDefinition } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { DeckBuilder } from '../deck-builder/deck-builder.tsx';
@@ -60,7 +61,7 @@ export function SetupScreen() {
             variant="ghost"
             size="sm"
           >
-            Use Random Deck
+            {t`Use Random Deck`}
           </Button>
         </div>
       </main>
@@ -70,8 +71,8 @@ export function SetupScreen() {
   if (phase === 'p0-transition') {
     return (
       <main className="flex flex-col items-center justify-center min-h-screen gap-6">
-        <h2 className="text-2xl font-bold text-text-primary">Player 1 deck saved!</h2>
-        <p className="text-text-secondary">Pass the device to Player 2.</p>
+        <h2 className="text-2xl font-bold text-text-primary">{t`Player 1 deck saved!`}</h2>
+        <p className="text-text-secondary">{t`Pass the device to Player 2.`}</p>
         <Button
           ref={transitionButtonRef}
           onClick={() => setPhase('p1-build')}
@@ -79,7 +80,7 @@ export function SetupScreen() {
           size="lg"
           className="bg-p1/20 border-p1 text-p1-light hover:bg-p1/30"
         >
-          Player 2 — Build Deck
+          {t`Player 2 — Build Deck`}
         </Button>
       </main>
     );
@@ -98,7 +99,7 @@ export function SetupScreen() {
             variant="ghost"
             size="sm"
           >
-            Use Random Deck
+            {t`Use Random Deck`}
           </Button>
         </div>
       </main>
@@ -108,9 +109,9 @@ export function SetupScreen() {
   // phase === 'ready'
   return (
     <main className="flex flex-col items-center justify-center min-h-screen gap-6">
-      <h2 className="text-2xl font-bold text-text-primary">Both decks are ready!</h2>
+      <h2 className="text-2xl font-bold text-text-primary">{t`Both decks are ready!`}</h2>
       <Button ref={startButtonRef} onClick={startGame} variant="primary" size="lg">
-        Start Game
+        {t`Start Game`}
       </Button>
     </main>
   );

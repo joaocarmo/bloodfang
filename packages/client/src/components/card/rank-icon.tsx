@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import type { CardRank } from '@bloodfang/engine';
 
 interface RankIconProps {
@@ -7,7 +8,7 @@ interface RankIconProps {
 export function RankIcon({ rank }: RankIconProps) {
   if (rank === 'replacement') {
     return (
-      <span className="text-rank-replacement font-bold" aria-label="Replacement card">
+      <span className="text-rank-replacement font-bold" aria-label={t`Replacement card`}>
         R
       </span>
     );
@@ -22,7 +23,7 @@ export function RankIcon({ rank }: RankIconProps) {
   return (
     <span
       className={rank === 1 ? 'text-rank-1' : rank === 2 ? 'text-rank-2' : 'text-rank-3'}
-      aria-label={`Rank ${rank}`}
+      aria-label={t`Rank ${rank}`}
     >
       {stars}
     </span>

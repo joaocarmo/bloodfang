@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import { useGameStore } from '../../store/game-store.ts';
 import { Board } from '../board/board.tsx';
 import { Hand } from '../hand/hand.tsx';
@@ -27,11 +28,11 @@ export function GameScreen() {
     <>
       <TurnTransition />
       <main className="flex flex-col gap-4 p-4 max-w-4xl mx-auto">
-        <h1 className="sr-only">Game Board</h1>
+        <h1 className="sr-only">{t`Game Board`}</h1>
 
         <TurnIndicator />
 
-        <section aria-label="Board">
+        <section aria-label={t`Board`}>
           <Board />
         </section>
 
@@ -39,7 +40,7 @@ export function GameScreen() {
           <PassButton />
         </div>
 
-        <section aria-label="Hand">
+        <section aria-label={t`Hand`}>
           <Hand />
         </section>
 

@@ -1,3 +1,4 @@
+import { t } from '@lingui/core/macro';
 import { useGameStore, useValidMoves } from '../../store/game-store.ts';
 import { Button } from '../ui/button.tsx';
 
@@ -17,7 +18,7 @@ export function PassButton() {
       className={hasNoMoves ? '' : 'text-text-secondary'}
       style={{ minWidth: 100 }}
     >
-      {hasNoMoves ? 'Pass (No Moves)' : 'Pass'}
+      {hasNoMoves ? t`Pass (No Moves)` : t`Pass`}
     </Button>
   );
 }
