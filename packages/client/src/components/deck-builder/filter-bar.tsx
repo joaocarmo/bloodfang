@@ -1,5 +1,6 @@
 import type { CardRank } from '@bloodfang/engine';
 import { useDeckStore } from '../../store/deck-store.ts';
+import { ToggleButton } from '../ui/toggle-button.tsx';
 
 export function FilterBar() {
   const searchQuery = useDeckStore((s) => s.searchQuery);
@@ -35,21 +36,13 @@ export function FilterBar() {
       </div>
       <div className="flex gap-1" role="group" aria-label="Filter by rank">
         {ranks.map(({ value, label }) => (
-          <button
+          <ToggleButton
             key={String(value)}
             onClick={() => setRankFilter(value)}
-            aria-pressed={rankFilter === value}
-            className={`px-3 py-1.5 text-sm rounded-lg min-h-[36px] transition-colors
-              focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-              ${
-                rankFilter === value
-                  ? 'bg-p0/30 border border-p0 text-p0-light'
-                  : 'bg-surface-raised border border-border text-text-secondary hover:bg-border'
-              }
-            `}
+            pressed={rankFilter === value}
           >
             {label}
-          </button>
+          </ToggleButton>
         ))}
       </div>
     </div>

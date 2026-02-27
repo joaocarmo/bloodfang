@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import type { PlayerId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
+import { playerTextColor } from '../../lib/player-color.ts';
+import { Button } from '../ui/button.tsx';
 
 function getNextPlayer(gameState: {
   phase: string;
@@ -21,50 +23,44 @@ export function TurnTransition() {
   const showTransition = useGameStore((s) => s.showTransition);
   const setShowTransition = useGameStore((s) => s.setShowTransition);
   const gameState = useGameStore((s) => s.gameState);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const currentPlayer = gameState ? getNextPlayer(gameState) : 0;
 
   useEffect(() => {
-    if (showTransition && buttonRef.current) {
-      buttonRef.current.focus();
+    if (showTransition) {
+      dialogRef.current?.showModal();
+    } else {
+      dialogRef.current?.close();
     }
   }, [showTransition]);
 
-  useEffect(() => {
-    if (!showTransition) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
-        e.preventDefault();
-        buttonRef.current?.focus();
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [showTransition]);
+  const handleCancel = (e: React.SyntheticEvent) => e.preventDefault();
 
   if (!showTransition) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 bg-surface-overlay flex flex-col items-center justify-center gap-6"
-      role="dialog"
-      aria-modal="true"
+    <dialog
+      ref={dialogRef}
+      onCancel={handleCancel}
       aria-label="Turn transition"
+      className="fixed inset-0 z-50 bg-surface-overlay flex flex-col items-center justify-center gap-6
+        w-full h-full max-w-none max-h-none border-none m-0 p-0"
     >
-      <h2 className={`text-3xl font-bold ${currentPlayer === 0 ? 'text-p0' : 'text-p1'}`}>
+      <h2 className={`text-3xl font-bold ${playerTextColor(currentPlayer)}`}>
         Player {currentPlayer + 1}&apos;s Turn
       </h2>
       <p className="text-text-secondary">Pass the device to Player {currentPlayer + 1}</p>
-      <button
+      <Button
         ref={buttonRef}
         onClick={() => setShowTransition(false)}
-        className="px-8 py-3 bg-surface-raised border border-border rounded-lg text-lg font-medium
-          hover:bg-border focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-          min-w-[120px] min-h-[48px] transition-colors"
+        size="lg"
+        autoFocus
+        className="min-w-[120px]"
       >
         Ready
-      </button>
-    </div>
+      </Button>
+    </dialog>
   );
 }

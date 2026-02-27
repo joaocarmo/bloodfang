@@ -4,6 +4,7 @@ import { useGameStore } from '../../store/game-store.ts';
 import { calculateFinalScores, determineWinner } from '@bloodfang/engine';
 import { useLaneScores } from '../../hooks/use-lane-scores.ts';
 import { BOARD_ROWS } from '@bloodfang/engine';
+import { Button } from '../ui/button.tsx';
 
 export function ResultsScreen() {
   const gameState = useGameStore((s) => s.gameState);
@@ -25,7 +26,7 @@ export function ResultsScreen() {
   const winnerText = winner !== null ? `Player ${winner + 1} Wins!` : "It's a Draw!";
 
   return (
-    <div className="flex flex-col items-center gap-8 p-8 max-w-lg mx-auto">
+    <main className="flex flex-col items-center gap-8 p-8 max-w-lg mx-auto">
       <motion.h1
         ref={headingRef}
         tabIndex={-1}
@@ -79,7 +80,6 @@ export function ResultsScreen() {
             return (
               <motion.div
                 key={row}
-                role="row"
                 aria-label={laneLabel}
                 initial={reduceMotion ? false : { y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -110,23 +110,13 @@ export function ResultsScreen() {
         transition={{ delay: 0.9 }}
         className="flex gap-3"
       >
-        <button
-          onClick={startGame}
-          className="px-6 py-3 bg-p0/20 border border-p0 rounded-lg font-medium text-p0-light
-            hover:bg-p0/30 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-            min-h-[48px] transition-colors"
-        >
+        <Button onClick={startGame} variant="primary" size="lg">
           Rematch
-        </button>
-        <button
-          onClick={resetToHome}
-          className="px-6 py-3 bg-surface-raised border border-border rounded-lg font-medium
-            hover:bg-border focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-            min-h-[48px] transition-colors"
-        >
+        </Button>
+        <Button onClick={resetToHome} size="lg">
           Home
-        </button>
+        </Button>
       </motion.div>
-    </div>
+    </main>
   );
 }

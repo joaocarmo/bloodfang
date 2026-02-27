@@ -1,9 +1,11 @@
 import { useRef, useEffect } from 'react';
 import { DECK_SIZE } from '@bloodfang/engine';
 import { useDeckStore } from '../../store/deck-store.ts';
+import { playerLightTextColor } from '../../lib/player-color.ts';
 import { FilterBar } from './filter-bar.tsx';
 import { CardCatalog } from './card-catalog.tsx';
 import { DeckSlots } from './deck-slots.tsx';
+import { Button } from '../ui/button.tsx';
 
 interface DeckBuilderProps {
   playerNumber: 1 | 2;
@@ -41,18 +43,13 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
         <div className="w-full lg:w-56 shrink-0">
           <DeckSlots />
           <div className="mt-3 flex gap-2">
-            <button
-              onClick={clear}
-              className="px-4 py-2 bg-surface-raised border border-border rounded-lg text-sm
-                hover:bg-border focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-                min-h-[36px] transition-colors"
-            >
+            <Button onClick={clear} size="sm">
               Clear
-            </button>
+            </Button>
             <button
               onClick={() => onConfirm([...selectedCards])}
               aria-disabled={!isReady}
-              className={`px-4 py-2 rounded-lg text-sm font-medium min-h-[36px] transition-colors
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium min-h-[36px] transition-colors
                 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
                 ${
                   isReady

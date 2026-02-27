@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import type { PlayerId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Card } from '../card/card.tsx';
+import { playerTextColor } from '../../lib/player-color.ts';
+import { Button } from '../ui/button.tsx';
 
 function getMulliganPlayer(gameState: {
   currentPlayerIndex: PlayerId;
@@ -50,7 +52,7 @@ export function MulliganScreen() {
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className={`text-2xl font-bold ${currentPlayer === 0 ? 'text-p0' : 'text-p1'} outline-none`}
+        className={`text-2xl font-bold ${playerTextColor(currentPlayer)} outline-none`}
       >
         Player {currentPlayer + 1} — Mulligan
       </h1>
@@ -82,23 +84,11 @@ export function MulliganScreen() {
       </div>
 
       <div className="flex gap-3">
-        <button
-          onClick={handleKeep}
-          className="px-6 py-2 bg-surface-raised border border-border rounded-lg font-medium
-            hover:bg-border focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-            min-h-[44px] transition-colors"
-        >
-          Keep All
-        </button>
+        <Button onClick={handleKeep}>Keep All</Button>
         {selectedToReturn.length > 0 && (
-          <button
-            onClick={handleConfirm}
-            className="px-6 py-2 bg-p0/20 border border-p0 rounded-lg font-medium text-p0-light
-              hover:bg-p0/30 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-              min-h-[44px] transition-colors"
-          >
+          <Button onClick={handleConfirm} variant="primary">
             Return {selectedToReturn.length} Card{selectedToReturn.length > 1 ? 's' : ''}
-          </button>
+          </Button>
         )}
       </div>
     </div>

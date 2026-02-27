@@ -1,4 +1,5 @@
 import { useGameStore, useValidMoves } from '../../store/game-store.ts';
+import { Button } from '../ui/button.tsx';
 
 export function PassButton() {
   const gameState = useGameStore((s) => s.gameState);
@@ -10,20 +11,13 @@ export function PassButton() {
   const hasNoMoves = validMoves.length === 0;
 
   return (
-    <button
+    <Button
       onClick={doPass}
-      className={`
-        px-6 py-2 rounded-lg font-medium min-h-[44px] min-w-[100px]
-        focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
-        transition-colors
-        ${
-          hasNoMoves
-            ? 'bg-p1/30 border border-p1 text-p1-light hover:bg-p1/40'
-            : 'bg-surface-raised border border-border text-text-secondary hover:bg-border'
-        }
-      `}
+      variant={hasNoMoves ? 'danger' : 'secondary'}
+      className={hasNoMoves ? '' : 'text-text-secondary'}
+      style={{ minWidth: 100 }}
     >
       {hasNoMoves ? 'Pass (No Moves)' : 'Pass'}
-    </button>
+    </Button>
   );
 }

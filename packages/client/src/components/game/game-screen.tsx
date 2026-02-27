@@ -16,7 +16,9 @@ export function GameScreen() {
     return (
       <>
         <TurnTransition />
-        <MulliganScreen />
+        <main>
+          <MulliganScreen />
+        </main>
       </>
     );
   }
@@ -24,7 +26,7 @@ export function GameScreen() {
   return (
     <>
       <TurnTransition />
-      <div className="flex flex-col gap-4 p-4 max-w-4xl mx-auto">
+      <main className="flex flex-col gap-4 p-4 max-w-4xl mx-auto">
         <h1 className="sr-only">Game Board</h1>
 
         <TurnIndicator />
@@ -42,7 +44,7 @@ export function GameScreen() {
         </section>
 
         <ActionLog />
-      </div>
+      </main>
     </>
   );
 }
