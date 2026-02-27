@@ -57,7 +57,7 @@ export function Hand() {
         role="listbox"
         aria-label={t`Player ${currentPlayer + 1}'s hand`}
         onKeyDown={handleKeyDown}
-        className="flex gap-2 justify-center items-end flex-wrap py-2"
+        className="flex gap-1 sm:gap-2 justify-center items-end flex-wrap py-1 sm:py-2"
       >
         {hand.map((cardId, index) => {
           // cardId is the definitionId in the hand

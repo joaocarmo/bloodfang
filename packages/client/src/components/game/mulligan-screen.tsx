@@ -49,11 +49,11 @@ export function MulliganScreen() {
   }, [currentPlayer, doMulligan]);
 
   return (
-    <div className="flex flex-col items-center gap-6 p-6">
+    <div className="flex flex-col items-center gap-4 p-3 sm:gap-6 sm:p-6">
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className={`text-2xl font-bold ${playerTextColor(currentPlayer)} outline-none`}
+        className={`text-xl sm:text-2xl font-bold ${playerTextColor(currentPlayer)} outline-none`}
       >
         {t`Player ${currentPlayer + 1} — Mulligan`}
       </h1>
@@ -64,7 +64,7 @@ export function MulliganScreen() {
       <div
         role="group"
         aria-label={t`Cards to mulligan`}
-        className="flex gap-3 flex-wrap justify-center"
+        className="flex gap-2 sm:gap-3 flex-wrap justify-center"
       >
         {hand.map((cardId) => {
           const def = definitions[cardId];

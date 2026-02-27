@@ -69,7 +69,10 @@ export function GameScreen() {
         onCancel={() => reset?.()}
       />
       <TurnTransition />
-      <main tabIndex={-1} className="flex flex-col gap-4 p-4 max-w-4xl mx-auto outline-none">
+      <main
+        tabIndex={-1}
+        className="flex flex-col gap-2 p-2 sm:gap-3 sm:p-3 md:gap-4 md:p-4 max-w-4xl mx-auto outline-none"
+      >
         <h1 className="sr-only">{t`Game Board`}</h1>
 
         <TurnIndicator />

@@ -43,7 +43,7 @@ export function ResultsScreen() {
   return (
     <main
       tabIndex={-1}
-      className="flex flex-col items-center gap-8 p-8 max-w-lg mx-auto outline-none"
+      className="flex flex-col items-center gap-4 p-4 sm:gap-6 sm:p-6 md:gap-8 md:p-8 max-w-lg mx-auto outline-none"
     >
       <BackButton />
 
@@ -53,7 +53,7 @@ export function ResultsScreen() {
         initial={reduceMotion ? false : { scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', duration: 0.5, bounce: 0.3 }}
-        className={`text-4xl font-bold outline-none ${
+        className={`text-2xl sm:text-3xl md:text-4xl font-bold outline-none ${
           winner === 0 ? 'text-p0' : winner === 1 ? 'text-p1' : 'text-text-primary'
         }`}
       >
@@ -61,14 +61,16 @@ export function ResultsScreen() {
       </motion.h1>
 
       {/* Final scores */}
-      <div className="flex gap-12 text-center">
+      <div className="flex gap-6 sm:gap-8 md:gap-12 text-center">
         <motion.div
           initial={reduceMotion ? false : { x: -20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
           <div className="text-text-secondary text-sm">{t`Player 1`}</div>
-          <div className="text-p0 text-5xl font-bold tabular-nums">{finalScores[0]}</div>
+          <div className="text-p0 text-3xl sm:text-4xl md:text-5xl font-bold tabular-nums">
+            {finalScores[0]}
+          </div>
         </motion.div>
         <div className="text-text-muted text-2xl self-center">{t`vs`}</div>
         <motion.div
@@ -77,7 +79,9 @@ export function ResultsScreen() {
           transition={{ delay: 0.2 }}
         >
           <div className="text-text-secondary text-sm">{t`Player 2`}</div>
-          <div className="text-p1 text-5xl font-bold tabular-nums">{finalScores[1]}</div>
+          <div className="text-p1 text-3xl sm:text-4xl md:text-5xl font-bold tabular-nums">
+            {finalScores[1]}
+          </div>
         </motion.div>
       </div>
 

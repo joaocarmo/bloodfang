@@ -101,7 +101,7 @@ export function Tile({ row, col, isFocused, onFocus }: TileProps) {
       onFocus={onFocus}
       className={`
         relative flex flex-col items-center justify-center
-        ${ownerBg} rounded-md min-h-16 min-w-14 p-1
+        ${ownerBg} rounded-md min-h-10 min-w-8 sm:min-h-14 sm:min-w-12 md:min-h-16 md:min-w-14 p-0.5 sm:p-1
         ${isValidTarget ? 'ring-2 ring-power-buff cursor-pointer' : ''}
         focus:outline-3 focus:outline-focus-ring focus:outline-offset-2
         transition-all

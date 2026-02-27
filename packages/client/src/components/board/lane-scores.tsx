@@ -18,7 +18,7 @@ export function LaneScores({ player, side }: LaneScoresProps) {
 
   return (
     <div
-      className={`flex flex-col gap-1 items-center justify-between ${side === 'left' ? 'pr-2' : 'pl-2'}`}
+      className={`flex flex-col gap-1 items-center justify-between ${side === 'left' ? 'pr-1 sm:pr-2' : 'pl-1 sm:pl-2'}`}
       role="status"
       aria-label={t`Player ${player + 1} scores`}
     >
@@ -28,13 +28,15 @@ export function LaneScores({ player, side }: LaneScoresProps) {
         return (
           <div
             key={row}
-            className={`${colorClass} font-bold text-lg tabular-nums flex items-center justify-center h-full`}
+            className={`${colorClass} font-bold text-sm sm:text-base md:text-lg tabular-nums flex items-center justify-center h-full`}
           >
             {score}
           </div>
         );
       })}
-      <div className={`${colorClass} font-bold text-xl border-t border-border pt-1 tabular-nums`}>
+      <div
+        className={`${colorClass} font-bold text-base sm:text-lg md:text-xl border-t border-border pt-1 tabular-nums`}
+      >
         {totalScore}
       </div>
     </div>

@@ -43,7 +43,7 @@ export function Board() {
   );
 
   return (
-    <div className="flex items-stretch gap-2">
+    <div className="flex items-stretch gap-1 sm:gap-2">
       <LaneScores player={0} side="left" />
 
       {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus is managed via roving tabindex on child cells */}

@@ -26,11 +26,11 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
   const isReady = selectedCards.length === DECK_SIZE;
 
   return (
-    <div className="flex flex-col gap-4 p-4 max-w-6xl mx-auto">
+    <div className="flex flex-col gap-3 p-2 sm:gap-4 sm:p-4 max-w-6xl mx-auto">
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className={`text-2xl font-bold outline-none ${playerNumber === 1 ? 'text-p0' : 'text-p1'}`}
+        className={`text-xl sm:text-2xl font-bold outline-none ${playerNumber === 1 ? 'text-p0' : 'text-p1'}`}
       >
         {t`Player ${playerNumber} — Build Your Deck`}
       </h1>

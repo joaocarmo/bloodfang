@@ -14,16 +14,16 @@ export function HomeScreen() {
   return (
     <main
       tabIndex={-1}
-      className="flex flex-col items-center justify-center min-h-screen gap-8 p-8 outline-none"
+      className="flex flex-col items-center justify-center min-h-screen gap-6 p-4 sm:gap-8 sm:p-8 outline-none"
     >
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className="text-5xl font-bold text-text-primary outline-none"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary outline-none"
       >
         {t`Blood Fang`}
       </h1>
-      <p className="text-text-secondary text-lg text-center max-w-md">
+      <p className="text-text-secondary text-base sm:text-lg text-center max-w-md">
         {t`A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent.`}
       </p>
       <div className="flex flex-col gap-3 items-center">

@@ -16,8 +16,7 @@ export function PassButton() {
     <Button
       onClick={doPass}
       variant={hasNoMoves ? 'danger' : 'secondary'}
-      className={hasNoMoves ? '' : 'text-text-secondary'}
-      style={{ minWidth: 100 }}
+      className={`min-w-[100px] ${hasNoMoves ? '' : 'text-text-secondary'}`}
     >
       {hasNoMoves ? t`Pass (No Moves)` : t`Pass`}
     </Button>

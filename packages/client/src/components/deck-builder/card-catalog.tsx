@@ -33,7 +33,7 @@ export function CardCatalog() {
     <div
       role="grid"
       aria-label={t`Card catalog`}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 overflow-y-auto max-h-[60vh] p-1"
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 overflow-y-auto max-h-[50vh] sm:max-h-[60vh] p-1"
     >
       {filteredCards.map((card) => {
         const isInDeck = selectedCards.includes(card.id);

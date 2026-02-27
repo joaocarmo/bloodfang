@@ -20,12 +20,12 @@ export function ActionLog() {
 
   return (
     <aside aria-label={t`Action log`}>
-      <h2 className="text-sm font-medium text-text-secondary mb-1">{t`Log`}</h2>
+      <h2 className="text-xs sm:text-sm font-medium text-text-secondary mb-1">{t`Log`}</h2>
       <div
         ref={scrollRef}
         role="log"
         aria-live="polite"
-        className="h-40 overflow-y-auto bg-surface-raised rounded-lg p-2 text-xs text-text-muted space-y-0.5"
+        className="h-24 sm:h-32 md:h-40 overflow-y-auto bg-surface-raised rounded-lg p-2 text-xs text-text-muted space-y-0.5"
       >
         {recentLog.map((action, i) => (
           <div key={log.length - 20 + i}>{formatAction(action, definitions)}</div>

@@ -50,7 +50,7 @@ export function TurnTransition() {
       className="fixed inset-0 z-50 bg-surface-overlay flex flex-col items-center justify-center gap-6
         w-full h-full max-w-none max-h-none border-none m-0 p-0"
     >
-      <h2 className={`text-3xl font-bold ${playerTextColor(currentPlayer)}`}>
+      <h2 className={`text-2xl sm:text-3xl font-bold ${playerTextColor(currentPlayer)}`}>
         {t`Player ${currentPlayer + 1}'s Turn`}
       </h2>
       <p className="text-text-secondary">{t`Pass the device to Player ${currentPlayer + 1}`}</p>

@@ -3,15 +3,21 @@ import { BackButton } from '../ui/back-button.tsx';
 
 export function RulesScreen() {
   return (
-    <main tabIndex={-1} className="flex flex-col gap-8 p-8 max-w-2xl mx-auto outline-none">
+    <main
+      tabIndex={-1}
+      className="flex flex-col gap-8 p-4 sm:p-6 md:p-8 max-w-2xl mx-auto outline-none"
+    >
       <BackButton />
 
-      <h1 tabIndex={-1} className="text-4xl font-bold text-text-primary outline-none">
+      <h1
+        tabIndex={-1}
+        className="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary outline-none"
+      >
         {t`Rules`}
       </h1>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-2xl font-bold text-text-primary">{t`Basic Rules`}</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-text-primary">{t`Basic Rules`}</h2>
         <ul className="list-disc list-inside flex flex-col gap-2 text-text-secondary">
           <li>{t`2-player hot-seat game on a 3×5 grid (3 lanes, 5 columns).`}</li>
           <li>{t`Each player builds a 15-card deck before the game begins.`}</li>
@@ -24,7 +30,7 @@ export function RulesScreen() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-2xl font-bold text-text-primary">{t`Keyboard Shortcuts`}</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-text-primary">{t`Keyboard Shortcuts`}</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
