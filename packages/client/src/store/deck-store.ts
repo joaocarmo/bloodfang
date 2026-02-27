@@ -9,6 +9,7 @@ interface DeckStore {
 
   addCard: (definitionId: string) => void;
   removeCard: (definitionId: string) => void;
+  setCards: (cardIds: string[]) => void;
   clear: () => void;
   setSearchQuery: (query: string) => void;
   setRankFilter: (rank: CardRank | null) => void;
@@ -32,6 +33,8 @@ export const useDeckStore = create<DeckStore>((set, get) => ({
     set((state) => ({
       selectedCards: state.selectedCards.filter((id) => id !== definitionId),
     })),
+
+  setCards: (cardIds) => set({ selectedCards: cardIds.slice(0, DECK_SIZE) }),
 
   clear: () => set({ selectedCards: [], searchQuery: '', rankFilter: null }),
 

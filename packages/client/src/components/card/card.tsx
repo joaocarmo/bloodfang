@@ -41,7 +41,7 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
     relative flex flex-col rounded-lg border bg-gradient-to-b ${rankBg} to-surface-raised
     ${selected ? 'border-focus-ring ring-2 ring-focus-ring' : 'border-border'}
     ${disabled ? 'opacity-50' : 'cursor-pointer hover:border-text-secondary'}
-    ${compact ? 'w-24 sm:w-28 md:w-32 p-1 sm:p-1.5 gap-0.5' : 'w-32 sm:w-36 md:w-40 p-1.5 sm:p-2 gap-1'}
+    ${compact ? 'w-24 sm:w-28 md:w-32 p-1 sm:p-1.5 gap-0.5' : 'w-32 sm:w-36 md:w-40 p-1.5 sm:p-2 gap-1 h-52 sm:h-56 md:h-60'}
     transition-colors
   `;
 

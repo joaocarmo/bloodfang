@@ -4,6 +4,7 @@ import { useNavigate } from '@tanstack/react-router';
 import type { CardDefinition } from '@bloodfang/engine';
 import { fisherYatesShuffle } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
+import { useDeckStore } from '../../store/deck-store.ts';
 import { Route } from '../../routes.ts';
 import { DeckBuilder } from '../deck-builder/deck-builder.tsx';
 import { Button } from '../ui/button.tsx';
@@ -20,6 +21,7 @@ export function SetupScreen() {
   const setPlayerDeck = useGameStore((s) => s.setPlayerDeck);
   const startGame = useGameStore((s) => s.startGame);
   const definitions = useGameStore((s) => s.definitions);
+  const setCards = useDeckStore((s) => s.setCards);
   const navigate = useNavigate();
   const [phase, setPhase] = useState(SetupPhase.P0Build);
   const transitionButtonRef = useRef<HTMLButtonElement>(null);
@@ -72,8 +74,7 @@ export function SetupScreen() {
         <div className="text-center mt-4">
           <Button
             onClick={() => {
-              setPlayerDeck(0, buildRandomDeck());
-              setPhase(SetupPhase.P0Transition);
+              setCards(buildRandomDeck());
             }}
             variant="ghost"
             size="sm"
@@ -116,8 +117,7 @@ export function SetupScreen() {
         <div className="text-center mt-4">
           <Button
             onClick={() => {
-              setPlayerDeck(1, buildRandomDeck());
-              setPhase(SetupPhase.Ready);
+              setCards(buildRandomDeck());
             }}
             variant="ghost"
             size="sm"
