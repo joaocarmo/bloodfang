@@ -1,5 +1,21 @@
 import { useEffect, useRef } from 'react';
+import type { PlayerId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
+
+function getNextPlayer(gameState: {
+  phase: string;
+  currentPlayerIndex: PlayerId;
+  players: readonly { mulliganUsed: boolean }[];
+}): PlayerId {
+  if (gameState.phase === 'mulligan') {
+    const first = gameState.currentPlayerIndex;
+    if (!gameState.players[first]!.mulliganUsed) return first;
+    const second: PlayerId = first === 0 ? 1 : 0;
+    if (!gameState.players[second]!.mulliganUsed) return second;
+    return first;
+  }
+  return gameState.currentPlayerIndex;
+}
 
 export function TurnTransition() {
   const showTransition = useGameStore((s) => s.showTransition);
@@ -7,7 +23,7 @@ export function TurnTransition() {
   const gameState = useGameStore((s) => s.gameState);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const currentPlayer = gameState?.currentPlayerIndex ?? 0;
+  const currentPlayer = gameState ? getNextPlayer(gameState) : 0;
 
   useEffect(() => {
     if (showTransition && buttonRef.current) {
@@ -31,7 +47,7 @@ export function TurnTransition() {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-surface-overlay/95 flex flex-col items-center justify-center gap-6"
+      className="fixed inset-0 z-50 bg-surface-overlay flex flex-col items-center justify-center gap-6"
       role="dialog"
       aria-modal="true"
       aria-label="Turn transition"

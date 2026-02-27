@@ -69,9 +69,18 @@ export function ResultsScreen() {
             const p1 = laneScores[row]?.[1] ?? 0;
             const laneWinner = p0 > p1 ? 0 : p1 > p0 ? 1 : null;
 
+            const laneLabel =
+              laneWinner === 0
+                ? `Lane ${row + 1}: Player 1 wins ${p0} to ${p1}`
+                : laneWinner === 1
+                  ? `Lane ${row + 1}: Player 2 wins ${p1} to ${p0}`
+                  : `Lane ${row + 1}: Tied ${p0} to ${p1}`;
+
             return (
               <motion.div
                 key={row}
+                role="row"
+                aria-label={laneLabel}
                 initial={reduceMotion ? false : { y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4 + row * 0.15 }}

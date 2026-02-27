@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { create } from 'zustand';
 import type { CardDefinition, GameState, PlayerId, Position } from '@bloodfang/engine';
 import {
@@ -95,11 +96,12 @@ export const useGameStore = create<GameStore>((set, get) => {
       set({ gameState: newState, selectedCardId: null });
 
       if (newState.phase === 'playing') {
-        get().announce("Mulligan complete. Player 1's turn.");
+        get().announce(`Mulligan complete. Player ${newState.currentPlayerIndex + 1}'s turn.`);
         set({ showTransition: true });
       } else {
+        const nextPlayer = player === 0 ? 1 : 0;
         get().announce(
-          `Player ${player + 1} mulligan complete. Player ${player === 0 ? 2 : 1}, select cards to return.`,
+          `Player ${player + 1} mulligan complete. Player ${nextPlayer + 1}, select cards to return.`,
         );
         set({ showTransition: true });
       }
@@ -185,10 +187,14 @@ export const useGameStore = create<GameStore>((set, get) => {
 
 // Selector helpers
 export function useValidMoves() {
-  return useGameStore((s) => {
-    if (!s.gameState || s.gameState.phase !== 'playing') return [];
-    return getValidMoves(s.gameState);
-  });
+  const gameState = useGameStore((s) => s.gameState);
+  // useMemo prevents the infinite re-render that a raw Zustand selector would cause
+  // (getValidMoves returns new array refs, failing Object.is equality)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useMemo(() => {
+    if (!gameState || gameState.phase !== 'playing') return [];
+    return getValidMoves(gameState);
+  }, [gameState]);
 }
 
 export function useCurrentPlayer(): PlayerId {

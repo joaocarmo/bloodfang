@@ -1,4 +1,4 @@
-import { useState, useCallback, type KeyboardEvent } from 'react';
+import { useRef, useState, useCallback, type KeyboardEvent } from 'react';
 import { useGameStore } from '../../store/game-store.ts';
 import { HandCard } from './hand-card.tsx';
 
@@ -8,6 +8,7 @@ export function Hand() {
   const selectedCardId = useGameStore((s) => s.selectedCardId);
   const selectCard = useGameStore((s) => s.selectCard);
   const [focusedIndex, setFocusedIndex] = useState(0);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const currentPlayer = gameState?.currentPlayerIndex ?? 0;
   const hand = gameState?.players[currentPlayer]?.hand ?? [];
@@ -34,6 +35,10 @@ export function Hand() {
 
       e.preventDefault();
       setFocusedIndex(nextIndex);
+
+      // Programmatically focus the next option
+      const options = listRef.current?.querySelectorAll('[role="option"]');
+      (options?.[nextIndex] as HTMLElement)?.focus();
     },
     [focusedIndex, hand.length, selectCard],
   );
@@ -47,6 +52,7 @@ export function Hand() {
       <h2 className="sr-only">Your Hand</h2>
       {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus managed via roving tabindex on child options */}
       <div
+        ref={listRef}
         role="listbox"
         aria-label={`Player ${currentPlayer + 1}'s hand`}
         onKeyDown={handleKeyDown}

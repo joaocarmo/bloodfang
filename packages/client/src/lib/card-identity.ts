@@ -251,12 +251,12 @@ function describeEffect(effect: {
 }): string {
   switch (effect.type) {
     case 'enhance': {
-      const val = effect.dynamicValue ? "replaced card's power" : `+${effect.value}`;
-      return `${val} power to ${describeTarget(effect.target)}`;
+      const val = effect.dynamicValue ? "replaced card's power" : `+${effect.value} power`;
+      return `${val} to ${describeTarget(effect.target)}`;
     }
     case 'enfeeble': {
-      const val = effect.dynamicValue ? "replaced card's power" : `${effect.value}`;
-      return `-${val} power to ${describeTarget(effect.target)}`;
+      const val = effect.dynamicValue ? "replaced card's power" : `${effect.value} power`;
+      return `-${val} to ${describeTarget(effect.target)}`;
     }
     case 'destroy':
       return `Destroy ${describeTarget(effect.target)}`;
@@ -276,8 +276,11 @@ function describeEffect(effect: {
       return `+${effect.bonusPawns} pawns to ${describeTarget(effect.target)}`;
     case 'scoreRedistribution':
       return 'Winner takes all points in lane';
-    case 'dualTargetBuff':
-      return `+${effect.alliedValue} to allies, +${effect.enemyValue} to enemies in ${describeTarget(effect.target)}`;
+    case 'dualTargetBuff': {
+      const enemy = effect.enemyValue ?? 0;
+      const enemyStr = enemy >= 0 ? `+${enemy}` : `${enemy}`;
+      return `+${effect.alliedValue} to allies, ${enemyStr} to enemies (${describeTarget(effect.target)})`;
+    }
     default:
       return effect.type;
   }

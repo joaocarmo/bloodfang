@@ -33,10 +33,9 @@ export function Board() {
       setFocusedRow(nextRow);
       setFocusedCol(nextCol);
 
-      // Focus the target cell
-      const cell = document.querySelector(
-        `[data-tile="${nextRow}-${nextCol}"]`,
-      ) as HTMLElement | null;
+      // Focus the target cell (gridcell lives inside the data-tile wrapper)
+      const wrapper = document.querySelector(`[data-tile="${nextRow}-${nextCol}"]`);
+      const cell = wrapper?.querySelector('[role="gridcell"]') as HTMLElement | null;
       cell?.focus();
     },
     [focusedRow, focusedCol],

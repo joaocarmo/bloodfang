@@ -2,6 +2,7 @@ import type { CardDefinition } from '@bloodfang/engine';
 import { motion, useReducedMotion } from 'motion/react';
 import { Card } from '../card/card.tsx';
 import { useHasValidMoves } from '../../hooks/use-valid-moves.ts';
+import { getCardName } from '../../lib/card-identity.ts';
 
 interface HandCardProps {
   cardId: string;
@@ -23,11 +24,15 @@ export function HandCard({
   const hasValidMoves = useHasValidMoves(cardId);
   const reduceMotion = useReducedMotion();
 
+  const name = getCardName(definition.id);
+  const label = `${name}, Rank ${definition.rank}, Power ${definition.power}${!hasValidMoves ? ', no valid moves' : ''}`;
+
   return (
     <motion.div
       role="option"
       aria-selected={isSelected}
       aria-disabled={!hasValidMoves}
+      aria-label={label}
       tabIndex={isFocused ? 0 : -1}
       onFocus={onFocus}
       onClick={() => {
@@ -52,7 +57,7 @@ export function HandCard({
       transition={{ type: 'spring', duration: 0.2, bounce: 0.3 }}
       layoutId={`hand-${cardId}`}
       className={`
-        outline-none
+        outline-0
         ${!hasValidMoves ? 'opacity-50' : ''}
         focus:outline-3 focus:outline-focus-ring focus:outline-offset-2 focus:rounded-lg
       `}

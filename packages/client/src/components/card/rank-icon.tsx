@@ -15,7 +15,7 @@ export function RankIcon({ rank }: RankIconProps) {
 
   const stars = Array.from({ length: rank }, (_, i) => (
     <span key={i} className="text-xs">
-      \u2605
+      {'\u2605'}
     </span>
   ));
 

@@ -1,6 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import type { PlayerId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Card } from '../card/card.tsx';
+
+function getMulliganPlayer(gameState: {
+  currentPlayerIndex: PlayerId;
+  players: readonly { mulliganUsed: boolean }[];
+}): PlayerId {
+  const first = gameState.currentPlayerIndex;
+  if (!gameState.players[first]!.mulliganUsed) return first;
+  const second: PlayerId = first === 0 ? 1 : 0;
+  if (!gameState.players[second]!.mulliganUsed) return second;
+  return first;
+}
 
 export function MulliganScreen() {
   const gameState = useGameStore((s) => s.gameState);
@@ -10,7 +22,7 @@ export function MulliganScreen() {
   const [selectedToReturn, setSelectedToReturn] = useState<string[]>([]);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-  const currentPlayer = gameState?.currentPlayerIndex ?? 0;
+  const currentPlayer = gameState ? getMulliganPlayer(gameState) : 0;
   const hand = gameState?.players[currentPlayer]?.hand ?? [];
 
   useEffect(() => {
@@ -61,7 +73,7 @@ export function MulliganScreen() {
               key={cardId}
               onClick={() => toggleCard(cardId)}
               aria-pressed={isSelected}
-              className="outline-none focus:outline-3 focus:outline-focus-ring focus:outline-offset-2 rounded-lg"
+              className="outline-0 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2 rounded-lg"
             >
               <Card definition={def} selected={isSelected} />
             </button>

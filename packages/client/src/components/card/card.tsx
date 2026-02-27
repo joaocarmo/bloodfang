@@ -40,7 +40,7 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
         relative flex flex-col rounded-lg border bg-gradient-to-b ${rankBg} to-surface-raised
         ${selected ? 'border-focus-ring ring-2 ring-focus-ring' : 'border-border'}
         ${disabled ? 'opacity-50' : 'cursor-pointer hover:border-text-secondary'}
-        ${compact ? 'w-28 p-1.5 gap-0.5' : 'w-36 p-2 gap-1'}
+        ${compact ? 'w-32 p-1.5 gap-0.5' : 'w-40 p-2 gap-1'}
         transition-colors
       `}
       onClick={disabled ? undefined : onClick}
