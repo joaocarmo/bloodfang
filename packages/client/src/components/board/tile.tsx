@@ -5,9 +5,11 @@ import { useGameStore } from '../../store/game-store.ts';
 import { useValidMovesForCard } from '../../hooks/use-valid-moves.ts';
 import { PawnDots } from './pawn-dots.tsx';
 import { PlacedCard } from './placed-card.tsx';
+import { RankIcon } from '../card/rank-icon.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 import { tileBgColor, playerBgOpacity } from '../../lib/player-color.ts';
 import { getEffectivePower } from '@bloodfang/engine';
+import type { CardRank } from '@bloodfang/engine';
 import type { TilePreview } from '../../hooks/use-placement-preview.ts';
 
 interface TileProps {
@@ -159,6 +161,13 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
           {preview.pawnDelta > 0 ? `+${preview.pawnDelta}♟` : `${preview.pawnDelta}♟`}
         </span>
       )}
+      {preview?.maxRankAfter != null &&
+        preview.maxRankBefore != null &&
+        preview.maxRankAfter !== preview.maxRankBefore && (
+          <span className="absolute bottom-0.5 left-0.5 z-10">
+            <RankIcon rank={preview.maxRankAfter as CardRank} />
+          </span>
+        )}
     </div>
   );
 }

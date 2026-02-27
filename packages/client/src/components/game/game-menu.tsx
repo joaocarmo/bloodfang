@@ -3,8 +3,8 @@ import { t } from '@lingui/core/macro';
 import { useGameStore } from '../../store/game-store.ts';
 import { Button } from '../ui/button.tsx';
 import { ContentDialog } from '../ui/content-dialog.tsx';
-import { RulesContent } from '../screens/rules-content.tsx';
-import { SettingsContent } from '../screens/settings-content.tsx';
+import { RulesContent, BasicRules, KeyboardShortcuts } from '../screens/rules-content.tsx';
+import { SettingsContent, LanguageSetting, ThemeSetting } from '../screens/settings-content.tsx';
 
 type MenuView = 'closed' | 'menu' | 'rules' | 'settings';
 
@@ -33,7 +33,9 @@ export function GameMenu() {
         <Button variant="ghost" size="sm" onClick={() => setMenuView('menu')}>
           {t`← Back`}
         </Button>
-        <RulesContent />
+        <RulesContent>
+          <BasicRules />
+        </RulesContent>
       </ContentDialog>
     );
   }
@@ -44,7 +46,10 @@ export function GameMenu() {
         <Button variant="ghost" size="sm" onClick={() => setMenuView('menu')}>
           {t`← Back`}
         </Button>
-        <SettingsContent />
+        <SettingsContent>
+          <LanguageSetting />
+          <ThemeSetting />
+        </SettingsContent>
       </ContentDialog>
     );
   }
@@ -66,45 +71,7 @@ export function GameMenu() {
         </Button>
       </nav>
 
-      <section className="flex flex-col gap-3">
-        <h3 className="text-sm font-medium text-text-secondary">{t`Keyboard Shortcuts`}</h3>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <tbody className="text-text-secondary">
-              <tr className="border-b border-border/50">
-                <td className="py-1.5 pr-4">
-                  <kbd className="bg-surface px-2 py-0.5 rounded text-xs">{t`← →`}</kbd>
-                </td>
-                <td className="py-1.5">{t`Navigate hand`}</td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="py-1.5 pr-4">
-                  <kbd className="bg-surface px-2 py-0.5 rounded text-xs">{t`← → ↑ ↓`}</kbd>
-                </td>
-                <td className="py-1.5">{t`Navigate board`}</td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="py-1.5 pr-4">
-                  <kbd className="bg-surface px-2 py-0.5 rounded text-xs">{t`Enter / Space`}</kbd>
-                </td>
-                <td className="py-1.5">{t`Select / Place`}</td>
-              </tr>
-              <tr className="border-b border-border/50">
-                <td className="py-1.5 pr-4">
-                  <kbd className="bg-surface px-2 py-0.5 rounded text-xs">{t`Escape`}</kbd>
-                </td>
-                <td className="py-1.5">{t`Deselect card`}</td>
-              </tr>
-              <tr>
-                <td className="py-1.5 pr-4">
-                  <kbd className="bg-surface px-2 py-0.5 rounded text-xs">{t`Tab`}</kbd>
-                </td>
-                <td className="py-1.5">{t`Move between sections`}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <KeyboardShortcuts />
     </ContentDialog>
   );
 }

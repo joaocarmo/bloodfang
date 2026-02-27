@@ -8,7 +8,7 @@ import { usePlacementPreview } from '../../hooks/use-placement-preview.ts';
 export function Board() {
   const [focusedRow, setFocusedRow] = useState(0);
   const [focusedCol, setFocusedCol] = useState(0);
-  const preview = usePlacementPreview();
+  const { tiles: preview, previewLaneScores } = usePlacementPreview();
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -46,7 +46,7 @@ export function Board() {
 
   return (
     <div className="flex items-stretch gap-1 sm:gap-2">
-      <LaneScores player={0} side="left" />
+      <LaneScores player={0} side="left" previewLaneScores={previewLaneScores} />
 
       {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus is managed via roving tabindex on child cells */}
       <div
@@ -75,7 +75,7 @@ export function Board() {
         ))}
       </div>
 
-      <LaneScores player={1} side="right" />
+      <LaneScores player={1} side="right" previewLaneScores={previewLaneScores} />
     </div>
   );
 }

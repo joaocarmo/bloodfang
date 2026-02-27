@@ -1,6 +1,11 @@
 import { t } from '@lingui/core/macro';
 import { BackButton } from '../ui/back-button.tsx';
-import { SettingsContent } from './settings-content.tsx';
+import {
+  SettingsContent,
+  LanguageSetting,
+  ThemeSetting,
+  GameModeSetting,
+} from './settings-content.tsx';
 
 export function SettingsScreen() {
   return (
@@ -17,7 +22,11 @@ export function SettingsScreen() {
         {t`Settings`}
       </h1>
 
-      <SettingsContent />
+      <SettingsContent>
+        <LanguageSetting />
+        <ThemeSetting />
+        <GameModeSetting />
+      </SettingsContent>
     </main>
   );
 }

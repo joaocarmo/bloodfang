@@ -8,7 +8,9 @@ import {
   resolveAbilityRangePattern,
   playCard,
   getEffectivePower,
+  calculateLaneScores,
 } from '@bloodfang/engine';
+import type { LaneScores } from '@bloodfang/engine';
 import { useGameStore } from '../store/game-store.ts';
 
 export interface TilePreview {
@@ -18,16 +20,26 @@ export interface TilePreview {
   pawnDelta?: number | undefined;
   willBeDestroyed?: boolean | undefined;
   isPlacementTile?: boolean | undefined;
+  maxRankBefore?: number | undefined;
+  maxRankAfter?: number | undefined;
 }
 
-export function usePlacementPreview(): Map<string, TilePreview> {
+export interface PlacementPreviewResult {
+  tiles: Map<string, TilePreview>;
+  previewLaneScores: LaneScores | null;
+}
+
+export function usePlacementPreview(): PlacementPreviewResult {
   const gameState = useGameStore((s) => s.gameState);
   const selectedCardId = useGameStore((s) => s.selectedCardId);
   const hoveredTilePosition = useGameStore((s) => s.hoveredTilePosition);
   const definitions = useGameStore((s) => s.definitions);
 
   return useMemo(() => {
-    const empty = new Map<string, TilePreview>();
+    const empty: PlacementPreviewResult = {
+      tiles: new Map<string, TilePreview>(),
+      previewLaneScores: null,
+    };
 
     if (!gameState || !selectedCardId || !hoveredTilePosition) return empty;
     if (gameState.phase !== GamePhase.Playing) return empty;
@@ -123,30 +135,39 @@ export function usePlacementPreview(): Map<string, TilePreview> {
         }
       }
 
-      // Compute pawn count deltas
+      // Compute pawn count deltas and rank tier changes
       for (let r = 0; r < BOARD_ROWS; r++) {
         for (let c = 0; c < BOARD_COLS; c++) {
           const oldTile = gameState.board[r]?.[c];
           const newTile = newState.board[r]?.[c];
           if (!oldTile || !newTile) continue;
 
-          const delta = newTile.pawnCount - oldTile.pawnCount;
-          if (delta !== 0) {
-            const key = `${r},${c}`;
-            const existing = result.get(key);
+          const key = `${r},${c}`;
+          const existing = result.get(key);
+
+          const pawnDelta = newTile.pawnCount - oldTile.pawnCount;
+          const oldMaxRank = Math.min(oldTile.pawnCount, 3);
+          const newMaxRank = Math.min(newTile.pawnCount, 3);
+
+          if (pawnDelta !== 0 || oldMaxRank !== newMaxRank) {
             result.set(key, {
               isPawnRange: existing?.isPawnRange ?? false,
               isAbilityRange: existing?.isAbilityRange ?? false,
               ...existing,
-              pawnDelta: delta,
+              ...(pawnDelta !== 0 ? { pawnDelta } : {}),
+              ...(oldMaxRank !== newMaxRank
+                ? { maxRankBefore: oldMaxRank, maxRankAfter: newMaxRank }
+                : {}),
             });
           }
         }
       }
+
+      const previewLaneScores = calculateLaneScores(newState);
+      return { tiles: result, previewLaneScores };
     } catch {
       // If simulation fails, just show range overlays without power deltas
+      return { tiles: result, previewLaneScores: null };
     }
-
-    return result;
   }, [gameState, selectedCardId, hoveredTilePosition, definitions]);
 }
