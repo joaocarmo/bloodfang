@@ -1,25 +1,42 @@
 # Blood Fang
 
-A grid-based card battle game featuring a standalone rules engine and a complete playable game with original creative identity.
+A strategic card game on a 3x5 grid featuring a standalone rules engine and a complete playable web client with original creative identity.
 
 ## What's Here
 
-- **Engine** (`@bloodfang/engine`) — A reusable rules engine. Pure game logic as a library: 3x5 grid, pawn placement, card abilities, lane scoring. No UI, no networking.
-- **Game** — A complete card game with original theme, art, and names built on top of the engine.
+- **Engine** (`@bloodfang/engine`) — A reusable rules engine. Pure game logic as a library: grid placement, pawn scoring, card abilities, lane scoring. No UI, no networking, zero dependencies.
+- **Client** (`@bloodfang/client`) — A complete web client with original theme, art, and names built on top of the engine. Hot-seat multiplayer for two players.
 
 ## Tech Stack
 
 - TypeScript, pnpm workspaces
 - Engine: pure functions, immutable state, vitest
-- Client: React + Vite (Phase 3)
-- Server: Colyseus (Phase 4)
+- Client: React 19, Vite, Tailwind CSS v4, Zustand, Lingui i18n, Motion
 
 ## Getting Started
 
 ```bash
 pnpm install
-pnpm run build
-pnpm run test
+pnpm -F @bloodfang/engine build
+pnpm -F @bloodfang/client dev
+```
+
+## Scripts
+
+```bash
+# Engine
+pnpm -F @bloodfang/engine build       # Build (ESM + types)
+pnpm -F @bloodfang/engine test        # Run tests
+
+# Client
+pnpm -F @bloodfang/client dev         # Dev server
+pnpm -F @bloodfang/client build       # Type-check + production build
+pnpm -F @bloodfang/client test        # Integration tests
+pnpm -F @bloodfang/client lint        # ESLint
+
+# Repo-wide
+pnpm format                           # Prettier format
+pnpm format:check                     # Prettier check
 ```
 
 ## Project Structure
@@ -27,9 +44,12 @@ pnpm run test
 ```
 packages/
   engine/    Core rules engine (standalone library)
-  client/    Web UI (planned)
-  server/    Multiplayer server (planned)
+  client/    React web UI
 ```
+
+## CI
+
+GitHub Actions runs on every push to `main` and on pull requests. It checks formatting, lints, runs all tests, and builds both packages.
 
 ## Contributing
 
