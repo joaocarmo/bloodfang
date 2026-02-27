@@ -1,39 +1,50 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Board colors */
-  --color-board-bg: #1a1a2e;
-  --color-tile-empty: #2d2d44;
-  --color-tile-p0: #1e3a5f;
-  --color-tile-p1: #5f1e1e;
-  --color-tile-valid: #3d5a3d;
+  /* ── Fonts ─────────────────────────────────────────── */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
-  /* Player colors */
+  /* ── Invariant tokens (same in every theme) ────────── */
+
+  /* Player identity */
   --color-p0: #4a9eff;
   --color-p0-light: #7ab8ff;
   --color-p1: #ff4a4a;
   --color-p1-light: #ff7a7a;
 
-  /* Card rank gradients */
+  /* Card ranks */
   --color-rank-1: #cd7f32;
   --color-rank-2: #c0c0c0;
   --color-rank-3: #ffd700;
   --color-rank-replacement: #9b59b6;
 
-  /* Power colors */
+  /* Power indicators */
   --color-power-buff: #4ade80;
   --color-power-debuff: #f87171;
   --color-power-base: #e2e8f0;
 
-  /* UI */
+  /* ── Themeable tokens (override per color scheme) ──── */
+
+  /* Surfaces */
   --color-surface: #16162a;
   --color-surface-raised: #1e1e3a;
   --color-surface-overlay: #0d0d1a;
+
+  /* Text */
   --color-text-primary: #e2e8f0;
   --color-text-secondary: #94a3b8;
   --color-text-muted: #64748b;
+
+  /* Borders & focus */
   --color-border: #334155;
   --color-focus-ring: #fbbf24;
+
+  /* Board */
+  --color-board-bg: #1a1a2e;
+  --color-tile-empty: #2d2d44;
+  --color-tile-p0: #1e3a5f;
+  --color-tile-p1: #5f1e1e;
+  --color-tile-valid: #3d5a3d;
 }
 
 html {
@@ -43,12 +54,6 @@ html {
 
 body {
   margin: 0;
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
 }
 
 /* Screen reader only utility */
