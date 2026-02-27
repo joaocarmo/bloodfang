@@ -150,6 +150,15 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
           {preview.powerDelta > 0 ? `+${preview.powerDelta}` : preview.powerDelta}
         </span>
       )}
+      {preview?.pawnDelta != null && preview.pawnDelta !== 0 && (
+        <span
+          className={`absolute top-0.5 right-0.5 text-[10px] font-bold z-10 px-0.5 rounded ${
+            preview.pawnDelta > 0 ? 'text-power-buff' : 'text-power-debuff'
+          }`}
+        >
+          {preview.pawnDelta > 0 ? `+${preview.pawnDelta}♟` : `${preview.pawnDelta}♟`}
+        </span>
+      )}
     </div>
   );
 }

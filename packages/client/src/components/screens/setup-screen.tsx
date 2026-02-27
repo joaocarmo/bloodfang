@@ -65,7 +65,7 @@ export function SetupScreen() {
   if (phase === SetupPhase.P0Build) {
     return (
       <main tabIndex={-1} className="outline-none">
-        <div className="p-4">
+        <div className="p-2 sm:p-4 max-w-6xl mx-auto">
           <BackButton />
         </div>
         <DeckBuilder playerNumber={1} onConfirm={handleP0Confirm} />
@@ -110,6 +110,9 @@ export function SetupScreen() {
   if (phase === SetupPhase.P1Build) {
     return (
       <main tabIndex={-1} className="outline-none">
+        <div className="p-2 sm:p-4 max-w-6xl mx-auto">
+          <BackButton />
+        </div>
         <DeckBuilder playerNumber={2} onConfirm={handleP1Confirm} />
         <div className="text-center mt-4">
           <Button

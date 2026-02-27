@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 import {
+  BOARD_ROWS,
+  BOARD_COLS,
   GamePhase,
   getValidMoves,
   resolveRangePattern,
@@ -12,9 +14,10 @@ import { useGameStore } from '../store/game-store.ts';
 export interface TilePreview {
   isPawnRange: boolean;
   isAbilityRange: boolean;
-  powerDelta?: number;
-  willBeDestroyed?: boolean;
-  isPlacementTile?: boolean;
+  powerDelta?: number | undefined;
+  pawnDelta?: number | undefined;
+  willBeDestroyed?: boolean | undefined;
+  isPlacementTile?: boolean | undefined;
 }
 
 export function usePlacementPreview(): Map<string, TilePreview> {
@@ -115,6 +118,27 @@ export function usePlacementPreview(): Map<string, TilePreview> {
               isPawnRange: existing?.isPawnRange ?? false,
               isAbilityRange: existing?.isAbilityRange ?? false,
               powerDelta: delta,
+            });
+          }
+        }
+      }
+
+      // Compute pawn count deltas
+      for (let r = 0; r < BOARD_ROWS; r++) {
+        for (let c = 0; c < BOARD_COLS; c++) {
+          const oldTile = gameState.board[r]?.[c];
+          const newTile = newState.board[r]?.[c];
+          if (!oldTile || !newTile) continue;
+
+          const delta = newTile.pawnCount - oldTile.pawnCount;
+          if (delta !== 0) {
+            const key = `${r},${c}`;
+            const existing = result.get(key);
+            result.set(key, {
+              isPawnRange: existing?.isPawnRange ?? false,
+              isAbilityRange: existing?.isAbilityRange ?? false,
+              ...existing,
+              pawnDelta: delta,
             });
           }
         }
