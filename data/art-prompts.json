@@ -1,0 +1,845 @@
+{
+  "model": "dall-e-3",
+  "size": "1024x1024",
+  "quality": "standard",
+  "stylePrefix": "Square format, 1:1 aspect ratio. Hand-drawn watercolor illustration in a warm Studio Ghibli-inspired style. Simple, clean composition with soft brushstrokes and gentle linework. Ancient Greek mythology theme. Warm earthy tones with soft ambient lighting. Centered single subject on a simple muted background. No text, no borders, no card frame, no UI elements. Whimsical yet dignified character portrayal.",
+  "rankAccents": {
+    "rank1": "Warm bronze and amber undertones.",
+    "rank2": "Cool silver and blue-gray undertones.",
+    "rank3": "Rich golden and warm ochre undertones.",
+    "replacement": "Soft violet and lavender undertones.",
+    "token": "Pale, ethereal, slightly desaturated tones."
+  },
+  "cards": [
+    {
+      "id": "hoplite-guard",
+      "rank": "rank1",
+      "prompt": "A young Greek hoplite standing at attention with a round bronze shield raised and a short spear held upright, wearing a crested helm that shadows his steady eyes."
+    },
+    {
+      "id": "siren-queen",
+      "rank": "rank1",
+      "prompt": "A regal siren with iridescent feathered wings perched on a sea-worn rock, head tilted back mid-song with wisps of melody visible as curling lines in the air."
+    },
+    {
+      "id": "swift-hare",
+      "rank": "rank1",
+      "prompt": "A lean hare mid-leap with ears swept back and hind legs fully extended, a faint dust trail behind it suggesting incredible speed."
+    },
+    {
+      "id": "arcadian-wolf",
+      "rank": "rank1",
+      "prompt": "A silver-furred wolf with amber eyes standing on a grassy hillock, head low and alert, the rolling green hills of Arcadia behind it."
+    },
+    {
+      "id": "dryad-seedling",
+      "rank": "rank1",
+      "prompt": "A tiny dryad child emerging from the split bark of a seedling, with leafy hair and bark-textured skin, reaching small hands toward sunlight."
+    },
+    {
+      "id": "golden-bramble",
+      "rank": "rank1",
+      "prompt": "A tangle of thorny bramble vines with metallic golden leaves and sharp gleaming thorns, curling protectively into a dense knot."
+    },
+    {
+      "id": "crystal-karkinos",
+      "rank": "rank1",
+      "prompt": "A translucent crab with a crystalline shell that refracts light into rainbow patterns, pincers raised defensively, standing on wet sand."
+    },
+    {
+      "id": "amorphous-ooze",
+      "rank": "rank1",
+      "prompt": "A glistening, semi-transparent ooze creature with a vaguely rounded shape, tiny bubbles visible inside its gelatinous amber body."
+    },
+    {
+      "id": "myrmex-crawler",
+      "rank": "rank1",
+      "prompt": "An oversized ant-like creature with armored chitin plates and sharp mandibles, standing on six sturdy legs with antennae raised."
+    },
+    {
+      "id": "ancient-drakon",
+      "rank": "rank1",
+      "prompt": "A weathered serpentine dragon with tattered wings and moss growing along its scales, coiled around itself with wise, half-lidded eyes."
+    },
+    {
+      "id": "chariot-of-ares",
+      "rank": "rank1",
+      "prompt": "A fearsome bronze war chariot pulled by two dark horses with red-plumed bridles, bladed wheels catching the light."
+    },
+    {
+      "id": "pegasus-scout",
+      "rank": "rank1",
+      "prompt": "A slender white pegasus with outstretched wings gliding low over a misty valley, mane streaming behind it like silk."
+    },
+    {
+      "id": "ember-salamander",
+      "rank": "rank1",
+      "prompt": "A plump salamander with glowing ember-orange skin and tiny flickering flames dancing along its back and tail."
+    },
+    {
+      "id": "copper-automaton",
+      "rank": "rank1",
+      "prompt": "A small humanoid automaton made of riveted copper plates with glowing blue eyes, one hand raised in a mechanical wave."
+    },
+    {
+      "id": "all-seeing-eye",
+      "rank": "rank1",
+      "prompt": "A single enormous eye hovering in midair, its iris a swirl of gold and violet, surrounded by a halo of faintly glowing smaller eyes."
+    },
+    {
+      "id": "pyroclast-soldier",
+      "rank": "rank1",
+      "prompt": "A Greek soldier wreathed in volcanic fire, molten cracks glowing across dark armor, holding a smoldering javelin at the ready."
+    },
+    {
+      "id": "athenas-owl",
+      "rank": "rank1",
+      "prompt": "A dignified owl with luminous silver-gold feathers perched on an olive branch, wearing a tiny Corinthian helm and gazing with piercing wisdom."
+    },
+    {
+      "id": "sand-gorgon",
+      "rank": "rank1",
+      "prompt": "A gorgon whose body is formed from swirling desert sand, serpentine hair whipping in the wind, petrifying gaze visible as faint rays from her eyes."
+    },
+    {
+      "id": "resilient-polyp",
+      "rank": "rank1",
+      "prompt": "A plump, rubbery sea polyp creature with stubby tentacles and a cheerful rounded shape, its translucent body tinged pink and orange."
+    },
+    {
+      "id": "heat-golem",
+      "rank": "rank1",
+      "prompt": "A hulking golem made of cracked volcanic rock with rivers of molten lava visible through the fissures, steam rising from its shoulders."
+    },
+    {
+      "id": "stygian-claw",
+      "rank": "rank1",
+      "prompt": "A disembodied spectral claw reaching upward from dark water, bony fingers tipped with obsidian talons, dripping with black river water."
+    },
+    {
+      "id": "twin-serpent",
+      "rank": "rank1",
+      "prompt": "Two serpents intertwined in a caduceus-like spiral, one pale gold and one deep green, their heads facing opposite directions."
+    },
+    {
+      "id": "narcissus-trap",
+      "rank": "rank1",
+      "prompt": "A beautiful white narcissus flower blooming beside a reflective pool, but the petals conceal tiny thorned tendrils waiting to ensnare."
+    },
+    {
+      "id": "protean-mass",
+      "rank": "rank1",
+      "prompt": "An amorphous, shifting mass of flesh and sinew with half-formed faces and limbs emerging and receding across its surface."
+    },
+    {
+      "id": "carrion-harpy",
+      "rank": "rank1",
+      "prompt": "A gaunt harpy with matted dark feathers and a hunched posture, perched on a bone with sharp talons and a ragged vulture-like ruff."
+    },
+    {
+      "id": "scorpion-of-artemis",
+      "rank": "rank1",
+      "prompt": "A massive scorpion with a carapace marked by crescent moon symbols, its tail poised to strike, illuminated by pale moonlight."
+    },
+    {
+      "id": "desert-triton",
+      "rank": "rank1",
+      "prompt": "A triton adapted to arid lands, fish-scaled torso sun-bleached and sand-worn, wielding a trident wrapped in dried kelp."
+    },
+    {
+      "id": "marble-colossus",
+      "rank": "rank1",
+      "prompt": "A towering statue of white marble come alive, cracks running through its classical Greek form, one fist raised as it strides forward."
+    },
+    {
+      "id": "twin-headed-oracle",
+      "rank": "rank1",
+      "prompt": "A robed oracle with two heads facing opposite directions, one serene and one anguished, sharing a single body draped in purple cloth."
+    },
+    {
+      "id": "nyx-wing",
+      "rank": "rank1",
+      "prompt": "A single vast wing made of deepest night sky, scattered with faintly glowing stars, trailing wisps of darkness at its feathered edges."
+    },
+    {
+      "id": "cerberus-hound",
+      "rank": "rank1",
+      "prompt": "A muscular black hound with glowing red eyes and a spiked iron collar, a faint ghostly impression of two additional heads flanking its own."
+    },
+    {
+      "id": "ghastly-shade",
+      "rank": "rank1",
+      "prompt": "A wispy, translucent shade with hollow dark eyes and a gaping mouth frozen in a silent scream, its tattered form trailing into mist."
+    },
+    {
+      "id": "elite-myrmidon",
+      "rank": "rank1",
+      "prompt": "A disciplined warrior in black and bronze ant-themed armor with compound-eye styled helmet visor, standing with sword drawn at attention."
+    },
+    {
+      "id": "hundred-eyed-argus",
+      "rank": "rank1",
+      "prompt": "A tall humanoid figure covered in dozens of blinking eyes across arms, torso, and face, each eye a different color, standing watchful and still."
+    },
+    {
+      "id": "phantom-wraith",
+      "rank": "rank1",
+      "prompt": "A floating wraith draped in shredded robes, its body dissolving into smoke below the waist, skeletal hands outstretched and hollow sockets burning faintly blue."
+    },
+    {
+      "id": "amazon-striker",
+      "rank": "rank1",
+      "prompt": "A fierce Amazon warrior in mid-punch, wearing a bronze breastplate and leather bracers, dark hair swept back with a determined glare."
+    },
+    {
+      "id": "flame-of-prometheus",
+      "rank": "rank1",
+      "prompt": "A sacred flame burning in a bronze vessel, the fire shaped like a lion with a flowing mane, casting warm light that seems alive with purpose."
+    },
+    {
+      "id": "fortune-sphinx",
+      "rank": "rank1",
+      "prompt": "A playful sphinx with a cat's body and human face, sitting atop a large golden die, wearing a tiny crown and a mischievous grin."
+    },
+    {
+      "id": "daedalus-pilot",
+      "rank": "rank1",
+      "prompt": "An elderly inventor with wild white hair and goggles perched on his forehead, surrounded by small mechanical wings and gears, holding a wrench."
+    },
+    {
+      "id": "lycaon-cursed",
+      "rank": "rank1",
+      "prompt": "A cloaked figure caught mid-transformation between man and wolf, one clawed hand emerging from a tattered red cloak, eyes glowing amber."
+    },
+    {
+      "id": "gryphon-and-sprite",
+      "rank": "rank1",
+      "prompt": "A golden-feathered gryphon with a tiny winged sprite sitting happily on its beak, the pair looking at each other with fond companionship."
+    },
+    {
+      "id": "golden-gryphon",
+      "rank": "rank1",
+      "prompt": "An elegant gryphon with lustrous golden plumage and a jeweled harness, standing proudly with one talon raised and feathers catching the light."
+    },
+    {
+      "id": "swift-blade",
+      "rank": "rank1",
+      "prompt": "A lean, red-haired rogue twirling a curved blade with casual grace, wearing a cocky smirk and a long dark coat that billows behind him."
+    },
+    {
+      "id": "iron-fist",
+      "rank": "rank1",
+      "prompt": "A tall, bald brawler with dark sunglasses adjusting heavy iron gauntlets, his muscular frame radiating quiet, controlled power."
+    },
+    {
+      "id": "silent-dagger",
+      "rank": "rank1",
+      "prompt": "A poised young woman in a fitted dark tunic concealing daggers at her wrists, blonde hair pinned back, expression coolly professional."
+    },
+    {
+      "id": "shadow-commander",
+      "rank": "rank1",
+      "prompt": "A stern commander in a long dark cloak with a dot on his forehead, arms folded behind his back, standing in stoic authority."
+    },
+    {
+      "id": "star-voyager",
+      "rank": "rank1",
+      "prompt": "A figure in gleaming celestial armor standing atop a cloud, gazing upward at a swirl of constellations with arms spread wide."
+    },
+    {
+      "id": "house-of-hades",
+      "rank": "rank1",
+      "prompt": "A grand but crumbling Greek temple entrance shrouded in ghostly blue mist, spectral faces peering from darkened windows and a skull above the lintel."
+    },
+    {
+      "id": "tragic-muse",
+      "rank": "rank1",
+      "prompt": "A weeping muse in flowing robes clutching a theatrical tragedy mask to her chest, tears streaming down her face, a wilted laurel crown on her head."
+    },
+    {
+      "id": "dionysus-reveler",
+      "rank": "rank1",
+      "prompt": "A joyous reveler crowned with grape vines, mid-dance with a wine cup raised high, wearing a leopard-skin draped over one shoulder."
+    },
+    {
+      "id": "spartan-sentinel",
+      "rank": "rank2",
+      "prompt": "A towering Spartan warrior in crimson cloak and full bronze armor, bracing a massive round shield before him with a long spear over the rim."
+    },
+    {
+      "id": "fire-hurler",
+      "rank": "rank2",
+      "prompt": "A wild-eyed warrior rearing back to hurl a ball of Greek fire, the flame illuminating a scarred face and singed leather armor."
+    },
+    {
+      "id": "bronze-sweeper",
+      "rank": "rank2",
+      "prompt": "A heavily armored soldier in overlapping bronze plates swinging a wide-bladed polearm in a sweeping arc, dust trailing the blade."
+    },
+    {
+      "id": "venomous-asp",
+      "rank": "rank2",
+      "prompt": "A coiled asp with glistening emerald scales and pale venom dripping from long curved fangs, hood flared wide in threat."
+    },
+    {
+      "id": "cave-sprite",
+      "rank": "rank2",
+      "prompt": "A tiny luminous sprite hovering in a dark cave entrance, its butterfly wings casting soft bioluminescent blue-green light on the stone walls."
+    },
+    {
+      "id": "war-elephant",
+      "rank": "rank2",
+      "prompt": "A massive war elephant draped in bronze-plated barding and red tassels, tusks fitted with iron tips, trunk raised in a trumpeting charge."
+    },
+    {
+      "id": "feathered-drake",
+      "rank": "rank2",
+      "prompt": "A sinuous drake with brilliant plumage of emerald, turquoise, and gold, long tail feathers trailing like a peacock, coiled mid-flight."
+    },
+    {
+      "id": "roc-of-olympus",
+      "rank": "rank2",
+      "prompt": "An enormous bird of prey with storm-gray feathers soaring above cloud-wreathed mountain peaks, talons large enough to carry an ox."
+    },
+    {
+      "id": "centaur-charger",
+      "rank": "rank2",
+      "prompt": "A muscular centaur in bronze chest armor charging forward with a lowered lance, hooves kicking up earth, face set in fierce determination."
+    },
+    {
+      "id": "cyclops-brute",
+      "rank": "rank2",
+      "prompt": "A hulking one-eyed cyclops with rough gray skin and a single glaring amber eye, gripping a massive stone club over one shoulder."
+    },
+    {
+      "id": "zephyr-spirit",
+      "rank": "rank2",
+      "prompt": "A translucent spirit of the west wind with flowing hair and garments that dissolve into gentle breezes, scattering flower petals."
+    },
+    {
+      "id": "psyche-leech",
+      "rank": "rank2",
+      "prompt": "A parasitic lamprey-like creature with a gaping circular mouth and faintly glowing psychic tendrils extending from its head like a crown."
+    },
+    {
+      "id": "nautilus-guardian",
+      "rank": "rank2",
+      "prompt": "A large nautilus in a pearlescent spiral shell with armored tentacles extended protectively, ancient symbols etched into its shell chambers."
+    },
+    {
+      "id": "royal-spear",
+      "rank": "rank2",
+      "prompt": "An ornate golden spear standing upright with a leaf-shaped blade, its shaft wrapped in royal purple leather and adorned with a laurel motif."
+    },
+    {
+      "id": "king-of-shades",
+      "rank": "rank2",
+      "prompt": "A small, hooded figure in dark robes carrying an oversized lantern that glows with ghostly green light, a tiny crown perched on its hood."
+    },
+    {
+      "id": "petrifying-rooster",
+      "rank": "rank2",
+      "prompt": "A proud rooster with a serpentine tail and bat-like wings, its piercing golden eyes crackling with petrifying energy, comb bright red."
+    },
+    {
+      "id": "volcanic-imp",
+      "rank": "rank2",
+      "prompt": "A round, impish creature made of smoldering volcanic rock with a sputtering fuse-like tuft on top, its expression comically angry."
+    },
+    {
+      "id": "minotaur-thug",
+      "rank": "rank2",
+      "prompt": "A brutish minotaur with a scarred bull's head and thick iron rings through its nose, cracking massive knuckles with a menacing glare."
+    },
+    {
+      "id": "desert-naga",
+      "rank": "rank2",
+      "prompt": "A hooded naga with sandy-scaled coils and a human torso, spitting a stream of venom, the desert sun behind casting a long shadow."
+    },
+    {
+      "id": "triple-chimera",
+      "rank": "rank2",
+      "prompt": "A three-headed chimera with a lion head breathing fire, a goat head bleating, and a serpent-tail head hissing, all sharing one powerful feline body."
+    },
+    {
+      "id": "hermes-trickster",
+      "rank": "rank2",
+      "prompt": "A lithe figure in a wide-brimmed hat and winged sandals, shuffling golden cards between nimble fingers with a sly, knowing smile."
+    },
+    {
+      "id": "iron-giant",
+      "rank": "rank2",
+      "prompt": "A colossal figure of hammered dark iron towering against the sky, each slow step shaking the earth, eyes glowing like forge embers."
+    },
+    {
+      "id": "chaos-wyvern",
+      "rank": "rank2",
+      "prompt": "A manic wyvern with mismatched scales of clashing colors, jagged asymmetrical wings, and wild spiraling eyes, mid-lunge with jaws agape."
+    },
+    {
+      "id": "cave-lurker",
+      "rank": "rank2",
+      "prompt": "A pale, eyeless creature with elongated limbs pressed flat against a cave ceiling, needle-like teeth bared in the darkness."
+    },
+    {
+      "id": "janus-mask",
+      "rank": "rank2",
+      "prompt": "A floating theatrical mask with two faces joined at the temples, one smiling in comedy and one weeping in tragedy, orbited by faint light."
+    },
+    {
+      "id": "phantom-vulture",
+      "rank": "rank2",
+      "prompt": "A spectral vulture with translucent feathers and hollow glowing eye sockets, perched on a withered branch with wings half-spread."
+    },
+    {
+      "id": "gorgo-serpent",
+      "rank": "rank2",
+      "prompt": "A thick-bodied serpent with a mane of smaller writhing snakes around its head, scales patterned with stone-gray and sickly green."
+    },
+    {
+      "id": "minos-judge",
+      "rank": "rank2",
+      "prompt": "A stern bearded king seated on a stone throne in the underworld, holding a scepter and scroll, wearing a crown of dark iron."
+    },
+    {
+      "id": "iron-myrmidon",
+      "rank": "rank2",
+      "prompt": "A Myrmidon warrior encased in heavy iron plate armor with ant-mandible styled pauldrons, wielding a broad sword in a disciplined stance."
+    },
+    {
+      "id": "nemean-guardian",
+      "rank": "rank2",
+      "prompt": "A guardian wearing the golden pelt of the Nemean lion as a cloak, the lion's open jaws framing their helmeted face, stance wide and protective."
+    },
+    {
+      "id": "achilles-reborn",
+      "rank": "rank2",
+      "prompt": "A radiant warrior reborn in golden light, cracked armor mending itself as he rises, one hand gripping a legendary spear, eyes blazing with renewed fury."
+    },
+    {
+      "id": "oracle-of-delphi",
+      "rank": "rank2",
+      "prompt": "A serene young woman seated on a tripod over rising vapors, eyes glowing white with prophecy, laurel wreath in her braided hair."
+    },
+    {
+      "id": "boreas-queen",
+      "rank": "rank2",
+      "prompt": "An ethereal queen of ice and wind with pale blue skin and a crown of frozen crystals, her flowing gown dissolving into a blizzard at its hem."
+    },
+    {
+      "id": "gaia-titan",
+      "rank": "rank2",
+      "prompt": "An enormous titan rising from the earth itself, body formed of soil, stone, and roots, trees growing from its shoulders, eyes like deep caverns."
+    },
+    {
+      "id": "ares-allfather",
+      "rank": "rank2",
+      "prompt": "The war god in full dark armor astride a black horse, a massive sword raised overhead, a blood-red cloak billowing behind him against a stormy sky."
+    },
+    {
+      "id": "sprite-trio",
+      "rank": "rank2",
+      "prompt": "Three small winged sprites huddled together in a triangle formation, each a different pastel color, with tiny staffs and determined expressions."
+    },
+    {
+      "id": "frog-hunter",
+      "rank": "rank2",
+      "prompt": "An upright amphibian warrior with bulging eyes and mottled green skin, wielding a barbed tongue-whip and wearing a bandolier of tiny pouches."
+    },
+    {
+      "id": "tyrant-and-beast",
+      "rank": "rank2",
+      "prompt": "A corpulent tyrant in gaudy golden robes riding atop a massive tusked beast, the tyrant sneering while the beast snarls beneath him."
+    },
+    {
+      "id": "golden-tyrant",
+      "rank": "rank2",
+      "prompt": "A vain ruler in extravagant golden armor and a fur-lined cape, chin raised imperiously, a ornate scepter gripped in one jeweled hand."
+    },
+    {
+      "id": "war-rider",
+      "rank": "rank2",
+      "prompt": "A reckless mounted warrior leaning forward on a galloping armored horse, long hair and cloak streaming back, lance leveled with wild excitement."
+    },
+    {
+      "id": "gryphon-rider",
+      "rank": "rank2",
+      "prompt": "A helmeted rider perched in a saddle atop a diving gryphon, both leaning into the wind, the rider's lance pointed forward."
+    },
+    {
+      "id": "festival-guard",
+      "rank": "rank2",
+      "prompt": "A cheerful guard in decorative bronze armor adorned with festival ribbons, holding a ceremonial spear and wearing a flower garland."
+    },
+    {
+      "id": "circe-enchantress",
+      "rank": "rank2",
+      "prompt": "A beautiful enchantress in a shimmering green gown stirring a glowing cauldron with a staff, magical sparks rising like fireflies around her."
+    },
+    {
+      "id": "harpy-screamer",
+      "rank": "rank3",
+      "prompt": "A harpy with powerful wings spread wide and taloned feet forward, mouth open in a devastating sonic scream visible as shockwaves in the air."
+    },
+    {
+      "id": "war-chariot",
+      "rank": "rank3",
+      "prompt": "An ornate golden war chariot pulled by four white horses in full gallop, scythed wheels spinning and battle standards streaming."
+    },
+    {
+      "id": "thalassic-fiend",
+      "rank": "rank3",
+      "prompt": "A deep-sea horror with an angler fish's luminous lure, rows of needle teeth, and barnacle-encrusted hide emerging from black ocean depths."
+    },
+    {
+      "id": "serpent-of-lerna",
+      "rank": "rank3",
+      "prompt": "A massive multi-headed serpent rising from a swamp, each head hissing with venom dripping from fangs, new heads budding from severed stumps."
+    },
+    {
+      "id": "earthen-wyrm",
+      "rank": "rank3",
+      "prompt": "A colossal wyrm made of compacted earth and stone bursting from the ground, dirt cascading from its segmented body, eyeless head aimed skyward."
+    },
+    {
+      "id": "cursed-stag",
+      "rank": "rank3",
+      "prompt": "A majestic stag with an enormous rack of antlers that glow with sickly green cursed energy, dark mist seeping from its eyes and hooves."
+    },
+    {
+      "id": "toxic-hydra",
+      "rank": "rank3",
+      "prompt": "A bloated hydra with multiple heads drooling corrosive venom, its mottled purple-green hide covered in toxic pustules, surrounded by wilted vegetation."
+    },
+    {
+      "id": "mother-nymph",
+      "rank": "rank3",
+      "prompt": "A large, gentle nymph with a round, nurturing form cradling several tiny nymph children in her leafy arms, a warm maternal smile on her bark-textured face."
+    },
+    {
+      "id": "stone-basilisk",
+      "rank": "rank3",
+      "prompt": "A serpentine basilisk with a crown-like crest and scales of mottled gray stone, its gaze turning the ground beneath it to solid rock."
+    },
+    {
+      "id": "elder-drakon",
+      "rank": "rank3",
+      "prompt": "An immense ancient dragon with scarred, moss-covered scales and a wise, terrible gaze, curled atop a hoard of corroded bronze treasures."
+    },
+    {
+      "id": "bronze-fortress",
+      "rank": "rank3",
+      "prompt": "A walking fortress of riveted bronze plates with arrow slits for eyes and a portcullis mouth, siege tower legs grinding forward."
+    },
+    {
+      "id": "ancient-adamantine",
+      "rank": "rank3",
+      "prompt": "An immense tortoise-like creature with a shell of gleaming adamantine, moss and small trees growing on its back, moving with patient, unstoppable momentum."
+    },
+    {
+      "id": "atlas-gunner",
+      "rank": "rank3",
+      "prompt": "A massive, broad-shouldered figure with a mechanical bronze arm-cannon, standing firm with the weight of the world implied by his powerful stance."
+    },
+    {
+      "id": "pyriphlegethon",
+      "rank": "rank3",
+      "prompt": "A living river of fire taking vaguely humanoid form, flames cascading upward like hair, molten hands outstretched as heat distorts the air."
+    },
+    {
+      "id": "zeus-thunderlord",
+      "rank": "rank3",
+      "prompt": "An ancient, bearded god wreathed in storm clouds, raising a crackling lightning bolt overhead with both hands, eyes blazing white with electric fury."
+    },
+    {
+      "id": "taurus-primeval",
+      "rank": "rank3",
+      "prompt": "A primordial bull of impossible size with a hide like cracked earth, horns wreathed in elemental lightning, steam blasting from its nostrils."
+    },
+    {
+      "id": "eternal-phoenix",
+      "rank": "rank3",
+      "prompt": "A magnificent phoenix in full blazing glory, wings of gold and crimson flame spread wide, rising from a nest of its own luminous ashes."
+    },
+    {
+      "id": "ocean-leviathan",
+      "rank": "rank3",
+      "prompt": "A titanic sea creature breaching the ocean surface, whale-like body covered in ancient barnacles and coral, water cascading from its mountainous form."
+    },
+    {
+      "id": "divine-colossus",
+      "rank": "rank3",
+      "prompt": "A towering divine statue of white marble and gold with a glowing halo, one hand raised in protection and the other holding a shining shield."
+    },
+    {
+      "id": "king-of-dragons",
+      "rank": "rank3",
+      "prompt": "A regal dragon with obsidian scales and a crown of horns, wings spread to blot out the sun, jaws parted to reveal a gathering sphere of blue fire."
+    },
+    {
+      "id": "drakon-ascendant",
+      "rank": "rank3",
+      "prompt": "A dragon transcending mortal form, body dissolving into pure radiant energy, wings become beams of light as it spirals upward into the heavens."
+    },
+    {
+      "id": "plump-gryphon",
+      "rank": "rank3",
+      "prompt": "A chubby, well-fed gryphon sitting contentedly with a round belly, feathers ruffled and eyes half-closed in sleepy satisfaction."
+    },
+    {
+      "id": "pandoras-jar",
+      "rank": "rank3",
+      "prompt": "A large ornate clay jar with golden bands and mysterious symbols, its lid slightly ajar with wisps of colorful energy escaping from within."
+    },
+    {
+      "id": "aegis-keeper",
+      "rank": "rank3",
+      "prompt": "A solemn guardian holding the legendary Aegis shield emblazoned with a gorgon's face, divine light radiating from behind the shield's rim."
+    },
+    {
+      "id": "world-serpent",
+      "rank": "rank3",
+      "prompt": "An impossibly vast serpent whose body curves around the horizon, scales shimmering between ocean blue and earth green, biting its own tail."
+    },
+    {
+      "id": "orichalcum-golem",
+      "rank": "rank3",
+      "prompt": "A golem forged from gleaming orichalcum with Atlantean runes pulsing across its surface, each footstep leaving a glowing imprint."
+    },
+    {
+      "id": "kraken-terror",
+      "rank": "rank3",
+      "prompt": "A colossal kraken rising from a churning sea, massive tentacles crushing a ship, a single baleful eye glaring from beneath the waves."
+    },
+    {
+      "id": "tentacle-horror",
+      "rank": "rank3",
+      "prompt": "A writhing mass of barbed tentacles emerging from a dark rift, no discernible body, just countless grasping limbs lined with sucker-mouths."
+    },
+    {
+      "id": "winged-fury",
+      "rank": "rank3",
+      "prompt": "A fierce Erinyes with black feathered wings, serpents coiled in her wild hair, wielding a flaming whip with righteous wrath burning in her eyes."
+    },
+    {
+      "id": "grand-cockatrice",
+      "rank": "rank3",
+      "prompt": "An enormous cockatrice with a rooster's crown of brilliant red, serpentine tail coiled, and wide dragon-like wings, its gaze turning the ground to stone."
+    },
+    {
+      "id": "tragic-hero",
+      "rank": "rank3",
+      "prompt": "A weary, battle-scarred hero kneeling with a broken sword, head bowed in grief, tattered cape pooling around him in the dust."
+    },
+    {
+      "id": "labyrinth-experiment",
+      "rank": "rank3",
+      "prompt": "A grotesque creature stitched together from mismatched beast parts, lurching forward in a labyrinth corridor, chains trailing from its limbs."
+    },
+    {
+      "id": "crimson-chariot",
+      "rank": "rank3",
+      "prompt": "A sleek war chariot of deep crimson with mechanical bronze fittings, pulled by two clockwork horses with glowing red eyes."
+    },
+    {
+      "id": "forgotten-chimera",
+      "rank": "rank3",
+      "prompt": "A chimera overgrown with moss and cobwebs, its multiple heads drooping with age, once-fearsome but now melancholic, forgotten in a dark ruin."
+    },
+    {
+      "id": "scarlet-drakon",
+      "rank": "rank3",
+      "prompt": "A fierce dragon with vivid scarlet scales and flames licking along its spine, coiled to strike with ember-bright eyes and bared fangs."
+    },
+    {
+      "id": "gates-of-erebus",
+      "rank": "rank3",
+      "prompt": "Massive obsidian gates carved with tormented faces, cracked open to reveal absolute darkness beyond, cold mist spilling from the threshold."
+    },
+    {
+      "id": "sacred-band",
+      "rank": "rank3",
+      "prompt": "A tight formation of elite Greek warriors with interlocked shields and raised spears, moving as one disciplined unit with matching crested helms."
+    },
+    {
+      "id": "wheel-of-fortune",
+      "rank": "rank3",
+      "prompt": "A great golden wheel suspended in the sky with figures rising and falling along its rim, the hub glowing with cosmic energy."
+    },
+    {
+      "id": "arena-master",
+      "rank": "rank3",
+      "prompt": "A muscular, grinning showman in a golden laurel wreath and gladiator's belt, arms spread wide to welcome challengers into his grand arena."
+    },
+    {
+      "id": "fallen-seraph",
+      "rank": "rank3",
+      "prompt": "A once-divine figure with one black wing and one white, long silver hair obscuring cold green eyes, a katana-like blade held at their side."
+    },
+    {
+      "id": "nyx-sovereign",
+      "rank": "rank3",
+      "prompt": "The queen of night enthroned on a seat of woven shadows, a crown of dark stars on her brow, her cloak the starless void itself."
+    },
+    {
+      "id": "mantis-chimera",
+      "rank": "replacement",
+      "prompt": "A hybrid creature with a praying mantis head and scything forelegs grafted onto a lion's powerful body, poised to strike with alien precision."
+    },
+    {
+      "id": "titan-frog",
+      "rank": "replacement",
+      "prompt": "An absurdly enormous toad with a warty hide like boulders, sitting in a crater of its own making, a long sticky tongue coiled and ready."
+    },
+    {
+      "id": "great-horned-beast",
+      "rank": "replacement",
+      "prompt": "A massive quadruped with sweeping horns that dwarf its own body, shaggy dark fur, and a low head swaying as it prepares to charge."
+    },
+    {
+      "id": "golden-griffin",
+      "rank": "replacement",
+      "prompt": "A majestic griffin with pure gold feathers and a lion's body of tawny fur, rearing up with wings flared and beak open in a proud cry."
+    },
+    {
+      "id": "wraith-of-tartarus",
+      "rank": "replacement",
+      "prompt": "A towering wraith of pure darkness rising from a pit, chains of shadow binding its form, hollow eyes burning with pale imprisoned fire."
+    },
+    {
+      "id": "harmony-duality",
+      "rank": "replacement",
+      "prompt": "A circular symbol of two intertwined figures, one of light and one of dark, flowing into each other in an eternal balanced spiral."
+    },
+    {
+      "id": "chaotic-shade",
+      "rank": "replacement",
+      "prompt": "A shade whose form constantly shifts and fragments, pieces of its body scattering like shards of broken mirror before snapping back together."
+    },
+    {
+      "id": "frost-reaver",
+      "rank": "replacement",
+      "prompt": "A gaunt warrior encased in jagged frost armor, wielding a greatsword of solid ice, breath crystallizing in the frigid air around them."
+    },
+    {
+      "id": "shadow-artemis",
+      "rank": "replacement",
+      "prompt": "A lithe huntress cloaked in living shadow, a dark crescent moon bow drawn taut, her silhouette flickering between human form and a great hunting cat."
+    },
+    {
+      "id": "warrior-of-many-arms",
+      "rank": "replacement",
+      "prompt": "A towering warrior with six muscular arms each wielding a different legendary weapon, wearing ornate red armor and a fierce scowling kabuto helm."
+    },
+    {
+      "id": "shade-commander",
+      "rank": "replacement",
+      "prompt": "A regal shade in tattered ceremonial robes hovering above the ground, one hand raised to command an unseen army of the dead, face a pale skull."
+    },
+    {
+      "id": "nymph-sprout",
+      "rank": "token",
+      "prompt": "A tiny, cheerful nymph no bigger than a hand, sprouting from a crack in the earth with leaf-like hair and root-like feet still in the soil."
+    },
+    {
+      "id": "battle-sprite",
+      "rank": "token",
+      "prompt": "A small round sprite with stubby bat wings and a pom-pom antenna, floating bravely with tiny fists raised and a determined pout."
+    },
+    {
+      "id": "sprite-mage",
+      "rank": "token",
+      "prompt": "A small winged sprite in a tiny pointed hat clutching an oversized staff that crackles with arcane energy, cheeks puffed with concentration."
+    },
+    {
+      "id": "sprite-bard",
+      "rank": "token",
+      "prompt": "A whimsical winged sprite strumming a tiny lyre, musical notes floating visibly around it in golden spirals, eyes closed in blissful performance."
+    },
+    {
+      "id": "little-shade",
+      "rank": "token",
+      "prompt": "A small, round shade spirit in a hooded cloak far too big for it, carrying a tiny lantern, shuffling forward with an eerie but endearing waddle."
+    },
+    {
+      "id": "junior-nymph",
+      "rank": "token",
+      "prompt": "A young nymph with budding leaf-wings and freckled bark skin, shyly peeking out from behind a mushroom with wide curious eyes."
+    },
+    {
+      "id": "baby-nymph",
+      "rank": "token",
+      "prompt": "A pudgy baby nymph sitting in a flower cup, with a single leaf sprouting from its head and stubby twig arms reaching upward."
+    },
+    {
+      "id": "daedalus-glider",
+      "rank": "token",
+      "prompt": "A small wooden glider with waxed linen wings and bronze gears, Daedalus's craft soaring gracefully with trailing ribbons of steam."
+    },
+    {
+      "id": "lycaon-beast",
+      "rank": "token",
+      "prompt": "A snarling wolf-beast with remnants of torn human clothing, standing on hind legs with claws bared, caught between man and monster."
+    },
+    {
+      "id": "heat-fragment",
+      "rank": "token",
+      "prompt": "A small shard of living flame hovering in the air, its core bright white fading to orange edges, radiating gentle heat shimmer."
+    },
+    {
+      "id": "reformed-protean",
+      "rank": "token",
+      "prompt": "A small, newly formed protean mass with a more stable shape than its parent, surface rippling gently as it settles into a rounded form."
+    },
+    {
+      "id": "thorny-imp",
+      "rank": "token",
+      "prompt": "A tiny green imp covered in cactus-like thorns, standing stiffly with arms out and a comically surprised expression on its round face."
+    },
+    {
+      "id": "elemental-spark",
+      "rank": "token",
+      "prompt": "A small dancing spark of elemental energy, flickering between flame, frost, and lightning in a tiny orb of contained power."
+    },
+    {
+      "id": "elemental-flame",
+      "rank": "token",
+      "prompt": "A medium-sized elemental flame spirit with a vaguely humanoid shape, arms of fire outstretched and a flickering crown of embers."
+    },
+    {
+      "id": "elemental-storm",
+      "rank": "token",
+      "prompt": "A large elemental storm entity swirling with wind, rain, and lightning, a vortex of weather contained in a roughly humanoid silhouette."
+    },
+    {
+      "id": "zealot-initiate",
+      "rank": "token",
+      "prompt": "A young, wide-eyed initiate in simple white robes clutching a sacred scroll to their chest, radiating nervous but earnest devotion."
+    },
+    {
+      "id": "zealot-warrior",
+      "rank": "token",
+      "prompt": "A determined zealot warrior in dented bronze armor with holy symbols painted on the breastplate, gripping a short sword with fervent intensity."
+    },
+    {
+      "id": "zealot-champion",
+      "rank": "token",
+      "prompt": "A battle-hardened zealot champion in gleaming armor engraved with sacred text, wielding a radiant blade, eyes burning with unwavering conviction."
+    },
+    {
+      "id": "frost-crystal-minor",
+      "rank": "token",
+      "prompt": "A small, perfectly formed frost crystal floating and slowly rotating, its facets catching light in pale blue and white refractions."
+    },
+    {
+      "id": "frost-crystal-major",
+      "rank": "token",
+      "prompt": "A medium frost crystal cluster with several jagged shards growing from a central core, emitting a soft cold mist and pale blue glow."
+    },
+    {
+      "id": "frost-crystal-grand",
+      "rank": "token",
+      "prompt": "A grand frost crystal formation of towering interconnected spires, the entire structure humming with frozen energy and radiating intense cold light."
+    }
+  ]
+}
