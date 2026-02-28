@@ -210,6 +210,13 @@ export function getArtPlaceholder(def: CardDefinition): string {
   return RANK_EMOJIS[String(def.rank)] ?? '\u2694\uFE0F';
 }
 
+export function getCardInitials(definitionId: string): string {
+  const name = getCardName(definitionId);
+  const words = name.split(/[\s&]+/).filter(Boolean);
+  const initials = words.map((w) => w.charAt(0).toUpperCase()).join('');
+  return initials || '?';
+}
+
 export function getAbilityDescription(def: CardDefinition): string {
   if (!def.ability) return '';
   return describeAbility(def.ability);

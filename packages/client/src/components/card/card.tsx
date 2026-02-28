@@ -4,7 +4,8 @@ import { RankIcon } from './rank-icon.tsx';
 import { PowerBadge } from './power-badge.tsx';
 import { RangeGrid } from './range-grid.tsx';
 import { AbilityText } from './ability-text.tsx';
-import { getCardName, getArtPlaceholder } from '../../lib/card-identity.ts';
+import { getCardName } from '../../lib/card-identity.ts';
+import { CardArt } from './card-art.tsx';
 
 interface CardProps {
   definition: CardDefinition;
@@ -16,7 +17,6 @@ interface CardProps {
 
 export function Card({ definition, selected, disabled, onClick, compact }: CardProps) {
   const name = getCardName(definition.id);
-  const art = getArtPlaceholder(definition);
   const rankBg =
     definition.rank === 1
       ? 'from-rank-1/20'
@@ -53,12 +53,8 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
         <PowerBadge basePower={definition.power} effectivePower={definition.power} size="md" />
       </div>
 
-      {/* Art placeholder */}
-      <div
-        className={`flex items-center justify-center rounded bg-surface/50 ${compact ? 'h-8 sm:h-10 text-lg' : 'h-10 sm:h-12 md:h-14 text-2xl'}`}
-      >
-        {art}
-      </div>
+      {/* Card artwork */}
+      <CardArt definitionId={definition.id} rank={definition.rank} compact={compact ?? false} />
 
       {/* Name */}
       <p
