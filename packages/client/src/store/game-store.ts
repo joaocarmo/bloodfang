@@ -43,11 +43,6 @@ interface GameStore {
   // Hot-seat transition
   showTransition: boolean;
   setShowTransition: (show: boolean) => void;
-
-  // Exit confirmation
-  showExitConfirm: boolean;
-  setShowExitConfirm: (show: boolean) => void;
-  confirmExitToHome: () => void;
 }
 
 export const useGameStore = create<GameStore>((set, get) => {
@@ -181,23 +176,10 @@ export const useGameStore = create<GameStore>((set, get) => {
         hoveredTilePosition: null,
         playerDecks: [[], []],
         showTransition: false,
-        showExitConfirm: false,
       }),
 
     showTransition: false,
     setShowTransition: (show) => set({ showTransition: show }),
-
-    showExitConfirm: false,
-    setShowExitConfirm: (show) => set({ showExitConfirm: show }),
-    confirmExitToHome: () =>
-      set({
-        gameState: null,
-        selectedCardId: null,
-        hoveredTilePosition: null,
-        playerDecks: [[], []],
-        showTransition: false,
-        showExitConfirm: false,
-      }),
   };
 });
 
