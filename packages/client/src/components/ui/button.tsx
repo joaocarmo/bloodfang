@@ -6,7 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const base =
-  'rounded-lg font-medium transition-colors focus:outline-3 focus:outline-focus-ring focus:outline-offset-2';
+  'rounded-lg font-medium transition-colors focus:outline-3 focus:outline-focus-ring focus:outline-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
 const variants: Record<NonNullable<ButtonProps['variant']>, string> = {
   secondary: 'bg-surface-raised border border-border hover:bg-border',

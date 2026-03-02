@@ -14,18 +14,21 @@ export function Hand() {
   const currentPlayer = gameState?.currentPlayerIndex ?? 0;
   const hand = gameState?.players[currentPlayer]?.hand ?? [];
 
+  // Clamp focusedIndex when hand shrinks (e.g. after playing a card)
+  const clampedFocusedIndex = hand.length === 0 ? 0 : Math.min(focusedIndex, hand.length - 1);
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (hand.length === 0) return;
 
-      let nextIndex = focusedIndex;
+      let nextIndex = clampedFocusedIndex;
 
       switch (e.key) {
         case 'ArrowLeft':
-          nextIndex = Math.max(0, focusedIndex - 1);
+          nextIndex = Math.max(0, clampedFocusedIndex - 1);
           break;
         case 'ArrowRight':
-          nextIndex = Math.min(hand.length - 1, focusedIndex + 1);
+          nextIndex = Math.min(hand.length - 1, clampedFocusedIndex + 1);
           break;
         case 'Escape':
           selectCard(null);
@@ -41,7 +44,7 @@ export function Hand() {
       const options = listRef.current?.querySelectorAll('[role="option"]');
       (options?.[nextIndex] as HTMLElement)?.focus();
     },
-    [focusedIndex, hand.length, selectCard],
+    [clampedFocusedIndex, hand.length, selectCard],
   );
 
   if (hand.length === 0) {
@@ -51,11 +54,11 @@ export function Hand() {
   return (
     <div>
       <h2 className="sr-only">{t`Your Hand`}</h2>
-      {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus managed via roving tabindex on child options */}
       <div
         ref={listRef}
         role="listbox"
         aria-label={t`Player ${currentPlayer + 1}'s hand`}
+        tabIndex={-1}
         onKeyDown={handleKeyDown}
         className="flex gap-1 sm:gap-2 justify-center items-end flex-wrap py-1 sm:py-2"
       >
@@ -71,7 +74,7 @@ export function Hand() {
               definition={def}
               isSelected={selectedCardId === cardId}
               onSelect={(id) => selectCard(id || null)}
-              isFocused={focusedIndex === index}
+              isFocused={clampedFocusedIndex === index}
               onFocus={() => setFocusedIndex(index)}
             />
           );

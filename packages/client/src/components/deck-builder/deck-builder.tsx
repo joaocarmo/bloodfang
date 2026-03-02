@@ -50,10 +50,9 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
             </Button>
             <Button
               onClick={() => onConfirm([...selectedCards])}
-              aria-disabled={!isReady}
+              disabled={!isReady}
               variant={isReady ? 'primary' : 'secondary'}
               size="sm"
-              className={isReady ? '' : 'text-text-muted cursor-not-allowed'}
             >
               {t`Confirm (${selectedCards.length}/${DECK_SIZE})`}
             </Button>

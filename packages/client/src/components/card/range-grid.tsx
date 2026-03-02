@@ -1,6 +1,25 @@
 import { t } from '@lingui/core/macro';
 import type { RangeCell } from '@bloodfang/engine';
 
+function describeRange(rangePattern: readonly RangeCell[]): string {
+  let pawnCells = 0;
+  let abilityCells = 0;
+  for (const cell of rangePattern) {
+    if (cell.type === 'pawn' || cell.type === 'both') pawnCells++;
+    if (cell.type === 'ability' || cell.type === 'both') abilityCells++;
+  }
+  if (pawnCells > 0 && abilityCells > 0) {
+    return t`Range: ${pawnCells} pawn tiles, ${abilityCells} ability tiles`;
+  }
+  if (pawnCells > 0) {
+    return t`Range: ${pawnCells} pawn tiles`;
+  }
+  if (abilityCells > 0) {
+    return t`Range: ${abilityCells} ability tiles`;
+  }
+  return t`Range: no tiles`;
+}
+
 interface RangeGridProps {
   rangePattern: readonly RangeCell[];
   size?: 'sm' | 'md';
@@ -30,7 +49,7 @@ export function RangeGrid({ rangePattern, size = 'sm' }: RangeGridProps) {
     <div
       className={`inline-grid grid-cols-5 grid-rows-5 ${gap}`}
       role="img"
-      aria-label={t`Range pattern`}
+      aria-label={describeRange(rangePattern)}
     >
       {grid.flat().map((cell, i) => (
         <div key={i} className={`${cellSize} rounded-sm ${getCellColor(cell)}`} />

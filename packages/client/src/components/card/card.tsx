@@ -91,7 +91,7 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
   }
 
   return (
-    <div className={classes} aria-label={ariaLabel}>
+    <div className={classes} role="group" aria-label={ariaLabel}>
       {content}
     </div>
   );

@@ -65,7 +65,7 @@ export function MulliganScreen() {
               key={cardId}
               onClick={() => toggleCard(cardId)}
               aria-pressed={isSelected}
-              className={`rounded-lg ${isSelected ? 'outline-0' : 'outline-0 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2'}`}
+              className="rounded-lg outline-0 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2"
             >
               <Card definition={def} selected={isSelected} />
             </button>

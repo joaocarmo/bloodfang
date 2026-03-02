@@ -30,7 +30,7 @@ export function CardCatalog() {
   }, [definitions, searchQuery, rankFilter]);
 
   return (
-    <div
+    <section
       aria-label={t`Card catalog`}
       className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 overflow-y-auto max-h-[50vh] sm:max-h-[60vh] p-1"
     >
@@ -57,6 +57,6 @@ export function CardCatalog() {
           {t`No cards match your filters.`}
         </div>
       )}
-    </div>
+    </section>
   );
 }
