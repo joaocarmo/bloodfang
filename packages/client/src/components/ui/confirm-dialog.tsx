@@ -1,6 +1,6 @@
 import { useRef, type RefObject } from 'react';
 import { t } from '@lingui/core/macro';
-import { useDialog } from '../../hooks/use-dialog.ts';
+import { DialogBase } from './dialog-base.tsx';
 import { Button } from './button.tsx';
 
 interface ConfirmDialogProps {
@@ -22,23 +22,15 @@ export function ConfirmDialog({
   confirmLabel,
   cancelLabel,
 }: ConfirmDialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const cancelRef: RefObject<HTMLButtonElement | null> = useRef(null);
 
-  useDialog(open, dialogRef, cancelRef);
-
-  if (!open) return null;
-
   return (
-    <dialog
-      ref={dialogRef}
-      onCancel={(e) => {
-        e.preventDefault();
-        onCancel();
-      }}
-      aria-label={title}
-      className="fixed inset-0 z-50 bg-surface-overlay/90 flex flex-col items-center justify-center
-        w-full h-full max-w-none max-h-none border-none m-0 p-0"
+    <DialogBase
+      open={open}
+      onCancel={onCancel}
+      ariaLabel={title}
+      focusRef={cancelRef}
+      className="bg-surface-overlay/90 p-0"
     >
       <div className="bg-surface-raised border border-border rounded-xl p-6 max-w-sm text-center flex flex-col gap-4">
         <h2 className="text-xl font-bold text-text-primary">{title}</h2>
@@ -52,6 +44,6 @@ export function ConfirmDialog({
           </Button>
         </div>
       </div>
-    </dialog>
+    </DialogBase>
   );
 }

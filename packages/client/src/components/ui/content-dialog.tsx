@@ -1,6 +1,6 @@
 import { useRef, type ReactNode, type RefObject } from 'react';
 import { t } from '@lingui/core/macro';
-import { useDialog } from '../../hooks/use-dialog.ts';
+import { DialogBase } from './dialog-base.tsx';
 import { Button } from './button.tsx';
 
 interface ContentDialogProps {
@@ -11,23 +11,15 @@ interface ContentDialogProps {
 }
 
 export function ContentDialog({ open, onClose, title, children }: ContentDialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const closeRef: RefObject<HTMLButtonElement | null> = useRef(null);
 
-  useDialog(open, dialogRef, closeRef);
-
-  if (!open) return null;
-
   return (
-    <dialog
-      ref={dialogRef}
-      onCancel={(e) => {
-        e.preventDefault();
-        onClose();
-      }}
-      aria-label={title}
-      className="fixed inset-0 z-50 bg-surface-overlay/90 flex flex-col items-center justify-center
-        w-full h-full max-w-none max-h-none border-none m-0 p-4"
+    <DialogBase
+      open={open}
+      onCancel={onClose}
+      ariaLabel={title}
+      focusRef={closeRef}
+      className="bg-surface-overlay/90 p-4"
     >
       <div className="bg-surface-raised border border-border rounded-xl max-w-lg w-full max-h-[80vh] flex flex-col">
         <div className="flex items-center justify-between p-4 border-b border-border">
@@ -38,6 +30,6 @@ export function ContentDialog({ open, onClose, title, children }: ContentDialogP
         </div>
         <div className="p-4 overflow-y-auto flex flex-col gap-6">{children}</div>
       </div>
-    </dialog>
+    </DialogBase>
   );
 }

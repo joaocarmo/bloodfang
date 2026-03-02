@@ -5,7 +5,7 @@ import { GamePhase } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { playerTextColor } from '../../lib/player-color.ts';
 import { getMulliganPlayer } from '../../lib/get-mulligan-player.ts';
-import { useDialog } from '../../hooks/use-dialog.ts';
+import { DialogBase } from '../ui/dialog-base.tsx';
 import { Button } from '../ui/button.tsx';
 
 function getNextPlayer(gameState: {
@@ -23,24 +23,17 @@ export function TurnTransition() {
   const showTransition = useGameStore((s) => s.showTransition);
   const setShowTransition = useGameStore((s) => s.setShowTransition);
   const gameState = useGameStore((s) => s.gameState);
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const currentPlayer = gameState ? getNextPlayer(gameState) : 0;
 
-  useDialog(showTransition, dialogRef, buttonRef);
-
-  const handleCancel = (e: React.SyntheticEvent) => e.preventDefault();
-
-  if (!showTransition) return null;
-
   return (
-    <dialog
-      ref={dialogRef}
-      onCancel={handleCancel}
-      aria-label={t`Turn transition`}
-      className="fixed inset-0 z-50 bg-surface-overlay flex flex-col items-center justify-center gap-6
-        w-full h-full max-w-none max-h-none border-none m-0 p-0"
+    <DialogBase
+      open={showTransition}
+      onCancel={() => {}}
+      ariaLabel={t`Turn transition`}
+      focusRef={buttonRef}
+      className="bg-surface-overlay gap-6 p-0"
     >
       <h2 className={`text-2xl sm:text-3xl font-bold ${playerTextColor(currentPlayer)}`}>
         {t`Player ${currentPlayer + 1}'s Turn`}
@@ -54,6 +47,6 @@ export function TurnTransition() {
       >
         {t`Ready`}
       </Button>
-    </dialog>
+    </DialogBase>
   );
 }
