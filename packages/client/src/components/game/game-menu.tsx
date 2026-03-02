@@ -4,7 +4,12 @@ import { useGameStore } from '../../store/game-store.ts';
 import { Button } from '../ui/button.tsx';
 import { ContentDialog } from '../ui/content-dialog.tsx';
 import { RulesContent, BasicRules, KeyboardShortcuts } from '../screens/rules-content.tsx';
-import { SettingsContent, LanguageSetting, ThemeSetting } from '../screens/settings-content.tsx';
+import {
+  SettingsContent,
+  ActionLogSetting,
+  LanguageSetting,
+  ThemeSetting,
+} from '../screens/settings-content.tsx';
 
 type MenuView = 'closed' | 'menu' | 'rules' | 'settings';
 
@@ -47,6 +52,7 @@ export function GameMenu() {
           {t`← Back`}
         </Button>
         <SettingsContent>
+          <ActionLogSetting />
           <LanguageSetting />
           <ThemeSetting />
         </SettingsContent>

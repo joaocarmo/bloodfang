@@ -3,6 +3,7 @@ import { t } from '@lingui/core/macro';
 import { useNavigate, useBlocker } from '@tanstack/react-router';
 import { GamePhase } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
+import { useSettingsStore } from '../../store/settings-store.ts';
 import { Route } from '../../routes.ts';
 import { Board } from '../board/board.tsx';
 import { Hand } from '../hand/hand.tsx';
@@ -17,6 +18,7 @@ import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 
 export function GameScreen() {
   const gameState = useGameStore((s) => s.gameState);
+  const showActionLog = useSettingsStore((s) => s.showActionLog);
   const navigate = useNavigate();
 
   // Navigate to results when game ends
@@ -79,7 +81,7 @@ export function GameScreen() {
 
           <SelectedCardDetail />
 
-          <ActionLog />
+          {showActionLog && <ActionLog />}
         </main>
       )}
     </>
