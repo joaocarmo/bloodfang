@@ -25,7 +25,11 @@ export function CardArt({ definitionId, rank, size }: CardArtProps) {
           : 'from-rank-replacement/30 to-rank-replacement/10';
 
   const sizeClasses =
-    size === 'compact' ? 'h-8 sm:h-10' : size === 'large' ? 'h-32 sm:h-40' : 'h-10 sm:h-12 md:h-14';
+    size === 'compact'
+      ? 'h-8 sm:h-10'
+      : size === 'large'
+        ? 'aspect-square'
+        : 'h-10 sm:h-12 md:h-14';
   const textSize = size === 'compact' ? 'text-xs' : size === 'large' ? 'text-lg' : 'text-sm';
 
   return (

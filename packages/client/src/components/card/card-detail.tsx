@@ -19,12 +19,12 @@ export function CardDetail({ definition, effectivePower }: CardDetailProps) {
 
   const rankBg =
     rank === 1
-      ? 'from-rank-1/20'
+      ? 'from-rank-1/60'
       : rank === 2
-        ? 'from-rank-2/20'
+        ? 'from-rank-2/60'
         : rank === 3
-          ? 'from-rank-3/20'
-          : 'from-rank-replacement/20';
+          ? 'from-rank-3/60'
+          : 'from-rank-replacement/60';
 
   const ariaLabel = [
     name,
