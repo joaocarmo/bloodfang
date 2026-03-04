@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { t, plural } from '@lingui/core/macro';
 import { useGameStore } from '../../store/game-store.ts';
 import { Card } from '../card/card.tsx';
+import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
 import { playerTextColor } from '../../lib/player-color.ts';
 import { getMulliganPlayer } from '../../lib/get-mulligan-player.ts';
 import { Button } from '../ui/button.tsx';
@@ -61,14 +62,15 @@ export function MulliganScreen() {
           const isSelected = selectedToReturn.includes(cardId);
 
           return (
-            <button
-              key={cardId}
-              onClick={() => toggleCard(cardId)}
-              aria-pressed={isSelected}
-              className="rounded-lg outline-0 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2"
-            >
-              <Card definition={def} selected={isSelected} />
-            </button>
+            <CardPreviewTrigger key={cardId} definition={def}>
+              <button
+                onClick={() => toggleCard(cardId)}
+                aria-pressed={isSelected}
+                className="rounded-lg outline-0 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2"
+              >
+                <Card definition={def} selected={isSelected} />
+              </button>
+            </CardPreviewTrigger>
           );
         })}
       </div>

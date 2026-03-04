@@ -54,7 +54,11 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
       </div>
 
       {/* Card artwork */}
-      <CardArt definitionId={definition.id} rank={definition.rank} compact={compact ?? false} />
+      <CardArt
+        definitionId={definition.id}
+        rank={definition.rank}
+        size={compact ? 'compact' : 'default'}
+      />
 
       {/* Name */}
       <p

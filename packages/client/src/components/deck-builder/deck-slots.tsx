@@ -2,6 +2,7 @@ import { t } from '@lingui/core/macro';
 import { DECK_SIZE } from '@bloodfang/engine';
 import { useDeckStore } from '../../store/deck-store.ts';
 import { useGameStore } from '../../store/game-store.ts';
+import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 
 export function DeckSlots() {
@@ -32,15 +33,17 @@ export function DeckSlots() {
 
           return (
             <li key={i}>
-              <button
-                onClick={() => removeCard(cardId)}
-                className="w-full h-8 bg-surface-raised border border-border rounded flex items-center justify-between px-2 text-xs
-                  hover:bg-border focus:outline-3 focus:outline-focus-ring focus:outline-offset-2 transition-colors"
-                aria-label={t`Remove ${getCardName(cardId)} from deck`}
-              >
-                <span className="truncate">{getCardName(cardId)}</span>
-                <span className="text-text-muted ml-1 tabular-nums">{t`P${def.power}`}</span>
-              </button>
+              <CardPreviewTrigger definition={def}>
+                <button
+                  onClick={() => removeCard(cardId)}
+                  className="w-full h-8 bg-surface-raised border border-border rounded flex items-center justify-between px-2 text-xs
+                    hover:bg-border focus:outline-3 focus:outline-focus-ring focus:outline-offset-2 transition-colors"
+                  aria-label={t`Remove ${getCardName(cardId)} from deck`}
+                >
+                  <span className="truncate">{getCardName(cardId)}</span>
+                  <span className="text-text-muted ml-1 tabular-nums">{t`P${def.power}`}</span>
+                </button>
+              </CardPreviewTrigger>
             </li>
           );
         })}

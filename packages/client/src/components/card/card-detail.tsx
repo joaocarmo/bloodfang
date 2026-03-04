@@ -1,0 +1,63 @@
+import { t } from '@lingui/core/macro';
+import type { CardDefinition } from '@bloodfang/engine';
+import { RankIcon } from './rank-icon.tsx';
+import { PowerBadge } from './power-badge.tsx';
+import { RangeGrid } from './range-grid.tsx';
+import { AbilityText } from './ability-text.tsx';
+import { CardArt } from './card-art.tsx';
+import { getCardName } from '../../lib/card-identity.ts';
+
+interface CardDetailProps {
+  definition: CardDefinition;
+  effectivePower: number | undefined;
+}
+
+export function CardDetail({ definition, effectivePower }: CardDetailProps) {
+  const name = getCardName(definition.id);
+  const power = effectivePower ?? definition.power;
+  const rank = definition.rank;
+
+  const rankBg =
+    rank === 1
+      ? 'from-rank-1/20'
+      : rank === 2
+        ? 'from-rank-2/20'
+        : rank === 3
+          ? 'from-rank-3/20'
+          : 'from-rank-replacement/20';
+
+  const ariaLabel = [
+    name,
+    t`Rank ${rank}`,
+    t`Power ${power}`,
+    definition.ability ? t`Ability: ${definition.ability.effect.type}` : '',
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  return (
+    <div
+      role="tooltip"
+      aria-label={ariaLabel}
+      className={`w-64 sm:w-72 rounded-xl border border-border bg-gradient-to-b ${rankBg} to-surface-raised p-2.5 sm:p-3 flex flex-col gap-1.5`}
+    >
+      <div className="flex items-center justify-between">
+        <RankIcon rank={definition.rank} />
+        <PowerBadge basePower={definition.power} effectivePower={power} size="lg" />
+      </div>
+
+      <CardArt definitionId={definition.id} rank={definition.rank} size="large" />
+
+      <p className="text-base sm:text-lg font-bold leading-tight truncate" title={name}>
+        {name}
+      </p>
+
+      <div className="flex items-start gap-2.5">
+        <RangeGrid rangePattern={definition.rangePattern} size="md" />
+        <div className="flex-1 min-w-0">
+          <AbilityText definition={definition} />
+        </div>
+      </div>
+    </div>
+  );
+}

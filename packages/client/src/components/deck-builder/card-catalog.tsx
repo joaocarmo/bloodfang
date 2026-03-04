@@ -4,6 +4,7 @@ import type { CardDefinition } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
 import { Card } from '../card/card.tsx';
+import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 
 export function CardCatalog() {
@@ -39,17 +40,19 @@ export function CardCatalog() {
         const canAdd = !isInDeck && !isDeckFull();
 
         return (
-          <div key={card.id} className={isInDeck ? 'opacity-40' : ''}>
-            <Card
-              definition={card}
-              disabled={!canAdd}
-              selected={isInDeck}
-              onClick={() => {
-                if (canAdd) addCard(card.id);
-              }}
-              compact
-            />
-          </div>
+          <CardPreviewTrigger key={card.id} definition={card}>
+            <div className={isInDeck ? 'opacity-40' : ''}>
+              <Card
+                definition={card}
+                disabled={!canAdd}
+                selected={isInDeck}
+                onClick={() => {
+                  if (canAdd) addCard(card.id);
+                }}
+                compact
+              />
+            </div>
+          </CardPreviewTrigger>
         );
       })}
       {filteredCards.length === 0 && (

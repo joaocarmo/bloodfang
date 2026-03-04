@@ -6,10 +6,10 @@ import { getCardName, getCardInitials } from '../../lib/card-identity.ts';
 interface CardArtProps {
   definitionId: string;
   rank: number | string;
-  compact: boolean;
+  size: 'compact' | 'default' | 'large';
 }
 
-export function CardArt({ definitionId, rank, compact }: CardArtProps) {
+export function CardArt({ definitionId, rank, size }: CardArtProps) {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
   const reduceMotion = useReducedMotion();
   const name = getCardName(definitionId);
@@ -24,8 +24,9 @@ export function CardArt({ definitionId, rank, compact }: CardArtProps) {
           ? 'from-rank-3/30 to-rank-3/10'
           : 'from-rank-replacement/30 to-rank-replacement/10';
 
-  const sizeClasses = compact ? 'h-8 sm:h-10' : 'h-10 sm:h-12 md:h-14';
-  const textSize = compact ? 'text-xs' : 'text-sm';
+  const sizeClasses =
+    size === 'compact' ? 'h-8 sm:h-10' : size === 'large' ? 'h-32 sm:h-40' : 'h-10 sm:h-12 md:h-14';
+  const textSize = size === 'compact' ? 'text-xs' : size === 'large' ? 'text-lg' : 'text-sm';
 
   return (
     <div className={`relative overflow-hidden rounded bg-surface/50 ${sizeClasses}`}>

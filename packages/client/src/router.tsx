@@ -2,6 +2,7 @@ import { createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/re
 import { Route } from './routes.ts';
 import { Announcer } from './components/game/announcer.tsx';
 import { RouteAnnouncer } from './components/ui/route-announcer.tsx';
+import { CardPreviewProvider } from './hooks/use-card-preview.tsx';
 import { HomeScreen } from './components/screens/home-screen.tsx';
 import { SetupScreen } from './components/screens/setup-screen.tsx';
 import { GameScreen } from './components/game/game-screen.tsx';
@@ -15,7 +16,9 @@ function RootLayout() {
     <div className="min-h-screen bg-surface text-text-primary">
       <Announcer />
       <RouteAnnouncer />
-      <Outlet />
+      <CardPreviewProvider>
+        <Outlet />
+      </CardPreviewProvider>
     </div>
   );
 }

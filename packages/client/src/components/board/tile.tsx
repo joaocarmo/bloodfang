@@ -5,6 +5,7 @@ import { useGameStore } from '../../store/game-store.ts';
 import { useValidMovesForCard } from '../../hooks/use-valid-moves.ts';
 import { PawnDots } from './pawn-dots.tsx';
 import { PlacedCard } from './placed-card.tsx';
+import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
 import { RankIcon } from '../card/rank-icon.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 import { tileBgColor, playerBgOpacity } from '../../lib/player-color.ts';
@@ -135,12 +136,13 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
       <PawnDots count={tile.pawnCount} owner={tile.owner} />
       <AnimatePresence>
         {instance && definition && (
-          <PlacedCard
+          <CardPreviewTrigger
             key={instance.instanceId}
-            instance={instance}
             definition={definition}
-            gameState={gameState}
-          />
+            effectivePower={getEffectivePower(gameState, instance.instanceId)}
+          >
+            <PlacedCard instance={instance} definition={definition} gameState={gameState} />
+          </CardPreviewTrigger>
         )}
       </AnimatePresence>
       {preview?.powerDelta != null && preview.powerDelta !== 0 && (
