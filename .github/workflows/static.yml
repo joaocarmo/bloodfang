@@ -47,6 +47,9 @@ jobs:
         env:
           VITE_BASE_PATH: /bloodfang/
 
+      - name: Create 404 fallback for SPA routing
+        run: cp packages/client/dist/index.html packages/client/dist/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 

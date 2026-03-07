@@ -9,6 +9,7 @@ export default defineConfig({
   base: process.env.VITE_BASE_PATH || '/',
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
+    __BASE_PATH__: JSON.stringify(process.env.VITE_BASE_PATH || '/'),
   },
   plugins: [
     react({
