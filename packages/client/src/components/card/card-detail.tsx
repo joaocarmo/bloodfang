@@ -5,7 +5,7 @@ import { PowerBadge } from './power-badge.tsx';
 import { RangeGrid } from './range-grid.tsx';
 import { AbilityText } from './ability-text.tsx';
 import { CardArt } from './card-art.tsx';
-import { getCardName } from '../../lib/card-identity.ts';
+import { getCardName, getFlavorText } from '../../lib/card-identity.ts';
 
 interface CardDetailProps {
   definition: CardDefinition;
@@ -14,6 +14,7 @@ interface CardDetailProps {
 
 export function CardDetail({ definition, effectivePower }: CardDetailProps) {
   const name = getCardName(definition.id);
+  const flavorText = getFlavorText(definition.id);
   const power = effectivePower ?? definition.power;
   const rank = definition.rank;
 
@@ -31,6 +32,7 @@ export function CardDetail({ definition, effectivePower }: CardDetailProps) {
     t`Rank ${rank}`,
     t`Power ${power}`,
     definition.ability ? t`Ability: ${definition.ability.effect.type}` : '',
+    flavorText ? t`Lore: ${flavorText}` : '',
   ]
     .filter(Boolean)
     .join(', ');
@@ -58,6 +60,13 @@ export function CardDetail({ definition, effectivePower }: CardDetailProps) {
           <AbilityText definition={definition} />
         </div>
       </div>
+
+      {flavorText && (
+        <>
+          <hr className="border-text-muted/20" aria-hidden="true" />
+          <p className="text-xs sm:text-sm italic text-text-muted leading-snug">{flavorText}</p>
+        </>
+      )}
     </div>
   );
 }
