@@ -16,8 +16,17 @@ export function CardPreviewTrigger({
 }: CardPreviewTriggerProps) {
   const { scheduleShow, cancelScheduled, hide } = useCardPreview();
   const ref = useRef<HTMLDivElement>(null);
+  const isTouchRef = useRef(false);
+
+  const handleTouchStart = useCallback(() => {
+    isTouchRef.current = true;
+  }, []);
 
   const handleMouseEnter = useCallback(() => {
+    if (isTouchRef.current) {
+      isTouchRef.current = false;
+      return;
+    }
     if (ref.current) {
       scheduleShow(definition, ref.current, effectivePower);
     }
@@ -43,6 +52,7 @@ export function CardPreviewTrigger({
   return (
     <div
       ref={ref}
+      onTouchStart={handleTouchStart}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocusCapture={handleFocus}
