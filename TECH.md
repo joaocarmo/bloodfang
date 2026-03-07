@@ -101,10 +101,12 @@ packages/
 
   client/                Web UI — React + Vite
     src/
-      cards/            Full card database with original names, art, lore, flavor text
-      components/       React components (board, hand, card, deck builder)
-      hooks/            Game state hooks, Colyseus room hooks
-      assets/           Card art, sounds, fonts
+      components/       React components (board, hand, card, deck builder, screens, ui)
+      hooks/            Game state hooks (valid moves, lane scores, card preview, placement preview)
+      store/            Zustand stores (game, deck, settings with localStorage persistence)
+      lib/              Card identity (names, ability descriptions, flavor text — all i18n-ready via Lingui)
+      locales/          Lingui message catalogs
+    public/art/         166 card artwork files (WebP, DALL-E 3 watercolor style)
 
   server/                Multiplayer game server — Colyseus
     src/
@@ -137,17 +139,14 @@ The engine knows nothing about names, art, or lore. A card in the engine is:
 }
 ```
 
-The client maps engine card IDs to creative identity:
+The client maps engine card IDs to creative identity in `lib/card-identity.ts`:
 
-```typescript
-{
-  engineCardId: string;
-  name: string; // original name
-  art: string; // path to original artwork
-  lore: string; // flavor text
-  rarity: 'standard' | 'legendary';
-}
-```
+- `CARD_NAMES` — Lingui `msg` descriptors mapping card IDs to display names
+- `CARD_ABILITY_DESCRIPTIONS` — Lingui `msg` descriptors for human-readable ability text
+- `CARD_FLAVOR_TEXT` — Lingui `msg` descriptors for MTG-style flavor text / lore (165 cards)
+- Helper functions: `getCardName()`, `getCardInitials()`, `getAbilityDescription()`, `getFlavorText()`
+
+All strings use Lingui `msg` tagged templates for i18n extraction and translation.
 
 This separation means:
 

@@ -1,9 +1,11 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { t } from '@lingui/core/macro';
 import { useSettingsStore } from '../../store/settings-store.ts';
 import { Locale } from '../../i18n.ts';
 import { Theme } from '../../theme.ts';
 import { GameMode } from '../../game-mode.ts';
+import { Button } from '../ui/button.tsx';
+import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 
 export function ActionLogSetting() {
   const showActionLog = useSettingsStore((s) => s.showActionLog);
@@ -109,6 +111,37 @@ export function GameModeSetting() {
       </select>
       <p className="text-text-muted text-sm">{t`Additional game modes coming soon.`}</p>
     </div>
+  );
+}
+
+export function ResetSettingsButton() {
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const handleReset = () => {
+    localStorage.clear();
+    useSettingsStore.persist.clearStorage();
+    window.location.reload();
+  };
+
+  return (
+    <>
+      <div className="flex flex-col gap-2">
+        <Button variant="danger" onClick={() => setConfirmOpen(true)}>
+          {t`Reset to Defaults`}
+        </Button>
+        <p className="text-text-muted text-sm">
+          {t`Clears all saved settings and local data, restoring everything to its default state.`}
+        </p>
+      </div>
+      <ConfirmDialog
+        open={confirmOpen}
+        onCancel={() => setConfirmOpen(false)}
+        onConfirm={handleReset}
+        title={t`Reset to Defaults?`}
+        description={t`This will clear all saved settings and local data. The page will reload.`}
+        confirmLabel={t`Reset`}
+      />
+    </>
   );
 }
 

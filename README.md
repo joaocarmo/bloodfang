@@ -5,7 +5,7 @@ A strategic card game on a 3x5 grid featuring a standalone rules engine and a co
 ## What's Here
 
 - **Engine** (`@bloodfang/engine`) — A reusable rules engine. Pure game logic as a library: grid placement, pawn scoring, card abilities, lane scoring. No UI, no networking, zero dependencies.
-- **Client** (`@bloodfang/client`) — A complete web client with original theme, art, and names built on top of the engine. Hot-seat multiplayer for two players.
+- **Client** (`@bloodfang/client`) — A complete web client with original Ancient Greek mythology theme, 166 original card artworks, flavor text, and names built on top of the engine. Hot-seat multiplayer for two players.
 
 ## Tech Stack
 
@@ -31,7 +31,7 @@ pnpm -F @bloodfang/engine test        # Run tests
 # Client
 pnpm -F @bloodfang/client dev         # Dev server
 pnpm -F @bloodfang/client build       # Type-check + production build
-pnpm -F @bloodfang/client test        # Integration tests
+pnpm -F @bloodfang/client test        # Vitest (component tests)
 pnpm -F @bloodfang/client lint        # ESLint
 
 # Repo-wide

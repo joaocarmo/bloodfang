@@ -274,13 +274,17 @@ Every existing clone (queensbloodonline.com, GitHub projects, TTS mods) is a mon
 - Starter card set (~20-30 cards, mechanics only, covering all ability types)
 - Comprehensive test suite for card interactions
 
-### Phase 3 — The Game (React + Vite)
+### Phase 3 — The Game (React + Vite) [COMPLETE]
 
-- Original theme, card names, lore, and (placeholder) art
-- Full card database (~145 cards with original creative identity)
-- Human vs human (local)
+- Original Ancient Greek mythology theme with unique card names, lore, and flavor text
+- Original card artwork for all 166 cards (DALL-E 3 watercolor style, WebP format)
+- Full card database (165 cards with original creative identity, all i18n-ready)
+- MTG-style flavor text for every card, displayed in the hover preview
+- Human vs human (local hot-seat)
 - Web UI built with React + Vite (`packages/client`)
 - Deck builder (15 cards from collection, no duplicates)
+- Card hover preview system with Floating UI positioning
+- Settings screen with reset-to-defaults functionality
 
 ### Phase 4 — Networked Play (Colyseus)
 

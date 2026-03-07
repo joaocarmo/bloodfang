@@ -12,7 +12,7 @@ export function BasicRules() {
         <li>{t`Players take turns placing a card on the board or passing.`}</li>
         <li>{t`Cards have power, range, rank (1★ / 2★ / 3★ / Replacement), and abilities.`}</li>
         <li>{t`Pawns on tiles determine control. Each lane's score is the sum of card power.`}</li>
-        <li>{t`The player with the higher lane score wins that lane. Win the most lanes to win the game.`}</li>
+        <li>{t`The player with the higher lane score wins that lane and claims its power. The player with the most total power across all won lanes wins the game.`}</li>
       </ul>
     </section>
   );

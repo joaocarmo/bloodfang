@@ -6,6 +6,7 @@ import {
   LanguageSetting,
   ThemeSetting,
   GameModeSetting,
+  ResetSettingsButton,
 } from './settings-content.tsx';
 
 export function SettingsScreen() {
@@ -28,6 +29,8 @@ export function SettingsScreen() {
         <LanguageSetting />
         <ThemeSetting />
         <GameModeSetting />
+        <hr className="border-border" aria-hidden="true" />
+        <ResetSettingsButton />
       </SettingsContent>
     </main>
   );

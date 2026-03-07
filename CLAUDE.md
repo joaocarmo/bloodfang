@@ -32,7 +32,7 @@ pnpm -F @bloodfang/client i18n:extract
 pnpm -F @bloodfang/client i18n:compile
 ```
 
-Always run `pnpm -F @bloodfang/client build` after client changes — it runs both `tsc --noEmit` (type-check) and `vite build`. Run `pnpm -F @bloodfang/client lint` to ensure zero ESLint errors/warnings. The client has no unit tests; the engine has comprehensive vitest coverage.
+Always run `pnpm -F @bloodfang/client build` after client changes — it runs both `tsc --noEmit` (type-check) and `vite build`. Run `pnpm -F @bloodfang/client lint` to ensure zero ESLint errors/warnings. Both the engine and client have vitest test suites.
 
 ## Code style
 
@@ -56,7 +56,7 @@ Always run `pnpm -F @bloodfang/client build` after client changes — it runs bo
 
 ### Client (`packages/client`)
 
-- **State**: Zustand stores (`useGameStore`, `useDeckStore`). Use `useMemo` in selector helpers to prevent re-renders from new array refs.
+- **State**: Zustand stores (`useGameStore`, `useDeckStore`, `useSettingsStore`). `useSettingsStore` uses `zustand/persist` with `localStorage` (key: `bloodfang-settings`). Use `useMemo` in selector helpers to prevent re-renders from new array refs.
 - **Routing**: TanStack Router v1. Route paths defined as constants in `routes.ts`. Navigation via `useNavigate()`.
 - **i18n**: Lingui with `t` tagged template from `@lingui/core/macro`. All user-visible strings must use `t` for translation.
 - **Styling**: Tailwind CSS v4 with custom tokens in `app.css` `@theme` block. No separate `tailwind.config.ts`.
@@ -122,14 +122,16 @@ packages/engine/src/         Game logic (board, game, abilities, effects, scorin
 packages/client/src/
   components/
     board/                   Board, Tile, LaneScores, PawnDots, PlacedCard
-    card/                    Card, RankIcon, PowerBadge, RangeGrid, AbilityText
+    card/                    Card, CardMini, CardDetail, CardArt, CardPreviewPopup, CardPreviewTrigger, RankIcon, PowerBadge, RangeGrid, AbilityText
     game/                    GameScreen, ActionLog, PassButton, MulliganScreen, ResultsScreen, TurnTransition, TurnIndicator
     hand/                    Hand, HandCard
     deck-builder/            DeckBuilder, CardCatalog, DeckSlots, FilterBar
     screens/                 HomeScreen, SetupScreen, RulesScreen, SettingsScreen, AboutScreen
-    ui/                      Button, BackButton, ConfirmDialog (shared primitives)
-  store/                     Zustand stores (game-store, deck-store)
-  hooks/                     Custom hooks (use-valid-moves, use-lane-scores)
+    ui/                      Button, BackButton, ConfirmDialog, ContentDialog, DialogBase, LinkButton, ToggleButton, RouteAnnouncer
+  store/                     Zustand stores (game-store, deck-store, settings-store)
+  hooks/                     Custom hooks (use-valid-moves, use-lane-scores, use-card-preview, use-placement-preview, use-dialog)
   lib/                       Utilities (card-identity, player-color)
   locales/                   Lingui message catalogs
+packages/client/public/art/  166 card artwork WebP files (DALL-E 3 watercolor style)
+data/                        Reference data (flavor-text.json, card-mapping.json, art-prompts.json, seeds.json, expected_ranges.json)
 ```
