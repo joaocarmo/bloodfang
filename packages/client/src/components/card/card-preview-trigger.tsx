@@ -5,22 +5,34 @@ import { useCardPreview } from '../../hooks/use-card-preview.tsx';
 
 interface CardPreviewTriggerProps {
   definition: CardDefinition;
-  effectivePower?: number;
+  effectivePower?: number | undefined;
+  touchAction?: (() => void) | undefined;
+  touchActionLabel?: string | undefined;
   children: ReactNode;
 }
 
 export function CardPreviewTrigger({
   definition,
   effectivePower,
+  touchAction,
+  touchActionLabel,
   children,
 }: CardPreviewTriggerProps) {
-  const { scheduleShow, cancelScheduled, hide } = useCardPreview();
+  const { scheduleShow, cancelScheduled, hide, showTouchDetail } = useCardPreview();
   const ref = useRef<HTMLDivElement>(null);
   const isTouchRef = useRef(false);
 
   const handleTouchStart = useCallback(() => {
     isTouchRef.current = true;
   }, []);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      e.preventDefault();
+      showTouchDetail(definition, effectivePower, touchAction, touchActionLabel);
+    },
+    [definition, effectivePower, touchAction, touchActionLabel, showTouchDetail],
+  );
 
   const handleMouseEnter = useCallback(() => {
     if (isTouchRef.current) {
@@ -39,7 +51,6 @@ export function CardPreviewTrigger({
 
   const handleFocus = useCallback(() => {
     if (ref.current) {
-      // Show immediately for keyboard users
       cancelScheduled();
       scheduleShow(definition, ref.current, effectivePower);
     }
@@ -53,6 +64,7 @@ export function CardPreviewTrigger({
     <div
       ref={ref}
       onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocusCapture={handleFocus}

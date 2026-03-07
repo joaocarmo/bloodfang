@@ -202,6 +202,10 @@ msgstr "{count} of {MAX_PAWN_COUNT} pawns"
 msgid "{name} (power {power})"
 msgstr "{name} (power {power})"
 
+#: src/components/card/card-detail-dialog.tsx:30
+msgid "{name} card details"
+msgstr "{name} card details"
+
 #: src/components/hand/hand-card.tsx:34
 msgid "{name}, Rank {rank}, Power {power}"
 msgstr "{name}, Rank {rank}, Power {power}"
@@ -341,6 +345,10 @@ msgstr "Action log"
 #: src/lib/card-identity.ts:512
 msgid "Add {count} {tokenName} to hand"
 msgstr "Add {count} {tokenName} to hand"
+
+#: src/components/deck-builder/card-catalog.tsx:33
+msgid "Add to Deck"
+msgstr "Add to Deck"
 
 #: src/components/screens/settings-content.tsx:112
 msgid "Additional game modes coming soon."
@@ -519,7 +527,7 @@ msgstr "Bronze Sweeper"
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/components/deck-builder/card-catalog.tsx:35
+#: src/components/deck-builder/card-catalog.tsx:47
 msgid "Card catalog"
 msgstr "Card catalog"
 
@@ -595,6 +603,7 @@ msgstr "Clears all saved settings and local data, restoring everything to its de
 msgid "Cleopatra chose the asp not for its venom, but for its silence."
 msgstr "Cleopatra chose the asp not for its venom, but for its silence."
 
+#: src/components/card/card-detail-dialog.tsx:61
 #: src/components/ui/content-dialog.tsx:27
 msgid "Close"
 msgstr "Close"
@@ -1377,7 +1386,7 @@ msgstr "No actions yet."
 msgid "No cards in hand"
 msgstr "No cards in hand"
 
-#: src/components/deck-builder/card-catalog.tsx:60
+#: src/components/deck-builder/card-catalog.tsx:77
 msgid "No cards match your filters."
 msgstr "No cards match your filters."
 

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { t } from '@lingui/core/macro';
 import type { CardDefinition } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
@@ -30,6 +30,18 @@ export function CardCatalog() {
     });
   }, [definitions, searchQuery, rankFilter]);
 
+  const addLabel = t`Add to Deck`;
+
+  const makeAddAction = useCallback(
+    (card: CardDefinition) => {
+      const isInDeck = selectedCards.includes(card.id);
+      const canAdd = !isInDeck && !isDeckFull();
+      if (!canAdd) return undefined;
+      return () => addCard(card.id);
+    },
+    [selectedCards, isDeckFull, addCard],
+  );
+
   return (
     <section
       aria-label={t`Card catalog`}
@@ -40,7 +52,12 @@ export function CardCatalog() {
         const canAdd = !isInDeck && !isDeckFull();
 
         return (
-          <CardPreviewTrigger key={card.id} definition={card}>
+          <CardPreviewTrigger
+            key={card.id}
+            definition={card}
+            touchAction={makeAddAction(card)}
+            touchActionLabel={addLabel}
+          >
             <div className={isInDeck ? 'opacity-40' : ''}>
               <Card
                 definition={card}
