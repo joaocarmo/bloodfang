@@ -192,6 +192,99 @@ describe('CardPreviewTrigger', () => {
   });
 });
 
+describe('CardPreviewTrigger touch detail dialog', () => {
+  // jsdom doesn't implement showModal, so stub it
+  beforeEach(() => {
+    HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
+      this.setAttribute('open', '');
+    });
+    HTMLDialogElement.prototype.close = vi.fn(function (this: HTMLDialogElement) {
+      this.removeAttribute('open');
+    });
+  });
+
+  function simulateTouch(el: Element) {
+    act(() => {
+      el.dispatchEvent(new TouchEvent('touchstart', { bubbles: true }));
+      el.dispatchEvent(new TouchEvent('touchend', { bubbles: true, cancelable: true }));
+    });
+  }
+
+  it('opens card detail dialog on touch', () => {
+    renderWithProviders(
+      <CardPreviewTrigger definition={testDef} touchAction={vi.fn()} touchActionLabel="Add">
+        <button>Tap me</button>
+      </CardPreviewTrigger>,
+    );
+
+    simulateTouch(screen.getByText('Tap me').parentElement!);
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByText('Hoplite Guard')).toBeInTheDocument();
+  });
+
+  it('shows action button with label in touch dialog', () => {
+    renderWithProviders(
+      <CardPreviewTrigger definition={testDef} touchAction={vi.fn()} touchActionLabel="Add to Deck">
+        <button>Tap me</button>
+      </CardPreviewTrigger>,
+    );
+
+    simulateTouch(screen.getByText('Tap me').parentElement!);
+
+    expect(screen.getByRole('button', { name: 'Add to Deck' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
+
+  it('calls action and closes dialog when action button is clicked', async () => {
+    const action = vi.fn();
+    const { user } = renderWithProviders(
+      <CardPreviewTrigger definition={testDef} touchAction={action} touchActionLabel="Add to Deck">
+        <button>Tap me</button>
+      </CardPreviewTrigger>,
+    );
+
+    simulateTouch(screen.getByText('Tap me').parentElement!);
+
+    await user.click(screen.getByRole('button', { name: 'Add to Deck' }));
+
+    expect(action).toHaveBeenCalledOnce();
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  });
+
+  it('closes dialog when close button is clicked', async () => {
+    const { user } = renderWithProviders(
+      <CardPreviewTrigger definition={testDef} touchAction={vi.fn()} touchActionLabel="Add">
+        <button>Tap me</button>
+      </CardPreviewTrigger>,
+    );
+
+    simulateTouch(screen.getByText('Tap me').parentElement!);
+
+    await user.click(screen.getByRole('button', { name: 'Close' }));
+
+    await waitFor(() => {
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    });
+  });
+
+  it('shows dialog without action button when no touchAction provided', () => {
+    renderWithProviders(
+      <CardPreviewTrigger definition={testDef}>
+        <button>Tap me</button>
+      </CardPreviewTrigger>,
+    );
+
+    simulateTouch(screen.getByText('Tap me').parentElement!);
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Add to Deck' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+  });
+});
+
 describe('useCardPreview', () => {
   it('throws when used outside provider', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
