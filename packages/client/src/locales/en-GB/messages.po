@@ -17,50 +17,219 @@ msgstr ""
 #~ msgid "-{0} power to {target}"
 #~ msgstr "-{0} power to {target}"
 
-#: src/lib/card-identity.ts:306
+#: src/lib/card-identity.ts:496
 msgid "-{val} power to {target}"
 msgstr "-{val} power to {target}"
 
-#: src/lib/card-identity.ts:304
+#: src/lib/card-identity.ts:494
 msgid "-replaced card's power to {target}"
 msgstr "-replaced card's power to {target}"
 
+#: src/lib/card-identity.ts:324
+msgid "\"Abandon hope\" was merely a suggestion. The gate makes it mandatory."
+msgstr "\"Abandon hope\" was merely a suggestion. The gate makes it mandatory."
+
+#: src/lib/card-identity.ts:194
+msgid "\"Aim? I aim at everything. The fire sorts out the rest.\""
+msgstr "\"Aim? I aim at everything. The fire sorts out the rest.\""
+
+#: src/lib/card-identity.ts:334
+msgid "\"All roads lead here eventually. I've simply removed the 'eventually.'\""
+msgstr "\"All roads lead here eventually. I've simply removed the 'eventually.'\""
+
+#: src/lib/card-identity.ts:287
+msgid "\"Answer my riddle and pass. Fail, and become part of the question.\""
+msgstr "\"Answer my riddle and pass. Fail, and become part of the question.\""
+
+#: src/lib/card-identity.ts:296
+msgid "\"Death is not an ending. It's a warm-up.\""
+msgstr "\"Death is not an ending. It's a warm-up.\""
+
+#: src/lib/card-identity.ts:288
+msgid "\"Father made the wings. I learned what he never could — how to fall.\""
+msgstr "\"Father made the wings. I learned what he never could — how to fall.\""
+
+#: src/lib/card-identity.ts:192
+msgid "\"Hold the line. Not for glory, but because the man beside you would do the same.\""
+msgstr "\"Hold the line. Not for glory, but because the man beside you would do the same.\""
+
+#: src/lib/card-identity.ts:362
+msgid "\"I am the answer to every prayer you were afraid to speak.\""
+msgstr "\"I am the answer to every prayer you were afraid to speak.\""
+
+#: src/lib/card-identity.ts:360
+msgid "\"I believe.\" Two words. Infinite consequences."
+msgstr "\"I believe.\" Two words. Infinite consequences."
+
+#: src/lib/card-identity.ts:234
+msgid "\"I didn't start the fire. I just made sure it couldn't stop.\""
+msgstr "\"I didn't start the fire. I just made sure it couldn't stop.\""
+
+#: src/lib/card-identity.ts:240
+msgid "\"I didn't steal it. I liberated it from the burden of ownership.\""
+msgstr "\"I didn't steal it. I liberated it from the burden of ownership.\""
+
+#: src/lib/card-identity.ts:276
+msgid "\"I died here. Now so will everything else.\""
+msgstr "\"I died here. Now so will everything else.\""
+
+#: src/lib/card-identity.ts:268
+msgid "\"I do not judge the dead. I judge what they did while living.\""
+msgstr "\"I do not judge the dead. I judge what they did while living.\""
+
+#: src/lib/card-identity.ts:341
+msgid "\"I don't turn men into swine. I reveal the swine they already are.\""
+msgstr "\"I don't turn men into swine. I reveal the swine they already are.\""
+
+#: src/lib/card-identity.ts:221
+msgid "\"I have looked upon every truth. I recommend ignorance.\""
+msgstr "\"I have looked upon every truth. I recommend ignorance.\""
+
+#: src/lib/card-identity.ts:212
+msgid "\"I see just fine. I only need to see you once.\""
+msgstr "\"I see just fine. I only need to see you once.\""
+
+#: src/lib/card-identity.ts:337
+msgid "\"I was hired for the party. Nobody said anything about the apocalypse.\""
+msgstr "\"I was hired for the party. Nobody said anything about the apocalypse.\""
+
+#: src/lib/card-identity.ts:303
+msgid "\"I'm not fat. I'm aerodynamically generous.\""
+msgstr "\"I'm not fat. I'm aerodynamically generous.\""
+
+#: src/lib/card-identity.ts:231
+msgid "\"Kill one head, two more shall rise.\" The math alone should terrify you."
+msgstr "\"Kill one head, two more shall rise.\" The math alone should terrify you."
+
+#: src/lib/card-identity.ts:317
+msgid "\"Kiss it? I'm going to EAT it.\""
+msgstr "\"Kiss it? I'm going to EAT it.\""
+
+#: src/lib/card-identity.ts:328
+msgid "\"Lead from the dark. Strike from the dark. Return to the dark.\""
+msgstr "\"Lead from the dark. Strike from the dark. Return to the dark.\""
+
+#: src/lib/card-identity.ts:281
+msgid "\"My heel? I fixed that.\""
+msgstr "\"My heel? I fixed that.\""
+
+#: src/lib/card-identity.ts:251
+msgid "\"Nothing is wasted. Everything feeds something.\""
+msgstr "\"Nothing is wasted. Everything feeds something.\""
+
+#: src/lib/card-identity.ts:295
+msgid "\"Peace is the dream of the weak. War is the only honest conversation.\""
+msgstr "\"Peace is the dream of the weak. War is the only honest conversation.\""
+
+#: src/lib/card-identity.ts:310
+msgid "\"Release the —\" Actually, it released itself."
+msgstr "\"Release the —\" Actually, it released itself."
+
+#: src/lib/card-identity.ts:335
+msgid "\"Round and round it goes. Where it stops, nobody chose.\""
+msgstr "\"Round and round it goes. Where it stops, nobody chose.\""
+
+#: src/lib/card-identity.ts:320
+msgid "\"The dead follow orders better than the living. They've learned what disobedience costs.\""
+msgstr "\"The dead follow orders better than the living. They've learned what disobedience costs.\""
+
+#: src/lib/card-identity.ts:264
+msgid "\"The future is certain.\" \"The future is impossible.\" Both heads are always right."
+msgstr "\"The future is certain.\" \"The future is impossible.\" Both heads are always right."
+
+#: src/lib/card-identity.ts:332
+msgid "\"The gryphon chose me. I'm still not sure if that's an honor or a threat.\""
+msgstr "\"The gryphon chose me. I'm still not sure if that's an honor or a threat.\""
+
+#: src/lib/card-identity.ts:330
+msgid "\"The horse knows the way to battle. I just hold on.\""
+msgstr "\"The horse knows the way to battle. I just hold on.\""
+
+#: src/lib/card-identity.ts:327
+msgid "\"The loudest victories make no sound at all.\""
+msgstr "\"The loudest victories make no sound at all.\""
+
+#: src/lib/card-identity.ts:291
+msgid "\"The north wind is not cruel. It simply does not care.\""
+msgstr "\"The north wind is not cruel. It simply does not care.\""
+
+#: src/lib/card-identity.ts:238
+msgid "\"The sands shift. I remain.\""
+msgstr "\"The sands shift. I remain.\""
+
+#: src/lib/card-identity.ts:338
+msgid "\"Two enter, one leaves. Unless I'm having a good day — then none leave.\""
+msgstr "\"Two enter, one leaves. Unless I'm having a good day — then none leave.\""
+
+#: src/lib/card-identity.ts:207
+msgid "\"We do not ride into battle. We ARE the charge.\""
+msgstr "\"We do not ride into battle. We ARE the charge.\""
+
+#: src/lib/card-identity.ts:283
+msgid "\"We don't fight like men. We fight like something men should fear.\""
+msgstr "\"We don't fight like men. We fight like something men should fear.\""
+
+#: src/lib/card-identity.ts:271
+msgid "\"We were ants once. We remember what it means to carry a hundred times our weight.\""
+msgstr "\"We were ants once. We remember what it means to carry a hundred times our weight.\""
+
+#: src/lib/card-identity.ts:339
+msgid "\"Wine is truth. And truth, my friend, is absolutely hammered right now.\""
+msgstr "\"Wine is truth. And truth, my friend, is absolutely hammered right now.\""
+
+#: src/lib/card-identity.ts:224
+msgid "\"Wisdom is knowing which battles to fight. I am here to remind you this is not one of them.\""
+msgstr "\"Wisdom is knowing which battles to fight. I am here to remind you this is not one of them.\""
+
+#: src/lib/card-identity.ts:284
+msgid "\"You came here for answers. You won't like them, but you came anyway.\""
+msgstr "\"You came here for answers. You won't like them, but you came anyway.\""
+
+#: src/lib/card-identity.ts:198
+msgid "\"You cannot catch what was never where you looked.\""
+msgstr "\"You cannot catch what was never where you looked.\""
+
 #. placeholder {0}: selectedToReturn.length
-#: src/components/game/mulligan-screen.tsx:91
+#: src/components/game/mulligan-screen.tsx:82
 msgid "{0, plural, one {Return # Card} other {Return # Cards}}"
 msgstr "{0, plural, one {Return # Card} other {Return # Cards}}"
 
-#: src/components/board/pawn-dots.tsx:18
+#: src/components/board/pawn-dots.tsx:19
 msgid "{count} of {MAX_PAWN_COUNT} pawns"
 msgstr "{count} of {MAX_PAWN_COUNT} pawns"
 
-#: src/components/board/tile.tsx:88
+#: src/components/board/tile.tsx:93
 msgid "{name} (power {power})"
 msgstr "{name} (power {power})"
 
-#: src/components/hand/hand-card.tsx:33
+#: src/components/hand/hand-card.tsx:34
 msgid "{name}, Rank {rank}, Power {power}"
 msgstr "{name}, Rank {rank}, Power {power}"
 
-#: src/components/hand/hand-card.tsx:32
+#: src/components/hand/hand-card.tsx:33
 msgid "{name}, Rank {rank}, Power {power}, no valid moves"
 msgstr "{name}, Rank {rank}, Power {power}, no valid moves"
 
-#: src/components/board/tile.tsx:83
+#: src/components/board/tile.tsx:88
 msgid "{pawnCount} pawns"
 msgstr "{pawnCount} pawns"
 
-#: src/lib/card-identity.ts:221
+#: src/lib/card-identity.ts:411
 msgid "{trigger}: {effect}"
 msgstr "{trigger}: {effect}"
 
-#: src/components/screens/rules-screen.tsx:45
+#: src/components/screens/rules-content.tsx:36
 msgid "← →"
 msgstr "← →"
 
-#: src/components/screens/rules-screen.tsx:51
+#: src/components/screens/rules-content.tsx:42
 msgid "← → ↑ ↓"
 msgstr "← → ↑ ↓"
+
+#: src/components/game/game-menu.tsx:40
+#: src/components/game/game-menu.tsx:53
+msgid "← Back"
+msgstr "← Back"
 
 #: src/components/ui/back-button.tsx:12
 msgid "← Home"
@@ -86,35 +255,51 @@ msgstr "← Home"
 #~ msgid "+{0} to lane score"
 #~ msgstr "+{0} to lane score"
 
-#: src/lib/card-identity.ts:338
+#: src/lib/card-identity.ts:528
 msgid "+{allied} to allies, {enemyStr} to enemies ({target})"
 msgstr "+{allied} to allies, {enemyStr} to enemies ({target})"
 
 #. placeholder {0}: describeTarget(effect.target)
-#: src/lib/card-identity.ts:329
+#: src/lib/card-identity.ts:519
 msgid "+{pawns} pawns to {0}"
 msgstr "+{pawns} pawns to {0}"
 
-#: src/lib/card-identity.ts:300
+#: src/lib/card-identity.ts:490
 msgid "+{val} power to {target}"
 msgstr "+{val} power to {target}"
 
-#: src/lib/card-identity.ts:316
+#: src/lib/card-identity.ts:506
 msgid "+{val} to lane score"
 msgstr "+{val} to lane score"
 
 #. placeholder {0}: describeCondition(effect.condition)
-#: src/lib/card-identity.ts:312
+#: src/lib/card-identity.ts:502
 msgid "+{vpu} power per {0}"
 msgstr "+{vpu} power per {0}"
 
-#: src/lib/card-identity.ts:298
+#: src/lib/card-identity.ts:488
 msgid "+replaced card's power to {target}"
 msgstr "+replaced card's power to {target}"
 
-#: src/components/screens/rules-screen.tsx:22
+#: src/components/screens/rules-content.tsx:9
 msgid "2-player hot-seat game on a 3×5 grid (3 lanes, 5 columns)."
 msgstr "2-player hot-seat game on a 3×5 grid (3 lanes, 5 columns)."
+
+#: src/lib/card-identity.ts:354
+msgid "A cinder that refused to cool, dreaming of the fire it once was."
+msgstr "A cinder that refused to cool, dreaming of the fire it once was."
+
+#: src/lib/card-identity.ts:346
+msgid "A fistful of fury and an attitude three times its size."
+msgstr "A fistful of fury and an attitude three times its size."
+
+#: src/lib/card-identity.ts:349
+msgid "A shadow that forgot which body it belonged to."
+msgstr "A shadow that forgot which body it belonged to."
+
+#: src/lib/card-identity.ts:363
+msgid "A single note of winter's song, frozen in crystal clarity."
+msgstr "A single note of winter's song, frozen in crystal clarity."
 
 #: src/components/screens/home-screen.tsx:26
 msgid "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
@@ -126,12 +311,13 @@ msgid "Ability triggered: {0}"
 msgstr "Ability triggered: {0}"
 
 #. placeholder {0}: definition.ability.effect.type
+#: src/components/card/card-detail.tsx:33
 #: src/components/card/card.tsx:35
 msgid "Ability: {0}"
 msgstr "Ability: {0}"
 
 #: src/components/screens/about-screen.tsx:17
-#: src/components/screens/home-screen.tsx:52
+#: src/components/screens/home-screen.tsx:40
 #: src/components/ui/route-announcer.tsx:21
 msgid "About"
 msgstr "About"
@@ -140,7 +326,7 @@ msgstr "About"
 msgid "Achilles Reborn"
 msgstr "Achilles Reborn"
 
-#: src/components/screens/rules-screen.tsx:39
+#: src/components/screens/rules-content.tsx:30
 msgid "Action"
 msgstr "Action"
 
@@ -152,35 +338,43 @@ msgstr "Action log"
 #~ msgid "Add {0} {tokenName} to hand"
 #~ msgstr "Add {0} {tokenName} to hand"
 
-#: src/lib/card-identity.ts:321
+#: src/lib/card-identity.ts:511
 msgid "Add {count} {tokenName} to hand"
 msgstr "Add {count} {tokenName} to hand"
+
+#: src/components/screens/settings-content.tsx:110
+msgid "Additional game modes coming soon."
+msgstr "Additional game modes coming soon."
 
 #: src/lib/card-identity.ts:129
 msgid "Aegis Keeper"
 msgstr "Aegis Keeper"
 
+#: src/lib/card-identity.ts:202
+msgid "Alexander wept not because there were no worlds left to conquer, but because the elephants would not cross another river."
+msgstr "Alexander wept not because there were no worlds left to conquer, but because the elephants would not cross another river."
+
 #: src/components/deck-builder/filter-bar.tsx:13
 msgid "All"
 msgstr "All"
 
-#: src/lib/card-identity.ts:248
+#: src/lib/card-identity.ts:438
 msgid "all allies"
 msgstr "all allies"
 
-#: src/lib/card-identity.ts:250
+#: src/lib/card-identity.ts:440
 msgid "all cards in lane"
 msgstr "all cards in lane"
 
-#: src/lib/card-identity.ts:249
+#: src/lib/card-identity.ts:439
 msgid "all enemies"
 msgstr "all enemies"
 
-#: src/lib/card-identity.ts:258
+#: src/lib/card-identity.ts:448
 msgid "all enfeebled cards"
 msgstr "all enfeebled cards"
 
-#: src/lib/card-identity.ts:255
+#: src/lib/card-identity.ts:445
 msgid "all enhanced cards"
 msgstr "all enhanced cards"
 
@@ -188,17 +382,25 @@ msgstr "all enhanced cards"
 msgid "All-Seeing Eye"
 msgstr "All-Seeing Eye"
 
-#: src/lib/card-identity.ts:268
+#: src/lib/card-identity.ts:458
 msgid "allied card in lane"
 msgstr "allied card in lane"
 
-#: src/lib/card-identity.ts:270
+#: src/lib/card-identity.ts:460
 msgid "allied card on board"
 msgstr "allied card on board"
 
-#: src/lib/card-identity.ts:251
+#: src/lib/card-identity.ts:441
 msgid "allies in lane"
 msgstr "allies in lane"
+
+#: src/lib/card-identity.ts:305
+msgid "Alone, a nuisance. Together, a catastrophe."
+msgstr "Alone, a nuisance. Together, a catastrophe."
+
+#: src/lib/card-identity.ts:350
+msgid "Already tending her first flower. Already planning her first revenge."
+msgstr "Already tending her first flower. Already planning her first revenge."
 
 #: src/lib/card-identity.ts:105
 msgid "Amazon Striker"
@@ -207,6 +409,14 @@ msgstr "Amazon Striker"
 #: src/lib/card-identity.ts:31
 msgid "Amorphous Ooze"
 msgstr "Amorphous Ooze"
+
+#: src/lib/card-identity.ts:365
+msgid "An entire blizzard, compressed into silence and light."
+msgstr "An entire blizzard, compressed into silence and light."
+
+#: src/lib/card-identity.ts:302
+msgid "An unlikely alliance: one provides the wisdom, the other the wingspan."
+msgstr "An unlikely alliance: one provides the wisdom, the other the wingspan."
 
 #: src/lib/card-identity.ts:100
 msgid "Ancient Adamantine"
@@ -244,7 +454,7 @@ msgstr "Author"
 msgid "Baby Nymph"
 msgstr "Baby Nymph"
 
-#: src/components/screens/rules-screen.tsx:20
+#: src/components/screens/rules-content.tsx:7
 msgid "Basic Rules"
 msgstr "Basic Rules"
 
@@ -252,11 +462,19 @@ msgstr "Basic Rules"
 msgid "Battle Sprite"
 msgstr "Battle Sprite"
 
+#: src/lib/card-identity.ts:203
+msgid "Beauty and cruelty share the same roots."
+msgstr "Beauty and cruelty share the same roots."
+
+#: src/lib/card-identity.ts:294
+msgid "Before the labyrinth, before Minos, before Crete — there was only the bull."
+msgstr "Before the labyrinth, before Minos, before Crete — there was only the bull."
+
 #: src/components/screens/home-screen.tsx:23
 msgid "Blood Fang"
 msgstr "Blood Fang"
 
-#: src/components/game/game-screen.tsx:80
+#: src/components/game/game-screen.tsx:70
 msgid "Board"
 msgstr "Board"
 
@@ -264,11 +482,27 @@ msgstr "Board"
 msgid "Boreas Queen"
 msgstr "Boreas Queen"
 
-#: src/components/screens/setup-screen.tsx:137
+#: src/lib/card-identity.ts:265
+msgid "Born from the space between stars, where even gods fear to look."
+msgstr "Born from the space between stars, where even gods fear to look."
+
+#: src/lib/card-identity.ts:223
+msgid "Born in eruption. Dies in eruption. The part in between is someone else's problem."
+msgstr "Born in eruption. Dies in eruption. The part in between is someone else's problem."
+
+#: src/lib/card-identity.ts:193
+msgid "Born in iron. Forged in discipline. Broken by nothing."
+msgstr "Born in iron. Forged in discipline. Broken by nothing."
+
+#: src/lib/card-identity.ts:351
+msgid "Born yesterday. Angry about it."
+msgstr "Born yesterday. Angry about it."
+
+#: src/components/screens/setup-screen.tsx:139
 msgid "Both decks are ready!"
 msgstr "Both decks are ready!"
 
-#: src/components/screens/rules-screen.tsx:24
+#: src/components/screens/rules-content.tsx:11
 msgid "Both players draw a starting hand with an optional mulligan phase."
 msgstr "Both players draw a starting hand with an optional mulligan phase."
 
@@ -280,14 +514,12 @@ msgstr "Bronze Fortress"
 msgid "Bronze Sweeper"
 msgstr "Bronze Sweeper"
 
-#: src/components/game/exit-confirm-dialog.tsx:19
-#: src/components/game/game-screen.tsx:42
-#: src/components/game/game-screen.tsx:64
-#: src/components/ui/confirm-dialog.tsx:54
+#: src/components/game/game-screen.tsx:45
+#: src/components/ui/confirm-dialog.tsx:40
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/components/deck-builder/card-catalog.tsx:34
+#: src/components/deck-builder/card-catalog.tsx:35
 msgid "Card catalog"
 msgstr "Card catalog"
 
@@ -299,19 +531,19 @@ msgstr "Card destroyed at ({row},{col})"
 msgid "Card name..."
 msgstr "Card name..."
 
-#: src/lib/card-identity.ts:272
+#: src/lib/card-identity.ts:462
 msgid "card on board"
 msgstr "card on board"
 
-#: src/components/screens/rules-screen.tsx:26
+#: src/components/screens/rules-content.tsx:13
 msgid "Cards have power, range, rank (1★ / 2★ / 3★ / Replacement), and abilities."
 msgstr "Cards have power, range, rank (1★ / 2★ / 3★ / Replacement), and abilities."
 
-#: src/lib/card-identity.ts:246
+#: src/lib/card-identity.ts:436
 msgid "cards in range"
 msgstr "cards in range"
 
-#: src/components/game/mulligan-screen.tsx:66
+#: src/components/game/mulligan-screen.tsx:56
 msgid "Cards to mulligan"
 msgstr "Cards to mulligan"
 
@@ -351,20 +583,28 @@ msgstr "Chariot of Ares"
 msgid "Circe Enchantress"
 msgstr "Circe Enchantress"
 
-#: src/components/deck-builder/deck-builder.tsx:48
+#: src/components/deck-builder/deck-builder.tsx:49
 msgid "Clear"
 msgstr "Clear"
 
-#: src/components/ui/confirm-dialog.tsx:57
+#: src/lib/card-identity.ts:197
+msgid "Cleopatra chose the asp not for its venom, but for its silence."
+msgstr "Cleopatra chose the asp not for its venom, but for its silence."
+
+#: src/components/ui/content-dialog.tsx:27
+msgid "Close"
+msgstr "Close"
+
+#: src/components/ui/confirm-dialog.tsx:43
 msgid "Confirm"
 msgstr "Confirm"
 
 #. placeholder {0}: selectedCards.length
-#: src/components/deck-builder/deck-builder.tsx:62
+#: src/components/deck-builder/deck-builder.tsx:58
 msgid "Confirm ({0}/{DECK_SIZE})"
 msgstr "Confirm ({0}/{DECK_SIZE})"
 
-#: src/lib/card-identity.ts:273
+#: src/lib/card-identity.ts:463
 msgid "controlled tile in lane"
 msgstr "controlled tile in lane"
 
@@ -384,6 +624,10 @@ msgstr "Crystal Karkinos"
 msgid "Cursed Stag"
 msgstr "Cursed Stag"
 
+#: src/lib/card-identity.ts:230
+msgid "Cut it apart and each piece remembers being whole."
+msgstr "Cut it apart and each piece remembers being whole."
+
 #: src/lib/card-identity.ts:34
 msgid "Cyclops Brute"
 msgstr "Cyclops Brute"
@@ -396,16 +640,21 @@ msgstr "Daedalus Glider"
 msgid "Daedalus Pilot"
 msgstr "Daedalus Pilot"
 
-#: src/components/screens/settings-screen.tsx:48
+#: src/lib/card-identity.ts:318
+msgid "Daedalus' greatest failure — or his greatest success, depending on who you ask."
+msgstr "Daedalus' greatest failure — or his greatest success, depending on who you ask."
+
+#: src/components/screens/settings-content.tsx:83
 msgid "Dark"
 msgstr "Dark"
 
 #. placeholder {0}: selectedCards.length
-#: src/components/deck-builder/deck-slots.tsx:15
+#: src/components/deck-builder/deck-slots.tsx:16
 msgid "Deck ({0}/{DECK_SIZE})"
 msgstr "Deck ({0}/{DECK_SIZE})"
 
-#: src/components/screens/rules-screen.tsx:65
+#: src/components/game/selected-card-detail.tsx:24
+#: src/components/screens/rules-content.tsx:56
 msgid "Deselect card"
 msgstr "Deselect card"
 
@@ -418,13 +667,21 @@ msgid "Desert Triton"
 msgstr "Desert Triton"
 
 #. placeholder {0}: describeTarget(effect.target)
-#: src/lib/card-identity.ts:309
+#: src/lib/card-identity.ts:499
 msgid "Destroy {0}"
 msgstr "Destroy {0}"
 
 #: src/lib/card-identity.ts:161
 msgid "Dionysus Reveler"
 msgstr "Dionysus Reveler"
+
+#: src/lib/card-identity.ts:326
+msgid "Diplomacy is the art of saying \"nice doggy\" until you can find a rock. This is the rock."
+msgstr "Diplomacy is the art of saying \"nice doggy\" until you can find a rock. This is the rock."
+
+#: src/components/screens/settings-content.tsx:39
+msgid "Display a log of game actions during play."
+msgstr "Display a log of game actions during play."
 
 #: src/lib/card-identity.ts:120
 msgid "Divine Colossus"
@@ -436,8 +693,8 @@ msgstr "Drakon Ascendant"
 
 #. placeholder {0}: scores[0]
 #. placeholder {1}: scores[1]
-#: src/store/game-store.ts:142
-#: src/store/game-store.ts:168
+#: src/store/game-store.ts:137
+#: src/store/game-store.ts:163
 msgid "Draw! {0} to {1}."
 msgstr "Draw! {0} to {1}."
 
@@ -445,7 +702,7 @@ msgstr "Draw! {0} to {1}."
 msgid "Dryad Seedling"
 msgstr "Dryad Seedling"
 
-#: src/components/screens/rules-screen.tsx:23
+#: src/components/screens/rules-content.tsx:10
 msgid "Each player builds a 15-card deck before the game begins."
 msgstr "Each player builds a 15-card deck before the game begins."
 
@@ -477,27 +734,27 @@ msgstr "Elite Myrmidon"
 msgid "Ember Salamander"
 msgstr "Ember Salamander"
 
-#: src/components/deck-builder/deck-slots.tsx:28
+#: src/components/deck-builder/deck-slots.tsx:29
 msgid "Empty"
 msgstr "Empty"
 
-#: src/lib/card-identity.ts:237
+#: src/lib/card-identity.ts:427
 msgid "End of game"
 msgstr "End of game"
 
-#: src/lib/card-identity.ts:252
+#: src/lib/card-identity.ts:442
 msgid "enemies in lane"
 msgstr "enemies in lane"
 
-#: src/lib/card-identity.ts:269
+#: src/lib/card-identity.ts:459
 msgid "enemy card in lane"
 msgstr "enemy card in lane"
 
-#: src/lib/card-identity.ts:271
+#: src/lib/card-identity.ts:461
 msgid "enemy card on board"
 msgstr "enemy card on board"
 
-#: src/lib/card-identity.ts:256
+#: src/lib/card-identity.ts:446
 msgid "enfeebled allies"
 msgstr "enfeebled allies"
 
@@ -506,11 +763,11 @@ msgstr "enfeebled allies"
 msgid "Enfeebled card -{0} power"
 msgstr "Enfeebled card -{0} power"
 
-#: src/lib/card-identity.ts:257
+#: src/lib/card-identity.ts:447
 msgid "enfeebled enemies"
 msgstr "enfeebled enemies"
 
-#: src/lib/card-identity.ts:253
+#: src/lib/card-identity.ts:443
 msgid "enhanced allies"
 msgstr "enhanced allies"
 
@@ -519,15 +776,15 @@ msgstr "enhanced allies"
 msgid "Enhanced card +{0} power"
 msgstr "Enhanced card +{0} power"
 
-#: src/lib/card-identity.ts:254
+#: src/lib/card-identity.ts:444
 msgid "enhanced enemies"
 msgstr "enhanced enemies"
 
-#: src/components/screens/rules-screen.tsx:57
+#: src/components/screens/rules-content.tsx:48
 msgid "Enter / Space"
 msgstr "Enter / Space"
 
-#: src/components/screens/rules-screen.tsx:63
+#: src/components/screens/rules-content.tsx:54
 msgid "Escape"
 msgstr "Escape"
 
@@ -535,13 +792,41 @@ msgstr "Escape"
 msgid "Eternal Phoenix"
 msgstr "Eternal Phoenix"
 
-#: src/store/game-store.ts:87
+#: src/lib/card-identity.ts:321
+msgid "Even monsters can be abandoned. This one remembers."
+msgstr "Even monsters can be abandoned. This one remembers."
+
+#: src/lib/card-identity.ts:201
+msgid "Every ancient grove began with a single stubborn seed refusing to die."
+msgstr "Every ancient grove began with a single stubborn seed refusing to die."
+
+#: src/lib/card-identity.ts:299
+msgid "Every drakon bows. Not from loyalty — from memory."
+msgstr "Every drakon bows. Not from loyalty — from memory."
+
+#: src/lib/card-identity.ts:316
+msgid "Every story needs a hero who falls. His story needs it twice."
+msgstr "Every story needs a hero who falls. His story needs it twice."
+
+#: src/components/game/game-menu.tsx:77
+msgid "Exit Game"
+msgstr "Exit Game"
+
+#: src/store/game-store.ts:82
 msgid "Failed to start game: {reason}"
 msgstr "Failed to start game: {reason}"
+
+#: src/lib/card-identity.ts:361
+msgid "Faith sharpened into a blade and driven through doubt's heart."
+msgstr "Faith sharpened into a blade and driven through doubt's heart."
 
 #: src/lib/card-identity.ts:162
 msgid "Fallen Seraph"
 msgstr "Fallen Seraph"
+
+#: src/lib/card-identity.ts:256
+msgid "Far from the sea but never far from the storm."
+msgstr "Far from the sea but never far from the storm."
 
 #: src/lib/card-identity.ts:27
 msgid "Feathered Drake"
@@ -562,6 +847,22 @@ msgstr "Fire Hurler"
 #: src/lib/card-identity.ts:107
 msgid "Flame of Prometheus"
 msgstr "Flame of Prometheus"
+
+#: src/lib/card-identity.ts:272
+msgid "Flesh replaced with bronze. Mercy replaced with nothing."
+msgstr "Flesh replaced with bronze. Mercy replaced with nothing."
+
+#: src/lib/card-identity.ts:227
+msgid "Forged for a king who never threw it. Thrown by a soldier who never missed."
+msgstr "Forged for a king who never threw it. Thrown by a soldier who never missed."
+
+#: src/lib/card-identity.ts:236
+msgid "Forged from a river that remembers every oath ever broken."
+msgstr "Forged from a river that remembers every oath ever broken."
+
+#: src/lib/card-identity.ts:309
+msgid "Forged from the metal of Atlantis — the only thing that survived the sinking."
+msgstr "Forged from the metal of Atlantis — the only thing that survived the sinking."
 
 #: src/lib/card-identity.ts:143
 msgid "Forgotten Chimera"
@@ -593,11 +894,11 @@ msgstr "Gaia Titan"
 msgid "Game"
 msgstr "Game"
 
-#: src/components/board/board.tsx:52
+#: src/components/board/board.tsx:55
 msgid "Game board"
 msgstr "Game board"
 
-#: src/components/game/game-screen.tsx:76
+#: src/components/game/game-screen.tsx:62
 msgid "Game Board"
 msgstr "Game Board"
 
@@ -607,18 +908,26 @@ msgstr "Game Board"
 msgid "Game ended: {0} - {1}"
 msgstr "Game ended: {0} - {1}"
 
-#: src/store/game-store.ts:143
-#: src/store/game-store.ts:169
+#: src/components/game/game-menu.tsx:29
+msgid "Game menu"
+msgstr "Game menu"
+
+#: src/components/screens/settings-content.tsx:96
+msgid "Game Mode"
+msgstr "Game Mode"
+
+#: src/store/game-store.ts:138
+#: src/store/game-store.ts:164
 msgid "Game over. {winMsg}"
 msgstr "Game over. {winMsg}"
 
-#: src/components/screens/setup-screen.tsx:94
-#: src/components/screens/setup-screen.tsx:136
+#: src/components/screens/setup-screen.tsx:95
+#: src/components/screens/setup-screen.tsx:138
 #: src/components/ui/route-announcer.tsx:11
 msgid "Game Setup"
 msgstr "Game Setup"
 
-#: src/store/game-store.ts:84
+#: src/store/game-store.ts:79
 msgid "Game started. Mulligan phase. Player 1, select cards to return."
 msgstr "Game started. Mulligan phase. Player 1, select cards to return."
 
@@ -666,7 +975,11 @@ msgstr "Gryphon & Sprite"
 msgid "Gryphon Rider"
 msgstr "Gryphon Rider"
 
-#: src/components/game/game-screen.tsx:88
+#: src/lib/card-identity.ts:252
+msgid "Half eagle, half lion, wholly convinced of its divine right to everything."
+msgstr "Half eagle, half lion, wholly convinced of its divine right to everything."
+
+#: src/components/game/game-screen.tsx:78
 msgid "Hand"
 msgstr "Hand"
 
@@ -678,6 +991,18 @@ msgstr "Harmony Duality"
 msgid "Harpy Screamer"
 msgstr "Harpy Screamer"
 
+#: src/lib/card-identity.ts:329
+msgid "He gilds his throne with the crowns of lesser kings."
+msgstr "He gilds his throne with the crowns of lesser kings."
+
+#: src/lib/card-identity.ts:282
+msgid "He held up the sky until he realized it made a better weapon."
+msgstr "He held up the sky until he realized it made a better weapon."
+
+#: src/lib/card-identity.ts:228
+msgid "He rules the dead not through fear, but through the simple truth that no one leaves."
+msgstr "He rules the dead not through fear, but through the simple truth that no one leaves."
+
 #: src/lib/card-identity.ts:176
 msgid "Heat Fragment"
 msgstr "Heat Fragment"
@@ -685,6 +1010,14 @@ msgstr "Heat Fragment"
 #: src/lib/card-identity.ts:55
 msgid "Heat Golem"
 msgstr "Heat Golem"
+
+#: src/lib/card-identity.ts:217
+msgid "Hephaestus built it without a soul, then couldn't explain why it wept."
+msgstr "Hephaestus built it without a soul, then couldn't explain why it wept."
+
+#: src/lib/card-identity.ts:196
+msgid "Her song doesn't lure sailors to the rocks. It makes them forget that rocks exist at all."
+msgstr "Her song doesn't lure sailors to the rocks. It makes them forget that rocks exist at all."
 
 #: src/lib/card-identity.ts:62
 msgid "Hermes Trickster"
@@ -695,6 +1028,10 @@ msgstr "Hermes Trickster"
 msgid "Home"
 msgstr "Home"
 
+#: src/lib/card-identity.ts:306
+msgid "Hope was the last thing inside. Some say that's cruelty, not kindness."
+msgstr "Hope was the last thing inside. Some say that's cruelty, not kindness."
+
 #: src/lib/card-identity.ts:14
 msgid "Hoplite Guard"
 msgstr "Hoplite Guard"
@@ -703,9 +1040,21 @@ msgstr "Hoplite Guard"
 msgid "House of Hades"
 msgstr "House of Hades"
 
+#: src/lib/card-identity.ts:356
+msgid "Hugging it is technically possible. Technically."
+msgstr "Hugging it is technically possible. Technically."
+
 #: src/lib/card-identity.ts:97
 msgid "Hundred-Eyed Argus"
 msgstr "Hundred-Eyed Argus"
+
+#: src/components/card/card-art.tsx:51
+msgid "Illustration of {name}"
+msgstr "Illustration of {name}"
+
+#: src/lib/card-identity.ts:199
+msgid "In Arcadia, the wolves don't howl. They have nothing left to mourn."
+msgstr "In Arcadia, the wolves don't howl. They have nothing left to mourn."
 
 #: src/lib/card-identity.ts:148
 msgid "Iron Fist"
@@ -719,9 +1068,125 @@ msgstr "Iron Giant"
 msgid "Iron Myrmidon"
 msgstr "Iron Myrmidon"
 
+#: src/lib/card-identity.ts:355
+msgid "It chose this shape. Ask it tomorrow and the answer will be different."
+msgstr "It chose this shape. Ask it tomorrow and the answer will be different."
+
+#: src/lib/card-identity.ts:261
+msgid "It circles above battlefields that haven't happened yet."
+msgstr "It circles above battlefields that haven't happened yet."
+
+#: src/lib/card-identity.ts:232
+msgid "It crows at dawn. By noon, the garden has new statuary."
+msgstr "It crows at dawn. By noon, the garden has new statuary."
+
+#: src/lib/card-identity.ts:209
+msgid "It doesn't consume. It simply makes everything part of itself."
+msgstr "It doesn't consume. It simply makes everything part of itself."
+
+#: src/lib/card-identity.ts:250
+msgid "It doesn't have a shape. It has all of them, and it's choosing."
+msgstr "It doesn't have a shape. It has all of them, and it's choosing."
+
+#: src/lib/card-identity.ts:308
+msgid "It encircles the world not to contain it, but to hold it together."
+msgstr "It encircles the world not to contain it, but to hold it together."
+
+#: src/lib/card-identity.ts:260
+msgid "It escaped the pit once. Once was enough to learn the way."
+msgstr "It escaped the pit once. Once was enough to learn the way."
+
+#: src/lib/card-identity.ts:220
+msgid "It feeds not on blood but on certainty, leaving its victims unsure of their own names."
+msgstr "It feeds not on blood but on certainty, leaving its victims unsure of their own names."
+
+#: src/lib/card-identity.ts:340
+msgid "It fell not from grace, but from boredom with perfection."
+msgstr "It fell not from grace, but from boredom with perfection."
+
+#: src/lib/card-identity.ts:214
+msgid "It flies above the clouds not to hide, but because the ground bores it."
+msgstr "It flies above the clouds not to hide, but because the ground bores it."
+
+#: src/lib/card-identity.ts:200
+msgid "It giggles in the dark. That's how you know you've gone too deep."
+msgstr "It giggles in the dark. That's how you know you've gone too deep."
+
+#: src/lib/card-identity.ts:358
+msgid "It grew from a spark into a promise. The promise: everything burns."
+msgstr "It grew from a spark into a promise. The promise: everything burns."
+
+#: src/lib/card-identity.ts:226
+msgid "It has guarded the same reef for three thousand years. It does not know why. It does not need to."
+msgstr "It has guarded the same reef for three thousand years. It does not know why. It does not need to."
+
+#: src/lib/card-identity.ts:257
+msgid "It has lived in the dark so long it has forgotten the sun. The sun has not forgotten it."
+msgstr "It has lived in the dark so long it has forgotten the sun. The sun has not forgotten it."
+
+#: src/lib/card-identity.ts:347
+msgid "It learned magic the hard way — by exploding, repeatedly."
+msgstr "It learned magic the hard way — by exploding, repeatedly."
+
+#: src/lib/card-identity.ts:255
+msgid "It obeys no master, follows no pattern, and respects no boundary."
+msgstr "It obeys no master, follows no pattern, and respects no boundary."
+
+#: src/lib/card-identity.ts:263
+msgid "It remembers the taste of titans."
+msgstr "It remembers the taste of titans."
+
+#: src/lib/card-identity.ts:333
+msgid "It sails not on water but on the space between constellations."
+msgstr "It sails not on water but on the space between constellations."
+
+#: src/lib/card-identity.ts:300
+msgid "It shed its scales and grew something worse: ambition."
+msgstr "It shed its scales and grew something worse: ambition."
+
+#: src/lib/card-identity.ts:216
+msgid "It sleeps in the hearth. Disturb the coals and you'll meet its teeth."
+msgstr "It sleeps in the hearth. Disturb the coals and you'll meet its teeth."
+
+#: src/lib/card-identity.ts:298
+msgid "It straddles the harbor not as guardian, but as warning: some doors should stay closed."
+msgstr "It straddles the harbor not as guardian, but as warning: some doors should stay closed."
+
+#: src/lib/card-identity.ts:267
+msgid "It wears the face of someone you once trusted."
+msgstr "It wears the face of someone you once trusted."
+
 #: src/components/game/results-screen.tsx:31
 msgid "It's a Draw!"
 msgstr "It's a Draw!"
+
+#: src/lib/card-identity.ts:195
+msgid "Its blade traces a perfect arc. Everything within that arc ceases to exist."
+msgstr "Its blade traces a perfect arc. Everything within that arc ceases to exist."
+
+#: src/lib/card-identity.ts:248
+msgid "Its blood poisons rivers. Its breath wilts forests. Its temper is worse."
+msgstr "Its blood poisons rivers. Its breath wilts forests. Its temper is worse."
+
+#: src/lib/card-identity.ts:304
+msgid "Its feathers are worth kingdoms. Its loyalty is worth more."
+msgstr "Its feathers are worth kingdoms. Its loyalty is worth more."
+
+#: src/lib/card-identity.ts:313
+msgid "Its gaze petrifies. Its breath poisons. Its mere presence is an insult to nature."
+msgstr "Its gaze petrifies. Its breath poisons. Its mere presence is an insult to nature."
+
+#: src/lib/card-identity.ts:274
+msgid "Its hide turned aside Heracles' arrows. What chance does yours have?"
+msgstr "Its hide turned aside Heracles' arrows. What chance does yours have?"
+
+#: src/lib/card-identity.ts:204
+msgid "Its shell refracts starlight into a thousand tiny rainbows. Its claws do not."
+msgstr "Its shell refracts starlight into a thousand tiny rainbows. Its claws do not."
+
+#: src/lib/card-identity.ts:348
+msgid "Its songs are tiny, its courage enormous, and its pitch questionable."
+msgstr "Its songs are tiny, its courage enormous, and its pitch questionable."
 
 #: src/lib/card-identity.ts:81
 msgid "Janus Mask"
@@ -731,15 +1196,15 @@ msgstr "Janus Mask"
 msgid "Junior Nymph"
 msgstr "Junior Nymph"
 
-#: src/components/game/mulligan-screen.tsx:88
+#: src/components/game/mulligan-screen.tsx:79
 msgid "Keep All"
 msgstr "Keep All"
 
-#: src/components/screens/rules-screen.tsx:38
+#: src/components/screens/rules-content.tsx:29
 msgid "Key"
 msgstr "Key"
 
-#: src/components/screens/rules-screen.tsx:33
+#: src/components/screens/rules-content.tsx:24
 msgid "Keyboard Shortcuts"
 msgstr "Keyboard Shortcuts"
 
@@ -780,19 +1245,15 @@ msgstr "Lane {laneNum}: Tied {p0} to {p1}"
 msgid "Lane Breakdown"
 msgstr "Lane Breakdown"
 
-#: src/components/screens/settings-screen.tsx:23
+#: src/components/screens/settings-content.tsx:50
 msgid "Language"
 msgstr "Language"
 
-#: src/components/game/exit-confirm-dialog.tsx:18
-#: src/components/game/game-screen.tsx:41
-#: src/components/game/game-screen.tsx:63
+#: src/components/game/game-screen.tsx:44
 msgid "Leave"
 msgstr "Leave"
 
-#: src/components/game/exit-confirm-dialog.tsx:16
-#: src/components/game/game-screen.tsx:39
-#: src/components/game/game-screen.tsx:61
+#: src/components/game/game-screen.tsx:42
 msgid "Leave game?"
 msgstr "Leave game?"
 
@@ -828,6 +1289,14 @@ msgstr "Mantis Chimera"
 msgid "Marble Colossus"
 msgstr "Marble Colossus"
 
+#: src/lib/card-identity.ts:262
+msgid "Medusa's lesser sister, but \"lesser\" is a generous word."
+msgstr "Medusa's lesser sister, but \"lesser\" is a generous word."
+
+#: src/components/game/game-menu.tsx:66
+msgid "Menu"
+msgstr "Menu"
+
 #: src/lib/card-identity.ts:90
 msgid "Minos Judge"
 msgstr "Minos Judge"
@@ -840,11 +1309,11 @@ msgstr "Minotaur Thug"
 msgid "MIT — Copyright (c) 2026 Blood Fang Contributors"
 msgstr "MIT — Copyright (c) 2026 Blood Fang Contributors"
 
-#: src/components/screens/settings-screen.tsx:34
+#: src/components/screens/settings-content.tsx:62
 msgid "More languages coming soon."
 msgstr "More languages coming soon."
 
-#: src/components/screens/settings-screen.tsx:50
+#: src/components/screens/settings-content.tsx:85
 msgid "More themes coming soon."
 msgstr "More themes coming soon."
 
@@ -852,11 +1321,11 @@ msgstr "More themes coming soon."
 msgid "Mother Nymph"
 msgstr "Mother Nymph"
 
-#: src/components/screens/rules-screen.tsx:71
+#: src/components/screens/rules-content.tsx:62
 msgid "Move between sections"
 msgstr "Move between sections"
 
-#: src/store/game-store.ts:99
+#: src/store/game-store.ts:94
 msgid "Mulligan complete. Player {p}'s turn."
 msgstr "Mulligan complete. Player {p}'s turn."
 
@@ -872,11 +1341,11 @@ msgstr "Narcissus Trap"
 msgid "Nautilus Guardian"
 msgstr "Nautilus Guardian"
 
-#: src/components/screens/rules-screen.tsx:53
+#: src/components/screens/rules-content.tsx:44
 msgid "Navigate board"
 msgstr "Navigate board"
 
-#: src/components/screens/rules-screen.tsx:47
+#: src/components/screens/rules-content.tsx:38
 msgid "Navigate hand"
 msgstr "Navigate hand"
 
@@ -888,17 +1357,29 @@ msgstr "Navigation"
 msgid "Nemean Guardian"
 msgstr "Nemean Guardian"
 
+#: src/lib/card-identity.ts:342
+msgid "Night does not fall. Night rules, and it always has."
+msgstr "Night does not fall. Night rules, and it always has."
+
 #: src/components/game/action-log.tsx:33
 msgid "No actions yet."
 msgstr "No actions yet."
 
-#: src/components/hand/hand.tsx:48
+#: src/components/hand/hand.tsx:51
 msgid "No cards in hand"
 msgstr "No cards in hand"
 
-#: src/components/deck-builder/card-catalog.tsx:57
+#: src/components/deck-builder/card-catalog.tsx:60
 msgid "No cards match your filters."
 msgstr "No cards match your filters."
+
+#: src/lib/card-identity.ts:205
+msgid "Not quite dragon, not quite bird. Entirely lethal."
+msgstr "Not quite dragon, not quite bird. Entirely lethal."
+
+#: src/lib/card-identity.ts:352
+msgid "Not quite flight. Not quite falling. Somewhere beautifully in between."
+msgstr "Not quite flight. Not quite falling. Somewhere beautifully in between."
 
 #: src/lib/card-identity.ts:167
 msgid "Nymph Sprout"
@@ -916,24 +1397,42 @@ msgstr "Nyx Wing"
 msgid "Ocean Leviathan"
 msgstr "Ocean Leviathan"
 
+#: src/lib/card-identity.ts:211
+msgid "Old enough to remember when the gods were young and afraid."
+msgstr "Old enough to remember when the gods were young and afraid."
+
+#: src/lib/card-identity.ts:259
+msgid "One face sees what was. The other sees what will be. Both are weeping."
+msgstr "One face sees what was. The other sees what will be. Both are weeping."
+
+#: src/lib/card-identity.ts:331
+msgid "One hundred fifty pairs. Each fights not for country, but for the soul beside them."
+msgstr "One hundred fifty pairs. Each fights not for country, but for the soul beside them."
+
+#: src/lib/card-identity.ts:210
+msgid "One is a curiosity. A hundred is an invasion. A thousand is a geological event."
+msgstr "One is a curiosity. A hundred is an invasion. A thousand is a geological event."
+
 #: src/lib/card-identity.ts:106
 msgid "Oracle of Delphi"
 msgstr "Oracle of Delphi"
+
+#: src/lib/card-identity.ts:270
+msgid "Order is a story the living tell themselves. This is the truth beneath."
+msgstr "Order is a story the living tell themselves. This is the truth beneath."
 
 #: src/lib/card-identity.ts:131
 msgid "Orichalcum Golem"
 msgstr "Orichalcum Golem"
 
-#: src/components/board/tile.tsx:79
+#: src/components/board/tile.tsx:84
 msgid "Owned by Player {ownerNum}"
 msgstr "Owned by Player {ownerNum}"
 
 #. placeholder {0}: def.power
-#. placeholder {0}: player + 1
 #. placeholder {0}: tile.owner + 1
-#: src/components/board/lane-scores.tsx:25
-#: src/components/board/tile.tsx:69
-#: src/components/deck-builder/deck-slots.tsx:42
+#: src/components/board/tile.tsx:74
+#: src/components/deck-builder/deck-slots.tsx:44
 msgid "P{0}"
 msgstr "P{0}"
 
@@ -973,6 +1472,10 @@ msgstr "P{p} received a card"
 msgid "Page"
 msgstr "Page"
 
+#: src/lib/card-identity.ts:319
+msgid "Painted red not for intimidation, but to hide the stains."
+msgstr "Painted red not for intimidation, but to hide the stains."
+
 #: src/lib/card-identity.ts:128
 msgid "Pandora's Jar"
 msgstr "Pandora's Jar"
@@ -986,15 +1489,19 @@ msgid "Pass (No Moves)"
 msgstr "Pass (No Moves)"
 
 #. placeholder {0}: currentPlayer + 1
-#: src/components/game/turn-transition.tsx:57
+#: src/components/game/turn-transition.tsx:41
 msgid "Pass the device to Player {0}"
 msgstr "Pass the device to Player {0}"
 
-#: src/components/screens/setup-screen.tsx:96
+#: src/components/screens/setup-screen.tsx:97
 msgid "Pass the device to Player 2."
 msgstr "Pass the device to Player 2."
 
-#: src/components/screens/rules-screen.tsx:27
+#: src/lib/card-identity.ts:244
+msgid "Patient as prayer. Sudden as blasphemy."
+msgstr "Patient as prayer. Sudden as blasphemy."
+
+#: src/components/screens/rules-content.tsx:14
 msgid "Pawns on tiles determine control. Each lane's score is the sum of card power."
 msgstr "Pawns on tiles determine control. Each lane's score is the sum of card power."
 
@@ -1015,20 +1522,29 @@ msgid "Phantom Wraith"
 msgstr "Phantom Wraith"
 
 #. placeholder {0}: currentPlayer + 1
-#: src/components/game/mulligan-screen.tsx:58
+#: src/components/game/mulligan-screen.tsx:48
 msgid "Player {0} — Mulligan"
 msgstr "Player {0} — Mulligan"
 
 #. placeholder {0}: player + 1
+#: src/components/board/lane-scores.tsx:21
+msgid "Player {0} lane scores"
+msgstr "Player {0} lane scores"
+
 #: src/components/board/lane-scores.tsx:23
-msgid "Player {0} scores"
-msgstr "Player {0} scores"
+#~ msgid "Player {0} scores"
+#~ msgstr "Player {0} scores"
+
+#. placeholder {0}: player + 1
+#: src/components/board/lane-scores.tsx:74
+msgid "Player {0} total score"
+msgstr "Player {0} total score"
 
 #. placeholder {0}: winner + 1
 #. placeholder {1}: scores[winner]
 #. placeholder {2}: scores[winner === 0 ? 1 : 0]
-#: src/store/game-store.ts:141
-#: src/store/game-store.ts:167
+#: src/store/game-store.ts:136
+#: src/store/game-store.ts:162
 msgid "Player {0} wins {1} to {2}."
 msgstr "Player {0} wins {1} to {2}."
 
@@ -1038,35 +1554,35 @@ msgid "Player {0} Wins!"
 msgstr "Player {0} Wins!"
 
 #. placeholder {0}: currentPlayer + 1
-#: src/components/hand/hand.tsx:58
+#: src/components/hand/hand.tsx:60
 msgid "Player {0}'s hand"
 msgstr "Player {0}'s hand"
 
 #. placeholder {0}: currentPlayer + 1
 #. placeholder {0}: player + 1
 #: src/components/game/turn-indicator.tsx:14
-#: src/components/game/turn-transition.tsx:55
+#: src/components/game/turn-transition.tsx:39
 msgid "Player {0}'s Turn"
 msgstr "Player {0}'s Turn"
 
-#: src/store/game-store.ts:147
-#: src/store/game-store.ts:173
+#: src/store/game-store.ts:142
+#: src/store/game-store.ts:168
 msgid "Player {nextP}'s turn."
 msgstr "Player {nextP}'s turn."
 
-#: src/store/game-store.ts:160
+#: src/store/game-store.ts:155
 msgid "Player {passP} passed."
 msgstr "Player {passP} passed."
 
-#: src/store/game-store.ts:106
+#: src/store/game-store.ts:101
 msgid "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
 msgstr "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
 
-#: src/components/deck-builder/deck-builder.tsx:35
+#: src/components/deck-builder/deck-builder.tsx:36
 msgid "Player {playerNumber} — Build Your Deck"
 msgstr "Player {playerNumber} — Build Your Deck"
 
-#: src/store/game-store.ts:134
+#: src/store/game-store.ts:129
 msgid "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 msgstr "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 
@@ -1074,7 +1590,7 @@ msgstr "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 msgid "Player 1"
 msgstr "Player 1"
 
-#: src/components/screens/setup-screen.tsx:95
+#: src/components/screens/setup-screen.tsx:96
 msgid "Player 1 deck saved!"
 msgstr "Player 1 deck saved!"
 
@@ -1086,13 +1602,21 @@ msgstr "Player 2"
 msgid "Player 2 — Build Deck"
 msgstr "Player 2 — Build Deck"
 
-#: src/components/screens/rules-screen.tsx:25
+#: src/components/screens/settings-content.tsx:108
+msgid "Player vs AI"
+msgstr "Player vs AI"
+
+#: src/components/screens/rules-content.tsx:12
 msgid "Players take turns placing a card on the board or passing."
 msgstr "Players take turns placing a card on the board or passing."
 
 #: src/lib/card-identity.ts:125
 msgid "Plump Gryphon"
 msgstr "Plump Gryphon"
+
+#: src/lib/card-identity.ts:297
+msgid "Poseidon built it from a nightmare he couldn't shake. The ocean has trembled ever since."
+msgstr "Poseidon built it from a nightmare he couldn't shake. The ocean has trembled ever since."
 
 #: src/components/card/power-badge.tsx:31
 msgid "Power {effectivePower}"
@@ -1106,6 +1630,7 @@ msgstr "Power {effectivePower}, buffed"
 msgid "Power {effectivePower}, debuffed"
 msgstr "Power {effectivePower}, debuffed"
 
+#: src/components/card/card-detail.tsx:32
 #: src/components/card/card.tsx:34
 msgid "Power {power}"
 msgstr "Power {power}"
@@ -1118,6 +1643,14 @@ msgstr "Protean Mass"
 msgid "Psyche Leech"
 msgstr "Psyche Leech"
 
+#: src/components/screens/settings-content.tsx:107
+msgid "PvP — Online"
+msgstr "PvP — Online"
+
+#: src/components/screens/settings-content.tsx:106
+msgid "PvP — Same Device"
+msgstr "PvP — Same Device"
+
 #: src/lib/card-identity.ts:112
 msgid "Pyriphlegethon"
 msgstr "Pyriphlegethon"
@@ -1127,9 +1660,26 @@ msgid "Pyroclast Soldier"
 msgstr "Pyroclast Soldier"
 
 #: src/components/card/range-grid.tsx:33
-msgid "Range pattern"
-msgstr "Range pattern"
+#~ msgid "Range pattern"
+#~ msgstr "Range pattern"
 
+#: src/components/card/range-grid.tsx:18
+msgid "Range: {abilityCells} ability tiles"
+msgstr "Range: {abilityCells} ability tiles"
+
+#: src/components/card/range-grid.tsx:15
+msgid "Range: {pawnCells} pawn tiles"
+msgstr "Range: {pawnCells} pawn tiles"
+
+#: src/components/card/range-grid.tsx:12
+msgid "Range: {pawnCells} pawn tiles, {abilityCells} ability tiles"
+msgstr "Range: {pawnCells} pawn tiles, {abilityCells} ability tiles"
+
+#: src/components/card/range-grid.tsx:20
+msgid "Range: no tiles"
+msgstr "Range: no tiles"
+
+#: src/components/card/card-detail.tsx:31
 #: src/components/card/card.tsx:33
 #: src/components/card/rank-icon.tsx:26
 msgid "Rank {rank}"
@@ -1147,9 +1697,13 @@ msgstr "Rank 2"
 msgid "Rank 3"
 msgstr "Rank 3"
 
-#: src/components/game/turn-transition.tsx:64
+#: src/components/game/turn-transition.tsx:48
 msgid "Ready"
 msgstr "Ready"
+
+#: src/lib/card-identity.ts:323
+msgid "Red scales, red eyes, red ruin wherever it roams."
+msgstr "Red scales, red eyes, red ruin wherever it roams."
 
 #: src/lib/card-identity.ts:177
 msgid "Reformed Protean"
@@ -1160,7 +1714,7 @@ msgid "Rematch"
 msgstr "Rematch"
 
 #. placeholder {0}: getCardName(cardId)
-#: src/components/deck-builder/deck-slots.tsx:39
+#: src/components/deck-builder/deck-slots.tsx:41
 msgid "Remove {0} from deck"
 msgstr "Remove {0} from deck"
 
@@ -1184,7 +1738,7 @@ msgstr "Results"
 msgid "Roc of Olympus"
 msgstr "Roc of Olympus"
 
-#: src/components/board/tile.tsx:76
+#: src/components/board/tile.tsx:81
 msgid "Row {rowNum}, Column {colNum}"
 msgstr "Row {rowNum}, Column {colNum}"
 
@@ -1192,8 +1746,10 @@ msgstr "Row {rowNum}, Column {colNum}"
 msgid "Royal Spear"
 msgstr "Royal Spear"
 
-#: src/components/screens/home-screen.tsx:40
-#: src/components/screens/rules-screen.tsx:16
+#: src/components/game/game-menu.tsx:38
+#: src/components/game/game-menu.tsx:68
+#: src/components/screens/home-screen.tsx:34
+#: src/components/screens/rules-screen.tsx:17
 #: src/components/ui/route-announcer.tsx:17
 msgid "Rules"
 msgstr "Rules"
@@ -1206,7 +1762,7 @@ msgstr "Sacred Band"
 msgid "Sand Gorgon"
 msgstr "Sand Gorgon"
 
-#: src/lib/card-identity.ts:236
+#: src/lib/card-identity.ts:426
 msgid "Scaling"
 msgstr "Scaling"
 
@@ -1222,28 +1778,42 @@ msgstr "Scorpion of Artemis"
 msgid "Search"
 msgstr "Search"
 
-#: src/components/screens/rules-screen.tsx:59
+#: src/components/screens/rules-content.tsx:50
 msgid "Select card or place on tile"
 msgstr "Select card or place on tile"
 
-#: src/components/game/mulligan-screen.tsx:61
+#: src/components/game/mulligan-screen.tsx:51
 msgid "Select cards to return to your deck. You'll draw the same number of replacements."
 msgstr "Select cards to return to your deck. You'll draw the same number of replacements."
 
-#: src/components/deck-builder/deck-slots.tsx:17
+#: src/components/game/selected-card-detail.tsx:19
+msgid "Selected"
+msgstr "Selected"
+
+#: src/components/game/selected-card-detail.tsx:17
+msgid "Selected card details"
+msgstr "Selected card details"
+
+#: src/components/deck-builder/deck-slots.tsx:18
 msgid "Selected deck cards"
 msgstr "Selected deck cards"
 
-#: src/lib/card-identity.ts:247
+#: src/lib/card-identity.ts:437
 msgid "self"
 msgstr "self"
+
+#: src/lib/card-identity.ts:254
+msgid "Sent by the huntress to remind Orion that pride has a sting."
+msgstr "Sent by the huntress to remind Orion that pride has a sting."
 
 #: src/lib/card-identity.ts:53
 msgid "Serpent of Lerna"
 msgstr "Serpent of Lerna"
 
-#: src/components/screens/home-screen.tsx:46
-#: src/components/screens/settings-screen.tsx:17
+#: src/components/game/game-menu.tsx:51
+#: src/components/game/game-menu.tsx:69
+#: src/components/screens/home-screen.tsx:37
+#: src/components/screens/settings-screen.tsx:23
 #: src/components/ui/route-announcer.tsx:19
 msgid "Settings"
 msgstr "Settings"
@@ -1260,6 +1830,23 @@ msgstr "Shadow Artemis"
 msgid "Shadow Commander"
 msgstr "Shadow Commander"
 
+#: src/lib/card-identity.ts:293
+msgid "She does not protect the earth. She IS the earth, and she is waking up."
+msgstr "She does not protect the earth. She IS the earth, and she is waking up."
+
+#: src/lib/card-identity.ts:336
+msgid "She inspires the greatest art by inflicting the greatest suffering."
+msgstr "She inspires the greatest art by inflicting the greatest suffering."
+
+#: src/lib/card-identity.ts:249
+msgid "She tends a garden of daughters, each one wilder than the last."
+msgstr "She tends a garden of daughters, each one wilder than the last."
+
+#: src/components/screens/settings-content.tsx:17
+#: src/components/screens/settings-content.tsx:31
+msgid "Show Action Log"
+msgstr "Show Action Log"
+
 #: src/lib/card-identity.ts:149
 msgid "Silent Dagger"
 msgstr "Silent Dagger"
@@ -1268,12 +1855,24 @@ msgstr "Silent Dagger"
 msgid "Siren Queen"
 msgstr "Siren Queen"
 
+#: src/lib/card-identity.ts:301
+msgid "Six arms. Six weapons. One overwhelming argument."
+msgstr "Six arms. Six weapons. One overwhelming argument."
+
+#: src/lib/card-identity.ts:275
+msgid "Sleep is a luxury. Vigilance is a curse. Argus has learned to love the curse."
+msgstr "Sleep is a luxury. Vigilance is a curse. Argus has learned to love the curse."
+
+#: src/lib/card-identity.ts:345
+msgid "Small enough to cup in your hands. Wild enough to regret it."
+msgstr "Small enough to cup in your hands. Wild enough to regret it."
+
 #: src/lib/card-identity.ts:15
 msgid "Spartan Sentinel"
 msgstr "Spartan Sentinel"
 
 #. placeholder {0}: describeTarget(effect.target)
-#: src/lib/card-identity.ts:325
+#: src/lib/card-identity.ts:515
 msgid "Spawn {tokenName} at {0}"
 msgstr "Spawn {tokenName} at {0}"
 
@@ -1297,11 +1896,11 @@ msgstr "Sprite Trio"
 msgid "Star Voyager"
 msgstr "Star Voyager"
 
-#: src/components/screens/setup-screen.tsx:139
+#: src/components/screens/setup-screen.tsx:141
 msgid "Start Game"
 msgstr "Start Game"
 
-#: src/components/screens/home-screen.tsx:33
+#: src/components/screens/home-screen.tsx:30
 msgid "Start Local Game"
 msgstr "Start Local Game"
 
@@ -1321,11 +1920,11 @@ msgstr "Swift Blade"
 msgid "Swift Hare"
 msgstr "Swift Hare"
 
-#: src/components/screens/rules-screen.tsx:69
+#: src/components/screens/rules-content.tsx:60
 msgid "Tab"
 msgstr "Tab"
 
-#: src/lib/card-identity.ts:262
+#: src/lib/card-identity.ts:452
 msgid "targets"
 msgstr "targets"
 
@@ -1341,21 +1940,129 @@ msgstr "Tentacle Horror"
 msgid "Thalassic Fiend"
 msgstr "Thalassic Fiend"
 
-#: src/components/screens/rules-screen.tsx:28
+#: src/lib/card-identity.ts:364
+msgid "The cold gathers, the shards multiply, and the air itself begins to remember ice."
+msgstr "The cold gathers, the shards multiply, and the air itself begins to remember ice."
+
+#: src/lib/card-identity.ts:225
+msgid "The deep has teeth, and they are always hungry."
+msgstr "The deep has teeth, and they are always hungry."
+
+#: src/lib/card-identity.ts:229
+msgid "The desert is full of statues with terrified expressions. Travelers assume they're art."
+msgstr "The desert is full of statues with terrified expressions. Travelers assume they're art."
+
+#: src/lib/card-identity.ts:237
+msgid "The earthquake was not the wyrm arriving. It was the wyrm yawning."
+msgstr "The earthquake was not the wyrm arriving. It was the wyrm yawning."
+
+#: src/lib/card-identity.ts:285
+msgid "The fire that was stolen from the gods burns differently — it burns with purpose."
+msgstr "The fire that was stolen from the gods burns differently — it burns with purpose."
+
+#: src/lib/card-identity.ts:357
+msgid "The first flicker before the storm — tiny, fragile, and full of potential."
+msgstr "The first flicker before the storm — tiny, fragile, and full of potential."
+
+#: src/lib/card-identity.ts:222
+msgid "The horses are trained not to flinch. The riders are trained not to look back."
+msgstr "The horses are trained not to flinch. The riders are trained not to look back."
+
+#: src/lib/card-identity.ts:286
+msgid "The huntress needs no moonlight. The dark is her quiver."
+msgstr "The huntress needs no moonlight. The dark is her quiver."
+
+#: src/lib/card-identity.ts:235
+msgid "The labyrinth was built to contain him. He stays because he likes it."
+msgstr "The labyrinth was built to contain him. He stays because he likes it."
+
+#: src/lib/card-identity.ts:253
+msgid "The last thing its victims see is their own reflection in its eyes, already turning gray."
+msgstr "The last thing its victims see is their own reflection in its eyes, already turning gray."
+
+#: src/lib/card-identity.ts:322
+msgid "The leash is a formality. Both know who is really in charge."
+msgstr "The leash is a formality. Both know who is really in charge."
+
+#: src/lib/card-identity.ts:245
+msgid "The marshfolk worship it. The marshfolk are wise."
+msgstr "The marshfolk worship it. The marshfolk are wise."
+
+#: src/lib/card-identity.ts:278
+msgid "The metal that predates iron, that predates bronze, that predates the memory of mountains."
+msgstr "The metal that predates iron, that predates bronze, that predates the memory of mountains."
+
+#: src/lib/card-identity.ts:247
+msgid "The mountain didn't move. Something behind the mountain did."
+msgstr "The mountain didn't move. Something behind the mountain did."
+
+#: src/components/screens/rules-content.tsx:15
 msgid "The player with the higher lane score wins that lane. Win the most lanes to win the game."
 msgstr "The player with the higher lane score wins that lane. Win the most lanes to win the game."
 
-#: src/components/screens/settings-screen.tsx:39
+#: src/lib/card-identity.ts:242
+msgid "The pool shows you what you love most. You'll never want to look away."
+msgstr "The pool shows you what you love most. You'll never want to look away."
+
+#: src/lib/card-identity.ts:290
+msgid "The river of fire does not flow. It hunts."
+msgstr "The river of fire does not flow. It hunts."
+
+#: src/lib/card-identity.ts:208
+msgid "The scream arrives before the harpy does. The lucky ones are already running."
+msgstr "The scream arrives before the harpy does. The lucky ones are already running."
+
+#: src/lib/card-identity.ts:258
+msgid "The sculptor carved it as a monument to peace. It disagreed."
+msgstr "The sculptor carved it as a monument to peace. It disagreed."
+
+#: src/lib/card-identity.ts:307
+msgid "The shield of Zeus was never meant for defense. It was meant for ending arguments."
+msgstr "The shield of Zeus was never meant for defense. It was meant for ending arguments."
+
+#: src/lib/card-identity.ts:233
+msgid "The smiths who built it are long dead. Their fire is not."
+msgstr "The smiths who built it are long dead. Their fire is not."
+
+#: src/lib/card-identity.ts:213
+msgid "The wheels leave furrows in the earth that never grow back."
+msgstr "The wheels leave furrows in the earth that never grow back."
+
+#: src/lib/card-identity.ts:353
+msgid "The wolf remembers being a man. The man wishes he didn't."
+msgstr "The wolf remembers being a man. The man wishes he didn't."
+
+#: src/components/screens/settings-content.tsx:73
 msgid "Theme"
 msgstr "Theme"
+
+#: src/lib/card-identity.ts:277
+msgid "They built it to last a thousand years. It has outlasted three thousand and shows no sign of stopping."
+msgstr "They built it to last a thousand years. It has outlasted three thousand and shows no sign of stopping."
+
+#: src/lib/card-identity.ts:241
+msgid "They share one mind but never agree. Their prey benefits from neither opinion."
+msgstr "They share one mind but never agree. Their prey benefits from neither opinion."
 
 #: src/lib/card-identity.ts:178
 msgid "Thorny Imp"
 msgstr "Thorny Imp"
 
+#: src/lib/card-identity.ts:266
+msgid "Three heads, one purpose: nothing gets out."
+msgstr "Three heads, one purpose: nothing gets out."
+
+#: src/lib/card-identity.ts:239
+msgid "Three heads, three hungers, one terrible purpose."
+msgstr "Three heads, three hungers, one terrible purpose."
+
 #: src/lib/card-identity.ts:67
 msgid "Titan Frog"
 msgstr "Titan Frog"
+
+#: src/lib/card-identity.ts:246
+msgid "To hunt it is to become the hunted. Artemis does not forgive trespass."
+msgstr "To hunt it is to become the hunted. Artemis does not forgive trespass."
 
 #: src/lib/card-identity.ts:70
 msgid "Toxic Hydra"
@@ -1378,7 +2085,7 @@ msgstr "Triple Chimera"
 msgid "Turn {0}"
 msgstr "Turn {0}"
 
-#: src/components/game/turn-transition.tsx:50
+#: src/components/game/turn-transition.tsx:34
 msgid "Turn transition"
 msgstr "Turn transition"
 
@@ -1394,22 +2101,26 @@ msgstr "Twin-Headed Oracle"
 msgid "Tyrant & Beast"
 msgstr "Tyrant & Beast"
 
-#: src/lib/card-identity.ts:277
+#: src/lib/card-identity.ts:467
 msgid "unit"
 msgstr "unit"
 
-#: src/store/game-store.ts:86
+#: src/store/game-store.ts:81
 msgid "Unknown error"
 msgstr "Unknown error"
 
-#: src/components/screens/setup-screen.tsx:81
-#: src/components/screens/setup-screen.tsx:123
+#: src/components/screens/setup-screen.tsx:82
+#: src/components/screens/setup-screen.tsx:125
 msgid "Use Random Deck"
 msgstr "Use Random Deck"
 
-#: src/components/board/tile.tsx:90
+#: src/components/board/tile.tsx:95
 msgid "Valid target"
 msgstr "Valid target"
+
+#: src/lib/card-identity.ts:312
+msgid "Vengeance made flesh, feather, and fury. The guilty hear her wings in their sleep."
+msgstr "Vengeance made flesh, feather, and fury. The guilty hear her wings in their sleep."
 
 #: src/lib/card-identity.ts:19
 msgid "Venomous Asp"
@@ -1443,51 +2154,75 @@ msgstr "War Rider"
 msgid "Warrior of Many Arms"
 msgstr "Warrior of Many Arms"
 
+#: src/lib/card-identity.ts:359
+msgid "What began as a whisper in the clouds now roars with the voice of the sky itself."
+msgstr "What began as a whisper in the clouds now roars with the voice of the sky itself."
+
+#: src/lib/card-identity.ts:311
+msgid "What lives below the kraken? Sailors who ask don't come back to tell."
+msgstr "What lives below the kraken? Sailors who ask don't come back to tell."
+
 #: src/lib/card-identity.ts:157
 msgid "Wheel of Fortune"
 msgstr "Wheel of Fortune"
 
-#: src/lib/card-identity.ts:228
+#: src/lib/card-identity.ts:418
 msgid "When an ally is destroyed"
 msgstr "When an ally is destroyed"
 
-#: src/lib/card-identity.ts:231
+#: src/lib/card-identity.ts:421
 msgid "When an ally is played"
 msgstr "When an ally is played"
 
-#: src/lib/card-identity.ts:229
+#: src/lib/card-identity.ts:419
 msgid "When an enemy is destroyed"
 msgstr "When an enemy is destroyed"
 
-#: src/lib/card-identity.ts:232
+#: src/lib/card-identity.ts:422
 msgid "When an enemy is played"
 msgstr "When an enemy is played"
 
-#: src/lib/card-identity.ts:230
+#: src/lib/card-identity.ts:420
 msgid "When any card is destroyed"
 msgstr "When any card is destroyed"
 
-#: src/lib/card-identity.ts:227
+#: src/lib/card-identity.ts:417
 msgid "When destroyed"
 msgstr "When destroyed"
 
-#: src/lib/card-identity.ts:233
+#: src/lib/card-identity.ts:423
 msgid "When first enfeebled"
 msgstr "When first enfeebled"
 
-#: src/lib/card-identity.ts:234
+#: src/lib/card-identity.ts:424
 msgid "When first enhanced"
 msgstr "When first enhanced"
 
-#: src/lib/card-identity.ts:225
+#: src/lib/card-identity.ts:292
+msgid "When he speaks, the sky answers. When he is silent, the world holds its breath."
+msgstr "When he speaks, the sky answers. When he is silent, the world holds its breath."
+
+#: src/lib/card-identity.ts:243
+msgid "When it walks, the earth complains. When it stops, the silence is worse."
+msgstr "When it walks, the earth complains. When it stops, the silence is worse."
+
+#: src/lib/card-identity.ts:206
+msgid "When its shadow passes over a village, the villagers pray — not for safety, but for the honor of being noticed."
+msgstr "When its shadow passes over a village, the villagers pray — not for safety, but for the honor of being noticed."
+
+#: src/lib/card-identity.ts:415
 msgid "When played"
 msgstr "When played"
 
-#: src/lib/card-identity.ts:235
+#: src/lib/card-identity.ts:425
 msgid "When power reaches threshold"
 msgstr "When power reaches threshold"
 
-#: src/lib/card-identity.ts:226
+#: src/lib/card-identity.ts:269
+msgid "Where light meets shadow, balance is not found — it is forged."
+msgstr "Where light meets shadow, balance is not found — it is forged."
+
+#: src/lib/card-identity.ts:416
 msgid "While in play"
 msgstr "While in play"
 
@@ -1495,9 +2230,13 @@ msgstr "While in play"
 msgid "Winged Fury"
 msgstr "Winged Fury"
 
-#: src/lib/card-identity.ts:332
+#: src/lib/card-identity.ts:522
 msgid "Winner takes all points in lane"
 msgstr "Winner takes all points in lane"
+
+#: src/lib/card-identity.ts:273
+msgid "Winter doesn't come. It is sent."
+msgstr "Winter doesn't come. It is sent."
 
 #: src/lib/card-identity.ts:130
 msgid "World Serpent"
@@ -1507,13 +2246,19 @@ msgstr "World Serpent"
 msgid "Wraith of Tartarus"
 msgstr "Wraith of Tartarus"
 
-#: src/components/game/exit-confirm-dialog.tsx:17
-#: src/components/game/game-screen.tsx:40
-#: src/components/game/game-screen.tsx:62
+#: src/lib/card-identity.ts:215
+msgid "You cannot cage the west wind. Many have tried. The cages are still there; the wind is not."
+msgstr "You cannot cage the west wind. Many have tried. The cages are still there; the wind is not."
+
+#: src/lib/card-identity.ts:325
+msgid "You'll feel the wound before you see the sword."
+msgstr "You'll feel the wound before you see the sword."
+
+#: src/components/game/game-screen.tsx:43
 msgid "Your game progress will be lost."
 msgstr "Your game progress will be lost."
 
-#: src/components/hand/hand.tsx:53
+#: src/components/hand/hand.tsx:56
 msgid "Your Hand"
 msgstr "Your Hand"
 
@@ -1536,3 +2281,7 @@ msgstr "Zephyr Spirit"
 #: src/lib/card-identity.ts:114
 msgid "Zeus Thunderlord"
 msgstr "Zeus Thunderlord"
+
+#: src/lib/card-identity.ts:289
+msgid "Zeus turned him into a wolf as punishment. The wolf considers it a promotion."
+msgstr "Zeus turned him into a wolf as punishment. The wolf considers it a promotion."
