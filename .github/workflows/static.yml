@@ -43,7 +43,9 @@ jobs:
         run: pnpm -F @bloodfang/engine build
 
       - name: Build client
-        run: pnpm -F @bloodfang/client build -- --base=/bloodfang/
+        run: pnpm -F @bloodfang/client build
+        env:
+          VITE_BASE_PATH: /bloodfang/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
