@@ -48,7 +48,7 @@ export function CardArt({ definitionId, rank, size }: CardArtProps) {
       {/* Artwork image */}
       {status !== 'error' && (
         <img
-          src={`/art/${definitionId}.webp`}
+          src={`${import.meta.env.BASE_URL}art/${definitionId}.webp`}
           alt={t`Illustration of ${name}`}
           className={`absolute inset-0 h-full w-full object-cover ${
             status === 'loaded' ? 'opacity-100' : 'opacity-0'
