@@ -1,9 +1,10 @@
 import type { CardDefinition } from '../types.js';
 import { ABILITY_TRIGGERS, EFFECT_TYPES, RANGE_CELL_TYPES, TARGET_SELECTORS } from '../types.js';
+import { CardId } from '../card-id.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 export const nymphSprout: CardDefinition = {
-  id: 'nymph-sprout',
+  id: CardId.NymphSprout,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -14,7 +15,7 @@ export const nymphSprout: CardDefinition = {
 };
 
 export const battleSprite: CardDefinition = {
-  id: 'battle-sprite',
+  id: CardId.BattleSprite,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -26,7 +27,7 @@ export const battleSprite: CardDefinition = {
 };
 
 export const spriteMage: CardDefinition = {
-  id: 'sprite-mage',
+  id: CardId.SpriteMage,
   rank: 1,
   power: 2,
   rangePattern: [{ row: -2, col: 2, type: RANGE_CELL_TYPES.BOTH }],
@@ -42,7 +43,7 @@ export const spriteMage: CardDefinition = {
 };
 
 export const spriteBard: CardDefinition = {
-  id: 'sprite-bard',
+  id: CardId.SpriteBard,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -63,7 +64,7 @@ export const spriteBard: CardDefinition = {
 };
 
 export const littleShade: CardDefinition = {
-  id: 'little-shade',
+  id: CardId.LittleShade,
   rank: 1,
   power: 2,
   rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH }],
@@ -71,7 +72,7 @@ export const littleShade: CardDefinition = {
 };
 
 export const juniorNymph: CardDefinition = {
-  id: 'junior-nymph',
+  id: CardId.JuniorNymph,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -82,13 +83,13 @@ export const juniorNymph: CardDefinition = {
   ],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'baby-nymph', count: 1 },
+    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: CardId.BabyNymph, count: 1 },
   },
   isToken: true,
 };
 
 export const babyNymph: CardDefinition = {
-  id: 'baby-nymph',
+  id: CardId.BabyNymph,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -105,7 +106,7 @@ export const babyNymph: CardDefinition = {
 };
 
 export const daedalusGlider: CardDefinition = {
-  id: 'daedalus-glider',
+  id: CardId.DaedalusGlider,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -117,7 +118,7 @@ export const daedalusGlider: CardDefinition = {
 };
 
 export const lycaonBeast: CardDefinition = {
-  id: 'lycaon-beast',
+  id: CardId.LycaonBeast,
   rank: 1,
   power: 4,
   rangePattern: [
@@ -146,7 +147,7 @@ export const lycaonBeast: CardDefinition = {
 };
 
 export const heatFragment: CardDefinition = {
-  id: 'heat-fragment',
+  id: CardId.HeatFragment,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -158,7 +159,7 @@ export const heatFragment: CardDefinition = {
 };
 
 export const reformedProtean: CardDefinition = {
-  id: 'reformed-protean',
+  id: CardId.ReformedProtean,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -169,7 +170,7 @@ export const reformedProtean: CardDefinition = {
 };
 
 export const thornyImp: CardDefinition = {
-  id: 'thorny-imp',
+  id: CardId.ThornyImp,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -183,7 +184,7 @@ export const thornyImp: CardDefinition = {
 };
 
 export const elementalSpark: CardDefinition = {
-  id: 'elemental-spark',
+  id: CardId.ElementalSpark,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -208,7 +209,7 @@ export const elementalSpark: CardDefinition = {
 };
 
 export const elementalFlame: CardDefinition = {
-  id: 'elemental-flame',
+  id: CardId.ElementalFlame,
   rank: 1,
   power: 4,
   rangePattern: [
@@ -233,7 +234,7 @@ export const elementalFlame: CardDefinition = {
 };
 
 export const elementalStorm: CardDefinition = {
-  id: 'elemental-storm',
+  id: CardId.ElementalStorm,
   rank: 1,
   power: 6,
   rangePattern: [
@@ -258,7 +259,7 @@ export const elementalStorm: CardDefinition = {
 };
 
 export const zealotInitiate: CardDefinition = {
-  id: 'zealot-initiate',
+  id: CardId.ZealotInitiate,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -283,7 +284,7 @@ export const zealotInitiate: CardDefinition = {
 };
 
 export const zealotWarrior: CardDefinition = {
-  id: 'zealot-warrior',
+  id: CardId.ZealotWarrior,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -304,7 +305,7 @@ export const zealotWarrior: CardDefinition = {
 };
 
 export const zealotChampion: CardDefinition = {
-  id: 'zealot-champion',
+  id: CardId.ZealotChampion,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -325,7 +326,7 @@ export const zealotChampion: CardDefinition = {
 };
 
 export const frostCrystalMinor: CardDefinition = {
-  id: 'frost-crystal-minor',
+  id: CardId.FrostCrystalMinor,
   rank: 1,
   power: 2,
   rangePattern: [],
@@ -333,7 +334,7 @@ export const frostCrystalMinor: CardDefinition = {
 };
 
 export const frostCrystalMajor: CardDefinition = {
-  id: 'frost-crystal-major',
+  id: CardId.FrostCrystalMajor,
   rank: 1,
   power: 4,
   rangePattern: [],
@@ -341,7 +342,7 @@ export const frostCrystalMajor: CardDefinition = {
 };
 
 export const frostCrystalGrand: CardDefinition = {
-  id: 'frost-crystal-grand',
+  id: CardId.FrostCrystalGrand,
   rank: 1,
   power: 6,
   rangePattern: [],

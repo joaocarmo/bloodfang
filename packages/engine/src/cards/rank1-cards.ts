@@ -1,9 +1,10 @@
 import type { CardDefinition } from '../types.js';
 import { ABILITY_TRIGGERS, EFFECT_TYPES, RANGE_CELL_TYPES, TARGET_SELECTORS } from '../types.js';
+import { CardId } from '../card-id.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 export const hopliteGuard: CardDefinition = {
-  id: 'hoplite-guard',
+  id: CardId.HopliteGuard,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -15,7 +16,7 @@ export const hopliteGuard: CardDefinition = {
 };
 
 export const sirenQueen: CardDefinition = {
-  id: 'siren-queen',
+  id: CardId.SirenQueen,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -25,7 +26,7 @@ export const sirenQueen: CardDefinition = {
 };
 
 export const swiftHare: CardDefinition = {
-  id: 'swift-hare',
+  id: CardId.SwiftHare,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -35,7 +36,7 @@ export const swiftHare: CardDefinition = {
 };
 
 export const arcadianWolf: CardDefinition = {
-  id: 'arcadian-wolf',
+  id: CardId.ArcadianWolf,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -45,7 +46,7 @@ export const arcadianWolf: CardDefinition = {
 };
 
 export const dryadSeedling: CardDefinition = {
-  id: 'dryad-seedling',
+  id: CardId.DryadSeedling,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -54,12 +55,16 @@ export const dryadSeedling: CardDefinition = {
   ],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'nymph-sprout', count: 1 },
+    effect: {
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
+      tokenDefinitionId: CardId.NymphSprout,
+      count: 1,
+    },
   },
 };
 
 export const goldenBramble: CardDefinition = {
-  id: 'golden-bramble',
+  id: CardId.GoldenBramble,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -78,7 +83,7 @@ export const goldenBramble: CardDefinition = {
 };
 
 export const crystalKarkinos: CardDefinition = {
-  id: 'crystal-karkinos',
+  id: CardId.CrystalKarkinos,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -97,7 +102,7 @@ export const crystalKarkinos: CardDefinition = {
 };
 
 export const amorphousOoze: CardDefinition = {
-  id: 'amorphous-ooze',
+  id: CardId.AmorphousOoze,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -108,7 +113,7 @@ export const amorphousOoze: CardDefinition = {
 };
 
 export const myrmexCrawler: CardDefinition = {
-  id: 'myrmex-crawler',
+  id: CardId.MyrmexCrawler,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -120,7 +125,7 @@ export const myrmexCrawler: CardDefinition = {
 };
 
 export const ancientDrakon: CardDefinition = {
-  id: 'ancient-drakon',
+  id: CardId.AncientDrakon,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -139,7 +144,7 @@ export const ancientDrakon: CardDefinition = {
 };
 
 export const chariotOfAres: CardDefinition = {
-  id: 'chariot-of-ares',
+  id: CardId.ChariotOfAres,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -157,7 +162,7 @@ export const chariotOfAres: CardDefinition = {
 };
 
 export const pegasusScout: CardDefinition = {
-  id: 'pegasus-scout',
+  id: CardId.PegasusScout,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -169,7 +174,7 @@ export const pegasusScout: CardDefinition = {
 };
 
 export const emberSalamander: CardDefinition = {
-  id: 'ember-salamander',
+  id: CardId.EmberSalamander,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -187,7 +192,7 @@ export const emberSalamander: CardDefinition = {
 };
 
 export const copperAutomaton: CardDefinition = {
-  id: 'copper-automaton',
+  id: CardId.CopperAutomaton,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -206,7 +211,7 @@ export const copperAutomaton: CardDefinition = {
 };
 
 export const allSeeingEye: CardDefinition = {
-  id: 'all-seeing-eye',
+  id: CardId.AllSeeingEye,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -226,7 +231,7 @@ export const allSeeingEye: CardDefinition = {
 };
 
 export const pyroclastSoldier: CardDefinition = {
-  id: 'pyroclast-soldier',
+  id: CardId.PyroclastSoldier,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -247,7 +252,7 @@ export const pyroclastSoldier: CardDefinition = {
 };
 
 export const athenasOwl: CardDefinition = {
-  id: 'athenas-owl',
+  id: CardId.AthenasOwl,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -266,7 +271,7 @@ export const athenasOwl: CardDefinition = {
 };
 
 export const sandGorgon: CardDefinition = {
-  id: 'sand-gorgon',
+  id: CardId.SandGorgon,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -284,7 +289,7 @@ export const sandGorgon: CardDefinition = {
 };
 
 export const resilientPolyp: CardDefinition = {
-  id: 'resilient-polyp',
+  id: CardId.ResilientPolyp,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -303,7 +308,7 @@ export const resilientPolyp: CardDefinition = {
 };
 
 export const heatGolem: CardDefinition = {
-  id: 'heat-golem',
+  id: CardId.HeatGolem,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -314,12 +319,16 @@ export const heatGolem: CardDefinition = {
   ],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
-    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'heat-fragment', count: 1 },
+    effect: {
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
+      tokenDefinitionId: CardId.HeatFragment,
+      count: 1,
+    },
   },
 };
 
 export const stygianClaw: CardDefinition = {
-  id: 'stygian-claw',
+  id: CardId.StygianClaw,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -333,7 +342,7 @@ export const stygianClaw: CardDefinition = {
 };
 
 export const twinSerpent: CardDefinition = {
-  id: 'twin-serpent',
+  id: CardId.TwinSerpent,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -352,7 +361,7 @@ export const twinSerpent: CardDefinition = {
 };
 
 export const narcissusTrap: CardDefinition = {
-  id: 'narcissus-trap',
+  id: CardId.NarcissusTrap,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -380,7 +389,7 @@ export const narcissusTrap: CardDefinition = {
 };
 
 export const proteanMass: CardDefinition = {
-  id: 'protean-mass',
+  id: CardId.ProteanMass,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -391,14 +400,14 @@ export const proteanMass: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
     effect: {
       type: EFFECT_TYPES.ADD_CARD_TO_HAND,
-      tokenDefinitionId: 'reformed-protean',
+      tokenDefinitionId: CardId.ReformedProtean,
       count: 1,
     },
   },
 };
 
 export const carrionHarpy: CardDefinition = {
-  id: 'carrion-harpy',
+  id: CardId.CarrionHarpy,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -413,7 +422,7 @@ export const carrionHarpy: CardDefinition = {
 };
 
 export const scorpionOfArtemis: CardDefinition = {
-  id: 'scorpion-of-artemis',
+  id: CardId.ScorpionOfArtemis,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -433,7 +442,7 @@ export const scorpionOfArtemis: CardDefinition = {
 };
 
 export const desertTriton: CardDefinition = {
-  id: 'desert-triton',
+  id: CardId.DesertTriton,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -451,7 +460,7 @@ export const desertTriton: CardDefinition = {
 };
 
 export const marbleColossus: CardDefinition = {
-  id: 'marble-colossus',
+  id: CardId.MarbleColossus,
   rank: 1,
   power: 4,
   rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.ABILITY }],
@@ -466,7 +475,7 @@ export const marbleColossus: CardDefinition = {
 };
 
 export const twinHeadedOracle: CardDefinition = {
-  id: 'twin-headed-oracle',
+  id: CardId.TwinHeadedOracle,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -484,7 +493,7 @@ export const twinHeadedOracle: CardDefinition = {
 };
 
 export const nyxWing: CardDefinition = {
-  id: 'nyx-wing',
+  id: CardId.NyxWing,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -504,7 +513,7 @@ export const nyxWing: CardDefinition = {
 };
 
 export const cerberusHound: CardDefinition = {
-  id: 'cerberus-hound',
+  id: CardId.CerberusHound,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -527,7 +536,7 @@ export const cerberusHound: CardDefinition = {
 };
 
 export const ghastlyShade: CardDefinition = {
-  id: 'ghastly-shade',
+  id: CardId.GhastlyShade,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -546,7 +555,7 @@ export const ghastlyShade: CardDefinition = {
 };
 
 export const eliteMyrmidon: CardDefinition = {
-  id: 'elite-myrmidon',
+  id: CardId.EliteMyrmidon,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -565,7 +574,7 @@ export const eliteMyrmidon: CardDefinition = {
 };
 
 export const hundredEyedArgus: CardDefinition = {
-  id: 'hundred-eyed-argus',
+  id: CardId.HundredEyedArgus,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -589,7 +598,7 @@ export const hundredEyedArgus: CardDefinition = {
 };
 
 export const phantomWraith: CardDefinition = {
-  id: 'phantom-wraith',
+  id: CardId.PhantomWraith,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -613,7 +622,7 @@ export const phantomWraith: CardDefinition = {
 };
 
 export const amazonStriker: CardDefinition = {
-  id: 'amazon-striker',
+  id: CardId.AmazonStriker,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -628,7 +637,7 @@ export const amazonStriker: CardDefinition = {
 };
 
 export const flameOfPrometheus: CardDefinition = {
-  id: 'flame-of-prometheus',
+  id: CardId.FlameOfPrometheus,
   rank: 1,
   power: 3,
   rangePattern: [
@@ -654,7 +663,7 @@ export const flameOfPrometheus: CardDefinition = {
 };
 
 export const fortuneSphinx: CardDefinition = {
-  id: 'fortune-sphinx',
+  id: CardId.FortuneSphinx,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -664,12 +673,16 @@ export const fortuneSphinx: CardDefinition = {
   ],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'battle-sprite', count: 1 },
+    effect: {
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
+      tokenDefinitionId: CardId.BattleSprite,
+      count: 1,
+    },
   },
 };
 
 export const daedalusPilot: CardDefinition = {
-  id: 'daedalus-pilot',
+  id: CardId.DaedalusPilot,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -678,12 +691,16 @@ export const daedalusPilot: CardDefinition = {
   ],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'daedalus-glider', count: 1 },
+    effect: {
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
+      tokenDefinitionId: CardId.DaedalusGlider,
+      count: 1,
+    },
   },
 };
 
 export const lycaonCursed: CardDefinition = {
-  id: 'lycaon-cursed',
+  id: CardId.LycaonCursed,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -693,12 +710,16 @@ export const lycaonCursed: CardDefinition = {
   ],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_DESTROYED,
-    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'lycaon-beast', count: 1 },
+    effect: {
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
+      tokenDefinitionId: CardId.LycaonBeast,
+      count: 1,
+    },
   },
 };
 
 export const gryphonAndSprite: CardDefinition = {
-  id: 'gryphon-and-sprite',
+  id: CardId.GryphonAndSprite,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -717,7 +738,7 @@ export const gryphonAndSprite: CardDefinition = {
 };
 
 export const goldenGryphon: CardDefinition = {
-  id: 'golden-gryphon',
+  id: CardId.GoldenGryphon,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -731,7 +752,7 @@ export const goldenGryphon: CardDefinition = {
 };
 
 export const swiftBlade: CardDefinition = {
-  id: 'swift-blade',
+  id: CardId.SwiftBlade,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -751,7 +772,7 @@ export const swiftBlade: CardDefinition = {
 };
 
 export const ironFist: CardDefinition = {
-  id: 'iron-fist',
+  id: CardId.IronFist,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -771,7 +792,7 @@ export const ironFist: CardDefinition = {
 };
 
 export const silentDagger: CardDefinition = {
-  id: 'silent-dagger',
+  id: CardId.SilentDagger,
   rank: 1,
   power: 2,
   rangePattern: [{ row: 0, col: 1, type: RANGE_CELL_TYPES.BOTH }],
@@ -786,7 +807,7 @@ export const silentDagger: CardDefinition = {
 };
 
 export const shadowCommander: CardDefinition = {
-  id: 'shadow-commander',
+  id: CardId.ShadowCommander,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -806,7 +827,7 @@ export const shadowCommander: CardDefinition = {
 };
 
 export const starVoyager: CardDefinition = {
-  id: 'star-voyager',
+  id: CardId.StarVoyager,
   rank: 1,
   power: 2,
   rangePattern: [
@@ -825,7 +846,7 @@ export const starVoyager: CardDefinition = {
 };
 
 export const houseOfHades: CardDefinition = {
-  id: 'house-of-hades',
+  id: CardId.HouseOfHades,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -847,7 +868,7 @@ export const houseOfHades: CardDefinition = {
 };
 
 export const tragicMuse: CardDefinition = {
-  id: 'tragic-muse',
+  id: CardId.TragicMuse,
   rank: 1,
   power: 1,
   rangePattern: [
@@ -871,7 +892,7 @@ export const tragicMuse: CardDefinition = {
 };
 
 export const dionysusReveler: CardDefinition = {
-  id: 'dionysus-reveler',
+  id: CardId.DionysusReveler,
   rank: 1,
   power: 1,
   rangePattern: [

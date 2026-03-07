@@ -101,5 +101,9 @@ export type { EffectResult } from './effects.js';
 export { calculateLaneScores, calculateFinalScores, determineWinner } from './scoring.js';
 export type { LaneScores } from './scoring.js';
 
+// Card IDs
+export { CardId } from './card-id.js';
+export type { CardId as CardIdType } from './card-id.js';
+
 // Card database
 export { getAllGameDefinitions } from './cards/all-cards.js';

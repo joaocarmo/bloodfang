@@ -7,9 +7,10 @@ import {
   TARGET_SELECTORS,
 } from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
+import { CardId } from '../card-id.js';
 
 export const mantisChimera: CardDefinition = {
-  id: 'mantis-chimera',
+  id: CardId.MantisChimera,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -25,7 +26,7 @@ export const mantisChimera: CardDefinition = {
 };
 
 export const titanFrog: CardDefinition = {
-  id: 'titan-frog',
+  id: CardId.TitanFrog,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -39,7 +40,7 @@ export const titanFrog: CardDefinition = {
 };
 
 export const greatHornedBeast: CardDefinition = {
-  id: 'great-horned-beast',
+  id: CardId.GreatHornedBeast,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -53,7 +54,7 @@ export const greatHornedBeast: CardDefinition = {
 };
 
 export const goldenGriffin: CardDefinition = {
-  id: 'golden-griffin',
+  id: CardId.GoldenGriffin,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -73,7 +74,7 @@ export const goldenGriffin: CardDefinition = {
 };
 
 export const wraithOfTartarus: CardDefinition = {
-  id: 'wraith-of-tartarus',
+  id: CardId.WraithOfTartarus,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -92,7 +93,7 @@ export const wraithOfTartarus: CardDefinition = {
 };
 
 export const harmonyDuality: CardDefinition = {
-  id: 'harmony-duality',
+  id: CardId.HarmonyDuality,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -113,7 +114,7 @@ export const harmonyDuality: CardDefinition = {
 };
 
 export const chaoticShade: CardDefinition = {
-  id: 'chaotic-shade',
+  id: CardId.ChaoticShade,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -134,7 +135,7 @@ export const chaoticShade: CardDefinition = {
 };
 
 export const frostReaver: CardDefinition = {
-  id: 'frost-reaver',
+  id: CardId.FrostReaver,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -156,7 +157,7 @@ export const frostReaver: CardDefinition = {
 };
 
 export const shadowArtemis: CardDefinition = {
-  id: 'shadow-artemis',
+  id: CardId.ShadowArtemis,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -181,7 +182,7 @@ export const shadowArtemis: CardDefinition = {
 };
 
 export const warriorOfManyArms: CardDefinition = {
-  id: 'warrior-of-many-arms',
+  id: CardId.WarriorOfManyArms,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
@@ -202,7 +203,7 @@ export const warriorOfManyArms: CardDefinition = {
 };
 
 export const shadeCommander: CardDefinition = {
-  id: 'shade-commander',
+  id: CardId.ShadeCommander,
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
   rangePattern: [
