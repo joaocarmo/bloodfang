@@ -6,6 +6,7 @@ import type {
   PlayerId,
   Position,
 } from './types.js';
+import type { CardId } from './card-id.js';
 import { EFFECT_TYPES, GAME_EVENT_TYPES, LOG_ACTION_TYPES, MAX_PAWN_COUNT } from './types.js';
 import { getTile, setTile } from './board.js';
 
@@ -157,7 +158,7 @@ export function applyDestroy(
 export function applyAddCardToHand(
   state: GameState,
   sourceInstanceId: string,
-  tokenDefinitionId: string,
+  tokenDefinitionId: CardId,
   count: number,
 ): EffectResult {
   const sourceOwner = getCardOwner(state, sourceInstanceId);
@@ -200,7 +201,7 @@ export function applyAddCardToHand(
 export function applySpawnCard(
   state: GameState,
   sourceInstanceId: string,
-  tokenDefinitionId: string,
+  tokenDefinitionId: CardId,
   targetPositions: readonly Position[],
 ): EffectResult {
   const sourceOwner = getCardOwner(state, sourceInstanceId);

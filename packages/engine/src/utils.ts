@@ -1,4 +1,4 @@
-export function fisherYatesShuffle(arr: readonly string[], rng: () => number): string[] {
+export function fisherYatesShuffle<T extends string>(arr: readonly T[], rng: () => number): T[] {
   const result = [...arr];
   for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(rng() * (i + 1));

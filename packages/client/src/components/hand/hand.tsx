@@ -73,7 +73,7 @@ export function Hand() {
               cardId={cardId}
               definition={def}
               isSelected={selectedCardId === cardId}
-              onSelect={(id) => selectCard(id || null)}
+              onSelect={selectCard}
               isFocused={clampedFocusedIndex === index}
               onFocus={() => setFocusedIndex(index)}
             />

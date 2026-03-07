@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { create } from 'zustand';
 import { t } from '@lingui/core/macro';
-import type { CardDefinition, GameState, PlayerId, Position } from '@bloodfang/engine';
+import type { CardDefinition, CardId, GameState, PlayerId, Position } from '@bloodfang/engine';
 import {
   GamePhase,
   createGame,
@@ -20,12 +20,12 @@ interface GameStore {
   gameState: GameState | null;
 
   // UI interaction
-  selectedCardId: string | null;
+  selectedCardId: CardId | null;
   hoveredTilePosition: Position | null;
 
   // Decks
-  playerDecks: [string[], string[]];
-  setPlayerDeck: (player: PlayerId, deck: string[]) => void;
+  playerDecks: [CardId[], CardId[]];
+  setPlayerDeck: (player: PlayerId, deck: CardId[]) => void;
 
   // Announcements for screen readers
   announcement: string;
@@ -33,8 +33,8 @@ interface GameStore {
 
   // Actions
   startGame: () => void;
-  doMulligan: (player: PlayerId, returnCardIds: string[]) => void;
-  selectCard: (cardId: string | null) => void;
+  doMulligan: (player: PlayerId, returnCardIds: CardId[]) => void;
+  selectCard: (cardId: CardId | null) => void;
   hoverTile: (position: Position | null) => void;
   placeCard: (position: Position) => void;
   doPass: () => void;
@@ -58,7 +58,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     playerDecks: [[], []],
     setPlayerDeck: (player, deck) =>
       set((state) => {
-        const decks = [...state.playerDecks] as [string[], string[]];
+        const decks = [...state.playerDecks] as [CardId[], CardId[]];
         decks[player] = deck;
         return { playerDecks: decks };
       }),

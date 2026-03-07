@@ -1,3 +1,4 @@
+import type { CardId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Hand } from './hand.tsx';
 import { renderWithProviders, resetStores, screen, createPlayingState } from '../../test-utils.tsx';
@@ -25,8 +26,8 @@ describe('Hand', () => {
     const emptyState = {
       ...state,
       players: [
-        current === 0 ? { ...state.players[0]!, hand: [] as string[] } : state.players[0]!,
-        current === 1 ? { ...state.players[1]!, hand: [] as string[] } : state.players[1]!,
+        current === 0 ? { ...state.players[0]!, hand: [] as CardId[] } : state.players[0]!,
+        current === 1 ? { ...state.players[1]!, hand: [] as CardId[] } : state.players[1]!,
       ] as const,
     };
     useGameStore.setState({ gameState: emptyState });

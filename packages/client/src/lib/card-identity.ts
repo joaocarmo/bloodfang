@@ -110,7 +110,7 @@ const CARD_NAMES: Partial<Record<CardId, MessageDescriptor>> = {
   [CardId.FortuneSphinx]: msg`Fortune Sphinx`,
   [CardId.DaedalusPilot]: msg`Daedalus Pilot`,
   [CardId.LycaonCursed]: msg`Lycaon Cursed`,
-  pyriphlegethon: msg`Pyriphlegethon`,
+  [CardId.Pyriphlegethon]: msg`Pyriphlegethon`,
   [CardId.BoreasQueen]: msg`Boreas Queen`,
   [CardId.ZeusThunderlord]: msg`Zeus Thunderlord`,
   [CardId.GaiaTitan]: msg`Gaia Titan`,
@@ -288,7 +288,7 @@ const CARD_FLAVOR_TEXT: Partial<Record<CardId, MessageDescriptor>> = {
   [CardId.FortuneSphinx]: msg`"Answer my riddle and pass. Fail, and become part of the question."`,
   [CardId.DaedalusPilot]: msg`"Father made the wings. I learned what he never could — how to fall."`,
   [CardId.LycaonCursed]: msg`Zeus turned him into a wolf as punishment. The wolf considers it a promotion.`,
-  pyriphlegethon: msg`The river of fire does not flow. It hunts.`,
+  [CardId.Pyriphlegethon]: msg`The river of fire does not flow. It hunts.`,
   [CardId.BoreasQueen]: msg`"The north wind is not cruel. It simply does not care."`,
   [CardId.ZeusThunderlord]: msg`When he speaks, the sky answers. When he is silent, the world holds its breath.`,
   [CardId.GaiaTitan]: msg`She does not protect the earth. She IS the earth, and she is waking up.`,
@@ -373,8 +373,8 @@ const RANK_EMOJIS: Record<string, string> = {
   replacement: '\uD83D\uDD04',
 };
 
-export function getCardName(definitionId: string): string {
-  const desc = CARD_NAMES[definitionId as CardId];
+export function getCardName(definitionId: CardId): string {
+  const desc = CARD_NAMES[definitionId];
   return desc ? i18n.t(desc) : kebabToTitle(definitionId);
 }
 
@@ -385,8 +385,8 @@ function kebabToTitle(id: string): string {
     .join(' ');
 }
 
-export function getFlavorText(definitionId: string): string | undefined {
-  const desc = CARD_FLAVOR_TEXT[definitionId as CardId];
+export function getFlavorText(definitionId: CardId): string | undefined {
+  const desc = CARD_FLAVOR_TEXT[definitionId];
   return desc ? i18n.t(desc) : undefined;
 }
 
@@ -394,7 +394,7 @@ export function getArtPlaceholder(def: CardDefinition): string {
   return RANK_EMOJIS[String(def.rank)] ?? '\u2694\uFE0F';
 }
 
-export function getCardInitials(definitionId: string): string {
+export function getCardInitials(definitionId: CardId): string {
   const name = getCardName(definitionId);
   const words = name.split(/[\s&]+/).filter(Boolean);
   const initials = words.map((w) => w.charAt(0).toUpperCase()).join('');
@@ -476,7 +476,7 @@ function describeEffect(effect: {
   readonly target?: { readonly type: string };
   readonly condition?: { readonly type: string };
   readonly valuePerUnit?: number;
-  readonly tokenDefinitionId?: string;
+  readonly tokenDefinitionId?: CardId;
   readonly count?: number;
   readonly bonusPawns?: number;
   readonly alliedValue?: number;
@@ -507,12 +507,12 @@ function describeEffect(effect: {
       return t`+${val} to lane score`;
     }
     case 'addCardToHand': {
-      const tokenName = getCardName(effect.tokenDefinitionId ?? '');
+      const tokenName = effect.tokenDefinitionId ? getCardName(effect.tokenDefinitionId) : '?';
       const count = effect.count ?? 0;
       return t`Add ${count} ${tokenName} to hand`;
     }
     case 'spawnCard': {
-      const tokenName = getCardName(effect.tokenDefinitionId ?? '');
+      const tokenName = effect.tokenDefinitionId ? getCardName(effect.tokenDefinitionId) : '?';
       return t`Spawn ${tokenName} at ${describeTarget(effect.target)}`;
     }
     case 'positionRankManip': {

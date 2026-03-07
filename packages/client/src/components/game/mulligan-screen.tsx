@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { t, plural } from '@lingui/core/macro';
+import type { CardId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Card } from '../card/card.tsx';
 import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
@@ -12,7 +13,7 @@ export function MulliganScreen() {
   const definitions = useGameStore((s) => s.definitions);
   const doMulligan = useGameStore((s) => s.doMulligan);
 
-  const [selectedToReturn, setSelectedToReturn] = useState<string[]>([]);
+  const [selectedToReturn, setSelectedToReturn] = useState<CardId[]>([]);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const currentPlayer = gameState ? getMulliganPlayer(gameState) : 0;
@@ -22,7 +23,7 @@ export function MulliganScreen() {
     headingRef.current?.focus();
   }, [currentPlayer]);
 
-  const toggleCard = useCallback((cardId: string) => {
+  const toggleCard = useCallback((cardId: CardId) => {
     setSelectedToReturn((prev) =>
       prev.includes(cardId) ? prev.filter((id) => id !== cardId) : [...prev, cardId],
     );

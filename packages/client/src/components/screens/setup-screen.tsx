@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
-import type { CardDefinition } from '@bloodfang/engine';
+import type { CardDefinition, CardId } from '@bloodfang/engine';
 import { fisherYatesShuffle } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
@@ -28,7 +28,7 @@ export function SetupScreen() {
   const startButtonRef = useRef<HTMLButtonElement>(null);
 
   // Build a random deck for quick start
-  const buildRandomDeck = useCallback((): string[] => {
+  const buildRandomDeck = useCallback((): CardId[] => {
     const ids = Object.values(definitions)
       .filter((d): d is CardDefinition => d !== undefined && !d.isToken)
       .map((c) => c.id);
@@ -36,7 +36,7 @@ export function SetupScreen() {
   }, [definitions]);
 
   const handleP0Confirm = useCallback(
-    (deck: string[]) => {
+    (deck: CardId[]) => {
       setPlayerDeck(0, deck);
       setPhase(SetupPhase.P0Transition);
     },
@@ -44,7 +44,7 @@ export function SetupScreen() {
   );
 
   const handleP1Confirm = useCallback(
-    (deck: string[]) => {
+    (deck: CardId[]) => {
       setPlayerDeck(1, deck);
       setPhase(SetupPhase.Ready);
     },

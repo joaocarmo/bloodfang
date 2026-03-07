@@ -1,3 +1,5 @@
+import type { CardId } from './card-id.js';
+
 // ── Constants ──────────────────────────────────────────────────────────
 
 export const BOARD_ROWS = 3;
@@ -109,17 +111,17 @@ export interface LaneScoreBonusEffect {
 
 export interface AddCardToHandEffect {
   readonly type: 'addCardToHand';
-  readonly tokenDefinitionId: string;
+  readonly tokenDefinitionId: CardId;
   readonly count: number;
   readonly additionalTokens?: readonly {
-    readonly tokenDefinitionId: string;
+    readonly tokenDefinitionId: CardId;
     readonly count: number;
   }[];
 }
 
 export interface SpawnCardEffect {
   readonly type: 'spawnCard';
-  readonly tokenDefinitionId: string;
+  readonly tokenDefinitionId: CardId;
   readonly target: TargetSelector;
 }
 
@@ -191,7 +193,7 @@ export interface GameEvent {
 // ── Card Definition (static data) ──────────────────────────────────────
 
 export interface CardDefinition {
-  readonly id: string;
+  readonly id: CardId;
   readonly rank: CardRank;
   readonly power: number;
   readonly rangePattern: readonly RangeCell[];
@@ -203,7 +205,7 @@ export interface CardDefinition {
 
 export interface CardInstance {
   readonly instanceId: string;
-  readonly definitionId: string;
+  readonly definitionId: CardId;
   readonly owner: PlayerId;
   readonly position: Position;
   readonly basePower: number;
@@ -234,8 +236,8 @@ export type Board = readonly (readonly Tile[])[];
 // ── Player State ───────────────────────────────────────────────────────
 
 export interface PlayerState {
-  readonly deck: readonly string[];
-  readonly hand: readonly string[];
+  readonly deck: readonly CardId[];
+  readonly hand: readonly CardId[];
   readonly mulliganUsed: boolean;
 }
 
@@ -267,11 +269,11 @@ export const LOG_ACTION_TYPES = {
 } as const;
 
 export type GameAction =
-  | { readonly type: 'drawCard'; readonly player: PlayerId; readonly cardId: string }
+  | { readonly type: 'drawCard'; readonly player: PlayerId; readonly cardId: CardId }
   | {
       readonly type: 'placeCard';
       readonly player: PlayerId;
-      readonly cardId: string;
+      readonly cardId: CardId;
       readonly instanceId: string;
       readonly position: Position;
     }
@@ -306,10 +308,10 @@ export type GameAction =
   | {
       readonly type: 'spawnCard';
       readonly instanceId: string;
-      readonly definitionId: string;
+      readonly definitionId: CardId;
       readonly position: Position;
     }
-  | { readonly type: 'addCardToHand'; readonly player: PlayerId; readonly cardId: string }
+  | { readonly type: 'addCardToHand'; readonly player: PlayerId; readonly cardId: CardId }
   | {
       readonly type: 'pawnBonus';
       readonly player: PlayerId;

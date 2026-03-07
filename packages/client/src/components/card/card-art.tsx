@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { t } from '@lingui/core/macro';
 import { useReducedMotion } from 'motion/react';
+import type { CardId } from '@bloodfang/engine';
 import { getCardName, getCardInitials } from '../../lib/card-identity.ts';
 
 interface CardArtProps {
-  definitionId: string;
+  definitionId: CardId;
   rank: number | string;
   size: 'compact' | 'default' | 'large';
 }

@@ -8,10 +8,15 @@ import {
 } from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
 
+// Test cards use fake IDs not in CardId — cast is intentional.
+function testCard(def: Omit<CardDefinition, 'id'> & { id: string }): CardDefinition {
+  return def as CardDefinition;
+}
+
 // ── Ability Test Cards ────────────────────────────────────────────────
 
 /** whenPlayed → enhance +2 via rangePattern */
-export const enhancerOnPlay: CardDefinition = {
+export const enhancerOnPlay = testCard({
   id: 'enhancer-on-play',
   rank: 1,
   power: 2,
@@ -24,10 +29,9 @@ export const enhancerOnPlay: CardDefinition = {
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
-};
-
+});
 /** whenPlayed → enfeeble -3 via rangePattern */
-export const enfeebleOnPlay: CardDefinition = {
+export const enfeebleOnPlay = testCard({
   id: 'enfeeble-on-play',
   rank: 1,
   power: 2,
@@ -40,10 +44,9 @@ export const enfeebleOnPlay: CardDefinition = {
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
-};
-
+});
 /** whenPlayed → destroy via rangePattern */
-export const destroyerOnPlay: CardDefinition = {
+export const destroyerOnPlay = testCard({
   id: 'destroyer-on-play',
   rank: 1,
   power: 2,
@@ -52,10 +55,9 @@ export const destroyerOnPlay: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: { type: EFFECT_TYPES.DESTROY, target: { type: TARGET_SELECTORS.RANGE_PATTERN } },
   },
-};
-
+});
 /** whileInPlay → enhance +1 via rangePattern (continuous) */
-export const auraBuffer: CardDefinition = {
+export const auraBuffer = testCard({
   id: 'aura-buffer',
   rank: 1,
   power: 2,
@@ -71,10 +73,9 @@ export const auraBuffer: CardDefinition = {
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
-};
-
+});
 /** whenDestroyed → enfeeble -2 allEnemyInLane */
-export const deathCurse: CardDefinition = {
+export const deathCurse = testCard({
   id: 'death-curse',
   rank: 1,
   power: 2,
@@ -87,10 +88,9 @@ export const deathCurse: CardDefinition = {
       target: { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE },
     },
   },
-};
-
+});
 /** whenAlliedDestroyed → enhance +2 self */
-export const avenger: CardDefinition = {
+export const avenger = testCard({
   id: 'avenger',
   rank: 1,
   power: 3,
@@ -99,10 +99,9 @@ export const avenger: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_ALLIED_DESTROYED,
     effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.SELF } },
   },
-};
-
+});
 /** whenEnemyDestroyed → enhance +3 self */
-export const predator: CardDefinition = {
+export const predator = testCard({
   id: 'predator',
   rank: 1,
   power: 3,
@@ -111,10 +110,9 @@ export const predator: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_ENEMY_DESTROYED,
     effect: { type: EFFECT_TYPES.ENHANCE, value: 3, target: { type: TARGET_SELECTORS.SELF } },
   },
-};
-
+});
 /** whenAnyDestroyed → enhance +1 self */
-export const scavenger: CardDefinition = {
+export const scavenger = testCard({
   id: 'scavenger',
   rank: 1,
   power: 3,
@@ -123,10 +121,9 @@ export const scavenger: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_ANY_DESTROYED,
     effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.SELF } },
   },
-};
-
+});
 /** whenFirstEnfeebled → enhance +3 self */
-export const resilient: CardDefinition = {
+export const resilient = testCard({
   id: 'resilient',
   rank: 1,
   power: 4,
@@ -135,10 +132,9 @@ export const resilient: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_FIRST_ENFEEBLED,
     effect: { type: EFFECT_TYPES.ENHANCE, value: 3, target: { type: TARGET_SELECTORS.SELF } },
   },
-};
-
+});
 /** whenFirstEnhanced → enhance +1 allAlliedInLane */
-export const inspirer: CardDefinition = {
+export const inspirer = testCard({
   id: 'inspirer',
   rank: 1,
   power: 2,
@@ -151,10 +147,9 @@ export const inspirer: CardDefinition = {
       target: { type: TARGET_SELECTORS.ALL_ALLIED_IN_LANE },
     },
   },
-};
-
+});
 /** whenPowerReachesN(5) → destroy allEnemyInLane */
-export const threshold5Destroyer: CardDefinition = {
+export const threshold5Destroyer = testCard({
   id: 'threshold5-destroyer',
   rank: 1,
   power: 3,
@@ -164,10 +159,9 @@ export const threshold5Destroyer: CardDefinition = {
     effect: { type: EFFECT_TYPES.DESTROY, target: { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE } },
     threshold: 5,
   },
-};
-
+});
 /** scaling → selfPowerScaling (alliedCardsInLane, +2) */
-export const armyScaler: CardDefinition = {
+export const armyScaler = testCard({
   id: 'army-scaler',
   rank: 1,
   power: 1,
@@ -180,10 +174,9 @@ export const armyScaler: CardDefinition = {
       valuePerUnit: 2,
     },
   },
-};
-
+});
 /** endOfGame → laneScoreBonus +5 */
-export const laneBonus: CardDefinition = {
+export const laneBonus = testCard({
   id: 'lane-bonus',
   rank: 1,
   power: 1,
@@ -192,10 +185,9 @@ export const laneBonus: CardDefinition = {
     trigger: ABILITY_TRIGGERS.END_OF_GAME,
     effect: { type: EFFECT_TYPES.LANE_SCORE_BONUS, value: 5 },
   },
-};
-
+});
 /** whenPlayed → addCardToHand (token-basic, count 2) */
-export const handGenerator: CardDefinition = {
+export const handGenerator = testCard({
   id: 'hand-generator',
   rank: 1,
   power: 1,
@@ -204,10 +196,9 @@ export const handGenerator: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'token-basic', count: 2 },
   },
-};
-
+});
 /** whenPlayed → spawnCard (token-basic) via rangePattern */
-export const spawner: CardDefinition = {
+export const spawner = testCard({
   id: 'spawner',
   rank: 1,
   power: 2,
@@ -220,10 +211,9 @@ export const spawner: CardDefinition = {
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
-};
-
+});
 /** whenPlayed → positionRankManip +2 via rangePattern */
-export const rankBooster: CardDefinition = {
+export const rankBooster = testCard({
   id: 'rank-booster',
   rank: 1,
   power: 2,
@@ -236,10 +226,9 @@ export const rankBooster: CardDefinition = {
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
-};
-
+});
 /** endOfGame → scoreRedistribution */
-export const scoreRedistributor: CardDefinition = {
+export const scoreRedistributor = testCard({
   id: 'score-redistributor',
   rank: 1,
   power: 1,
@@ -248,10 +237,9 @@ export const scoreRedistributor: CardDefinition = {
     trigger: ABILITY_TRIGGERS.END_OF_GAME,
     effect: { type: EFFECT_TYPES.SCORE_REDISTRIBUTION },
   },
-};
-
+});
 /** whileInPlay → dualTargetBuff +1/-1 via rangePattern */
-export const dualAura: CardDefinition = {
+export const dualAura = testCard({
   id: 'dual-aura',
   rank: 1,
   power: 2,
@@ -268,10 +256,9 @@ export const dualAura: CardDefinition = {
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
-};
-
+});
 /** whenPlayed → enfeeble -5 via rangePattern (for cascade testing: kills a 5-power card) */
-export const chainKiller: CardDefinition = {
+export const chainKiller = testCard({
   id: 'chain-killer',
   rank: 1,
   power: 2,
@@ -284,10 +271,9 @@ export const chainKiller: CardDefinition = {
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
-};
-
+});
 /** whenAnyDestroyed → enhance +2 self (for cascade testing) */
-export const cascadeGrower: CardDefinition = {
+export const cascadeGrower = testCard({
   id: 'cascade-grower',
   rank: 1,
   power: 2,
@@ -296,10 +282,9 @@ export const cascadeGrower: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_ANY_DESTROYED,
     effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.SELF } },
   },
-};
-
+});
 /** whenAlliedPlayed → enhance +1 self */
-export const allyWatcher: CardDefinition = {
+export const allyWatcher = testCard({
   id: 'ally-watcher',
   rank: 1,
   power: 2,
@@ -308,10 +293,9 @@ export const allyWatcher: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_ALLIED_PLAYED,
     effect: { type: EFFECT_TYPES.ENHANCE, value: 1, target: { type: TARGET_SELECTORS.SELF } },
   },
-};
-
+});
 /** whenEnemyPlayed → enhance +2 self */
-export const enemyWatcher: CardDefinition = {
+export const enemyWatcher = testCard({
   id: 'enemy-watcher',
   rank: 1,
   power: 2,
@@ -320,10 +304,9 @@ export const enemyWatcher: CardDefinition = {
     trigger: ABILITY_TRIGGERS.WHEN_ENEMY_PLAYED,
     effect: { type: EFFECT_TYPES.ENHANCE, value: 2, target: { type: TARGET_SELECTORS.SELF } },
   },
-};
-
+});
 /** whenPlayed → enfeeble -2 allEnemyEnfeebled */
-export const enfeebledHunter: CardDefinition = {
+export const enfeebledHunter = testCard({
   id: 'enfeebled-hunter',
   rank: 1,
   power: 2,
@@ -336,10 +319,9 @@ export const enfeebledHunter: CardDefinition = {
       target: { type: TARGET_SELECTORS.ALL_ENEMY_ENFEEBLED },
     },
   },
-};
-
+});
 /** whenPlayed → enhance +2 allAlliedEnhanced */
-export const enhancedBooster: CardDefinition = {
+export const enhancedBooster = testCard({
   id: 'enhanced-booster',
   rank: 1,
   power: 2,
@@ -352,10 +334,9 @@ export const enhancedBooster: CardDefinition = {
       target: { type: TARGET_SELECTORS.ALL_ALLIED_ENHANCED },
     },
   },
-};
-
+});
 /** replacement card with dynamicValue: enhance self by replaced card's power */
-export const replacementDynamic: CardDefinition = {
+export const replacementDynamic = testCard({
   id: 'replacement-dynamic',
   rank: CARD_RANKS.REPLACEMENT,
   power: 1,
@@ -369,10 +350,9 @@ export const replacementDynamic: CardDefinition = {
       dynamicValue: 'replacedCardPower',
     },
   },
-};
-
+});
 /** whenPlayed → addCardToHand with additionalTokens */
-export const multiTokenGenerator: CardDefinition = {
+export const multiTokenGenerator = testCard({
   id: 'multi-token-generator',
   rank: 1,
   power: 1,
@@ -386,9 +366,7 @@ export const multiTokenGenerator: CardDefinition = {
       additionalTokens: [{ tokenDefinitionId: 'token-strong', count: 1 }],
     },
   },
-};
-
-// ── Helpers ───────────────────────────────────────────────────────────
+}); // ── Helpers ───────────────────────────────────────────────────────────
 
 const ALL_ABILITY_CARDS: readonly CardDefinition[] = [
   enhancerOnPlay,

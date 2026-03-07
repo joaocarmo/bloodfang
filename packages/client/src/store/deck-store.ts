@@ -1,15 +1,15 @@
 import { create } from 'zustand';
-import type { CardRank } from '@bloodfang/engine';
+import type { CardRank, CardId } from '@bloodfang/engine';
 import { DECK_SIZE } from '@bloodfang/engine';
 
 interface DeckStore {
-  selectedCards: string[];
+  selectedCards: CardId[];
   searchQuery: string;
   rankFilter: CardRank | null;
 
-  addCard: (definitionId: string) => void;
-  removeCard: (definitionId: string) => void;
-  setCards: (cardIds: string[]) => void;
+  addCard: (definitionId: CardId) => void;
+  removeCard: (definitionId: CardId) => void;
+  setCards: (cardIds: CardId[]) => void;
   clear: () => void;
   setSearchQuery: (query: string) => void;
   setRankFilter: (rank: CardRank | null) => void;

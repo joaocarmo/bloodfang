@@ -12,6 +12,7 @@ import type {
   RangeCell,
   Tile,
 } from './types.js';
+import type { CardId } from './card-id.js';
 import {
   BOARD_COLS,
   BOARD_ROWS,
@@ -124,8 +125,8 @@ function advanceTurn(state: GameState): GameState {
 // ── createGame ─────────────────────────────────────────────────────────
 
 export function createGame(
-  p0Deck: readonly string[],
-  p1Deck: readonly string[],
+  p0Deck: readonly CardId[],
+  p1Deck: readonly CardId[],
   definitions: Readonly<Record<string, CardDefinition>>,
   config?: GameConfig,
   rng?: () => number,
@@ -192,7 +193,7 @@ export function createGame(
 export function mulligan(
   state: GameState,
   player: PlayerId,
-  returnCardIds: readonly string[],
+  returnCardIds: readonly CardId[],
   rng?: () => number,
 ): GameState {
   if (state.phase !== GamePhase.Mulligan) {
@@ -261,7 +262,7 @@ export function mulligan(
 
 // ── canPlayCard ────────────────────────────────────────────────────────
 
-export function canPlayCard(state: GameState, cardId: string, position: Position): boolean {
+export function canPlayCard(state: GameState, cardId: CardId, position: Position): boolean {
   if (state.phase !== GamePhase.Playing) return false;
 
   const player = state.currentPlayerIndex;
@@ -299,12 +300,12 @@ export function canPlayCard(state: GameState, cardId: string, position: Position
 
 // ── getValidMoves ──────────────────────────────────────────────────────
 
-export function getValidMoves(state: GameState): { cardId: string; positions: Position[] }[] {
+export function getValidMoves(state: GameState): { cardId: CardId; positions: Position[] }[] {
   if (state.phase !== GamePhase.Playing) return [];
 
   const player = state.currentPlayerIndex;
   const playerState = state.players[player];
-  const moves: { cardId: string; positions: Position[] }[] = [];
+  const moves: { cardId: CardId; positions: Position[] }[] = [];
 
   for (const cardId of playerState.hand) {
     const positions: Position[] = [];
@@ -354,7 +355,7 @@ export function getEffectivePower(state: GameState, instanceId: string): number 
 
 // ── playCard ───────────────────────────────────────────────────────────
 
-export function playCard(state: GameState, cardId: string, position: Position): GameState {
+export function playCard(state: GameState, cardId: CardId, position: Position): GameState {
   if (!canPlayCard(state, cardId, position)) {
     throw new Error(`Cannot play card ${cardId} at (${position.row}, ${position.col})`);
   }

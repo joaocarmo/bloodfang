@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { t } from '@lingui/core/macro';
+import type { CardId } from '@bloodfang/engine';
 import { DECK_SIZE } from '@bloodfang/engine';
 import { useDeckStore } from '../../store/deck-store.ts';
 
@@ -11,7 +12,7 @@ import { playerTextColor } from '../../lib/player-color.ts';
 
 interface DeckBuilderProps {
   playerNumber: 1 | 2;
-  onConfirm: (deck: string[]) => void;
+  onConfirm: (deck: CardId[]) => void;
 }
 
 export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {

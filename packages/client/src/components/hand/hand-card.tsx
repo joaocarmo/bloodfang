@@ -1,5 +1,5 @@
 import { t } from '@lingui/core/macro';
-import type { CardDefinition } from '@bloodfang/engine';
+import type { CardDefinition, CardId } from '@bloodfang/engine';
 import { motion, useReducedMotion } from 'motion/react';
 import { Card } from '../card/card.tsx';
 import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
@@ -7,10 +7,10 @@ import { useHasValidMoves } from '../../hooks/use-valid-moves.ts';
 import { getCardName } from '../../lib/card-identity.ts';
 
 interface HandCardProps {
-  cardId: string;
+  cardId: CardId;
   definition: CardDefinition;
   isSelected: boolean;
-  onSelect: (cardId: string) => void;
+  onSelect: (cardId: CardId | null) => void;
   isFocused: boolean;
   onFocus: () => void;
 }
@@ -44,13 +44,13 @@ export function HandCard({
         onFocus={onFocus}
         onClick={() => {
           if (hasValidMoves) {
-            onSelect(isSelected ? '' : cardId);
+            onSelect(isSelected ? null : cardId);
           }
         }}
         onKeyDown={(e) => {
           if ((e.key === 'Enter' || e.key === ' ') && hasValidMoves) {
             e.preventDefault();
-            onSelect(isSelected ? '' : cardId);
+            onSelect(isSelected ? null : cardId);
           }
         }}
         animate={
