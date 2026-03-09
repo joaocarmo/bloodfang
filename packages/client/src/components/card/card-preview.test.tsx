@@ -31,14 +31,14 @@ describe('CardDetail', () => {
   it('renders card name, rank, and power', () => {
     renderWithProviders(<CardDetail definition={testDef} effectivePower={undefined} />);
 
-    expect(screen.getByLabelText(/Hoplite Guard/)).toBeInTheDocument();
+    expect(screen.getByRole('article')).toBeInTheDocument();
     expect(screen.getByText('Hoplite Guard')).toBeInTheDocument();
   });
 
   it('renders with effective power when provided', () => {
     renderWithProviders(<CardDetail definition={testDef} effectivePower={10} />);
 
-    const card = screen.getByLabelText(/Hoplite Guard/);
+    const card = screen.getByRole('article');
     expect(card).toHaveAttribute('aria-label', expect.stringContaining('10'));
   });
 
@@ -224,19 +224,18 @@ describe('CardPreviewTrigger touch/small screen dialog', () => {
     });
   });
 
-  it('shows dialog without action button when no touchAction provided', async () => {
+  it('does not open dialog when no touchAction is provided', async () => {
+    const onClick = vi.fn();
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef}>
-        <button>Tap me</button>
+        <button onClick={onClick}>Tap me</button>
       </CardPreviewTrigger>,
     );
 
     await user.click(screen.getByText('Tap me'));
 
-    await waitFor(() => {
-      expect(screen.getByRole('dialog')).toBeInTheDocument();
-    });
-    expect(screen.queryByRole('button', { name: 'Add to Deck' })).not.toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Close' })).toBeInTheDocument();
+    // Without touchAction, no dialog opens — click passes through to children
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(onClick).toHaveBeenCalledOnce();
   });
 });

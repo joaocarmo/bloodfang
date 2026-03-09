@@ -129,7 +129,7 @@ packages/client/src/
     screens/                 HomeScreen, SetupScreen, RulesScreen, SettingsScreen, AboutScreen
     ui/                      Button, BackButton, ConfirmDialog, ContentDialog, DialogBase, LinkButton, ToggleButton, RouteAnnouncer
   store/                     Zustand stores (game-store, deck-store, settings-store)
-  hooks/                     Custom hooks (use-valid-moves, use-lane-scores, use-card-preview, use-placement-preview, use-dialog)
+  hooks/                     Custom hooks (use-valid-moves, use-lane-scores, use-small-screen, use-placement-preview, use-dialog)
   lib/                       Utilities (card-identity, player-color)
   locales/                   Lingui message catalogs
 packages/client/public/art/  166 card artwork WebP files (DALL-E 3 watercolor style)

@@ -4,7 +4,8 @@ import type { CardDefinition } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
 import { Card } from '../card/card.tsx';
-import { CardPreviewTrigger, useIsSmallScreen } from '../card/card-preview-trigger.tsx';
+import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
+import { useIsSmallScreen } from '../../hooks/use-small-screen.ts';
 import { getCardName } from '../../lib/card-identity.ts';
 
 export function CardCatalog() {

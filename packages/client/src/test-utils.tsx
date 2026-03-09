@@ -6,18 +6,13 @@ import { I18nProvider } from '@lingui/react';
 import { i18n } from './i18n.ts';
 import { useGameStore } from './store/game-store.ts';
 import { useDeckStore } from './store/deck-store.ts';
-import { CardPreviewProvider } from './hooks/use-card-preview.tsx';
 import type { GameState } from '@bloodfang/engine';
 import { createGame, mulligan, createSeededRng, getAllGameDefinitions } from '@bloodfang/engine';
 
 // ── Providers ────────────────────────────────────────────────────────────
 
 function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <I18nProvider i18n={i18n}>
-      <CardPreviewProvider>{children}</CardPreviewProvider>
-    </I18nProvider>
-  );
+  return <I18nProvider i18n={i18n}>{children}</I18nProvider>;
 }
 
 export function renderWithProviders(ui: ReactElement) {

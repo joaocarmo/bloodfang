@@ -2,7 +2,7 @@ import { t, msg } from '@lingui/core/macro';
 import { i18n } from '@lingui/core';
 import type { MessageDescriptor } from '@lingui/core';
 import { CardId } from '@bloodfang/engine';
-import type { AbilityDefinition, CardDefinition } from '@bloodfang/engine';
+import type { AbilityDefinition, CardDefinition, CardRank } from '@bloodfang/engine';
 
 export interface CardIdentity {
   name: string;
@@ -399,6 +399,40 @@ export function getCardInitials(definitionId: CardId): string {
   const words = name.split(/[\s&]+/).filter(Boolean);
   const initials = words.map((w) => w.charAt(0).toUpperCase()).join('');
   return initials || '?';
+}
+
+/** Accessible label summarizing a card's key stats for screen readers. */
+export function getCardAriaLabel(definition: CardDefinition, effectivePower?: number): string {
+  const name = getCardName(definition.id);
+  const power = effectivePower ?? definition.power;
+  const flavorText = getFlavorText(definition.id);
+
+  return [
+    name,
+    t`Rank ${definition.rank}`,
+    t`Power ${power}`,
+    definition.ability ? t`Ability: ${definition.ability.effect.type}` : '',
+    flavorText ? t`Lore: ${flavorText}` : '',
+  ]
+    .filter(Boolean)
+    .join(', ');
+}
+
+/**
+ * Returns a Tailwind gradient class for a card's rank.
+ * @param opacity - Tailwind opacity suffix (e.g. '20', '60')
+ */
+export function getRankGradientClass(rank: CardRank, opacity: string): string {
+  switch (rank) {
+    case 1:
+      return `from-rank-1/${opacity}`;
+    case 2:
+      return `from-rank-2/${opacity}`;
+    case 3:
+      return `from-rank-3/${opacity}`;
+    default:
+      return `from-rank-replacement/${opacity}`;
+  }
 }
 
 export function getAbilityDescription(def: CardDefinition): string {

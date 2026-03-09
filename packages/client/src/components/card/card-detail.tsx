@@ -1,11 +1,15 @@
-import { t } from '@lingui/core/macro';
 import type { CardDefinition } from '@bloodfang/engine';
 import { RankIcon } from './rank-icon.tsx';
 import { PowerBadge } from './power-badge.tsx';
 import { RangeGrid } from './range-grid.tsx';
 import { AbilityText } from './ability-text.tsx';
 import { CardArt } from './card-art.tsx';
-import { getCardName, getFlavorText } from '../../lib/card-identity.ts';
+import {
+  getCardName,
+  getFlavorText,
+  getCardAriaLabel,
+  getRankGradientClass,
+} from '../../lib/card-identity.ts';
 
 interface CardDetailProps {
   definition: CardDefinition;
@@ -16,30 +20,11 @@ export function CardDetail({ definition, effectivePower }: CardDetailProps) {
   const name = getCardName(definition.id);
   const flavorText = getFlavorText(definition.id);
   const power = effectivePower ?? definition.power;
-  const rank = definition.rank;
-
-  const rankBg =
-    rank === 1
-      ? 'from-rank-1/60'
-      : rank === 2
-        ? 'from-rank-2/60'
-        : rank === 3
-          ? 'from-rank-3/60'
-          : 'from-rank-replacement/60';
-
-  const ariaLabel = [
-    name,
-    t`Rank ${rank}`,
-    t`Power ${power}`,
-    definition.ability ? t`Ability: ${definition.ability.effect.type}` : '',
-    flavorText ? t`Lore: ${flavorText}` : '',
-  ]
-    .filter(Boolean)
-    .join(', ');
+  const rankBg = getRankGradientClass(definition.rank, '60');
 
   return (
-    <div
-      aria-label={ariaLabel}
+    <article
+      aria-label={getCardAriaLabel(definition, effectivePower)}
       className={`w-64 sm:w-72 rounded-xl border border-border bg-gradient-to-b ${rankBg} to-surface-raised p-2.5 sm:p-3 flex flex-col gap-1.5`}
     >
       <div className="flex items-center justify-between">
@@ -66,6 +51,6 @@ export function CardDetail({ definition, effectivePower }: CardDetailProps) {
           <p className="text-xs sm:text-sm italic text-text-muted leading-snug">{flavorText}</p>
         </>
       )}
-    </div>
+    </article>
   );
 }

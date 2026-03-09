@@ -22,13 +22,7 @@ import type { CardDefinition } from '@bloodfang/engine';
 import { CardDetail } from './card-detail.tsx';
 import { Button } from '../ui/button.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
-
-export function useIsSmallScreen(): boolean {
-  if (typeof window === 'undefined') return false;
-  const coarse =
-    typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
-  return coarse || window.innerWidth < 640;
-}
+import { useIsSmallScreen } from '../../hooks/use-small-screen.ts';
 
 interface CardPreviewTriggerProps {
   definition: CardDefinition;
@@ -49,6 +43,12 @@ export function CardPreviewTrigger({
   const reduceMotion = useReducedMotion();
   const isSmall = useIsSmallScreen();
 
+  // On small screens, only show the dialog when a touchAction is provided.
+  // Without a touch action, the dialog has no actionable content beyond what
+  // the card itself already shows — so tapping should just perform the child's
+  // native action (select, toggle, etc.) without opening an overlay.
+  const useDialog = isSmall && touchAction !== undefined;
+
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
@@ -63,13 +63,13 @@ export function CardPreviewTrigger({
     enabled: !isSmall,
   });
   const focus = useFocus(context, { enabled: !isSmall });
-  const click = useClick(context, { enabled: isSmall });
+  const click = useClick(context, { enabled: useDialog });
   const dismiss = useDismiss(context, {
     // On desktop tooltips, allow Escape to propagate to parent handlers
-    escapeKey: isSmall,
-    outsidePress: isSmall,
+    escapeKey: useDialog,
+    outsidePress: useDialog,
   });
-  const role = useRole(context, { role: isSmall ? 'dialog' : 'tooltip' });
+  const role = useRole(context, { role: useDialog ? 'dialog' : 'tooltip' });
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     hover,
@@ -89,7 +89,7 @@ export function CardPreviewTrigger({
       </div>
       {isOpen && (
         <FloatingPortal>
-          {isSmall ? (
+          {useDialog ? (
             <FloatingOverlay
               lockScroll
               className="z-50 flex items-center justify-center bg-surface/80 backdrop-blur-sm"

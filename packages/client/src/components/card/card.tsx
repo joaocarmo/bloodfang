@@ -1,10 +1,9 @@
-import { t } from '@lingui/core/macro';
 import type { CardDefinition } from '@bloodfang/engine';
 import { RankIcon } from './rank-icon.tsx';
 import { PowerBadge } from './power-badge.tsx';
 import { RangeGrid } from './range-grid.tsx';
 import { AbilityText } from './ability-text.tsx';
-import { getCardName } from '../../lib/card-identity.ts';
+import { getCardName, getCardAriaLabel, getRankGradientClass } from '../../lib/card-identity.ts';
 import { CardArt } from './card-art.tsx';
 
 interface CardProps {
@@ -17,25 +16,8 @@ interface CardProps {
 
 export function Card({ definition, selected, disabled, onClick, compact }: CardProps) {
   const name = getCardName(definition.id);
-  const rankBg =
-    definition.rank === 1
-      ? 'from-rank-1/20'
-      : definition.rank === 2
-        ? 'from-rank-2/20'
-        : definition.rank === 3
-          ? 'from-rank-3/20'
-          : 'from-rank-replacement/20';
-
-  const rank = definition.rank;
-  const power = definition.power;
-  const ariaLabel = [
-    name,
-    t`Rank ${rank}`,
-    t`Power ${power}`,
-    definition.ability ? t`Ability: ${definition.ability.effect.type}` : '',
-  ]
-    .filter(Boolean)
-    .join(', ');
+  const rankBg = getRankGradientClass(definition.rank, '20');
+  const ariaLabel = getCardAriaLabel(definition);
 
   const classes = `
     relative flex flex-col rounded-lg border bg-gradient-to-b ${rankBg} to-surface-raised
