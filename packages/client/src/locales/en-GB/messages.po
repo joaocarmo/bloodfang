@@ -202,7 +202,7 @@ msgstr "{count} of {MAX_PAWN_COUNT} pawns"
 msgid "{name} (power {power})"
 msgstr "{name} (power {power})"
 
-#: src/components/card/card-detail-dialog.tsx:30
+#: src/components/card/card-preview-trigger.tsx:100
 msgid "{name} card details"
 msgstr "{name} card details"
 
@@ -603,7 +603,7 @@ msgstr "Clears all saved settings and local data, restoring everything to its de
 msgid "Cleopatra chose the asp not for its venom, but for its silence."
 msgstr "Cleopatra chose the asp not for its venom, but for its silence."
 
-#: src/components/card/card-detail-dialog.tsx:61
+#: src/components/card/card-preview-trigger.tsx:119
 #: src/components/ui/content-dialog.tsx:27
 msgid "Close"
 msgstr "Close"

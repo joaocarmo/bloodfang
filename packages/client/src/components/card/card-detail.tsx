@@ -39,7 +39,6 @@ export function CardDetail({ definition, effectivePower }: CardDetailProps) {
 
   return (
     <div
-      role="tooltip"
       aria-label={ariaLabel}
       className={`w-64 sm:w-72 rounded-xl border border-border bg-gradient-to-b ${rankBg} to-surface-raised p-2.5 sm:p-3 flex flex-col gap-1.5`}
     >

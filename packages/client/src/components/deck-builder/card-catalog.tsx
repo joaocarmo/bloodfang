@@ -4,7 +4,7 @@ import type { CardDefinition } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
 import { Card } from '../card/card.tsx';
-import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
+import { CardPreviewTrigger, useIsSmallScreen } from '../card/card-preview-trigger.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 
 export function CardCatalog() {
@@ -30,6 +30,7 @@ export function CardCatalog() {
     });
   }, [definitions, searchQuery, rankFilter]);
 
+  const isSmall = useIsSmallScreen();
   const addLabel = t`Add to Deck`;
 
   const makeAddAction = useCallback(
@@ -63,9 +64,13 @@ export function CardCatalog() {
                 definition={card}
                 disabled={!canAdd}
                 selected={isInDeck}
-                onClick={() => {
-                  if (canAdd) addCard(card.id);
-                }}
+                {...(isSmall
+                  ? {}
+                  : {
+                      onClick: () => {
+                        if (canAdd) addCard(card.id);
+                      },
+                    })}
                 compact
               />
             </div>
