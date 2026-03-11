@@ -502,8 +502,8 @@ function executeTriggers(
       );
       // Remove the snapshot again from the result
       const resultInstances = { ...result.state.cardInstances };
-      delete resultInstances[snapshot.instanceId];
-      currentState = { ...result.state, cardInstances: resultInstances };
+      const { [snapshot.instanceId]: _, ...cleanedInstances } = resultInstances;
+      currentState = { ...result.state, cardInstances: cleanedInstances };
       events.push(...result.events);
 
       currentState = {
@@ -523,7 +523,8 @@ function executeTriggers(
     // Normal triggers: card must still exist
     if (!currentState.cardInstances[trigger.instanceId]) continue;
 
-    const instance = currentState.cardInstances[trigger.instanceId]!;
+    const instance = currentState.cardInstances[trigger.instanceId];
+    if (!instance) continue;
 
     // Set one-shot flags if applicable
     const flagName = ONE_SHOT_FLAGS[ability.trigger];
@@ -619,11 +620,11 @@ function performDeathCheck(state: GameState): {
 export function resolveAbilities(
   state: GameState,
   pendingEvents: readonly GameEvent[],
-  depth: number = 0,
+  depth = 0,
   destroyedCards?: Readonly<Record<string, CardInstance>>,
 ): GameState {
   if (depth > MAX_CASCADE_DEPTH) {
-    throw new Error(`Ability cascade exceeded maximum depth of ${MAX_CASCADE_DEPTH}`);
+    throw new Error(`Ability cascade exceeded maximum depth of ${String(MAX_CASCADE_DEPTH)}`);
   }
 
   if (pendingEvents.length === 0) return state;

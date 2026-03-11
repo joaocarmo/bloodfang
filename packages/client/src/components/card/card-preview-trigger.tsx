@@ -103,7 +103,7 @@ export function CardPreviewTrigger({
                 >
                   <CardDetail definition={definition} effectivePower={power} />
                   <div className="flex gap-2">
-                    {touchAction && touchActionLabel && (
+                    {touchActionLabel && (
                       <Button
                         variant="primary"
                         size="sm"
@@ -115,7 +115,12 @@ export function CardPreviewTrigger({
                         {touchActionLabel}
                       </Button>
                     )}
-                    <Button size="sm" onClick={() => setIsOpen(false)}>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setIsOpen(false);
+                      }}
+                    >
                       {t`Close`}
                     </Button>
                   </div>

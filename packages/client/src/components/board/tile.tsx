@@ -31,8 +31,9 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
   const validPositions = useValidMovesForCard(selectedCardId);
 
   const handleClick = useCallback(() => {
-    const tile = gameState?.board[row]?.[col];
-    if (!tile || !gameState || !selectedCardId) return;
+    if (!gameState || !selectedCardId) return;
+    const tile = gameState.board[row]?.[col];
+    if (!tile) return;
     const isValid = validPositions.some((p) => p.row === row && p.col === col);
     if (isValid) {
       placeCard({ row, col });
@@ -57,13 +58,16 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
     [handleClick],
   );
 
-  const tile = gameState?.board[row]?.[col];
-  if (!tile || !gameState) return null;
+  if (!gameState) return null;
+  const tile = gameState.board[row]?.[col];
+  if (!tile) return null;
 
   const isValidTarget = validPositions.some((p) => p.row === row && p.col === col);
 
   const instance =
-    tile.cardInstanceId !== null ? gameState.cardInstances[tile.cardInstanceId] : undefined;
+    tile.cardInstanceId !== null
+      ? (gameState.cardInstances[tile.cardInstanceId] ?? undefined)
+      : undefined;
   const definition = instance ? definitions[instance.definitionId] : undefined;
 
   const ownerBg = tileBgColor(tile.owner);
@@ -71,24 +75,24 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
   const ownerBadge =
     tile.owner !== null ? (
       <span className="absolute top-0.5 left-0.5 text-[9px] text-text-muted font-medium">
-        {t`P${tile.owner + 1}`}
+        {t`P${String(tile.owner + 1)}`}
       </span>
     ) : null;
 
   // Build aria label
-  const rowNum = row + 1;
-  const colNum = col + 1;
+  const rowNum = String(row + 1);
+  const colNum = String(col + 1);
   const parts: string[] = [t`Row ${rowNum}, Column ${colNum}`];
   if (tile.owner !== null) {
-    const ownerNum = tile.owner + 1;
+    const ownerNum = String(tile.owner + 1);
     parts.push(t`Owned by Player ${ownerNum}`);
   }
   if (tile.pawnCount > 0) {
-    const pawnCount = tile.pawnCount;
+    const pawnCount = String(tile.pawnCount);
     parts.push(t`${pawnCount} pawns`);
   }
   if (instance && definition) {
-    const power = getEffectivePower(gameState, instance.instanceId);
+    const power = String(getEffectivePower(gameState, instance.instanceId));
     const name = getCardName(definition.id);
     parts.push(t`${name} (power ${power})`);
   }
@@ -151,7 +155,7 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
             preview.powerDelta > 0 ? 'text-power-buff' : 'text-power-debuff'
           }`}
         >
-          {preview.powerDelta > 0 ? `+${preview.powerDelta}` : preview.powerDelta}
+          {preview.powerDelta > 0 ? `+${String(preview.powerDelta)}` : preview.powerDelta}
         </span>
       )}
       {preview?.pawnDelta != null && preview.pawnDelta !== 0 && (
@@ -160,7 +164,9 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
             preview.pawnDelta > 0 ? 'text-power-buff' : 'text-power-debuff'
           }`}
         >
-          {preview.pawnDelta > 0 ? `+${preview.pawnDelta}♟` : `${preview.pawnDelta}♟`}
+          {preview.pawnDelta > 0
+            ? `+${String(preview.pawnDelta)}♟`
+            : `${String(preview.pawnDelta)}♟`}
         </span>
       )}
       {preview?.maxRankAfter != null &&

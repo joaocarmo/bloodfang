@@ -8,7 +8,13 @@ export function BackButton() {
 
   return (
     <nav aria-label={t`Navigation`}>
-      <Button onClick={() => navigate({ to: Route.Home })} variant="ghost" size="sm">
+      <Button
+        onClick={() => {
+          void navigate({ to: Route.Home });
+        }}
+        variant="ghost"
+        size="sm"
+      >
         {t`← Home`}
       </Button>
     </nav>

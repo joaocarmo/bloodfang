@@ -56,7 +56,9 @@ export class SessionManager {
   }
 
   start(): void {
-    this.sweepTimer = setInterval(() => this.sweep(), SWEEP_INTERVAL_MS);
+    this.sweepTimer = setInterval(() => {
+      this.sweep();
+    }, SWEEP_INTERVAL_MS);
   }
 
   stop(): void {
@@ -71,10 +73,12 @@ export class SessionManager {
       throw new Error('Maximum number of sessions reached');
     }
 
-    const sessionId = nanoid(8) as SessionId;
-    const token = nanoid() as PlayerToken;
+    const sessionId: SessionId = nanoid(8);
+    const token: PlayerToken = nanoid();
 
-    const session = new Session(sessionId, this.logger, (id) => this.store.delete(id));
+    const session = new Session(sessionId, this.logger, (id) => {
+      this.store.delete(id);
+    });
     session.addPlayer(token);
     this.store.set(sessionId, session);
 
@@ -88,7 +92,7 @@ export class SessionManager {
 
     if (session.playerCount >= 2) return null;
 
-    const token = nanoid() as PlayerToken;
+    const token: PlayerToken = nanoid();
     const playerId = session.addPlayer(token);
     if (playerId === null) return null;
 

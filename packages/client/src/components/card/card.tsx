@@ -68,7 +68,7 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
         type="button"
         className={`${classes} text-left`}
         onClick={disabled ? undefined : onClick}
-        aria-disabled={disabled || undefined}
+        aria-disabled={disabled === true ? true : undefined}
         aria-label={ariaLabel}
       >
         {content}

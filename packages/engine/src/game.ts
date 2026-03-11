@@ -47,7 +47,7 @@ function getInstance(state: GameState, instanceId: string): CardInstance {
 
 function requireTile(board: Board, pos: Position): Tile {
   const tile = getTile(board, pos);
-  if (!tile) throw new Error(`Invalid position: (${pos.row}, ${pos.col})`);
+  if (!tile) throw new Error(`Invalid position: (${String(pos.row)}, ${String(pos.col)})`);
   return tile;
 }
 
@@ -101,7 +101,8 @@ function advanceTurn(state: GameState): GameState {
   if (nextTurn > 1) {
     const playerState = players[nextPlayer];
     if (playerState.deck.length > 0) {
-      const cardId = playerState.deck[0]!;
+      const cardId = playerState.deck[0];
+      if (cardId === undefined) throw new Error('Deck is empty after length check');
       const newDeck = playerState.deck.slice(1);
       const newHand = [...playerState.hand, cardId];
       const updated = updatePlayer({ ...state, players }, nextPlayer, {
@@ -138,11 +139,13 @@ export function createGame(
   // Validate decks
   for (const [i, deck] of [p0Deck, p1Deck].entries()) {
     if (deck.length !== DECK_SIZE) {
-      throw new Error(`Player ${i} deck must have exactly ${DECK_SIZE} cards, got ${deck.length}`);
+      throw new Error(
+        `Player ${String(i)} deck must have exactly ${String(DECK_SIZE)} cards, got ${String(deck.length)}`,
+      );
     }
     const unique = new Set(deck);
     if (unique.size !== deck.length) {
-      throw new Error(`Player ${i} deck contains duplicate cards`);
+      throw new Error(`Player ${String(i)} deck contains duplicate cards`);
     }
     for (const cardId of deck) {
       if (!definitions[cardId]) {
@@ -201,13 +204,13 @@ export function mulligan(
   }
   const playerState = state.players[player];
   if (playerState.mulliganUsed) {
-    throw new Error(`Player ${player} has already used their mulligan`);
+    throw new Error(`Player ${String(player)} has already used their mulligan`);
   }
 
   // Validate all returned cards are in hand
   for (const cardId of returnCardIds) {
     if (!playerState.hand.includes(cardId)) {
-      throw new Error(`Card ${cardId} is not in player ${player}'s hand`);
+      throw new Error(`Card ${cardId} is not in player ${String(player)}'s hand`);
     }
   }
 
@@ -282,8 +285,7 @@ export function canPlayCard(state: GameState, cardId: CardId, position: Position
     if (tile.owner !== player) return false;
     if (tile.cardInstanceId === null) return false;
     // Verify the card on the tile belongs to this player
-    const existingInstance = state.cardInstances[tile.cardInstanceId];
-    if (!existingInstance || existingInstance.owner !== player) return false;
+    if (state.cardInstances[tile.cardInstanceId]?.owner !== player) return false;
     return true;
   }
 
@@ -357,7 +359,9 @@ export function getEffectivePower(state: GameState, instanceId: string): number 
 
 export function playCard(state: GameState, cardId: CardId, position: Position): GameState {
   if (!canPlayCard(state, cardId, position)) {
-    throw new Error(`Cannot play card ${cardId} at (${position.row}, ${position.col})`);
+    throw new Error(
+      `Cannot play card ${cardId} at (${String(position.row)}, ${String(position.col)})`,
+    );
   }
 
   const player = state.currentPlayerIndex;
@@ -393,7 +397,7 @@ export function playCard(state: GameState, cardId: CardId, position: Position): 
     basePower: def.power,
     bonusPower: 0,
   };
-  let cardInstances = { ...state.cardInstances, [instanceId]: instance };
+  const cardInstances = { ...state.cardInstances, [instanceId]: instance };
 
   // Place on board
   const currentTile = requireTile(state.board, position);
@@ -490,7 +494,7 @@ export function pass(state: GameState): GameState {
   }
 
   const player = state.currentPlayerIndex;
-  let log = appendLog(state.log, { type: LOG_ACTION_TYPES.PASS, player });
+  const log = appendLog(state.log, { type: LOG_ACTION_TYPES.PASS, player });
 
   const newConsecutivePasses = state.consecutivePasses + 1;
 

@@ -17,7 +17,7 @@ export function MulliganScreen() {
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const currentPlayer = gameState ? getMulliganPlayer(gameState) : 0;
-  const hand = gameState?.players[currentPlayer]?.hand ?? [];
+  const hand = gameState?.players[currentPlayer].hand ?? [];
 
   useEffect(() => {
     headingRef.current?.focus();
@@ -46,7 +46,7 @@ export function MulliganScreen() {
         tabIndex={-1}
         className={`text-xl sm:text-2xl font-bold ${playerTextColor(currentPlayer)} outline-none`}
       >
-        {t`Player ${currentPlayer + 1} — Mulligan`}
+        {t`Player ${String(currentPlayer + 1)} — Mulligan`}
       </h1>
       <p className="text-text-secondary text-center max-w-md">
         {t`Select cards to return to your deck. You'll draw the same number of replacements.`}
@@ -65,7 +65,9 @@ export function MulliganScreen() {
           return (
             <CardPreviewTrigger key={cardId} definition={def}>
               <button
-                onClick={() => toggleCard(cardId)}
+                onClick={() => {
+                  toggleCard(cardId);
+                }}
                 aria-pressed={isSelected}
                 className="rounded-lg outline-0 focus:outline-3 focus:outline-focus-ring focus:outline-offset-2"
               >

@@ -20,10 +20,18 @@ function buildDeck(start: number): CardId[] {
 }
 
 const silentLogger = {
-  debug() {},
-  info() {},
-  warn() {},
-  error() {},
+  debug() {
+    /* noop */
+  },
+  info() {
+    /* noop */
+  },
+  warn() {
+    /* noop */
+  },
+  error() {
+    /* noop */
+  },
 };
 
 let server: ServerType;
@@ -31,11 +39,11 @@ let port: number;
 let manager: ReturnType<typeof createApp>['manager'];
 
 function baseUrl() {
-  return `http://127.0.0.1:${port}`;
+  return `http://127.0.0.1:${String(port)}`;
 }
 
 function wsUrl(sessionId: string, token: string) {
-  return `ws://127.0.0.1:${port}/api/sessions/${sessionId}/ws?token=${token}`;
+  return `ws://127.0.0.1:${String(port)}/api/sessions/${sessionId}/ws?token=${token}`;
 }
 
 interface TestClient {
@@ -53,10 +61,10 @@ interface TestClient {
 function connectWs(url: string): TestClient {
   const messages: ServerMessage[] = [];
   const ws = new WebSocket(url);
-  const listeners: Array<(msg: ServerMessage) => void> = [];
+  const listeners: ((msg: ServerMessage) => void)[] = [];
 
   ws.on('message', (data) => {
-    const msg = JSON.parse(String(data)) as ServerMessage;
+    const msg = JSON.parse((data as Buffer).toString('utf-8')) as ServerMessage;
     messages.push(msg);
     for (const fn of listeners) fn(msg);
   });
@@ -73,7 +81,7 @@ function connectWs(url: string): TestClient {
         cleanup();
         reject(
           new Error(
-            `Timed out waiting for message (${timeoutMs}ms). Got ${messages.length} messages: ${JSON.stringify(messages.map((m) => m.type))}`,
+            `Timed out waiting for message (${String(timeoutMs)}ms). Got ${String(messages.length)} messages: ${JSON.stringify(messages.map((m) => m.type))}`,
           ),
         );
       }, timeoutMs);
@@ -95,7 +103,9 @@ function connectWs(url: string): TestClient {
     });
   };
 
-  const send = (msg: Record<string, unknown>) => ws.send(JSON.stringify(msg));
+  const send = (msg: Record<string, unknown>) => {
+    ws.send(JSON.stringify(msg));
+  };
   const close = () => {
     if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
       ws.close();
@@ -120,13 +130,13 @@ async function connectPlayer(sessionId: string, token: string): Promise<TestClie
 async function createSession(): Promise<{ sessionId: string; token: string }> {
   const res = await fetch(`${baseUrl()}/api/sessions`, { method: 'POST' });
   expect(res.status).toBe(201);
-  return res.json();
+  return (await res.json()) as { sessionId: string; token: string };
 }
 
 async function joinSession(sessionId: string): Promise<{ token: string }> {
   const res = await fetch(`${baseUrl()}/api/sessions/${sessionId}/join`, { method: 'POST' });
   expect(res.status).toBe(200);
-  return res.json();
+  return (await res.json()) as { token: string };
 }
 
 /** Create session, join, connect both, wait until WaitingForDecks. */
@@ -213,7 +223,9 @@ afterAll(async () => {
   manager.shutdownAll();
   manager.stop();
   await new Promise<void>((resolve) => {
-    server.close(() => resolve());
+    server.close(() => {
+      resolve();
+    });
   });
 });
 
@@ -223,7 +235,7 @@ describe('HTTP API', () => {
   it('GET /health returns ok', async () => {
     const res = await fetch(`${baseUrl()}/health`);
     expect(res.status).toBe(200);
-    const body = await res.json();
+    const body = (await res.json()) as { status: string };
     expect(body.status).toBe('ok');
   });
 
@@ -248,7 +260,7 @@ describe('HTTP API', () => {
     const { sessionId } = await createSession();
     const res = await fetch(`${baseUrl()}/api/sessions/${sessionId}`);
     expect(res.status).toBe(200);
-    const body = await res.json();
+    const body = (await res.json()) as { sessionId: string; phase: string; playerCount: number };
     expect(body.sessionId).toBe(sessionId);
     expect(body.phase).toBe(SessionPhase.WaitingForPlayers);
     expect(body.playerCount).toBe(1);
@@ -343,8 +355,9 @@ describe('Full game flow', () => {
 
       if (!currentPlayer || !validMoves) break;
 
-      const move = validMoves[0]!;
-      const pos = move.positions[0]!;
+      const move = validMoves[0];
+      const pos = move?.positions[0];
+      if (!move || !pos) break;
       const stateCountP0 = p0.messages.filter((m) => m.type === ServerMessageType.State).length;
       const stateCountP1 = p1.messages.filter((m) => m.type === ServerMessageType.State).length;
 

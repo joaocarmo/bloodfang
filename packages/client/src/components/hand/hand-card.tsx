@@ -30,8 +30,8 @@ export function HandCard({
   const rank = definition.rank;
   const power = definition.power;
   const label = !hasValidMoves
-    ? t`${name}, Rank ${rank}, Power ${power}, no valid moves`
-    : t`${name}, Rank ${rank}, Power ${power}`;
+    ? t`${name}, Rank ${String(rank)}, Power ${String(power)}, no valid moves`
+    : t`${name}, Rank ${String(rank)}, Power ${String(power)}`;
 
   return (
     <CardPreviewTrigger definition={definition}>

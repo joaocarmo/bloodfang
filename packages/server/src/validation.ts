@@ -17,7 +17,8 @@ export function parseClientMessage(raw: string): ClientMessage | null {
     return null;
   }
 
-  switch (data['type']) {
+  const type = data['type'] as ClientMessageType;
+  switch (type) {
     case ClientMessageType.SubmitDeck:
       return parseSubmitDeck(data);
     case ClientMessageType.Mulligan:
@@ -41,14 +42,14 @@ function parseSubmitDeck(data: Record<string, unknown>): ClientMessage | null {
   const deck = data['deck'];
   if (!Array.isArray(deck)) return null;
   if (!deck.every(isCardId)) return null;
-  return { type: ClientMessageType.SubmitDeck, deck: deck as CardIdType[] };
+  return { type: ClientMessageType.SubmitDeck, deck };
 }
 
 function parseMulligan(data: Record<string, unknown>): ClientMessage | null {
   const returnCardIds = data['returnCardIds'];
   if (!Array.isArray(returnCardIds)) return null;
   if (!returnCardIds.every(isCardId)) return null;
-  return { type: ClientMessageType.Mulligan, returnCardIds: returnCardIds as CardIdType[] };
+  return { type: ClientMessageType.Mulligan, returnCardIds };
 }
 
 function parsePlayCard(data: Record<string, unknown>): ClientMessage | null {

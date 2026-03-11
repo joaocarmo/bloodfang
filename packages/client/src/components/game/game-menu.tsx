@@ -18,14 +18,18 @@ export function GameMenu() {
   const [menuView, setMenuView] = useState<MenuView>('closed');
   const navigate = useNavigate();
 
-  const close = () => setMenuView('closed');
+  const close = () => {
+    setMenuView('closed');
+  };
 
   if (menuView === 'closed') {
     return (
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => setMenuView('menu')}
+        onClick={() => {
+          setMenuView('menu');
+        }}
         aria-label={t`Game menu`}
       >
         ☰
@@ -36,7 +40,13 @@ export function GameMenu() {
   if (menuView === 'rules') {
     return (
       <ContentDialog open title={t`Rules`} onClose={close}>
-        <Button variant="ghost" size="sm" onClick={() => setMenuView('menu')}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            setMenuView('menu');
+          }}
+        >
           {t`← Back`}
         </Button>
         <RulesContent>
@@ -49,7 +59,13 @@ export function GameMenu() {
   if (menuView === 'settings') {
     return (
       <ContentDialog open title={t`Settings`} onClose={close}>
-        <Button variant="ghost" size="sm" onClick={() => setMenuView('menu')}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            setMenuView('menu');
+          }}
+        >
           {t`← Back`}
         </Button>
         <SettingsContent>
@@ -65,13 +81,21 @@ export function GameMenu() {
   return (
     <ContentDialog open title={t`Menu`} onClose={close}>
       <nav className="flex flex-col gap-3">
-        <Button onClick={() => setMenuView('rules')}>{t`Rules`}</Button>
-        <Button onClick={() => setMenuView('settings')}>{t`Settings`}</Button>
+        <Button
+          onClick={() => {
+            setMenuView('rules');
+          }}
+        >{t`Rules`}</Button>
+        <Button
+          onClick={() => {
+            setMenuView('settings');
+          }}
+        >{t`Settings`}</Button>
         <Button
           variant="danger"
           onClick={() => {
             close();
-            navigate({ to: Route.Home });
+            void navigate({ to: Route.Home });
           }}
         >
           {t`Exit Game`}

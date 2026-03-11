@@ -37,7 +37,7 @@ export function Board() {
       setFocusedCol(nextCol);
 
       // Focus the target cell (gridcell lives inside the data-tile wrapper)
-      const wrapper = document.querySelector(`[data-tile="${nextRow}-${nextCol}"]`);
+      const wrapper = document.querySelector(`[data-tile="${String(nextRow)}-${String(nextCol)}"]`);
       const cell = wrapper?.querySelector('[role="gridcell"]') as HTMLElement | null;
       cell?.focus();
     },
@@ -59,7 +59,7 @@ export function Board() {
           {Array.from({ length: BOARD_ROWS }, (_, row) => (
             <div key={row} role="row" className="contents">
               {Array.from({ length: BOARD_COLS }, (_, col) => (
-                <div key={col} data-tile={`${row}-${col}`}>
+                <div key={col} data-tile={`${String(row)}-${String(col)}`}>
                   <Tile
                     row={row}
                     col={col}
@@ -68,7 +68,7 @@ export function Board() {
                       setFocusedRow(row);
                       setFocusedCol(col);
                     }}
-                    preview={preview.get(`${row},${col}`)}
+                    preview={preview.get(`${String(row)},${String(col)}`)}
                   />
                 </div>
               ))}

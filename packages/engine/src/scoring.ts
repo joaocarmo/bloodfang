@@ -12,8 +12,8 @@ export function calculateLaneScores(state: GameState): LaneScores {
     let p1Score = 0;
 
     for (let col = 0; col < BOARD_COLS; col++) {
-      const tile = state.board[row]![col]!;
-      if (tile.cardInstanceId !== null) {
+      const tile = state.board[row]?.[col];
+      if (tile?.cardInstanceId != null) {
         const instance = state.cardInstances[tile.cardInstanceId];
         if (instance) {
           const power = getEffectivePower(state, instance.instanceId);
@@ -41,7 +41,7 @@ export function calculateFinalScores(state: GameState): readonly [number, number
   const redistributionLanes = new Set<number>();
   for (const instance of Object.values(state.cardInstances)) {
     const def = state.cardDefinitions[instance.definitionId];
-    if (!def?.ability || def.ability.trigger !== ABILITY_TRIGGERS.END_OF_GAME) continue;
+    if (def?.ability?.trigger !== ABILITY_TRIGGERS.END_OF_GAME) continue;
 
     const effect = def.ability.effect;
     const lane = laneScores[instance.position.row];
@@ -62,7 +62,9 @@ export function calculateFinalScores(state: GameState): readonly [number, number
   let p1Total = 0;
 
   for (let i = 0; i < laneScores.length; i++) {
-    const [p0, p1] = laneScores[i]!;
+    const lane = laneScores[i];
+    if (!lane) continue;
+    const [p0, p1] = lane;
     if (p0 > p1) {
       if (redistributionLanes.has(i)) {
         p0Total += p0 + p1; // Winner gets both

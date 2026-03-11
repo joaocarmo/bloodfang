@@ -409,8 +409,8 @@ export function getCardAriaLabel(definition: CardDefinition, effectivePower?: nu
 
   return [
     name,
-    t`Rank ${definition.rank}`,
-    t`Power ${power}`,
+    t`Rank ${String(definition.rank)}`,
+    t`Power ${String(power)}`,
     definition.ability ? t`Ability: ${definition.ability.effect.type}` : '',
     flavorText ? t`Lore: ${flavorText}` : '',
   ]
@@ -521,28 +521,28 @@ function describeEffect(effect: {
     case 'enhance': {
       const target = describeTarget(effect.target);
       if (effect.dynamicValue) return t`+replaced card's power to ${target}`;
-      const val = effect.value ?? 0;
+      const val = String(effect.value ?? 0);
       return t`+${val} power to ${target}`;
     }
     case 'enfeeble': {
       const target = describeTarget(effect.target);
       if (effect.dynamicValue) return t`-replaced card's power to ${target}`;
-      const val = effect.value ?? 0;
+      const val = String(effect.value ?? 0);
       return t`-${val} power to ${target}`;
     }
     case 'destroy':
       return t`Destroy ${describeTarget(effect.target)}`;
     case 'selfPowerScaling': {
-      const vpu = effect.valuePerUnit ?? 0;
+      const vpu = String(effect.valuePerUnit ?? 0);
       return t`+${vpu} power per ${describeCondition(effect.condition)}`;
     }
     case 'laneScoreBonus': {
-      const val = effect.value ?? 0;
+      const val = String(effect.value ?? 0);
       return t`+${val} to lane score`;
     }
     case 'addCardToHand': {
       const tokenName = effect.tokenDefinitionId ? getCardName(effect.tokenDefinitionId) : '?';
-      const count = effect.count ?? 0;
+      const count = String(effect.count ?? 0);
       return t`Add ${count} ${tokenName} to hand`;
     }
     case 'spawnCard': {
@@ -550,7 +550,7 @@ function describeEffect(effect: {
       return t`Spawn ${tokenName} at ${describeTarget(effect.target)}`;
     }
     case 'positionRankManip': {
-      const pawns = effect.bonusPawns ?? 0;
+      const pawns = String(effect.bonusPawns ?? 0);
       return t`+${pawns} pawns to ${describeTarget(effect.target)}`;
     }
     case 'scoreRedistribution':
@@ -558,9 +558,9 @@ function describeEffect(effect: {
     case 'dualTargetBuff': {
       const allied = effect.alliedValue ?? 0;
       const enemy = effect.enemyValue ?? 0;
-      const enemyStr = enemy >= 0 ? `+${enemy}` : `${enemy}`;
+      const enemyStr = enemy >= 0 ? `+${String(enemy)}` : String(enemy);
       const target = describeTarget(effect.target);
-      return t`+${allied} to allies, ${enemyStr} to enemies (${target})`;
+      return t`+${String(allied)} to allies, ${enemyStr} to enemies (${target})`;
     }
     default:
       return effect.type;

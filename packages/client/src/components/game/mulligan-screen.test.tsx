@@ -29,7 +29,8 @@ describe('MulliganScreen', () => {
     const { user } = renderWithProviders(<MulliganScreen />);
 
     const cardButtons = screen.getAllByRole('button', { pressed: false });
-    const firstCard = cardButtons[0]!;
+    const firstCard = cardButtons[0];
+    if (!firstCard) throw new Error('No card button found');
 
     await user.click(firstCard);
     expect(firstCard).toHaveAttribute('aria-pressed', 'true');
@@ -45,11 +46,14 @@ describe('MulliganScreen', () => {
     expect(screen.queryByRole('button', { name: /Return/i })).not.toBeInTheDocument();
 
     const cardButtons = screen.getAllByRole('button', { pressed: false });
-    await user.click(cardButtons[0]!);
+    const firstBtn = cardButtons[0];
+    const secondBtn = cardButtons[1];
+    if (!firstBtn || !secondBtn) throw new Error('Expected at least 2 card buttons');
+    await user.click(firstBtn);
 
     expect(screen.getByRole('button', { name: /Return 1 Card/i })).toBeInTheDocument();
 
-    await user.click(cardButtons[1]!);
+    await user.click(secondBtn);
 
     expect(screen.getByRole('button', { name: /Return 2 Cards/i })).toBeInTheDocument();
   });
@@ -63,21 +67,24 @@ describe('MulliganScreen', () => {
     const state = useGameStore.getState().gameState;
     expect(state).not.toBeNull();
     // Player 0 has mulliganed, now player 1's turn
-    expect(state!.players[0]!.mulliganUsed).toBe(true);
+    expect(state?.players[0]?.mulliganUsed).toBe(true);
   });
 
   it('Return N Cards advances with selected card IDs', async () => {
     const { user } = renderWithProviders(<MulliganScreen />);
 
     const cardButtons = screen.getAllByRole('button', { pressed: false });
-    await user.click(cardButtons[0]!);
-    await user.click(cardButtons[1]!);
+    const firstBtn = cardButtons[0];
+    const secondBtn = cardButtons[1];
+    if (!firstBtn || !secondBtn) throw new Error('Expected at least 2 card buttons');
+    await user.click(firstBtn);
+    await user.click(secondBtn);
 
     const returnBtn = screen.getByRole('button', { name: /Return 2 Cards/i });
     await user.click(returnBtn);
 
     const state = useGameStore.getState().gameState;
     expect(state).not.toBeNull();
-    expect(state!.players[0]!.mulliganUsed).toBe(true);
+    expect(state?.players[0]?.mulliganUsed).toBe(true);
   });
 });

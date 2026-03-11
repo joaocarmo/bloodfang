@@ -24,13 +24,14 @@ export function GameScreen() {
   // Navigate to results when game ends
   useEffect(() => {
     if (gameState?.phase === GamePhase.Ended) {
-      navigate({ to: Route.Results });
+      void navigate({ to: Route.Results });
     }
   }, [gameState?.phase, navigate]);
 
   // Block navigation when game is in progress
   const { proceed, reset, status } = useBlocker({
-    condition: gameState !== null && gameState.phase !== GamePhase.Ended,
+    shouldBlockFn: () => gameState !== null && gameState.phase !== GamePhase.Ended,
+    withResolver: true,
   });
 
   if (!gameState) return null;
@@ -47,7 +48,9 @@ export function GameScreen() {
           useGameStore.getState().resetToHome();
           proceed?.();
         }}
-        onCancel={() => reset?.()}
+        onCancel={() => {
+          reset?.();
+        }}
       />
       <TurnTransition />
       {gameState.phase === GamePhase.Mulligan ? (

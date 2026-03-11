@@ -14,8 +14,9 @@ describe('Hand', () => {
     const listbox = screen.getByRole('listbox');
     expect(listbox).toBeInTheDocument();
 
-    const state = useGameStore.getState().gameState!;
-    const handSize = state.players[state.currentPlayerIndex]!.hand.length;
+    const state = useGameStore.getState().gameState;
+    if (!state) throw new Error('Game state not found');
+    const handSize = state.players[state.currentPlayerIndex].hand.length;
     const options = screen.getAllByRole('option');
     expect(options).toHaveLength(handSize);
   });
@@ -26,8 +27,8 @@ describe('Hand', () => {
     const emptyState = {
       ...state,
       players: [
-        current === 0 ? { ...state.players[0]!, hand: [] as CardId[] } : state.players[0]!,
-        current === 1 ? { ...state.players[1]!, hand: [] as CardId[] } : state.players[1]!,
+        current === 0 ? { ...state.players[0], hand: [] as CardId[] } : state.players[0],
+        current === 1 ? { ...state.players[1], hand: [] as CardId[] } : state.players[1],
       ] as const,
     };
     useGameStore.setState({ gameState: emptyState });
@@ -41,7 +42,8 @@ describe('Hand', () => {
     const { user } = renderWithProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
-    const first = options[0]!;
+    const first = options[0];
+    if (!first) throw new Error('No option found');
     await user.click(first);
 
     expect(first).toHaveAttribute('aria-selected', 'true');
@@ -52,7 +54,8 @@ describe('Hand', () => {
     const { user } = renderWithProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
-    const first = options[0]!;
+    const first = options[0];
+    if (!first) throw new Error('No option found');
 
     await user.click(first);
     expect(first).toHaveAttribute('aria-selected', 'true');
@@ -66,7 +69,8 @@ describe('Hand', () => {
     const { user } = renderWithProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
-    const first = options[0]!;
+    const first = options[0];
+    if (!first) throw new Error('No option found');
     first.focus();
 
     await user.keyboard('{ArrowRight}');
@@ -79,7 +83,9 @@ describe('Hand', () => {
 
     const options = screen.getAllByRole('option');
     // Navigate right first to land on index 1, then navigate left
-    options[0]!.focus();
+    const firstOpt = options[0];
+    if (!firstOpt) throw new Error('No option found');
+    firstOpt.focus();
     await user.keyboard('{ArrowRight}');
     expect(options[1]).toHaveFocus();
 
@@ -91,7 +97,9 @@ describe('Hand', () => {
     const { user } = renderWithProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
-    await user.click(options[0]!);
+    const firstOpt = options[0];
+    if (!firstOpt) throw new Error('No option found');
+    await user.click(firstOpt);
     expect(useGameStore.getState().selectedCardId).not.toBeNull();
 
     await user.keyboard('{Escape}');

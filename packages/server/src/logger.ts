@@ -16,7 +16,8 @@ const LOG_LEVEL_MAP: Record<string, LogLevel> = {
 
 export function parseLogLevel(value: string | undefined): LogLevel {
   if (value && value in LOG_LEVEL_MAP) {
-    return LOG_LEVEL_MAP[value]!;
+    const level = LOG_LEVEL_MAP[value];
+    if (level !== undefined) return level;
   }
   return LogLevel.Info;
 }

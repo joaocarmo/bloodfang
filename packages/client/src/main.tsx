@@ -5,7 +5,9 @@ import { i18n } from './i18n.ts';
 import { App } from './app.tsx';
 import './app.css';
 
-createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById('root');
+if (!rootElement) throw new Error('Root element not found');
+createRoot(rootElement).render(
   <StrictMode>
     <I18nProvider i18n={i18n}>
       <App />

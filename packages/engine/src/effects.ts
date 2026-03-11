@@ -32,8 +32,7 @@ export function internalDestroyCard(state: GameState, instanceId: string): GameS
     cardInstanceId: null,
   });
 
-  const newInstances = { ...state.cardInstances };
-  delete newInstances[instanceId];
+  const { [instanceId]: _, ...newInstances } = state.cardInstances;
 
   const newModifiers = state.continuousModifiers.filter(
     (m) => m.sourceInstanceId !== instanceId && m.targetInstanceId !== instanceId,

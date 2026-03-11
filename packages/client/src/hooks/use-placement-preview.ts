@@ -59,7 +59,7 @@ export function usePlacementPreview(): PlacementPreviewResult {
     const result = new Map<string, TilePreview>();
 
     // Mark placement tile
-    const placementKey = `${hoveredTilePosition.row},${hoveredTilePosition.col}`;
+    const placementKey = `${String(hoveredTilePosition.row)},${String(hoveredTilePosition.col)}`;
     result.set(placementKey, {
       isPawnRange: false,
       isAbilityRange: false,
@@ -69,7 +69,7 @@ export function usePlacementPreview(): PlacementPreviewResult {
     // Compute pawn range
     const pawnPositions = resolveRangePattern(def.rangePattern, hoveredTilePosition, player);
     for (const pos of pawnPositions) {
-      const key = `${pos.row},${pos.col}`;
+      const key = `${String(pos.row)},${String(pos.col)}`;
       const existing = result.get(key);
       result.set(key, {
         ...existing,
@@ -86,7 +86,7 @@ export function usePlacementPreview(): PlacementPreviewResult {
         player,
       );
       for (const pos of abilityPositions) {
-        const key = `${pos.row},${pos.col}`;
+        const key = `${String(pos.row)},${String(pos.col)}`;
         const existing = result.get(key);
         result.set(key, {
           ...existing,
@@ -109,7 +109,7 @@ export function usePlacementPreview(): PlacementPreviewResult {
         if (!oldInstance) continue;
 
         const newInstance = newInstances[instanceId];
-        const key = `${oldInstance.position.row},${oldInstance.position.col}`;
+        const key = `${String(oldInstance.position.row)},${String(oldInstance.position.col)}`;
 
         if (!newInstance) {
           // Card was destroyed
@@ -142,7 +142,7 @@ export function usePlacementPreview(): PlacementPreviewResult {
           const newTile = newState.board[r]?.[c];
           if (!oldTile || !newTile) continue;
 
-          const key = `${r},${c}`;
+          const key = `${String(r)},${String(c)}`;
           const existing = result.get(key);
 
           const pawnDelta = newTile.pawnCount - oldTile.pawnCount;

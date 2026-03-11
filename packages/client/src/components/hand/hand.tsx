@@ -12,7 +12,7 @@ export function Hand() {
   const listRef = useRef<HTMLDivElement>(null);
 
   const currentPlayer = gameState?.currentPlayerIndex ?? 0;
-  const hand = gameState?.players[currentPlayer]?.hand ?? [];
+  const hand = gameState?.players[currentPlayer].hand ?? [];
 
   // Clamp focusedIndex when hand shrinks (e.g. after playing a card)
   const clampedFocusedIndex = hand.length === 0 ? 0 : Math.min(focusedIndex, hand.length - 1);
@@ -42,7 +42,8 @@ export function Hand() {
 
       // Programmatically focus the next option
       const options = listRef.current?.querySelectorAll('[role="option"]');
-      (options?.[nextIndex] as HTMLElement)?.focus();
+      const target = options?.[nextIndex];
+      if (target instanceof HTMLElement) target.focus();
     },
     [clampedFocusedIndex, hand.length, selectCard],
   );
@@ -57,7 +58,7 @@ export function Hand() {
       <div
         ref={listRef}
         role="listbox"
-        aria-label={t`Player ${currentPlayer + 1}'s hand`}
+        aria-label={t`Player ${String(currentPlayer + 1)}'s hand`}
         tabIndex={-1}
         onKeyDown={handleKeyDown}
         className="flex gap-1 sm:gap-2 justify-center items-end flex-wrap py-1 sm:py-2"
@@ -69,13 +70,15 @@ export function Hand() {
 
           return (
             <HandCard
-              key={`${cardId}-${index}`}
+              key={`${cardId}-${String(index)}`}
               cardId={cardId}
               definition={def}
               isSelected={selectedCardId === cardId}
               onSelect={selectCard}
               isFocused={clampedFocusedIndex === index}
-              onFocus={() => setFocusedIndex(index)}
+              onFocus={() => {
+                setFocusedIndex(index);
+              }}
             />
           );
         })}

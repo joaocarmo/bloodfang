@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
-import type { CardDefinition, CardId } from '@bloodfang/engine';
+import type { CardId } from '@bloodfang/engine';
 import { fisherYatesShuffle } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
@@ -30,7 +30,7 @@ export function SetupScreen() {
   // Build a random deck for quick start
   const buildRandomDeck = useCallback((): CardId[] => {
     const ids = Object.values(definitions)
-      .filter((d): d is CardDefinition => d !== undefined && !d.isToken)
+      .filter((d) => !d.isToken)
       .map((c) => c.id);
     return fisherYatesShuffle(ids, Math.random).slice(0, 15);
   }, [definitions]);
@@ -53,7 +53,7 @@ export function SetupScreen() {
 
   const handleStartGame = useCallback(() => {
     startGame();
-    navigate({ to: Route.Game });
+    void navigate({ to: Route.Game });
   }, [startGame, navigate]);
 
   useEffect(() => {
@@ -97,7 +97,9 @@ export function SetupScreen() {
         <p className="text-text-secondary">{t`Pass the device to Player 2.`}</p>
         <Button
           ref={transitionButtonRef}
-          onClick={() => setPhase(SetupPhase.P1Build)}
+          onClick={() => {
+            setPhase(SetupPhase.P1Build);
+          }}
           variant="danger"
           size="lg"
         >

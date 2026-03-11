@@ -18,8 +18,8 @@ export function setTile(board: Board, pos: Position, tile: Tile): Board {
 export function isBoardFull(board: Board): boolean {
   for (let r = 0; r < BOARD_ROWS; r++) {
     for (let c = 0; c < BOARD_COLS; c++) {
-      const tile = board[r]![c]!;
-      if (tile.cardInstanceId === null) return false;
+      const tile = board[r]?.[c];
+      if (!tile?.cardInstanceId) return false;
     }
   }
   return true;

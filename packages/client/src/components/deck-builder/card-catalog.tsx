@@ -17,9 +17,7 @@ export function CardCatalog() {
   const isDeckFull = useDeckStore((s) => s.isDeckFull);
 
   const filteredCards = useMemo(() => {
-    const allCards = Object.values(definitions).filter(
-      (d): d is CardDefinition => d !== undefined && !d.isToken,
-    );
+    const allCards = Object.values(definitions).filter((d) => !d.isToken);
 
     return allCards.filter((card) => {
       if (rankFilter !== null && card.rank !== rankFilter) return false;
@@ -39,7 +37,9 @@ export function CardCatalog() {
       const isInDeck = selectedCards.includes(card.id);
       const canAdd = !isInDeck && !isDeckFull();
       if (!canAdd) return undefined;
-      return () => addCard(card.id);
+      return () => {
+        addCard(card.id);
+      };
     },
     [selectedCards, isDeckFull, addCard],
   );

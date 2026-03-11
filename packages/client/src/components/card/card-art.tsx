@@ -53,8 +53,12 @@ export function CardArt({ definitionId, rank, size }: CardArtProps) {
           className={`absolute inset-0 h-full w-full object-cover ${
             status === 'loaded' ? 'opacity-100' : 'opacity-0'
           } ${reduceMotion ? '' : 'transition-opacity duration-200'}`}
-          onLoad={() => setStatus('loaded')}
-          onError={() => setStatus('error')}
+          onLoad={() => {
+            setStatus('loaded');
+          }}
+          onError={() => {
+            setStatus('error');
+          }}
         />
       )}
     </div>

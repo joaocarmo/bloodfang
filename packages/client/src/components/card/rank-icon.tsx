@@ -23,7 +23,7 @@ export function RankIcon({ rank }: RankIconProps) {
   return (
     <span
       className={rank === 1 ? 'text-rank-1' : rank === 2 ? 'text-rank-2' : 'text-rank-3'}
-      aria-label={t`Rank ${rank}`}
+      aria-label={t`Rank ${String(rank)}`}
     >
       {stars}
     </span>

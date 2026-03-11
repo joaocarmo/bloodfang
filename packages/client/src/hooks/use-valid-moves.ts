@@ -18,7 +18,7 @@ export function useHasValidMoves(cardId: string): boolean {
   const gameState = useGameStore((s) => s.gameState);
 
   return useMemo(() => {
-    if (!gameState || gameState.phase !== GamePhase.Playing) return false;
+    if (gameState?.phase !== GamePhase.Playing) return false;
     const moves = getValidMoves(gameState);
     const cardMoves = moves.find((m) => m.cardId === cardId);
     return (cardMoves?.positions.length ?? 0) > 0;

@@ -22,6 +22,11 @@ export default tseslint.config(
   {
     files: ['src/**/*.test.ts', 'src/cards/test-cards.ts', 'src/cards/ability-test-cards.ts'],
     extends: [tseslint.configs.disableTypeChecked],
+    rules: {
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/array-type': 'off',
+      '@typescript-eslint/consistent-generic-constructors': 'off',
+    },
   },
   {
     ignores: ['dist/'],

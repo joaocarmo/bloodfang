@@ -23,7 +23,9 @@ export function ActionLogSetting() {
           type="button"
           role="switch"
           aria-checked={showActionLog}
-          onClick={() => setShowActionLog(!showActionLog)}
+          onClick={() => {
+            setShowActionLog(!showActionLog);
+          }}
           className={`relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full
           border-2 border-transparent transition-colors focus-visible:outline-2
           focus-visible:outline-offset-2 focus-visible:outline-focus-ring ${
@@ -55,7 +57,9 @@ export function LanguageSetting() {
         id="language-select"
         disabled
         value={locale}
-        onChange={() => {}}
+        onChange={() => {
+          /* noop */
+        }}
         className="bg-surface-raised border border-border rounded-lg px-4 py-2 text-text-primary
           disabled:opacity-50 disabled:cursor-not-allowed"
       >
@@ -78,7 +82,9 @@ export function ThemeSetting() {
         id="theme-select"
         disabled
         value={theme}
-        onChange={() => {}}
+        onChange={() => {
+          /* noop */
+        }}
         className="bg-surface-raised border border-border rounded-lg px-4 py-2 text-text-primary
           disabled:opacity-50 disabled:cursor-not-allowed"
       >
@@ -101,7 +107,9 @@ export function GameModeSetting() {
         id="game-mode-select"
         disabled
         value={gameMode}
-        onChange={() => {}}
+        onChange={() => {
+          /* noop */
+        }}
         className="bg-surface-raised border border-border rounded-lg px-4 py-2 text-text-primary
           disabled:opacity-50 disabled:cursor-not-allowed"
       >
@@ -126,7 +134,12 @@ export function ResetSettingsButton() {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <Button variant="danger" onClick={() => setConfirmOpen(true)}>
+        <Button
+          variant="danger"
+          onClick={() => {
+            setConfirmOpen(true);
+          }}
+        >
           {t`Reset to Defaults`}
         </Button>
         <p className="text-text-muted text-sm">
@@ -135,7 +148,9 @@ export function ResetSettingsButton() {
       </div>
       <ConfirmDialog
         open={confirmOpen}
-        onCancel={() => setConfirmOpen(false)}
+        onCancel={() => {
+          setConfirmOpen(false);
+        }}
         onConfirm={handleReset}
         title={t`Reset to Defaults?`}
         description={t`This will clear all saved settings and local data. The page will reload.`}

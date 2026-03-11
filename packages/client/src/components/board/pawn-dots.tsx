@@ -16,7 +16,10 @@ export function PawnDots({ count, owner }: PawnDotsProps) {
   if (count === 0) return null;
 
   return (
-    <div className="flex gap-0.5 items-center" aria-label={t`${count} of ${MAX_PAWN_COUNT} pawns`}>
+    <div
+      className="flex gap-0.5 items-center"
+      aria-label={t`${String(count)} of ${String(MAX_PAWN_COUNT)} pawns`}
+    >
       {Array.from({ length: count }, (_, i) => (
         <motion.div
           key={i}

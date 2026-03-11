@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import { act } from '@testing-library/react';
 import { getAllGameDefinitions } from '@bloodfang/engine';
-import type { CardDefinition } from '@bloodfang/engine';
 import { CardPreviewTrigger } from './card-preview-trigger.tsx';
 import { CardDetail } from './card-detail.tsx';
 import { renderWithProviders, resetStores, screen, waitFor } from '../../test-utils.tsx';
@@ -16,7 +15,8 @@ vi.mock('motion/react', async () => {
 });
 
 const definitions = getAllGameDefinitions();
-const testDef = definitions['hoplite-guard'] as CardDefinition;
+const testDef = definitions['hoplite-guard'];
+if (!testDef) throw new Error('hoplite-guard definition not found');
 
 beforeEach(() => {
   resetStores();

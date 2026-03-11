@@ -20,7 +20,9 @@ export function SelectedCardDetail() {
         <Button
           variant="ghost"
           size="sm"
-          onClick={() => selectCard(null)}
+          onClick={() => {
+            selectCard(null);
+          }}
           aria-label={t`Deselect card`}
         >
           ×

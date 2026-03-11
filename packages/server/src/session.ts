@@ -39,9 +39,7 @@ const ABANDONED_WAITING_MS = 5 * 60_000;
 let cachedDefinitions: ReturnType<typeof getAllGameDefinitions> | undefined;
 
 function getDefinitions() {
-  if (!cachedDefinitions) {
-    cachedDefinitions = getAllGameDefinitions();
-  }
+  cachedDefinitions ??= getAllGameDefinitions();
   return cachedDefinitions;
 }
 
@@ -365,15 +363,15 @@ export class Session {
 
   private validateDeck(deck: CardId[]): string | null {
     if (!Array.isArray(deck)) return 'Deck must be an array';
-    if (deck.length !== DECK_SIZE) return `Deck must contain exactly ${DECK_SIZE} cards`;
+    if (deck.length !== DECK_SIZE) return `Deck must contain exactly ${String(DECK_SIZE)} cards`;
 
     const definitions = getDefinitions();
     const seen = new Set<CardId>();
     for (const cardId of deck) {
       const def = definitions[cardId];
-      if (!def) return `Unknown card ID: ${String(cardId)}`;
-      if (def.isToken) return `Token cards cannot be in a deck: ${String(cardId)}`;
-      if (seen.has(cardId)) return `Duplicate card ID: ${String(cardId)}`;
+      if (!def) return `Unknown card ID: ${cardId}`;
+      if (def.isToken) return `Token cards cannot be in a deck: ${cardId}`;
+      if (seen.has(cardId)) return `Duplicate card ID: ${cardId}`;
       seen.add(cardId);
     }
 

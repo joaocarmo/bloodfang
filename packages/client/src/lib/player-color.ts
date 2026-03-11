@@ -13,5 +13,5 @@ export function tileBgColor(owner: PlayerId | null): string {
 }
 
 export function playerBgOpacity(player: PlayerId, opacity: number): string {
-  return player === 0 ? `bg-p0/${opacity}` : `bg-p1/${opacity}`;
+  return player === 0 ? `bg-p0/${String(opacity)}` : `bg-p1/${String(opacity)}`;
 }

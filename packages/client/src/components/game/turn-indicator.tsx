@@ -11,9 +11,9 @@ export function TurnIndicator() {
   return (
     <div className="text-center" role="status">
       <span className={`${playerTextColor(player)} font-bold text-lg`}>
-        {t`Player ${player + 1}'s Turn`}
+        {t`Player ${String(player + 1)}'s Turn`}
       </span>
-      <span className="text-text-muted text-sm ml-2">{t`Turn ${gameState.turnNumber}`}</span>
+      <span className="text-text-muted text-sm ml-2">{t`Turn ${String(gameState.turnNumber)}`}</span>
     </div>
   );
 }

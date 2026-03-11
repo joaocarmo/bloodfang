@@ -41,64 +41,64 @@ function formatAction(action: GameAction, definitions: Record<string, { id: stri
     case 'placeCard': {
       const defId = action.cardId;
       const name = definitions[defId] ? getCardName(defId) : action.cardId;
-      const p = action.player + 1;
-      const row = action.position.row + 1;
-      const col = action.position.col + 1;
+      const p = String(action.player + 1);
+      const row = String(action.position.row + 1);
+      const col = String(action.position.col + 1);
       return t`P${p} played ${name} at (${row},${col})`;
     }
     case 'pass': {
-      const p = action.player + 1;
+      const p = String(action.player + 1);
       return t`P${p} passed`;
     }
     case 'drawCard': {
-      const p = action.player + 1;
+      const p = String(action.player + 1);
       return t`P${p} drew a card`;
     }
     case 'placePawn': {
-      const p = action.player + 1;
-      const row = action.position.row + 1;
-      const col = action.position.col + 1;
+      const p = String(action.player + 1);
+      const row = String(action.position.row + 1);
+      const col = String(action.position.col + 1);
       return t`P${p} placed pawn at (${row},${col})`;
     }
     case 'capturePawn': {
-      const p = action.player + 1;
-      const row = action.position.row + 1;
-      const col = action.position.col + 1;
+      const p = String(action.player + 1);
+      const row = String(action.position.row + 1);
+      const col = String(action.position.col + 1);
       return t`P${p} captured pawn at (${row},${col})`;
     }
     case 'destroyCard': {
-      const row = action.position.row + 1;
-      const col = action.position.col + 1;
+      const row = String(action.position.row + 1);
+      const col = String(action.position.col + 1);
       return t`Card destroyed at (${row},${col})`;
     }
     case 'enhance':
-      return t`Enhanced card +${action.value} power`;
+      return t`Enhanced card +${String(action.value)} power`;
     case 'enfeeble':
-      return t`Enfeebled card -${action.value} power`;
+      return t`Enfeebled card -${String(action.value)} power`;
     case 'mulligan': {
-      const p = action.player + 1;
-      const count = action.returnedCount;
+      const p = String(action.player + 1);
+      const count = String(action.returnedCount);
       return t`P${p} mulliganed ${count} cards`;
     }
     case 'gameEnd':
-      return t`Game ended: ${action.scores[0]} - ${action.scores[1]}`;
+      return t`Game ended: ${String(action.scores[0])} - ${String(action.scores[1])}`;
     case 'spawnCard': {
       const name = getCardName(action.definitionId);
-      const row = action.position.row + 1;
-      const col = action.position.col + 1;
+      const row = String(action.position.row + 1);
+      const col = String(action.position.col + 1);
       return t`Spawned ${name} at (${row},${col})`;
     }
     case 'addCardToHand': {
-      const p = action.player + 1;
+      const p = String(action.player + 1);
       return t`P${p} received a card`;
     }
     case 'abilityTrigger':
       return t`Ability triggered: ${action.abilityTrigger}`;
     case 'pawnBonus': {
-      const p = action.player + 1;
-      const bonus = action.bonusPawns;
-      const row = action.position.row + 1;
-      const col = action.position.col + 1;
+      const p = String(action.player + 1);
+      const bonus = String(action.bonusPawns);
+      const row = String(action.position.row + 1);
+      const col = String(action.position.col + 1);
       return t`P${p} gained ${bonus} bonus pawns at (${row},${col})`;
     }
   }

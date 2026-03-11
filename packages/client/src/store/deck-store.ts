@@ -22,24 +22,34 @@ export const useDeckStore = create<DeckStore>((set, get) => ({
   searchQuery: '',
   rankFilter: null,
 
-  addCard: (definitionId) =>
+  addCard: (definitionId) => {
     set((state) => {
       if (state.selectedCards.length >= DECK_SIZE) return state;
       if (state.selectedCards.includes(definitionId)) return state;
       return { selectedCards: [...state.selectedCards, definitionId] };
-    }),
+    });
+  },
 
-  removeCard: (definitionId) =>
+  removeCard: (definitionId) => {
     set((state) => ({
       selectedCards: state.selectedCards.filter((id) => id !== definitionId),
-    })),
+    }));
+  },
 
-  setCards: (cardIds) => set({ selectedCards: cardIds.slice(0, DECK_SIZE) }),
+  setCards: (cardIds) => {
+    set({ selectedCards: cardIds.slice(0, DECK_SIZE) });
+  },
 
-  clear: () => set({ selectedCards: [], searchQuery: '', rankFilter: null }),
+  clear: () => {
+    set({ selectedCards: [], searchQuery: '', rankFilter: null });
+  },
 
-  setSearchQuery: (query) => set({ searchQuery: query }),
-  setRankFilter: (rank) => set({ rankFilter: rank }),
+  setSearchQuery: (query) => {
+    set({ searchQuery: query });
+  },
+  setRankFilter: (rank) => {
+    set({ rankFilter: rank });
+  },
 
   isDeckFull: () => get().selectedCards.length >= DECK_SIZE,
 }));

@@ -27,7 +27,9 @@ export function FilterBar() {
           id="card-search"
           type="text"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+          }}
           placeholder={t`Card name...`}
           className="px-3 py-1.5 bg-surface-raised border border-border rounded-lg text-sm
             text-text-primary placeholder:text-text-muted
@@ -39,7 +41,9 @@ export function FilterBar() {
         {ranks.map(({ value, label }) => (
           <ToggleButton
             key={String(value)}
-            onClick={() => setRankFilter(value)}
+            onClick={() => {
+              setRankFilter(value);
+            }}
             pressed={rankFilter === value}
           >
             {label}

@@ -25,10 +25,10 @@ export function PowerBadge({ basePower, effectivePower, size = 'md' }: PowerBadg
       className={`${colorClass} ${sizeClass} font-bold tabular-nums`}
       aria-label={
         isBuffed
-          ? t`Power ${effectivePower}, buffed`
+          ? t`Power ${String(effectivePower)}, buffed`
           : isDebuffed
-            ? t`Power ${effectivePower}, debuffed`
-            : t`Power ${effectivePower}`
+            ? t`Power ${String(effectivePower)}, debuffed`
+            : t`Power ${String(effectivePower)}`
       }
     >
       {effectivePower}

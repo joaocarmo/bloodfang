@@ -10,14 +10,28 @@ beforeEach(() => {
 
 describe('DeckBuilder', () => {
   it('renders heading with player number', () => {
-    renderWithProviders(<DeckBuilder playerNumber={1} onConfirm={() => {}} />);
+    renderWithProviders(
+      <DeckBuilder
+        playerNumber={1}
+        onConfirm={() => {
+          /* noop */
+        }}
+      />,
+    );
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Player 1');
   });
 
   it('confirm button shows 0/15 and is aria-disabled', () => {
-    renderWithProviders(<DeckBuilder playerNumber={1} onConfirm={() => {}} />);
+    renderWithProviders(
+      <DeckBuilder
+        playerNumber={1}
+        onConfirm={() => {
+          /* noop */
+        }}
+      />,
+    );
     const confirmBtn = screen.getByRole('button', { name: /Confirm/i });
-    expect(confirmBtn).toHaveTextContent(`0/${DECK_SIZE}`);
+    expect(confirmBtn).toHaveTextContent(`0/${String(DECK_SIZE)}`);
     expect(confirmBtn).toHaveAttribute('aria-disabled', 'true');
   });
 
@@ -25,14 +39,28 @@ describe('DeckBuilder', () => {
     useDeckStore.getState().addCard('hoplite-guard');
     expect(useDeckStore.getState().selectedCards).toHaveLength(1);
 
-    renderWithProviders(<DeckBuilder playerNumber={1} onConfirm={() => {}} />);
+    renderWithProviders(
+      <DeckBuilder
+        playerNumber={1}
+        onConfirm={() => {
+          /* noop */
+        }}
+      />,
+    );
 
     // useEffect clears on mount
     expect(useDeckStore.getState().selectedCards).toHaveLength(0);
   });
 
   it('clicking a catalog card adds it to the deck', async () => {
-    const { user } = renderWithProviders(<DeckBuilder playerNumber={1} onConfirm={() => {}} />);
+    const { user } = renderWithProviders(
+      <DeckBuilder
+        playerNumber={1}
+        onConfirm={() => {
+          /* noop */
+        }}
+      />,
+    );
 
     // Find a specific card button by its aria-label
     const cardBtn = screen.getByRole('button', { name: /Hoplite Guard/i });
@@ -40,11 +68,18 @@ describe('DeckBuilder', () => {
 
     expect(useDeckStore.getState().selectedCards).toHaveLength(1);
     const confirmBtn = screen.getByRole('button', { name: /Confirm/i });
-    expect(confirmBtn).toHaveTextContent(`1/${DECK_SIZE}`);
+    expect(confirmBtn).toHaveTextContent(`1/${String(DECK_SIZE)}`);
   });
 
   it('clicking slot remove button removes card from deck', async () => {
-    const { user } = renderWithProviders(<DeckBuilder playerNumber={2} onConfirm={() => {}} />);
+    const { user } = renderWithProviders(
+      <DeckBuilder
+        playerNumber={2}
+        onConfirm={() => {
+          /* noop */
+        }}
+      />,
+    );
 
     // Add card after mount-clear has run
     act(() => {
@@ -58,7 +93,14 @@ describe('DeckBuilder', () => {
   });
 
   it('clear button resets deck', async () => {
-    const { user } = renderWithProviders(<DeckBuilder playerNumber={1} onConfirm={() => {}} />);
+    const { user } = renderWithProviders(
+      <DeckBuilder
+        playerNumber={1}
+        onConfirm={() => {
+          /* noop */
+        }}
+      />,
+    );
 
     // Add a few cards via store (after mount clear)
     act(() => {

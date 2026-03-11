@@ -28,16 +28,16 @@ export function ResultsScreen() {
   const finalScores = calculateFinalScores(gameState);
   const winner = determineWinner(finalScores);
 
-  const winnerText = winner !== null ? t`Player ${winner + 1} Wins!` : t`It's a Draw!`;
+  const winnerText = winner !== null ? t`Player ${String(winner + 1)} Wins!` : t`It's a Draw!`;
 
   const handleRematch = () => {
     startGame();
-    navigate({ to: Route.Game });
+    void navigate({ to: Route.Game });
   };
 
   const handleHome = () => {
     resetToHome();
-    navigate({ to: Route.Home });
+    void navigate({ to: Route.Home });
   };
 
   return (
@@ -94,13 +94,13 @@ export function ResultsScreen() {
             const p1 = laneScores[row]?.[1] ?? 0;
             const laneWinner = p0 > p1 ? 0 : p1 > p0 ? 1 : null;
 
-            const laneNum = row + 1;
+            const laneNum = String(row + 1);
             const laneLabel =
               laneWinner === 0
-                ? t`Lane ${laneNum}: Player 1 wins ${p0} to ${p1}`
+                ? t`Lane ${laneNum}: Player 1 wins ${String(p0)} to ${String(p1)}`
                 : laneWinner === 1
-                  ? t`Lane ${laneNum}: Player 2 wins ${p1} to ${p0}`
-                  : t`Lane ${laneNum}: Tied ${p0} to ${p1}`;
+                  ? t`Lane ${laneNum}: Player 2 wins ${String(p1)} to ${String(p0)}`
+                  : t`Lane ${laneNum}: Tied ${String(p0)} to ${String(p1)}`;
 
             return (
               <motion.div
@@ -116,7 +116,7 @@ export function ResultsScreen() {
                 >
                   {p0}
                 </span>
-                <span className="text-text-muted text-sm">{t`Lane ${row + 1}`}</span>
+                <span className="text-text-muted text-sm">{t`Lane ${String(row + 1)}`}</span>
                 <span
                   className={`font-bold tabular-nums w-8 ${laneWinner === 1 ? 'text-p1' : 'text-text-muted'}`}
                 >

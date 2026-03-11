@@ -18,7 +18,7 @@ export function LaneScores({ player, side, previewLaneScores }: LaneScoresProps)
     <div
       className={`grid grid-rows-3 gap-1 shrink-0 w-16 sm:w-20 md:w-24 ${side === 'left' ? 'pr-1 sm:pr-2' : 'pl-1 sm:pl-2'}`}
       role="status"
-      aria-label={t`Player ${player + 1} lane scores`}
+      aria-label={t`Player ${String(player + 1)} lane scores`}
     >
       {Array.from({ length: BOARD_ROWS }, (_, row) => {
         const score = laneScores[row]?.[player] ?? 0;
@@ -57,13 +57,13 @@ export function LaneTotal({ player, side, previewLaneScores }: LaneTotalProps) {
   const laneScores = useLaneScores();
   const colorClass = playerTextColor(player);
   const totalScore = laneScores.reduce((sum, lane) => {
-    const score = lane?.[player];
-    return sum + (score ?? 0);
+    const score = lane[player];
+    return sum + score;
   }, 0);
   const previewTotal = previewLaneScores
     ? previewLaneScores.reduce((sum, lane) => {
-        const score = lane?.[player];
-        return sum + (score ?? 0);
+        const score = lane[player];
+        return sum + score;
       }, 0)
     : null;
 
@@ -71,7 +71,7 @@ export function LaneTotal({ player, side, previewLaneScores }: LaneTotalProps) {
     <div
       className={`shrink-0 w-16 sm:w-20 md:w-24 text-center ${side === 'left' ? 'pr-1 sm:pr-2' : 'pl-1 sm:pl-2'}`}
       role="status"
-      aria-label={t`Player ${player + 1} total score`}
+      aria-label={t`Player ${String(player + 1)} total score`}
     >
       <div
         className={`${colorClass} font-bold text-base sm:text-lg md:text-xl border-t border-border pt-1 tabular-nums`}

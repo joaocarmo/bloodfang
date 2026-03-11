@@ -8,7 +8,7 @@ export function PassButton() {
   const doPass = useGameStore((s) => s.doPass);
   const validMoves = useValidMoves();
 
-  if (!gameState || gameState.phase !== GamePhase.Playing) return null;
+  if (gameState?.phase !== GamePhase.Playing) return null;
 
   const hasNoMoves = validMoves.length === 0;
 

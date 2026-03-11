@@ -9,13 +9,13 @@ function describeRange(rangePattern: readonly RangeCell[]): string {
     if (cell.type === 'ability' || cell.type === 'both') abilityCells++;
   }
   if (pawnCells > 0 && abilityCells > 0) {
-    return t`Range: ${pawnCells} pawn tiles, ${abilityCells} ability tiles`;
+    return t`Range: ${String(pawnCells)} pawn tiles, ${String(abilityCells)} ability tiles`;
   }
   if (pawnCells > 0) {
-    return t`Range: ${pawnCells} pawn tiles`;
+    return t`Range: ${String(pawnCells)} pawn tiles`;
   }
   if (abilityCells > 0) {
-    return t`Range: ${abilityCells} ability tiles`;
+    return t`Range: ${String(abilityCells)} ability tiles`;
   }
   return t`Range: no tiles`;
 }
@@ -38,12 +38,14 @@ export function RangeGrid({ rangePattern, size = 'sm' }: RangeGridProps) {
     const gridRow = cell.row + 2;
     const gridCol = cell.col + 2;
     if (gridRow >= 0 && gridRow < 5 && gridCol >= 0 && gridCol < 5) {
-      grid[gridRow]![gridCol] = cell.type;
+      const row = grid[gridRow];
+      if (row) row[gridCol] = cell.type;
     }
   }
 
   // Center cell
-  grid[2]![2] = 'center';
+  const centerRow = grid[2];
+  if (centerRow) centerRow[2] = 'center';
 
   return (
     <div

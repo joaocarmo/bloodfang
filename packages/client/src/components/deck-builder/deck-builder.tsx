@@ -34,7 +34,7 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
         tabIndex={-1}
         className={`text-xl sm:text-2xl font-bold outline-none ${playerTextColor(playerNumber === 1 ? 0 : 1)}`}
       >
-        {t`Player ${playerNumber} — Build Your Deck`}
+        {t`Player ${String(playerNumber)} — Build Your Deck`}
       </h1>
 
       <FilterBar />
@@ -50,13 +50,15 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
               {t`Clear`}
             </Button>
             <Button
-              onClick={() => isReady && onConfirm([...selectedCards])}
+              onClick={() => {
+                if (isReady) onConfirm([...selectedCards]);
+              }}
               aria-disabled={!isReady}
               variant={isReady ? 'primary' : 'secondary'}
               size="sm"
               className={isReady ? '' : 'opacity-50 cursor-not-allowed'}
             >
-              {t`Confirm (${selectedCards.length}/${DECK_SIZE})`}
+              {t`Confirm (${String(selectedCards.length)}/${String(DECK_SIZE)})`}
             </Button>
           </div>
         </div>

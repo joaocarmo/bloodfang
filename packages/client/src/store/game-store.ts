@@ -56,15 +56,18 @@ export const useGameStore = create<GameStore>((set, get) => {
     hoveredTilePosition: null,
 
     playerDecks: [[], []],
-    setPlayerDeck: (player, deck) =>
+    setPlayerDeck: (player, deck) => {
       set((state) => {
         const decks = [...state.playerDecks] as [CardId[], CardId[]];
         decks[player] = deck;
         return { playerDecks: decks };
-      }),
+      });
+    },
 
     announcement: '',
-    announce: (message) => set({ announcement: message }),
+    announce: (message) => {
+      set({ announcement: message });
+    },
 
     startGame: () => {
       const { playerDecks, definitions: defs } = get();
@@ -90,13 +93,13 @@ export const useGameStore = create<GameStore>((set, get) => {
       set({ gameState: newState, selectedCardId: null });
 
       if (newState.phase === GamePhase.Playing) {
-        const p = newState.currentPlayerIndex + 1;
+        const p = String(newState.currentPlayerIndex + 1);
         get().announce(t`Mulligan complete. Player ${p}'s turn.`);
         set({ showTransition: true });
       } else {
         const nextPlayer = player === 0 ? 1 : 0;
-        const pDone = player + 1;
-        const pNext = nextPlayer + 1;
+        const pDone = String(player + 1);
+        const pNext = String(nextPlayer + 1);
         get().announce(
           t`Player ${pDone} mulligan complete. Player ${pNext}, select cards to return.`,
         );
@@ -104,9 +107,13 @@ export const useGameStore = create<GameStore>((set, get) => {
       }
     },
 
-    selectCard: (cardId) => set({ selectedCardId: cardId }),
+    selectCard: (cardId) => {
+      set({ selectedCardId: cardId });
+    },
 
-    hoverTile: (position) => set({ hoveredTilePosition: position }),
+    hoverTile: (position) => {
+      set({ hoveredTilePosition: position });
+    },
 
     placeCard: (position) => {
       const { gameState, selectedCardId, definitions: defs } = get();
@@ -123,9 +130,9 @@ export const useGameStore = create<GameStore>((set, get) => {
         hoveredTilePosition: null,
       });
 
-      const pNum = prevPlayer + 1;
-      const rowNum = position.row + 1;
-      const colNum = position.col + 1;
+      const pNum = String(prevPlayer + 1);
+      const rowNum = String(position.row + 1);
+      const colNum = String(position.col + 1);
       get().announce(t`Player ${pNum} played ${cardName} at row ${rowNum}, column ${colNum}.`);
 
       if (newState.phase === GamePhase.Ended) {
@@ -133,12 +140,12 @@ export const useGameStore = create<GameStore>((set, get) => {
         const winner = determineWinner(scores);
         const winMsg =
           winner !== null
-            ? t`Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
-            : t`Draw! ${scores[0]} to ${scores[1]}.`;
+            ? t`Player ${String(winner + 1)} wins ${String(scores[winner])} to ${String(scores[winner === 0 ? 1 : 0])}.`
+            : t`Draw! ${String(scores[0])} to ${String(scores[1])}.`;
         get().announce(t`Game over. ${winMsg}`);
       } else if (newState.currentPlayerIndex !== prevPlayer) {
         set({ showTransition: true });
-        const nextP = newState.currentPlayerIndex + 1;
+        const nextP = String(newState.currentPlayerIndex + 1);
         get().announce(t`Player ${nextP}'s turn.`);
       }
     },
@@ -151,7 +158,7 @@ export const useGameStore = create<GameStore>((set, get) => {
       const newState = pass(gameState);
       set({ gameState: newState, selectedCardId: null });
 
-      const passP = prevPlayer + 1;
+      const passP = String(prevPlayer + 1);
       get().announce(t`Player ${passP} passed.`);
 
       if (newState.phase === GamePhase.Ended) {
@@ -159,27 +166,30 @@ export const useGameStore = create<GameStore>((set, get) => {
         const winner = determineWinner(scores);
         const winMsg =
           winner !== null
-            ? t`Player ${winner + 1} wins ${scores[winner]} to ${scores[winner === 0 ? 1 : 0]}.`
-            : t`Draw! ${scores[0]} to ${scores[1]}.`;
+            ? t`Player ${String(winner + 1)} wins ${String(scores[winner])} to ${String(scores[winner === 0 ? 1 : 0])}.`
+            : t`Draw! ${String(scores[0])} to ${String(scores[1])}.`;
         get().announce(t`Game over. ${winMsg}`);
       } else {
         set({ showTransition: true });
-        const nextP = newState.currentPlayerIndex + 1;
+        const nextP = String(newState.currentPlayerIndex + 1);
         get().announce(t`Player ${nextP}'s turn.`);
       }
     },
 
-    resetToHome: () =>
+    resetToHome: () => {
       set({
         gameState: null,
         selectedCardId: null,
         hoveredTilePosition: null,
         playerDecks: [[], []],
         showTransition: false,
-      }),
+      });
+    },
 
     showTransition: false,
-    setShowTransition: (show) => set({ showTransition: show }),
+    setShowTransition: (show) => {
+      set({ showTransition: show });
+    },
   };
 });
 
@@ -189,7 +199,7 @@ export function useValidMoves() {
   // useMemo prevents the infinite re-render that a raw Zustand selector would cause
   // (getValidMoves returns new array refs, failing Object.is equality)
   return useMemo(() => {
-    if (!gameState || gameState.phase !== GamePhase.Playing) return [];
+    if (gameState?.phase !== GamePhase.Playing) return [];
     return getValidMoves(gameState);
   }, [gameState]);
 }

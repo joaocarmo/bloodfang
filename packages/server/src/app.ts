@@ -53,7 +53,8 @@ export function createApp(options: AppOptions): AppInstance {
   const manager = new SessionManager(store, maxSessions, logger);
 
   const app = new Hono();
-  const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app });
+  const nodeWs = createNodeWebSocket({ app });
+  const { upgradeWebSocket } = nodeWs;
 
   const isRateLimited = disableRateLimit ? () => false : createRateLimiter();
   const wsMessageCounters = new Map<string, { count: number; resetAt: number }>();
@@ -190,7 +191,8 @@ export function createApp(options: AppOptions): AppInstance {
             }
           }
 
-          const raw = typeof event.data === 'string' ? event.data : String(event.data);
+          if (typeof event.data !== 'string') return;
+          const raw = event.data;
           const message = parseClientMessage(raw);
           if (!message) {
             session.handleMessage(playerId, { type: 'ping' } as never);
@@ -212,5 +214,9 @@ export function createApp(options: AppOptions): AppInstance {
     }),
   );
 
-  return { app, manager, injectWebSocket };
+  return {
+    app,
+    manager,
+    injectWebSocket: nodeWs.injectWebSocket.bind(nodeWs),
+  };
 }
