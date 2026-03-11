@@ -1,13 +1,10 @@
 import eslint from '@eslint/js';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   eslint.configs.recommended,
   tseslint.configs.strictTypeChecked,
   tseslint.configs.stylisticTypeChecked,
-  jsxA11y.flatConfigs.recommended,
   {
     languageOptions: {
       parserOptions: {
@@ -15,11 +12,7 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    plugins: {
-      'react-hooks': reactHooks,
-    },
     rules: {
-      ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': [
         'warn',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
@@ -27,6 +20,10 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist/', 'src/locales/'],
+    files: ['src/**/*.test.ts', 'src/cards/test-cards.ts', 'src/cards/ability-test-cards.ts'],
+    extends: [tseslint.configs.disableTypeChecked],
+  },
+  {
+    ignores: ['dist/'],
   },
 );

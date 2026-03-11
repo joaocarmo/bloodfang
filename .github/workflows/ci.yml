@@ -38,8 +38,29 @@ jobs:
       - name: Build engine
         run: pnpm -F @bloodfang/engine build
 
+      - name: Typecheck engine
+        run: pnpm -F @bloodfang/engine typecheck
+
+      - name: Lint engine
+        run: pnpm -F @bloodfang/engine lint
+
       - name: Test engine
         run: pnpm -F @bloodfang/engine test
+
+      - name: Typecheck server
+        run: pnpm -F @bloodfang/server typecheck
+
+      - name: Lint server
+        run: pnpm -F @bloodfang/server lint
+
+      - name: Test server
+        run: pnpm -F @bloodfang/server test
+
+      - name: Build server
+        run: pnpm -F @bloodfang/server build
+
+      - name: Typecheck client
+        run: pnpm -F @bloodfang/client typecheck
 
       - name: Lint client
         run: pnpm -F @bloodfang/client lint
