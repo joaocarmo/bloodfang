@@ -19,7 +19,13 @@ import {
   RANGE_CELL_TYPES,
 } from './types.js';
 import type { GameState, PlayerId } from './types.js';
-import { buildTestDeck, getAllTestDefinitions } from './cards/test-cards.js';
+import {
+  buildTestDeck,
+  getAllTestDefinitions,
+  testCardId,
+  cell,
+  defined,
+} from './cards/test-cards.js';
 
 const defs = getAllTestDefinitions();
 const deck = buildTestDeck();
@@ -40,7 +46,7 @@ function skipMulligan(state: GameState, rng?: () => number): GameState {
   return s;
 }
 
-// ── createGame ─────────────────────────────────────────────────────────
+// -- createGame ---------------------------------------------------------------
 
 describe('createGame', () => {
   it('creates a game in mulligan phase', () => {
@@ -92,21 +98,21 @@ describe('createGame', () => {
   });
 
   it('throws on wrong deck size', () => {
-    expect(() => createGame(['a'], deck, defs)).toThrow('exactly 15 cards');
+    expect(() => createGame([testCardId('a')], deck, defs)).toThrow('exactly 15 cards');
   });
 
   it('throws on duplicate cards in deck', () => {
-    const badDeck = Array(DECK_SIZE).fill('r1-basic');
+    const badDeck = Array.from({ length: DECK_SIZE }, () => testCardId('r1-basic'));
     expect(() => createGame(badDeck, deck, defs)).toThrow('duplicate');
   });
 
   it('throws on unknown card ID', () => {
-    const badDeck = [...deck.slice(1), 'nonexistent'];
+    const badDeck = [...deck.slice(1), testCardId('nonexistent')];
     expect(() => createGame(badDeck, deck, defs)).toThrow('not found');
   });
 });
 
-// ── mulligan ───────────────────────────────────────────────────────────
+// -- mulligan -----------------------------------------------------------------
 
 describe('mulligan', () => {
   it('allows empty mulligan (skip)', () => {
@@ -119,7 +125,7 @@ describe('mulligan', () => {
   it('returns and redraws specified cards', () => {
     const state = createTestGame();
     const hand = state.players[0].hand;
-    const toReturn = [hand[0]!, hand[1]!];
+    const toReturn = [defined(hand[0]), defined(hand[1])];
     const result = mulligan(state, 0, toReturn, seedRng());
 
     expect(result.players[0].hand).toHaveLength(INITIAL_HAND_SIZE);
@@ -144,7 +150,9 @@ describe('mulligan', () => {
 
   it('throws if card not in hand', () => {
     const state = createTestGame();
-    expect(() => mulligan(state, 0, ['nonexistent'], seedRng())).toThrow('not in player');
+    expect(() => mulligan(state, 0, [testCardId('nonexistent')], seedRng())).toThrow(
+      'not in player',
+    );
   });
 
   it('throws if not in mulligan phase', () => {
@@ -156,7 +164,7 @@ describe('mulligan', () => {
   it('logs mulligan action', () => {
     const state = createTestGame();
     const hand = state.players[0].hand;
-    const result = mulligan(state, 0, [hand[0]!], seedRng());
+    const result = mulligan(state, 0, [defined(hand[0])], seedRng());
     const mulliganActions = result.log.filter((a) => a.type === LOG_ACTION_TYPES.MULLIGAN);
     expect(mulliganActions).toHaveLength(1);
     expect(mulliganActions[0]).toMatchObject({
@@ -170,7 +178,12 @@ describe('mulligan', () => {
   it('deck size is preserved after mulligan', () => {
     const state = createTestGame();
     const hand = state.players[0].hand;
-    const result = mulligan(state, 0, [hand[0]!, hand[1]!, hand[2]!], seedRng());
+    const result = mulligan(
+      state,
+      0,
+      [defined(hand[0]), defined(hand[1]), defined(hand[2])],
+      seedRng(),
+    );
     // Total cards = deck + hand should equal 15
     const total = result.players[0].deck.length + result.players[0].hand.length;
     expect(total).toBe(DECK_SIZE);
@@ -185,26 +198,28 @@ describe('mulligan', () => {
   });
 });
 
-// ── canPlayCard + getValidMoves ────────────────────────────────────────
+// -- canPlayCard + getValidMoves ----------------------------------------------
 
 describe('canPlayCard', () => {
   it('returns false if not in playing phase', () => {
     const state = createTestGame();
-    expect(canPlayCard(state, state.players[0].hand[0]!, { row: 0, col: 0 })).toBe(false);
+    expect(canPlayCard(state, defined(state.players[0].hand[0]), { row: 0, col: 0 })).toBe(false);
   });
 
   it('returns false if card not in hand', () => {
     const state = skipMulligan(createTestGame());
-    expect(canPlayCard(state, 'nonexistent', { row: 0, col: 0 })).toBe(false);
+    expect(canPlayCard(state, testCardId('nonexistent'), { row: 0, col: 0 })).toBe(false);
   });
 
   it('returns false if tile not owned by player', () => {
     const state = skipMulligan(createTestGame());
     // Col 4 is owned by P1, P0 is current
-    const rank1Card = state.players[0].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const rank1Card = defined(
+      state.players[0].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     expect(canPlayCard(state, rank1Card, { row: 0, col: 4 })).toBe(false);
   });
 
@@ -213,7 +228,7 @@ describe('canPlayCard', () => {
     // Col 0 has 1 pawn, r2-basic requires rank 2
     const rank2Card = state.players[0].hand.find((id) => {
       const d = defs[id];
-      return d && d.rank === 2;
+      return d?.rank === 2;
     });
     if (rank2Card) {
       expect(canPlayCard(state, rank2Card, { row: 0, col: 0 })).toBe(false);
@@ -222,10 +237,12 @@ describe('canPlayCard', () => {
 
   it('allows playing rank 1 card on own tile with 1 pawn', () => {
     const state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const rank1Card = defined(
+      state.players[0].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     expect(canPlayCard(state, rank1Card, { row: 0, col: 0 })).toBe(true);
   });
 
@@ -233,17 +250,17 @@ describe('canPlayCard', () => {
     const state = skipMulligan(createTestGame());
     const rank1Cards = state.players[0].hand.filter((id) => {
       const d = defs[id];
-      return d && d.rank === 1;
+      return d?.rank === 1;
     });
     if (rank1Cards.length >= 1) {
       // Play first card
-      const s2 = playCard(state, rank1Cards[0]!, { row: 0, col: 0 });
+      const s2 = playCard(state, defined(rank1Cards[0]), { row: 0, col: 0 });
       // Try to play another card on same tile (it's now opponent's turn)
       // We need to come back to P0's turn first
       const s3 = pass(s2); // P1 passes
       const anotherRank1 = s3.players[0].hand.find((id) => {
         const d = defs[id];
-        return d && d.rank === 1;
+        return d?.rank === 1;
       });
       if (anotherRank1) {
         expect(canPlayCard(s3, anotherRank1, { row: 0, col: 0 })).toBe(false);
@@ -253,7 +270,7 @@ describe('canPlayCard', () => {
 
   it('returns false for out-of-bounds position', () => {
     const state = skipMulligan(createTestGame());
-    const cardId = state.players[0].hand[0]!;
+    const cardId = defined(state.players[0].hand[0]);
     expect(canPlayCard(state, cardId, { row: -1, col: 0 })).toBe(false);
   });
 });
@@ -291,25 +308,27 @@ describe('getValidMoves', () => {
   it('includes replacement card when allied card exists', () => {
     const state = skipMulligan(createTestGame());
     // First play a card
-    const rank1Card = state.players[0].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const rank1Card = defined(
+      state.players[0].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     let s = playCard(state, rank1Card, { row: 0, col: 0 });
     s = pass(s); // P1's turn, pass
     // Now P0 has a card on the board
 
-    const replacementInHand = s.players[0].hand.includes('replacement');
+    const replacementInHand = s.players[0].hand.includes(testCardId('replacement'));
     if (replacementInHand) {
       const moves = getValidMoves(s);
-      const replacementMove = moves.find((m) => m.cardId === 'replacement');
+      const replacementMove = moves.find((m) => m.cardId === testCardId('replacement'));
       expect(replacementMove).toBeDefined();
-      expect(replacementMove!.positions).toContainEqual({ row: 0, col: 0 });
+      expect(defined(replacementMove).positions).toContainEqual({ row: 0, col: 0 });
     }
   });
 });
 
-// ── resolveRangePattern ────────────────────────────────────────────────
+// -- resolveRangePattern ------------------------------------------------------
 
 describe('resolveRangePattern', () => {
   it('returns positions for pawn cells', () => {
@@ -367,15 +386,17 @@ describe('resolveRangePattern', () => {
   });
 });
 
-// ── playCard ───────────────────────────────────────────────────────────
+// -- playCard -----------------------------------------------------------------
 
 describe('playCard', () => {
   it('removes card from hand', () => {
     const state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const rank1Card = defined(
+      state.players[0].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
     // After playing, it's now P1's turn
     expect(state.players[0].hand).toContain(rank1Card);
@@ -384,28 +405,30 @@ describe('playCard', () => {
 
   it('creates a card instance on the board', () => {
     const state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const rank1Card = defined(
+      state.players[0].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
-    const tile = result.board[0]![0]!;
+    const tile = cell(result.board, 0, 0);
     expect(tile.cardInstanceId).not.toBeNull();
-    const instance = result.cardInstances[tile.cardInstanceId!];
+    const instance = result.cardInstances[defined(tile.cardInstanceId)];
     expect(instance).toBeDefined();
-    expect(instance!.definitionId).toBe(rank1Card);
-    expect(instance!.owner).toBe(0);
+    expect(defined(instance).definitionId).toBe(rank1Card);
+    expect(defined(instance).owner).toBe(0);
   });
 
   it('places pawns according to range pattern', () => {
     const state = skipMulligan(createTestGame());
     // r1-cross has cross pattern
-    const hasR1Cross = state.players[0].hand.includes('r1-cross');
+    const hasR1Cross = state.players[0].hand.includes(testCardId('r1-cross'));
     if (!hasR1Cross) return; // Skip if not in hand
 
-    const result = playCard(state, 'r1-cross', { row: 1, col: 0 });
+    const result = playCard(state, testCardId('r1-cross'), { row: 1, col: 0 });
     // Cross from (1,0) for P0: (-1,0)=(0,0), (1,0)=(2,0), (0,-1)=invalid, (0,1)=(1,1)
-    const tile11 = result.board[1]![1]!;
+    const tile11 = cell(result.board, 1, 1);
     expect(tile11.owner).toBe(0);
     expect(tile11.pawnCount).toBe(1);
   });
@@ -417,7 +440,7 @@ describe('playCard', () => {
     // Then P1 plays, then P0 plays at another spot that reaches P1's col
     // Easier: manually construct a scenario with r2-wide which goes left+right
     // For now, we just test that the mechanism works with the cross pattern
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     // This is a basic smoke test
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
     expect(result.consecutivePasses).toBe(0);
@@ -428,10 +451,12 @@ describe('playCard', () => {
     state = pass(state); // P0 passes
     expect(state.consecutivePasses).toBe(1);
     // Now P1 plays
-    const rank1Card = state.players[1].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const rank1Card = defined(
+      state.players[1].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     const result = playCard(state, rank1Card, { row: 0, col: 4 });
     expect(result.consecutivePasses).toBe(0);
   });
@@ -439,7 +464,7 @@ describe('playCard', () => {
   it('advances turn after playing', () => {
     const state = skipMulligan(createTestGame());
     expect(state.currentPlayerIndex).toBe(0);
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
     expect(result.currentPlayerIndex).toBe(1);
   });
@@ -447,7 +472,7 @@ describe('playCard', () => {
   it('draws a card on turn advance (after turn 1)', () => {
     const state = skipMulligan(createTestGame());
     const p1HandSize = state.players[1].hand.length;
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
     // P1 should have drawn a card (turn > 1 after advance)
     expect(result.players[1].hand).toHaveLength(p1HandSize + 1);
@@ -455,11 +480,11 @@ describe('playCard', () => {
 
   it('logs placeCard action', () => {
     const state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
     const placeActions = result.log.filter((a) => a.type === LOG_ACTION_TYPES.PLACE_CARD);
     expect(placeActions.length).toBeGreaterThanOrEqual(1);
-    const last = placeActions[placeActions.length - 1]!;
+    const last = defined(placeActions[placeActions.length - 1]);
     expect(last).toMatchObject({
       type: LOG_ACTION_TYPES.PLACE_CARD,
       player: 0,
@@ -470,12 +495,14 @@ describe('playCard', () => {
 
   it('throws when play is invalid', () => {
     const state = skipMulligan(createTestGame());
-    expect(() => playCard(state, 'nonexistent', { row: 0, col: 0 })).toThrow('Cannot play card');
+    expect(() => playCard(state, testCardId('nonexistent'), { row: 0, col: 0 })).toThrow(
+      'Cannot play card',
+    );
   });
 
   it('increments nextInstanceId', () => {
     const state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
     expect(result.nextInstanceId).toBe(state.nextInstanceId + 1);
   });
@@ -485,12 +512,12 @@ describe('playCard', () => {
     // We'd need to build up pawns first. This is a structural test.
     const state = skipMulligan(createTestGame());
     // Place a cross card at (1,0) — places pawn at (0,0) which already has 1 pawn
-    const hasR1Cross = state.players[0].hand.includes('r1-cross');
+    const hasR1Cross = state.players[0].hand.includes(testCardId('r1-cross'));
     if (!hasR1Cross) return;
 
-    const result = playCard(state, 'r1-cross', { row: 1, col: 0 });
+    const result = playCard(state, testCardId('r1-cross'), { row: 1, col: 0 });
     // (0,0) already had 1 pawn from P0, now should have 2
-    const tile00 = result.board[0]![0]!;
+    const tile00 = cell(result.board, 0, 0);
     expect(tile00.pawnCount).toBeLessThanOrEqual(3);
     expect(tile00.pawnCount).toBe(2); // 1 + 1 = 2
   });
@@ -505,7 +532,7 @@ describe('playCard', () => {
     ];
     state = { ...state, players: emptyDeckPlayers };
 
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     const p1HandBefore = state.players[1].hand.length;
     const result = playCard(state, rank1Card, { row: 0, col: 0 });
     // P1 deck was empty, hand should not grow
@@ -513,7 +540,7 @@ describe('playCard', () => {
   });
 });
 
-// ── pass + game end ────────────────────────────────────────────────────
+// -- pass + game end ----------------------------------------------------------
 
 describe('pass', () => {
   it('increments consecutivePasses', () => {
@@ -548,10 +575,12 @@ describe('pass', () => {
     let state = skipMulligan(createTestGame());
     state = pass(state); // P0 passes
     // P1 plays a card instead of passing
-    const rank1Card = state.players[1].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const rank1Card = defined(
+      state.players[1].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     state = playCard(state, rank1Card, { row: 0, col: 4 });
     expect(state.consecutivePasses).toBe(0);
     // P0 passes again
@@ -574,22 +603,22 @@ describe('pass', () => {
   });
 });
 
-// ── destroyCard ────────────────────────────────────────────────────────
+// -- destroyCard --------------------------------------------------------------
 
 describe('destroyCard', () => {
   it('removes card from board but keeps pawns', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
 
     // Find the instance
-    const tile = state.board[0]![0]!;
-    const instanceId = tile.cardInstanceId!;
+    const tile = cell(state.board, 0, 0);
+    const instanceId = defined(tile.cardInstanceId);
     expect(instanceId).toBeDefined();
 
     // Now it's P1's turn, but we can still call destroyCard
     const result = destroyCard(state, instanceId);
-    const newTile = result.board[0]![0]!;
+    const newTile = cell(result.board, 0, 0);
     expect(newTile.cardInstanceId).toBeNull();
     // Pawns remain
     expect(newTile.owner).toBe(0);
@@ -598,10 +627,10 @@ describe('destroyCard', () => {
 
   it('removes from cardInstances', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
-    const tile = state.board[0]![0]!;
-    const instanceId = tile.cardInstanceId!;
+    const tile = cell(state.board, 0, 0);
+    const instanceId = defined(tile.cardInstanceId);
 
     const result = destroyCard(state, instanceId);
     expect(result.cardInstances[instanceId]).toBeUndefined();
@@ -609,10 +638,10 @@ describe('destroyCard', () => {
 
   it('removes continuous modifiers referencing the card', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
-    const tile = state.board[0]![0]!;
-    const instanceId = tile.cardInstanceId!;
+    const tile = cell(state.board, 0, 0);
+    const instanceId = defined(tile.cardInstanceId);
 
     // Add a mock modifier referencing the card
     state = {
@@ -631,15 +660,15 @@ describe('destroyCard', () => {
 
   it('logs destroyCard action', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
-    const tile = state.board[0]![0]!;
-    const instanceId = tile.cardInstanceId!;
+    const tile = cell(state.board, 0, 0);
+    const instanceId = defined(tile.cardInstanceId);
 
     const result = destroyCard(state, instanceId);
     const destroyActions = result.log.filter((a) => a.type === LOG_ACTION_TYPES.DESTROY_CARD);
     expect(destroyActions.length).toBeGreaterThanOrEqual(1);
-    const last = destroyActions[destroyActions.length - 1]!;
+    const last = defined(destroyActions[destroyActions.length - 1]);
     expect(last).toMatchObject({
       type: LOG_ACTION_TYPES.DESTROY_CARD,
       instanceId,
@@ -653,27 +682,27 @@ describe('destroyCard', () => {
   });
 });
 
-// ── getEffectivePower ──────────────────────────────────────────────────
+// -- getEffectivePower --------------------------------------------------------
 
 describe('getEffectivePower', () => {
   it('returns basePower when no modifiers', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
-    const tile = state.board[0]![0]!;
-    const instanceId = tile.cardInstanceId!;
+    const tile = cell(state.board, 0, 0);
+    const instanceId = defined(tile.cardInstanceId);
 
     const power = getEffectivePower(state, instanceId);
-    const def = defs[rank1Card]!;
+    const def = defined(defs[rank1Card]);
     expect(power).toBe(def.power);
   });
 
   it('adds continuous modifier values', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
-    const tile = state.board[0]![0]!;
-    const instanceId = tile.cardInstanceId!;
+    const tile = cell(state.board, 0, 0);
+    const instanceId = defined(tile.cardInstanceId);
 
     state = {
       ...state,
@@ -683,48 +712,48 @@ describe('getEffectivePower', () => {
       ],
     };
 
-    const def = defs[rank1Card]!;
+    const def = defined(defs[rank1Card]);
     expect(getEffectivePower(state, instanceId)).toBe(def.power + 3 - 1);
   });
 });
 
-// ── Replacement card flow ──────────────────────────────────────────────
+// -- Replacement card flow ----------------------------------------------------
 
 describe('replacement card', () => {
   it('cannot be played on empty tile', () => {
     const state = skipMulligan(createTestGame());
-    if (!state.players[0].hand.includes('replacement')) return;
-    expect(canPlayCard(state, 'replacement', { row: 0, col: 0 })).toBe(false);
+    if (!state.players[0].hand.includes(testCardId('replacement'))) return;
+    expect(canPlayCard(state, testCardId('replacement'), { row: 0, col: 0 })).toBe(false);
   });
 
   it('can be played on tile with allied card', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
     state = pass(state); // P1 passes
 
-    if (!state.players[0].hand.includes('replacement')) return;
-    expect(canPlayCard(state, 'replacement', { row: 0, col: 0 })).toBe(true);
+    if (!state.players[0].hand.includes(testCardId('replacement'))) return;
+    expect(canPlayCard(state, testCardId('replacement'), { row: 0, col: 0 })).toBe(true);
   });
 
   it('destroys existing card and takes position', () => {
     let state = skipMulligan(createTestGame());
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
-    const oldInstanceId = state.board[0]![0]!.cardInstanceId!;
+    const oldInstanceId = defined(cell(state.board, 0, 0).cardInstanceId);
 
     state = pass(state); // P1 passes
 
-    if (!state.players[0].hand.includes('replacement')) return;
-    const result = playCard(state, 'replacement', { row: 0, col: 0 });
+    if (!state.players[0].hand.includes(testCardId('replacement'))) return;
+    const result = playCard(state, testCardId('replacement'), { row: 0, col: 0 });
 
     // Old instance should be gone
     expect(result.cardInstances[oldInstanceId]).toBeUndefined();
     // New instance should be there
-    const newTile = result.board[0]![0]!;
+    const newTile = cell(result.board, 0, 0);
     expect(newTile.cardInstanceId).not.toBeNull();
     expect(newTile.cardInstanceId).not.toBe(oldInstanceId);
-    const newInstance = result.cardInstances[newTile.cardInstanceId!]!;
+    const newInstance = defined(result.cardInstances[defined(newTile.cardInstanceId)]);
     expect(newInstance.definitionId).toBe('replacement');
   });
 });

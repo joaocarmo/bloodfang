@@ -9,7 +9,13 @@ import {
   recalculateContinuousEffects,
 } from './abilities.js';
 import { createGame, mulligan } from './game.js';
-import { getAllTestDefinitions, buildTestDeck } from './cards/test-cards.js';
+import {
+  getAllTestDefinitions,
+  buildTestDeck,
+  testCardId,
+  cell,
+  defined,
+} from './cards/test-cards.js';
 import { getAllAbilityTestDefinitions } from './cards/ability-test-cards.js';
 import { getAllTokenDefinitions } from './cards/token-cards.js';
 
@@ -34,7 +40,7 @@ function setupPlayingState(seed = 1) {
 
 // Build state with manually placed cards for ability testing
 function buildAbilityTestState(
-  cards: Array<{ id: string; position: Position; owner: PlayerId }>,
+  cards: { id: string; position: Position; owner: PlayerId }[],
   seed = 42,
 ): GameState {
   const defs = allDefs();
@@ -49,11 +55,11 @@ function buildAbilityTestState(
   let board = state.board;
 
   for (const card of cards) {
-    const def = defs[card.id]!;
+    const def = defined(defs[card.id], `Unknown card: ${card.id}`);
     const instanceId = String(nextId++);
     cardInstances[instanceId] = {
       instanceId,
-      definitionId: card.id,
+      definitionId: testCardId(card.id),
       owner: card.owner,
       position: card.position,
       basePower: def.power,
@@ -122,7 +128,7 @@ describe('resolveTargets', () => {
     const state = buildAbilityTestState([
       { id: 'r1-basic', position: { row: 0, col: 0 }, owner: 0 },
     ]);
-    const instanceId = state.board[0]![0]!.cardInstanceId!;
+    const instanceId = defined(cell(state.board, 0, 0).cardInstanceId);
     const result = resolveTargets(state, instanceId, { type: TARGET_SELECTORS.SELF });
     expect(result.instanceIds).toEqual([instanceId]);
   });
@@ -133,8 +139,8 @@ describe('resolveTargets', () => {
       { id: 'enhancer-on-play', position: { row: 0, col: 0 }, owner: 0 },
       { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 },
     ]);
-    const sourceId = state.board[0]![0]!.cardInstanceId!;
-    const targetId = state.board[0]![1]!.cardInstanceId!;
+    const sourceId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const targetId = defined(cell(state.board, 0, 1).cardInstanceId);
 
     const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.RANGE_PATTERN });
     expect(result.instanceIds).toContain(targetId);
@@ -146,8 +152,8 @@ describe('resolveTargets', () => {
       { id: 'r1-cross', position: { row: 1, col: 0 }, owner: 0 },
       { id: 'r1-empty', position: { row: 2, col: 4 }, owner: 1 },
     ]);
-    const sourceId = state.board[0]![0]!.cardInstanceId!;
-    const alliedId = state.board[1]![0]!.cardInstanceId!;
+    const sourceId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const alliedId = defined(cell(state.board, 1, 0).cardInstanceId);
 
     const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ALLIED });
     expect(result.instanceIds).toContain(alliedId);
@@ -161,7 +167,7 @@ describe('resolveTargets', () => {
       { id: 'r1-cross', position: { row: 0, col: 4 }, owner: 1 },
       { id: 'r1-empty', position: { row: 1, col: 4 }, owner: 1 },
     ]);
-    const sourceId = state.board[0]![0]!.cardInstanceId!;
+    const sourceId = defined(cell(state.board, 0, 0).cardInstanceId);
 
     const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ENEMY });
     expect(result.instanceIds).toHaveLength(2);
@@ -173,8 +179,8 @@ describe('resolveTargets', () => {
       { id: 'r1-cross', position: { row: 0, col: 1 }, owner: 0 },
       { id: 'r1-empty', position: { row: 1, col: 0 }, owner: 0 }, // different lane
     ]);
-    const sourceId = state.board[0]![0]!.cardInstanceId!;
-    const sameLaneId = state.board[0]![1]!.cardInstanceId!;
+    const sourceId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const sameLaneId = defined(cell(state.board, 0, 1).cardInstanceId);
 
     const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ALLIED_IN_LANE });
     expect(result.instanceIds).toEqual([sameLaneId]);
@@ -186,8 +192,8 @@ describe('resolveTargets', () => {
       { id: 'r1-cross', position: { row: 0, col: 4 }, owner: 1 },
       { id: 'r1-empty', position: { row: 1, col: 4 }, owner: 1 }, // different lane
     ]);
-    const sourceId = state.board[0]![0]!.cardInstanceId!;
-    const enemyInLane = state.board[0]![4]!.cardInstanceId!;
+    const sourceId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const enemyInLane = defined(cell(state.board, 0, 4).cardInstanceId);
 
     const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_ENEMY_IN_LANE });
     expect(result.instanceIds).toEqual([enemyInLane]);
@@ -199,7 +205,7 @@ describe('resolveTargets', () => {
       { id: 'r1-cross', position: { row: 0, col: 2 }, owner: 0 },
       { id: 'r1-empty', position: { row: 0, col: 4 }, owner: 1 },
     ]);
-    const sourceId = state.board[0]![0]!.cardInstanceId!;
+    const sourceId = defined(cell(state.board, 0, 0).cardInstanceId);
 
     const result = resolveTargets(state, sourceId, { type: TARGET_SELECTORS.ALL_IN_LANE });
     expect(result.instanceIds).toHaveLength(2);
@@ -218,20 +224,20 @@ describe('collectTriggersForEvents', () => {
     const state = buildAbilityTestState([
       { id: 'enhancer-on-play', position: { row: 0, col: 0 }, owner: 0 },
     ]);
-    const instanceId = state.board[0]![0]!.cardInstanceId!;
+    const instanceId = defined(cell(state.board, 0, 0).cardInstanceId);
     const events: GameEvent[] = [{ type: 'cardPlayed', instanceId, owner: 0 }];
 
     const triggers = collectTriggersForEvents(state, events);
     expect(triggers).toHaveLength(1);
-    expect(triggers[0]!.ability.trigger).toBe('whenPlayed');
+    expect(defined(triggers[0]).ability.trigger).toBe('whenPlayed');
   });
 
   it('matches whenDestroyed trigger for cardDestroyed event on self (via destroyedCards)', () => {
     const state = buildAbilityTestState([
       { id: 'death-curse', position: { row: 0, col: 0 }, owner: 0 },
     ]);
-    const instanceId = state.board[0]![0]!.cardInstanceId!;
-    const snapshot = state.cardInstances[instanceId]!;
+    const instanceId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const snapshot = defined(state.cardInstances[instanceId]);
 
     // Simulate the card being destroyed — remove from state, pass as destroyedCards
     const { [instanceId]: _, ...remaining } = state.cardInstances;
@@ -241,8 +247,8 @@ describe('collectTriggersForEvents', () => {
     const events: GameEvent[] = [{ type: 'cardDestroyed', instanceId, owner: 0 }];
     const triggers = collectTriggersForEvents(stateAfterDestroy, events, destroyedCards);
     expect(triggers).toHaveLength(1);
-    expect(triggers[0]!.ability.trigger).toBe('whenDestroyed');
-    expect(triggers[0]!.destroyedSnapshot).toBeDefined();
+    expect(defined(triggers[0]).ability.trigger).toBe('whenDestroyed');
+    expect(defined(triggers[0]).destroyedSnapshot).toBeDefined();
   });
 
   it('matches whenAlliedDestroyed for allied card destruction', () => {
@@ -250,20 +256,20 @@ describe('collectTriggersForEvents', () => {
       { id: 'avenger', position: { row: 0, col: 0 }, owner: 0 },
       { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 },
     ]);
-    const avengerId = state.board[0]![0]!.cardInstanceId!;
-    const alliedId = state.board[0]![1]!.cardInstanceId!;
+    const avengerId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const alliedId = defined(cell(state.board, 0, 1).cardInstanceId);
     const events: GameEvent[] = [{ type: 'cardDestroyed', instanceId: alliedId, owner: 0 }];
 
     const triggers = collectTriggersForEvents(state, events);
     expect(triggers).toHaveLength(1);
-    expect(triggers[0]!.instanceId).toBe(avengerId);
+    expect(defined(triggers[0]).instanceId).toBe(avengerId);
   });
 
   it('does not match whenAlliedDestroyed for self', () => {
     const state = buildAbilityTestState([
       { id: 'avenger', position: { row: 0, col: 0 }, owner: 0 },
     ]);
-    const avengerId = state.board[0]![0]!.cardInstanceId!;
+    const avengerId = defined(cell(state.board, 0, 0).cardInstanceId);
     const events: GameEvent[] = [{ type: 'cardDestroyed', instanceId: avengerId, owner: 0 }];
 
     const triggers = collectTriggersForEvents(state, events);
@@ -275,13 +281,13 @@ describe('collectTriggersForEvents', () => {
       { id: 'predator', position: { row: 0, col: 0 }, owner: 0 },
       { id: 'r1-basic', position: { row: 0, col: 4 }, owner: 1 },
     ]);
-    const predatorId = state.board[0]![0]!.cardInstanceId!;
-    const enemyId = state.board[0]![4]!.cardInstanceId!;
+    const predatorId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const enemyId = defined(cell(state.board, 0, 4).cardInstanceId);
     const events: GameEvent[] = [{ type: 'cardDestroyed', instanceId: enemyId, owner: 1 }];
 
     const triggers = collectTriggersForEvents(state, events);
     expect(triggers).toHaveLength(1);
-    expect(triggers[0]!.instanceId).toBe(predatorId);
+    expect(defined(triggers[0]).instanceId).toBe(predatorId);
   });
 
   it('matches whenAnyDestroyed for non-self destruction', () => {
@@ -289,20 +295,20 @@ describe('collectTriggersForEvents', () => {
       { id: 'scavenger', position: { row: 0, col: 0 }, owner: 0 },
       { id: 'r1-basic', position: { row: 0, col: 4 }, owner: 1 },
     ]);
-    const scavengerId = state.board[0]![0]!.cardInstanceId!;
-    const otherId = state.board[0]![4]!.cardInstanceId!;
+    const scavengerId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const otherId = defined(cell(state.board, 0, 4).cardInstanceId);
     const events: GameEvent[] = [{ type: 'cardDestroyed', instanceId: otherId, owner: 1 }];
 
     const triggers = collectTriggersForEvents(state, events);
     expect(triggers).toHaveLength(1);
-    expect(triggers[0]!.instanceId).toBe(scavengerId);
+    expect(defined(triggers[0]).instanceId).toBe(scavengerId);
   });
 
   it('matches whenFirstEnfeebled only once', () => {
     let state = buildAbilityTestState([
       { id: 'resilient', position: { row: 0, col: 0 }, owner: 0 },
     ]);
-    const resilientId = state.board[0]![0]!.cardInstanceId!;
+    const resilientId = defined(cell(state.board, 0, 0).cardInstanceId);
     const events: GameEvent[] = [{ type: 'cardEnfeebled', instanceId: resilientId, owner: 0 }];
 
     const triggers1 = collectTriggersForEvents(state, events);
@@ -313,7 +319,10 @@ describe('collectTriggersForEvents', () => {
       ...state,
       cardInstances: {
         ...state.cardInstances,
-        [resilientId]: { ...state.cardInstances[resilientId]!, hasBeenEnfeebled: true },
+        [resilientId]: {
+          ...defined(state.cardInstances[resilientId]),
+          hasBeenEnfeebled: true,
+        },
       },
     };
     const triggers2 = collectTriggersForEvents(state, events);
@@ -322,7 +331,7 @@ describe('collectTriggersForEvents', () => {
 
   it('matches whenFirstEnhanced only once', () => {
     let state = buildAbilityTestState([{ id: 'inspirer', position: { row: 0, col: 0 }, owner: 0 }]);
-    const inspirerId = state.board[0]![0]!.cardInstanceId!;
+    const inspirerId = defined(cell(state.board, 0, 0).cardInstanceId);
     const events: GameEvent[] = [{ type: 'cardEnhanced', instanceId: inspirerId, owner: 0 }];
 
     const triggers1 = collectTriggersForEvents(state, events);
@@ -332,7 +341,7 @@ describe('collectTriggersForEvents', () => {
       ...state,
       cardInstances: {
         ...state.cardInstances,
-        [inspirerId]: { ...state.cardInstances[inspirerId]!, hasBeenEnhanced: true },
+        [inspirerId]: { ...defined(state.cardInstances[inspirerId]), hasBeenEnhanced: true },
       },
     };
     const triggers2 = collectTriggersForEvents(state, events);
@@ -343,14 +352,14 @@ describe('collectTriggersForEvents', () => {
     let state = buildAbilityTestState([
       { id: 'threshold5-destroyer', position: { row: 0, col: 0 }, owner: 0 },
     ]);
-    const instanceId = state.board[0]![0]!.cardInstanceId!;
+    const instanceId = defined(cell(state.board, 0, 0).cardInstanceId);
 
     // Base power is 3, need bonus of 2 to reach 5
     state = {
       ...state,
       cardInstances: {
         ...state.cardInstances,
-        [instanceId]: { ...state.cardInstances[instanceId]!, bonusPower: 2 },
+        [instanceId]: { ...defined(state.cardInstances[instanceId]), bonusPower: 2 },
       },
     };
 
@@ -363,7 +372,7 @@ describe('collectTriggersForEvents', () => {
     const state = buildAbilityTestState([
       { id: 'threshold5-destroyer', position: { row: 0, col: 0 }, owner: 0 },
     ]);
-    const instanceId = state.board[0]![0]!.cardInstanceId!;
+    const instanceId = defined(cell(state.board, 0, 0).cardInstanceId);
     // basePower is 3, bonusPower 0, threshold is 5
 
     const events: GameEvent[] = [{ type: 'powerChanged', instanceId, owner: 0 }];
@@ -382,7 +391,7 @@ describe('collectTriggersForEvents', () => {
     expect(triggers.length).toBeGreaterThanOrEqual(2);
     const ids = triggers.map((t) => parseInt(t.instanceId, 10));
     for (let i = 1; i < ids.length; i++) {
-      expect(ids[i]).toBeGreaterThanOrEqual(ids[i - 1]!);
+      expect(ids[i]).toBeGreaterThanOrEqual(defined(ids[i - 1]));
     }
   });
 
@@ -411,9 +420,9 @@ describe('recalculateContinuousEffects', () => {
       { id: 'r1-cross', position: { row: 0, col: 3 }, owner: 0 },
     ]);
 
-    const auraId = state.board[0]![2]!.cardInstanceId!;
-    const leftId = state.board[0]![1]!.cardInstanceId!;
-    const rightId = state.board[0]![3]!.cardInstanceId!;
+    const auraId = defined(cell(state.board, 0, 2).cardInstanceId);
+    const leftId = defined(cell(state.board, 0, 1).cardInstanceId);
+    const rightId = defined(cell(state.board, 0, 3).cardInstanceId);
 
     expect(state.continuousModifiers).toHaveLength(2);
     expect(state.continuousModifiers).toContainEqual({
@@ -436,34 +445,34 @@ describe('recalculateContinuousEffects', () => {
       { id: 'r1-cross', position: { row: 0, col: 2 }, owner: 0 },
     ]);
 
-    const scalerId = state.board[0]![0]!.cardInstanceId!;
+    const scalerId = defined(cell(state.board, 0, 0).cardInstanceId);
 
-    // 2 allied cards in lane → modifier of 4
+    // 2 allied cards in lane -> modifier of 4
     const mod = state.continuousModifiers.find(
       (m) => m.sourceInstanceId === scalerId && m.targetInstanceId === scalerId,
     );
     expect(mod).toBeDefined();
-    expect(mod!.value).toBe(4); // 2 allies * 2 per unit
+    expect(defined(mod).value).toBe(4); // 2 allies * 2 per unit
   });
 
   it('creates dual-target modifiers for dualTargetBuff', () => {
     // dual-aura: whileInPlay, dualTargetBuff +1/-1 rangePattern
     const state = buildAbilityTestState([
       { id: 'dual-aura', position: { row: 0, col: 2 }, owner: 0 },
-      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 }, // allied → +1
-      { id: 'r1-cross', position: { row: 0, col: 3 }, owner: 1 }, // enemy → -1
+      { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 }, // allied -> +1
+      { id: 'r1-cross', position: { row: 0, col: 3 }, owner: 1 }, // enemy -> -1
     ]);
 
-    const alliedId = state.board[0]![1]!.cardInstanceId!;
-    const enemyId = state.board[0]![3]!.cardInstanceId!;
+    const alliedId = defined(cell(state.board, 0, 1).cardInstanceId);
+    const enemyId = defined(cell(state.board, 0, 3).cardInstanceId);
 
     const alliedMod = state.continuousModifiers.find((m) => m.targetInstanceId === alliedId);
     const enemyMod = state.continuousModifiers.find((m) => m.targetInstanceId === enemyId);
 
     expect(alliedMod).toBeDefined();
-    expect(alliedMod!.value).toBe(1);
+    expect(defined(alliedMod).value).toBe(1);
     expect(enemyMod).toBeDefined();
-    expect(enemyMod!.value).toBe(-1);
+    expect(defined(enemyMod).value).toBe(-1);
   });
 
   it('clears old modifiers and rebuilds from scratch', () => {
@@ -506,49 +515,49 @@ describe('resolveAbilities', () => {
     let state = buildAbilityTestState([
       { id: 'r1-basic', position: { row: 0, col: 2 }, owner: 1 }, // power 2, target
     ]);
-    const targetId = state.board[0]![2]!.cardInstanceId!;
+    const targetId = defined(cell(state.board, 0, 2).cardInstanceId);
 
     // Manually enfeeble it below 0
     state = {
       ...state,
       cardInstances: {
         ...state.cardInstances,
-        [targetId]: { ...state.cardInstances[targetId]!, bonusPower: -3 },
+        [targetId]: { ...defined(state.cardInstances[targetId]), bonusPower: -3 },
       },
     };
 
     // Trigger a resolve with any event
     const result = resolveAbilities(state, [{ type: 'cardPlayed', instanceId: 'x', owner: 0 }]);
-    // The card should be destroyed (power 2 + (-3) = -1 ≤ 0)
+    // The card should be destroyed (power 2 + (-3) = -1 <= 0)
     expect(result.cardInstances[targetId]).toBeUndefined();
   });
 
   it('processes whenPlayed trigger effects', () => {
-    // enhancer-on-play: whenPlayed → enhance +2 rangePattern(col+1)
+    // enhancer-on-play: whenPlayed -> enhance +2 rangePattern(col+1)
     const state = buildAbilityTestState([
       { id: 'enhancer-on-play', position: { row: 0, col: 0 }, owner: 0 },
       { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 0 }, // target at col+1
     ]);
-    const enhancerId = state.board[0]![0]!.cardInstanceId!;
-    const targetId = state.board[0]![1]!.cardInstanceId!;
+    const enhancerId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const targetId = defined(cell(state.board, 0, 1).cardInstanceId);
 
     const events: GameEvent[] = [{ type: 'cardPlayed', instanceId: enhancerId, owner: 0 }];
     const result = resolveAbilities(state, events);
 
-    expect(result.cardInstances[targetId]!.bonusPower).toBe(2);
+    expect(defined(result.cardInstances[targetId]).bonusPower).toBe(2);
   });
 
-  it('handles chain cascade: enfeeble → death → whenAnyDestroyed', () => {
-    // Setup: chain-killer enfeebles target by 5, target has power 2 → dies
+  it('handles chain cascade: enfeeble -> death -> whenAnyDestroyed', () => {
+    // Setup: chain-killer enfeebles target by 5, target has power 2 -> dies
     // cascade-grower gains +2 on any destruction
     const state = buildAbilityTestState([
       { id: 'chain-killer', position: { row: 0, col: 0 }, owner: 0 },
       { id: 'r1-basic', position: { row: 0, col: 1 }, owner: 1 }, // power 2, will die
       { id: 'cascade-grower', position: { row: 1, col: 0 }, owner: 0 }, // +2 on any death
     ]);
-    const killerId = state.board[0]![0]!.cardInstanceId!;
-    const targetId = state.board[0]![1]!.cardInstanceId!;
-    const growerId = state.board[1]![0]!.cardInstanceId!;
+    const killerId = defined(cell(state.board, 0, 0).cardInstanceId);
+    const targetId = defined(cell(state.board, 0, 1).cardInstanceId);
+    const growerId = defined(cell(state.board, 1, 0).cardInstanceId);
 
     const events: GameEvent[] = [{ type: 'cardPlayed', instanceId: killerId, owner: 0 }];
     const result = resolveAbilities(state, events);
@@ -556,6 +565,6 @@ describe('resolveAbilities', () => {
     // Target should be dead
     expect(result.cardInstances[targetId]).toBeUndefined();
     // Grower should have gained +2
-    expect(result.cardInstances[growerId]!.bonusPower).toBe(2);
+    expect(defined(result.cardInstances[growerId]).bonusPower).toBe(2);
   });
 });

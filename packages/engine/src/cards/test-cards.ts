@@ -1,6 +1,27 @@
-import type { CardDefinition } from '../types.js';
+import type { CardId } from '../card-id.js';
+import type { Board, CardDefinition, Tile } from '../types.js';
 import { CARD_RANKS, RANGE_CELL_TYPES } from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
+
+/** Assert a value is defined and return it (for test assertions). */
+export function defined<T>(value: T | undefined | null, msg = 'Expected defined value'): T {
+  if (value == null) throw new Error(msg);
+  return value;
+}
+
+/** Safely access a board cell in tests, throwing if out of bounds. */
+export function cell(board: Board, row: number, col: number): Tile {
+  const r = board[row];
+  if (!r) throw new Error(`Row ${String(row)} out of bounds`);
+  const c = r[col];
+  if (!c) throw new Error(`Col ${String(col)} out of bounds`);
+  return c;
+}
+
+/** Cast a string to CardId for test purposes (test-only card IDs not in the union). */
+export function testCardId(id: string): CardId {
+  return id as CardId;
+}
 
 // Test cards use fake IDs not in CardId — cast is intentional.
 function testCard(def: Omit<CardDefinition, 'id'> & { id: string }): CardDefinition {
@@ -117,6 +138,6 @@ export function getAllTestDefinitions(): Record<string, CardDefinition> {
   return cardsToDefinitionMap(ALL_TEST_CARDS);
 }
 
-export function buildTestDeck(): string[] {
+export function buildTestDeck(): CardId[] {
   return ALL_TEST_CARDS.map((c) => c.id);
 }

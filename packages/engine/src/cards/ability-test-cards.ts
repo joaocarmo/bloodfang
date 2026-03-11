@@ -1,3 +1,4 @@
+import type { CardId } from '../card-id.js';
 import type { CardDefinition } from '../types.js';
 import {
   ABILITY_TRIGGERS,
@@ -194,7 +195,11 @@ export const handGenerator = testCard({
   rangePattern: [],
   ability: {
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
-    effect: { type: EFFECT_TYPES.ADD_CARD_TO_HAND, tokenDefinitionId: 'token-basic', count: 2 },
+    effect: {
+      type: EFFECT_TYPES.ADD_CARD_TO_HAND,
+      tokenDefinitionId: 'token-basic' as CardId,
+      count: 2,
+    },
   },
 });
 /** whenPlayed → spawnCard (token-basic) via rangePattern */
@@ -207,7 +212,7 @@ export const spawner = testCard({
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
       type: EFFECT_TYPES.SPAWN_CARD,
-      tokenDefinitionId: 'token-basic',
+      tokenDefinitionId: 'token-basic' as CardId,
       target: { type: TARGET_SELECTORS.RANGE_PATTERN },
     },
   },
@@ -361,9 +366,9 @@ export const multiTokenGenerator = testCard({
     trigger: ABILITY_TRIGGERS.WHEN_PLAYED,
     effect: {
       type: EFFECT_TYPES.ADD_CARD_TO_HAND,
-      tokenDefinitionId: 'token-basic',
+      tokenDefinitionId: 'token-basic' as CardId,
       count: 1,
-      additionalTokens: [{ tokenDefinitionId: 'token-strong', count: 1 }],
+      additionalTokens: [{ tokenDefinitionId: 'token-strong' as CardId, count: 1 }],
     },
   },
 }); // ── Helpers ───────────────────────────────────────────────────────────

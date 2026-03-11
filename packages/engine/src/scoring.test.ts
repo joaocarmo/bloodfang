@@ -3,7 +3,7 @@ import { calculateLaneScores, calculateFinalScores, determineWinner } from './sc
 import { createGame, mulligan, playCard, pass } from './game.js';
 import { createSeededRng } from './types.js';
 import type { GameState } from './types.js';
-import { buildTestDeck, getAllTestDefinitions } from './cards/test-cards.js';
+import { buildTestDeck, getAllTestDefinitions, defined } from './cards/test-cards.js';
 
 const defs = getAllTestDefinitions();
 const deck = buildTestDeck();
@@ -33,29 +33,29 @@ describe('calculateLaneScores', () => {
 
   it('counts card power in correct lane', () => {
     let state = createPlayingGame();
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
 
     const scores = calculateLaneScores(state);
-    const def = defs[rank1Card]!;
-    expect(scores[0]![0]).toBe(def.power); // P0's score in lane 0
-    expect(scores[0]![1]).toBe(0); // P1 has nothing in lane 0
+    const def = defined(defs[rank1Card]);
+    expect(defined(scores[0])[0]).toBe(def.power); // P0's score in lane 0
+    expect(defined(scores[0])[1]).toBe(0); // P1 has nothing in lane 0
   });
 
   it('sums multiple cards in same lane', () => {
     let state = createPlayingGame();
 
     // P0 plays a card in row 0
-    const p0Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const p0Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, p0Card, { row: 0, col: 0 });
 
     // P1 plays a card in row 0
-    const p1Card = state.players[1].hand.find((id) => defs[id]?.rank === 1)!;
+    const p1Card = defined(state.players[1].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, p1Card, { row: 0, col: 4 });
 
     const scores = calculateLaneScores(state);
-    expect(scores[0]![0]).toBe(defs[p0Card]!.power);
-    expect(scores[0]![1]).toBe(defs[p1Card]!.power);
+    expect(defined(scores[0])[0]).toBe(defined(defs[p0Card]).power);
+    expect(defined(scores[0])[1]).toBe(defined(defs[p1Card]).power);
   });
 });
 
@@ -69,11 +69,11 @@ describe('calculateFinalScores', () => {
   it('winner takes lane, loser gets 0', () => {
     let state = createPlayingGame();
     // P0 places a card, P1 doesn't in that lane
-    const p0Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const p0Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, p0Card, { row: 0, col: 0 });
 
     const scores = calculateFinalScores(state);
-    expect(scores[0]).toBe(defs[p0Card]!.power);
+    expect(scores[0]).toBe(defined(defs[p0Card]).power);
     expect(scores[1]).toBe(0);
   });
 
@@ -81,17 +81,19 @@ describe('calculateFinalScores', () => {
     let state = createPlayingGame();
 
     // Play same-power cards in same lane
-    const p0Card = state.players[0].hand.find((id) => {
-      const d = defs[id];
-      return d && d.rank === 1;
-    })!;
+    const p0Card = defined(
+      state.players[0].hand.find((id) => {
+        const d = defs[id];
+        return d?.rank === 1;
+      }),
+    );
     state = playCard(state, p0Card, { row: 0, col: 0 });
 
     // Find a P1 card with same power
-    const p0Power = defs[p0Card]!.power;
+    const p0Power = defined(defs[p0Card]).power;
     const p1Card = state.players[1].hand.find((id) => {
       const d = defs[id];
-      return d && d.rank === 1 && d.power === p0Power;
+      return d?.rank === 1 && d.power === p0Power;
     });
 
     if (p1Card) {
@@ -108,13 +110,14 @@ describe('calculateFinalScores', () => {
     // P0 plays cards in rows 0 and 1
     const p0Cards = state.players[0].hand.filter((id) => defs[id]?.rank === 1);
     if (p0Cards.length >= 2) {
-      state = playCard(state, p0Cards[0]!, { row: 0, col: 0 });
+      state = playCard(state, defined(p0Cards[0]), { row: 0, col: 0 });
       // P1 passes
       state = pass(state);
-      state = playCard(state, p0Cards[1]!, { row: 1, col: 0 });
+      state = playCard(state, defined(p0Cards[1]), { row: 1, col: 0 });
 
       const scores = calculateFinalScores(state);
-      const expected = defs[p0Cards[0]!]!.power + defs[p0Cards[1]!]!.power;
+      const expected =
+        defined(defs[defined(p0Cards[0])]).power + defined(defs[defined(p0Cards[1])]).power;
       expect(scores[0]).toBe(expected);
     }
   });

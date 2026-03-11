@@ -10,7 +10,13 @@ import {
 import { calculateLaneScores, calculateFinalScores, determineWinner } from './scoring.js';
 import { createSeededRng, GamePhase, LOG_ACTION_TYPES, RANGE_CELL_TYPES } from './types.js';
 import type { GameState } from './types.js';
-import { buildTestDeck, getAllTestDefinitions } from './cards/test-cards.js';
+import {
+  buildTestDeck,
+  getAllTestDefinitions,
+  testCardId,
+  cell,
+  defined,
+} from './cards/test-cards.js';
 
 const defs = getAllTestDefinitions();
 const deck = buildTestDeck();
@@ -27,7 +33,7 @@ function skipMulligan(state: GameState, seed = 99): GameState {
 }
 
 describe('integration: full game flows', () => {
-  it('both players pass immediately → draw, all lanes 0', () => {
+  it('both players pass immediately -> draw, all lanes 0', () => {
     let state = createGame(deck, deck, defs, undefined, seedRng(1));
     state = skipMulligan(state);
 
@@ -41,16 +47,16 @@ describe('integration: full game flows', () => {
     expect(determineWinner(scores)).toBeNull();
   });
 
-  it('one card each → scoring works correctly', () => {
+  it('one card each -> scoring works correctly', () => {
     let state = createGame(deck, deck, defs, undefined, seedRng(10));
     state = skipMulligan(state);
 
     // P0 plays in row 0
-    const p0Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const p0Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, p0Card, { row: 0, col: 0 });
 
     // P1 plays in row 0
-    const p1Card = state.players[1].hand.find((id) => defs[id]?.rank === 1)!;
+    const p1Card = defined(state.players[1].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, p1Card, { row: 0, col: 4 });
 
     // Both pass to end
@@ -59,12 +65,12 @@ describe('integration: full game flows', () => {
     expect(state.phase).toBe(GamePhase.Ended);
 
     const laneScores = calculateLaneScores(state);
-    const p0Power = defs[p0Card]!.power;
-    const p1Power = defs[p1Card]!.power;
+    const p0Power = defined(defs[p0Card]).power;
+    const p1Power = defined(defs[p1Card]).power;
 
     // Both should have their power in lane 0
-    expect(laneScores[0]![0]).toBe(p0Power);
-    expect(laneScores[0]![1]).toBe(p1Power);
+    expect(defined(laneScores[0])[0]).toBe(p0Power);
+    expect(defined(laneScores[0])[1]).toBe(p1Power);
 
     const finalScores = calculateFinalScores(state);
     if (p0Power > p1Power) {
@@ -88,23 +94,23 @@ describe('integration: full game flows', () => {
     // Find a card with range pattern that extends to the right (toward P1)
     // r1-cross places pawns in all 4 directions
     // Play it at center of P0's column
-    const hasR1Cross = state.players[0].hand.includes('r1-cross');
+    const hasR1Cross = state.players[0].hand.includes(testCardId('r1-cross'));
     if (!hasR1Cross) {
       // Seed doesn't give us r1-cross, just check basic flow
-      const card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+      const card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
       state = playCard(state, card, { row: 1, col: 0 });
       expect(state.phase).toBe(GamePhase.Playing);
       return;
     }
 
-    state = playCard(state, 'r1-cross', { row: 1, col: 0 });
+    state = playCard(state, testCardId('r1-cross'), { row: 1, col: 0 });
 
     // After placing cross at (1,0), pawns go to:
     // (0,0) — already P0, add pawn
     // (2,0) — already P0, add pawn
     // (1,-1) — invalid, skip
     // (1,1) — empty, P0 takes it
-    const tile11 = state.board[1]![1]!;
+    const tile11 = cell(state.board, 1, 1);
     expect(tile11.owner).toBe(0);
     expect(tile11.pawnCount).toBe(1);
   });
@@ -117,8 +123,8 @@ describe('integration: full game flows', () => {
     let turns = 0;
     while (state.phase === GamePhase.Playing && turns < 40) {
       const moves = getValidMoves(state);
-      if (moves.length > 0 && moves[0]!.positions.length > 0) {
-        state = playCard(state, moves[0]!.cardId, moves[0]!.positions[0]!);
+      if (moves.length > 0 && defined(moves[0]).positions.length > 0) {
+        state = playCard(state, defined(moves[0]).cardId, defined(defined(moves[0]).positions[0]));
       } else {
         state = pass(state);
       }
@@ -135,7 +141,7 @@ describe('integration: full game flows', () => {
     const originalHand = [...state.players[0].hand];
 
     // Mulligan returning 2 cards
-    const toReturn = [originalHand[0]!, originalHand[1]!];
+    const toReturn = [defined(originalHand[0]), defined(originalHand[1])];
     const result = mulligan(state, 0, toReturn, seedRng(50));
 
     // Hand should still be 5 cards
@@ -164,7 +170,7 @@ describe('integration: full game flows', () => {
       cardInstances: {
         '100': {
           instanceId: '100',
-          definitionId: 'r3-power',
+          definitionId: testCardId('r3-power'),
           owner: 0,
           position: { row: 0, col: 0 },
           basePower: 15,
@@ -172,7 +178,7 @@ describe('integration: full game flows', () => {
         },
         '101': {
           instanceId: '101',
-          definitionId: 'r2-basic',
+          definitionId: testCardId('r2-basic'),
           owner: 1,
           position: { row: 1, col: 4 },
           basePower: 5,
@@ -180,7 +186,7 @@ describe('integration: full game flows', () => {
         },
         '102': {
           instanceId: '102',
-          definitionId: 'r2-basic',
+          definitionId: testCardId('r2-basic'),
           owner: 1,
           position: { row: 2, col: 4 },
           basePower: 5,
@@ -211,10 +217,10 @@ describe('integration: full game flows', () => {
     let state = createGame(deck, deck, defs, undefined, seedRng(70));
     state = skipMulligan(state);
 
-    const card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, card, { row: 0, col: 0 });
     state = pass(state); // P1 passes
-    state = pass(state); // P0 passes → game ends
+    state = pass(state); // P0 passes -> game ends
 
     expect(state.phase).toBe(GamePhase.Ended);
 
@@ -245,10 +251,10 @@ describe('integration: full game flows', () => {
     }
 
     // Play a cross card to extend territory
-    const hasR1Cross = state.players[0].hand.includes('r1-cross');
+    const hasR1Cross = state.players[0].hand.includes(testCardId('r1-cross'));
     if (!hasR1Cross) return;
 
-    state = playCard(state, 'r1-cross', { row: 1, col: 0 });
+    state = playCard(state, testCardId('r1-cross'), { row: 1, col: 0 });
     // P1's turn now; P1 passes
     state = pass(state);
 
@@ -288,26 +294,26 @@ describe('integration: full game flows', () => {
     state = skipMulligan(state);
 
     // P0 plays a rank 1 card
-    const rank1Card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const rank1Card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, rank1Card, { row: 0, col: 0 });
-    const oldInstanceId = state.board[0]![0]!.cardInstanceId!;
+    const oldInstanceId = defined(cell(state.board, 0, 0).cardInstanceId);
 
     // P1 passes
     state = pass(state);
 
     // Check if P0 has replacement card
-    if (!state.players[0].hand.includes('replacement')) return;
+    if (!state.players[0].hand.includes(testCardId('replacement'))) return;
 
     // P0 plays replacement card on the same tile
-    state = playCard(state, 'replacement', { row: 0, col: 0 });
+    state = playCard(state, testCardId('replacement'), { row: 0, col: 0 });
 
     // Old card should be destroyed
     expect(state.cardInstances[oldInstanceId]).toBeUndefined();
 
     // New card should be in place
-    const newTile = state.board[0]![0]!;
+    const newTile = cell(state.board, 0, 0);
     expect(newTile.cardInstanceId).not.toBeNull();
-    const newInstance = state.cardInstances[newTile.cardInstanceId!]!;
+    const newInstance = defined(state.cardInstances[defined(newTile.cardInstanceId)]);
     expect(newInstance.definitionId).toBe('replacement');
     expect(newInstance.basePower).toBe(6);
 
@@ -323,14 +329,14 @@ describe('integration: edge cases', () => {
     state = skipMulligan(state);
 
     const original = state;
-    const card = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const card = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     const after = playCard(state, card, { row: 0, col: 0 });
 
     // Original state unchanged
     expect(original.players[0].hand).toContain(card);
     expect(after.players[0].hand).not.toContain(card);
-    expect(original.board[0]![0]!.cardInstanceId).toBeNull();
-    expect(after.board[0]![0]!.cardInstanceId).not.toBeNull();
+    expect(cell(original.board, 0, 0).cardInstanceId).toBeNull();
+    expect(cell(after.board, 0, 0).cardInstanceId).not.toBeNull();
   });
 
   it('cannot play card after game ends', () => {
@@ -359,11 +365,11 @@ describe('integration: edge cases', () => {
     state = skipMulligan(state);
     expect(state.turnNumber).toBe(1);
 
-    const card0 = state.players[0].hand.find((id) => defs[id]?.rank === 1)!;
+    const card0 = defined(state.players[0].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, card0, { row: 0, col: 0 });
     expect(state.turnNumber).toBe(2);
 
-    const card1 = state.players[1].hand.find((id) => defs[id]?.rank === 1)!;
+    const card1 = defined(state.players[1].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, card1, { row: 0, col: 4 });
     expect(state.turnNumber).toBe(3);
   });
@@ -377,7 +383,7 @@ describe('integration: edge cases', () => {
     state = mulligan(state, 1, [], r);
     expect(state.currentPlayerIndex).toBe(1);
 
-    const card = state.players[1].hand.find((id) => defs[id]?.rank === 1)!;
+    const card = defined(state.players[1].hand.find((id) => defs[id]?.rank === 1));
     state = playCard(state, card, { row: 0, col: 4 });
     expect(state.currentPlayerIndex).toBe(0);
   });

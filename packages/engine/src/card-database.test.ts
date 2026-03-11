@@ -143,9 +143,9 @@ describe('Card Database', () => {
   });
 
   describe('ability validity', () => {
-    const validTriggers: Set<string> = new Set(Object.values(ABILITY_TRIGGERS));
-    const validEffectTypes: Set<string> = new Set(Object.values(EFFECT_TYPES));
-    const validTargetTypes: Set<string> = new Set(Object.values(TARGET_SELECTORS));
+    const validTriggers = new Set<string>(Object.values(ABILITY_TRIGGERS));
+    const validEffectTypes = new Set<string>(Object.values(EFFECT_TYPES));
+    const validTargetTypes = new Set<string>(Object.values(TARGET_SELECTORS));
 
     it('all abilities have valid triggers', () => {
       for (const def of Object.values(allDefs)) {
