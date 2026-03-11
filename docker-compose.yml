@@ -1,0 +1,13 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: packages/server/Dockerfile
+    ports:
+      - '3001:3001'
+    environment:
+      PORT: 3001
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
+      MAX_SESSIONS: ${MAX_SESSIONS:-1000}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    restart: unless-stopped
