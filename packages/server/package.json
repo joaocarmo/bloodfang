@@ -1,0 +1,39 @@
+{
+  "name": "@bloodfang/server",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./protocol": {
+      "types": "./dist/protocol.d.ts",
+      "import": "./dist/protocol.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsx --watch --env-file=../../.env.dev src/index.ts",
+    "build": "tsup --format esm --dts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@bloodfang/engine": "workspace:*",
+    "@hono/node-server": "^1.14.3",
+    "@hono/node-ws": "^1.1.1",
+    "hono": "^4.7.11",
+    "nanoid": "^5.1.5"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.19.4",
+    "ws": "^8.18.2"
+  }
+}
