@@ -40,6 +40,9 @@ jobs:
       - name: Build engine
         run: pnpm -F @bloodfang/engine build
 
+      - name: Build server
+        run: pnpm -F @bloodfang/server build
+
       - name: Build client
         run: pnpm -F @bloodfang/client build
         env:
