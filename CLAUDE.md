@@ -13,7 +13,7 @@ The engine knows nothing about card names, art, or lore — only mechanics. The 
 
 ```bash
 # Build
-pnpm -F @bloodfang/engine build      # tsup (ESM + dts)
+pnpm -F @bloodfang/engine build      # tsdown (ESM + dts)
 pnpm -F @bloodfang/client build      # tsc --noEmit && vite build
 
 # Test
@@ -113,7 +113,7 @@ Defined as CSS custom properties in `packages/client/src/app.css`:
 - **Package manager**: pnpm with workspaces. Node v24 (`.nvmrc`).
 - **Filter syntax**: `pnpm -F @bloodfang/engine <cmd>`, `pnpm -F @bloodfang/client <cmd>`
 - **Dependency direction**: client -> engine (never the reverse). Engine has zero npm dependencies.
-- **Build tool**: tsup for engine, Vite for client.
+- **Build tool**: tsdown for engine + server, Vite for client.
 
 ## File organization
 
