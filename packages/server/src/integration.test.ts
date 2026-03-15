@@ -7,6 +7,7 @@ import type { CardId } from '@bloodfang/engine';
 import { createApp } from './app.js';
 import type { ServerMessage } from './protocol.js';
 import { ServerMessageType, SessionPhase, ErrorCode } from './protocol.js';
+import { Route } from './routes.js';
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -43,7 +44,8 @@ function baseUrl() {
 }
 
 function wsUrl(sessionId: string, token: string) {
-  return `ws://127.0.0.1:${String(port)}/api/sessions/${sessionId}/ws?token=${token}`;
+  const path = Route.SessionWs.replace(':id', sessionId);
+  return `ws://127.0.0.1:${String(port)}${path}?token=${token}`;
 }
 
 interface TestClient {
@@ -128,13 +130,14 @@ async function connectPlayer(sessionId: string, token: string): Promise<TestClie
 }
 
 async function createSession(): Promise<{ sessionId: string; token: string }> {
-  const res = await fetch(`${baseUrl()}/api/sessions`, { method: 'POST' });
+  const res = await fetch(`${baseUrl()}${Route.Sessions}`, { method: 'POST' });
   expect(res.status).toBe(201);
   return (await res.json()) as { sessionId: string; token: string };
 }
 
 async function joinSession(sessionId: string): Promise<{ token: string }> {
-  const res = await fetch(`${baseUrl()}/api/sessions/${sessionId}/join`, { method: 'POST' });
+  const path = Route.SessionJoin.replace(':id', sessionId);
+  const res = await fetch(`${baseUrl()}${path}`, { method: 'POST' });
   expect(res.status).toBe(200);
   return (await res.json()) as { token: string };
 }
@@ -233,7 +236,7 @@ afterAll(async () => {
 
 describe('HTTP API', () => {
   it('GET /health returns ok', async () => {
-    const res = await fetch(`${baseUrl()}/health`);
+    const res = await fetch(`${baseUrl()}${Route.Health}`);
     expect(res.status).toBe(200);
     const body = (await res.json()) as { status: string };
     expect(body.status).toBe('ok');
@@ -252,13 +255,15 @@ describe('HTTP API', () => {
   });
 
   it('POST /api/sessions/:id/join returns 404 for unknown session', async () => {
-    const res = await fetch(`${baseUrl()}/api/sessions/nonexist/join`, { method: 'POST' });
+    const path = Route.SessionJoin.replace(':id', 'nonexist');
+    const res = await fetch(`${baseUrl()}${path}`, { method: 'POST' });
     expect(res.status).toBe(404);
   });
 
   it('GET /api/sessions/:id returns session status', async () => {
     const { sessionId } = await createSession();
-    const res = await fetch(`${baseUrl()}/api/sessions/${sessionId}`);
+    const path = Route.SessionStatus.replace(':id', sessionId);
+    const res = await fetch(`${baseUrl()}${path}`);
     expect(res.status).toBe(200);
     const body = (await res.json()) as { sessionId: string; phase: string; playerCount: number };
     expect(body.sessionId).toBe(sessionId);
@@ -267,7 +272,8 @@ describe('HTTP API', () => {
   });
 
   it('GET /api/sessions/:id returns 404 for unknown session', async () => {
-    const res = await fetch(`${baseUrl()}/api/sessions/nonexist`);
+    const path = Route.SessionStatus.replace(':id', 'nonexist');
+    const res = await fetch(`${baseUrl()}${path}`);
     expect(res.status).toBe(404);
   });
 });

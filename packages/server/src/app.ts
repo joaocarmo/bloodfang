@@ -3,33 +3,18 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { InMemorySessionStore, SessionManager } from './session-manager.js';
 import { parseClientMessage } from './validation.js';
-import { type SessionId, type PlayerToken, ServerMessageType, ErrorCode } from './protocol.js';
+import {
+  type SessionId,
+  type PlayerToken,
+  ClientMessageType,
+  ServerMessageType,
+  ErrorCode,
+} from './protocol.js';
 import type { Logger } from './logger.js';
-
-// ── Rate Limiting ────────────────────────────────────────────────────
-
-function createRateLimiter() {
-  const counters = new Map<string, { count: number; resetAt: number }>();
-
-  return function isRateLimited(key: string, maxPerMinute: number): boolean {
-    const now = Date.now();
-    const entry = counters.get(key);
-    if (!entry || now >= entry.resetAt) {
-      counters.set(key, { count: 1, resetAt: now + 60_000 });
-      return false;
-    }
-    entry.count++;
-    return entry.count > maxPerMinute;
-  };
-}
-
-function getClientIp(c: { req: { header: (name: string) => string | undefined } }): string {
-  return (
-    c.req.header('cf-connecting-ip') ??
-    c.req.header('x-forwarded-for')?.split(',')[0]?.trim() ??
-    'unknown'
-  );
-}
+import { Route } from './routes.js';
+import { HttpStatus } from './http-status.js';
+import { createRateLimiter } from './rate-limiter.js';
+import { getClientIp } from './client-ip.js';
 
 // ── App Factory ─────────────────────────────────────────────────────
 
@@ -63,47 +48,47 @@ export function createApp(options: AppOptions): AppInstance {
   app.use('*', cors({ origin: corsOrigin }));
 
   // ── Health Check ───────────────────────────────────────────────
-  app.get('/health', (c) => {
+  app.get(Route.Health, (c) => {
     return c.json({ status: 'ok', sessions: manager.sessionCount });
   });
 
   // ── HTTP Routes ────────────────────────────────────────────────
-  app.post('/api/sessions', (c) => {
+  app.post(Route.Sessions, (c) => {
     const ip = getClientIp(c);
     if (isRateLimited(`create:${ip}`, 5)) {
-      return c.json({ error: 'Rate limit exceeded' }, 429);
+      return c.json({ error: 'Rate limit exceeded' }, HttpStatus.TooManyRequests);
     }
 
     try {
       const result = manager.createSession();
-      return c.json(result, 201);
+      return c.json(result, HttpStatus.Created);
     } catch {
-      return c.json({ error: 'Maximum sessions reached' }, 503);
+      return c.json({ error: 'Maximum sessions reached' }, HttpStatus.ServiceUnavailable);
     }
   });
 
-  app.post('/api/sessions/:id/join', (c) => {
+  app.post(Route.SessionJoin, (c) => {
     const ip = getClientIp(c);
     if (isRateLimited(`join:${ip}`, 10)) {
-      return c.json({ error: 'Rate limit exceeded' }, 429);
+      return c.json({ error: 'Rate limit exceeded' }, HttpStatus.TooManyRequests);
     }
 
     const sessionId = c.req.param('id') as SessionId;
     const result = manager.joinSession(sessionId);
 
     if (!result) {
-      return c.json({ error: 'Session not found or full' }, 404);
+      return c.json({ error: 'Session not found or full' }, HttpStatus.NotFound);
     }
 
     return c.json(result);
   });
 
-  app.get('/api/sessions/:id', (c) => {
+  app.get(Route.SessionStatus, (c) => {
     const sessionId = c.req.param('id') as SessionId;
     const session = manager.getSession(sessionId);
 
     if (!session) {
-      return c.json({ error: 'Session not found' }, 404);
+      return c.json({ error: 'Session not found' }, HttpStatus.NotFound);
     }
 
     return c.json({
@@ -115,13 +100,13 @@ export function createApp(options: AppOptions): AppInstance {
 
   // ── WebSocket ──────────────────────────────────────────────────
   app.get(
-    '/api/sessions/:id/ws',
+    Route.SessionWs,
     upgradeWebSocket((c) => {
       const sessionId = c.req.param('id') as SessionId;
       const token = c.req.query('token') as PlayerToken | undefined;
 
-      // Validate origin in production
-      if (corsOrigin !== 'http://localhost:5173') {
+      // Validate origin (skip when corsOrigin is wildcard, e.g. in tests)
+      if (corsOrigin !== '*') {
         const origin = c.req.header('origin');
         if (origin && origin !== corsOrigin) {
           return {
@@ -195,7 +180,7 @@ export function createApp(options: AppOptions): AppInstance {
           const raw = event.data;
           const message = parseClientMessage(raw);
           if (!message) {
-            session.handleMessage(playerId, { type: 'ping' } as never);
+            session.handleMessage(playerId, { type: ClientMessageType.Ping });
             return;
           }
           session.handleMessage(playerId, message);

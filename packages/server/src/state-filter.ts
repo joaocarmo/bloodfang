@@ -1,5 +1,5 @@
 import type { GameState, PlayerId } from '@bloodfang/engine';
-import { GamePhase, opponent } from '@bloodfang/engine';
+import { GamePhase, LOG_ACTION_TYPES, opponent } from '@bloodfang/engine';
 import type { FilteredGameAction, FilteredGameState, FilteredPlayerState } from './protocol.js';
 
 /**
@@ -51,11 +51,11 @@ function filterPlayerState(
 }
 
 function filterLogAction(action: FilteredGameAction, opponentId: PlayerId): FilteredGameAction {
-  if (action.type === 'drawCard' && action.player === opponentId) {
-    return { type: 'drawCard', player: action.player, cardId: null };
+  if (action.type === LOG_ACTION_TYPES.DRAW_CARD && action.player === opponentId) {
+    return { type: LOG_ACTION_TYPES.DRAW_CARD, player: action.player, cardId: null };
   }
-  if (action.type === 'addCardToHand' && action.player === opponentId) {
-    return { type: 'addCardToHand', player: action.player, cardId: null };
+  if (action.type === LOG_ACTION_TYPES.ADD_CARD_TO_HAND && action.player === opponentId) {
+    return { type: LOG_ACTION_TYPES.ADD_CARD_TO_HAND, player: action.player, cardId: null };
   }
   return action;
 }

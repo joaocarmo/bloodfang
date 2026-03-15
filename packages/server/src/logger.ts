@@ -42,31 +42,27 @@ export class ConsoleLogger implements Logger {
 
   debug(event: string, data?: Record<string, unknown>): void {
     if (this.level <= LogLevel.Debug) {
-      this.write('DEBUG', event, data);
+      console.log(this.format('DEBUG', event, data));
     }
   }
 
   info(event: string, data?: Record<string, unknown>): void {
     if (this.level <= LogLevel.Info) {
-      this.write('INFO', event, data);
+      console.log(this.format('INFO', event, data));
     }
   }
 
   warn(event: string, data?: Record<string, unknown>): void {
     if (this.level <= LogLevel.Warn) {
-      console.warn(
-        JSON.stringify({ timestamp: new Date().toISOString(), level: 'WARN', event, ...data }),
-      );
+      console.warn(this.format('WARN', event, data));
     }
   }
 
   error(event: string, data?: Record<string, unknown>): void {
-    console.error(
-      JSON.stringify({ timestamp: new Date().toISOString(), level: 'ERROR', event, ...data }),
-    );
+    console.error(this.format('ERROR', event, data));
   }
 
-  private write(level: string, event: string, data?: Record<string, unknown>): void {
-    console.log(JSON.stringify({ timestamp: new Date().toISOString(), level, event, ...data }));
+  private format(level: string, event: string, data?: Record<string, unknown>): string {
+    return JSON.stringify({ timestamp: new Date().toISOString(), level, event, ...data });
   }
 }
