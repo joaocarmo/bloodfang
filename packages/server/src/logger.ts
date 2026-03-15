@@ -42,7 +42,7 @@ export class ConsoleLogger implements Logger {
 
   debug(event: string, data?: Record<string, unknown>): void {
     if (this.level <= LogLevel.Debug) {
-      console.log(this.format('DEBUG', event, data));
+      console.debug(this.format('DEBUG', event, data));
     }
   }
 
