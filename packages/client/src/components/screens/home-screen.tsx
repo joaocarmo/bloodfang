@@ -29,6 +29,9 @@ export function HomeScreen() {
         <LinkButton to={Route.Setup} variant="primary" size="lg" className="min-w-[200px]">
           {t`Start Local Game`}
         </LinkButton>
+        <LinkButton to={Route.OnlineSetup} size="lg" className="min-w-[200px]">
+          {t`Play Online`}
+        </LinkButton>
         <div className="flex gap-3">
           <LinkButton to={Route.Rules} variant="ghost">
             {t`Rules`}

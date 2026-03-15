@@ -3,15 +3,16 @@ import {
   BOARD_ROWS,
   BOARD_COLS,
   GamePhase,
-  getValidMoves,
   resolveRangePattern,
   resolveAbilityRangePattern,
   playCard,
   getEffectivePower,
   calculateLaneScores,
 } from '@bloodfang/engine';
-import type { LaneScores } from '@bloodfang/engine';
-import { useGameStore } from '../store/game-store.ts';
+import type { GameState, LaneScores } from '@bloodfang/engine';
+import { useGame } from '../context/game-context.tsx';
+import { toSimulatableState } from '../lib/game-state-adapter.ts';
+import type { FilteredGameState } from '@bloodfang/server/protocol';
 
 export interface TilePreview {
   isPawnRange: boolean;
@@ -30,10 +31,8 @@ export interface PlacementPreviewResult {
 }
 
 export function usePlacementPreview(): PlacementPreviewResult {
-  const gameState = useGameStore((s) => s.gameState);
-  const selectedCardId = useGameStore((s) => s.selectedCardId);
-  const hoveredTilePosition = useGameStore((s) => s.hoveredTilePosition);
-  const definitions = useGameStore((s) => s.definitions);
+  const { gameState, selectedCardId, hoveredTilePosition, definitions, validMoves, isOnline } =
+    useGame();
 
   return useMemo(() => {
     const empty: PlacementPreviewResult = {
@@ -45,7 +44,6 @@ export function usePlacementPreview(): PlacementPreviewResult {
     if (gameState.phase !== GamePhase.Playing) return empty;
 
     // Check if hover position is a valid move
-    const validMoves = getValidMoves(gameState);
     const cardMoves = validMoves.find((m) => m.cardId === selectedCardId);
     const isValid = cardMoves?.positions.some(
       (p) => p.row === hoveredTilePosition.row && p.col === hoveredTilePosition.col,
@@ -98,10 +96,15 @@ export function usePlacementPreview(): PlacementPreviewResult {
 
     // Simulate placement to compute power deltas and destroyed cards
     try {
-      const newState = playCard(gameState, selectedCardId, hoveredTilePosition);
+      // Get a simulatable GameState (works for both local and online)
+      const simulatable: GameState = isOnline
+        ? toSimulatableState(gameState as FilteredGameState)
+        : (gameState as GameState);
+
+      const newState = playCard(simulatable, selectedCardId, hoveredTilePosition);
 
       // Collect power before (for existing instances)
-      const oldInstances = gameState.cardInstances;
+      const oldInstances = simulatable.cardInstances;
       const newInstances = newState.cardInstances;
 
       for (const instanceId of Object.keys(oldInstances)) {
@@ -120,7 +123,7 @@ export function usePlacementPreview(): PlacementPreviewResult {
             willBeDestroyed: true,
           });
         } else {
-          const oldPower = getEffectivePower(gameState, instanceId);
+          const oldPower = getEffectivePower(simulatable, instanceId);
           const newPower = getEffectivePower(newState, instanceId);
           const delta = newPower - oldPower;
 
@@ -138,7 +141,7 @@ export function usePlacementPreview(): PlacementPreviewResult {
       // Compute pawn count deltas and rank tier changes
       for (let r = 0; r < BOARD_ROWS; r++) {
         for (let c = 0; c < BOARD_COLS; c++) {
-          const oldTile = gameState.board[r]?.[c];
+          const oldTile = simulatable.board[r]?.[c];
           const newTile = newState.board[r]?.[c];
           if (!oldTile || !newTile) continue;
 
@@ -169,5 +172,5 @@ export function usePlacementPreview(): PlacementPreviewResult {
       // If simulation fails, just show range overlays without power deltas
       return { tiles: result, previewLaneScores: null };
     }
-  }, [gameState, selectedCardId, hoveredTilePosition, definitions]);
+  }, [gameState, selectedCardId, hoveredTilePosition, definitions, validMoves, isOnline]);
 }

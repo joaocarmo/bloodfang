@@ -1,26 +1,22 @@
 import { useMemo } from 'react';
 import type { Position } from '@bloodfang/engine';
-import { GamePhase, getValidMoves } from '@bloodfang/engine';
-import { useGameStore } from '../store/game-store.ts';
+import { useGame } from '../context/game-context.tsx';
 
 export function useValidMovesForCard(cardId: string | null): Position[] {
-  const gameState = useGameStore((s) => s.gameState);
+  const { validMoves } = useGame();
 
   return useMemo(() => {
-    if (!gameState || !cardId || gameState.phase !== GamePhase.Playing) return [];
-    const moves = getValidMoves(gameState);
-    const cardMoves = moves.find((m) => m.cardId === cardId);
-    return cardMoves?.positions ?? [];
-  }, [gameState, cardId]);
+    if (!cardId) return [];
+    const cardMoves = validMoves.find((m) => m.cardId === cardId);
+    return cardMoves?.positions ? [...cardMoves.positions] : [];
+  }, [validMoves, cardId]);
 }
 
 export function useHasValidMoves(cardId: string): boolean {
-  const gameState = useGameStore((s) => s.gameState);
+  const { validMoves } = useGame();
 
   return useMemo(() => {
-    if (gameState?.phase !== GamePhase.Playing) return false;
-    const moves = getValidMoves(gameState);
-    const cardMoves = moves.find((m) => m.cardId === cardId);
+    const cardMoves = validMoves.find((m) => m.cardId === cardId);
     return (cardMoves?.positions.length ?? 0) > 0;
-  }, [gameState, cardId]);
+  }, [validMoves, cardId]);
 }

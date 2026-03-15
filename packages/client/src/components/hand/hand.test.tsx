@@ -1,7 +1,12 @@
 import type { CardId } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { Hand } from './hand.tsx';
-import { renderWithProviders, resetStores, screen, createPlayingState } from '../../test-utils.tsx';
+import {
+  renderWithGameProviders,
+  resetStores,
+  screen,
+  createPlayingState,
+} from '../../test-utils.tsx';
 
 beforeEach(() => {
   resetStores();
@@ -10,7 +15,7 @@ beforeEach(() => {
 
 describe('Hand', () => {
   it('renders listbox with card options', () => {
-    renderWithProviders(<Hand />);
+    renderWithGameProviders(<Hand />);
     const listbox = screen.getByRole('listbox');
     expect(listbox).toBeInTheDocument();
 
@@ -33,13 +38,13 @@ describe('Hand', () => {
     };
     useGameStore.setState({ gameState: emptyState });
 
-    renderWithProviders(<Hand />);
+    renderWithGameProviders(<Hand />);
     expect(screen.getByText(/No cards in hand/i)).toBeInTheDocument();
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
   it('clicking a card selects it', async () => {
-    const { user } = renderWithProviders(<Hand />);
+    const { user } = renderWithGameProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
     const first = options[0];
@@ -51,7 +56,7 @@ describe('Hand', () => {
   });
 
   it('clicking a selected card deselects it', async () => {
-    const { user } = renderWithProviders(<Hand />);
+    const { user } = renderWithGameProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
     const first = options[0];
@@ -66,7 +71,7 @@ describe('Hand', () => {
   });
 
   it('ArrowRight moves focus to next card', async () => {
-    const { user } = renderWithProviders(<Hand />);
+    const { user } = renderWithGameProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
     const first = options[0];
@@ -79,7 +84,7 @@ describe('Hand', () => {
   });
 
   it('ArrowLeft moves focus backward', async () => {
-    const { user } = renderWithProviders(<Hand />);
+    const { user } = renderWithGameProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
     // Navigate right first to land on index 1, then navigate left
@@ -94,7 +99,7 @@ describe('Hand', () => {
   });
 
   it('Escape deselects card', async () => {
-    const { user } = renderWithProviders(<Hand />);
+    const { user } = renderWithGameProviders(<Hand />);
 
     const options = screen.getAllByRole('option');
     const firstOpt = options[0];

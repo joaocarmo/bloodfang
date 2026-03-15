@@ -1,6 +1,11 @@
 import { useGameStore } from '../../store/game-store.ts';
 import { LaneScores, LaneTotal } from './lane-scores.tsx';
-import { renderWithProviders, resetStores, screen, createPlayingState } from '../../test-utils.tsx';
+import {
+  renderWithGameProviders,
+  resetStores,
+  screen,
+  createPlayingState,
+} from '../../test-utils.tsx';
 
 beforeEach(() => {
   resetStores();
@@ -9,7 +14,7 @@ beforeEach(() => {
 
 describe('LaneScores', () => {
   it('renders 3 lane scores for a player', () => {
-    renderWithProviders(<LaneScores player={0} side="left" />);
+    renderWithGameProviders(<LaneScores player={0} side="left" />);
 
     const region = screen.getByRole('status', { name: /Player 1 lane scores/i });
     expect(region).toBeInTheDocument();
@@ -18,7 +23,7 @@ describe('LaneScores', () => {
   });
 
   it('shows preview arrows when preview differs from current', () => {
-    renderWithProviders(
+    renderWithGameProviders(
       <LaneScores
         player={0}
         side="left"
@@ -36,7 +41,7 @@ describe('LaneScores', () => {
   });
 
   it('does not show preview arrows when scores match', () => {
-    renderWithProviders(
+    renderWithGameProviders(
       <LaneScores
         player={0}
         side="left"
@@ -54,7 +59,7 @@ describe('LaneScores', () => {
 
 describe('LaneTotal', () => {
   it('renders total score', () => {
-    renderWithProviders(<LaneTotal player={0} side="left" />);
+    renderWithGameProviders(<LaneTotal player={0} side="left" />);
 
     const region = screen.getByRole('status', { name: /Player 1 total score/i });
     expect(region).toBeInTheDocument();
@@ -63,7 +68,7 @@ describe('LaneTotal', () => {
   });
 
   it('shows preview arrow for different total', () => {
-    renderWithProviders(
+    renderWithGameProviders(
       <LaneTotal
         player={0}
         side="left"

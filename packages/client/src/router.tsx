@@ -9,6 +9,10 @@ import { ResultsScreen } from './components/game/results-screen.tsx';
 import { RulesScreen } from './components/screens/rules-screen.tsx';
 import { SettingsScreen } from './components/screens/settings-screen.tsx';
 import { AboutScreen } from './components/screens/about-screen.tsx';
+import { OnlineSetupScreen } from './components/screens/online-setup-screen.tsx';
+import { OnlineLobbyScreen } from './components/screens/online-lobby-screen.tsx';
+import { OnlineGameScreen } from './components/game/online-game-screen.tsx';
+import { OnlineResultsScreen } from './components/game/online-results-screen.tsx';
 
 function RootLayout() {
   return (
@@ -64,6 +68,33 @@ const aboutRoute = createRoute({
   component: AboutScreen,
 });
 
+const onlineSetupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: Route.OnlineSetup,
+  component: OnlineSetupScreen,
+});
+
+const onlineLobbyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: Route.OnlineLobby,
+  component: OnlineLobbyScreen,
+  validateSearch: (search: Record<string, unknown>) => ({
+    deck: (search['deck'] as string) || '',
+  }),
+});
+
+const onlineGameRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: Route.OnlineGame,
+  component: OnlineGameScreen,
+});
+
+const onlineResultsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: Route.OnlineResults,
+  component: OnlineResultsScreen,
+});
+
 const routeTree = rootRoute.addChildren([
   homeRoute,
   setupRoute,
@@ -72,6 +103,10 @@ const routeTree = rootRoute.addChildren([
   rulesRoute,
   settingsRoute,
   aboutRoute,
+  onlineSetupRoute,
+  onlineLobbyRoute,
+  onlineGameRoute,
+  onlineResultsRoute,
 ]);
 
 export const router = createRouter({

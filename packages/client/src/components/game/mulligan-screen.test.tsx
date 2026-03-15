@@ -1,7 +1,7 @@
 import { useGameStore } from '../../store/game-store.ts';
 import { MulliganScreen } from './mulligan-screen.tsx';
 import {
-  renderWithProviders,
+  renderWithGameProviders,
   resetStores,
   screen,
   createMulliganState,
@@ -14,19 +14,19 @@ beforeEach(() => {
 
 describe('MulliganScreen', () => {
   it('renders heading with current player', () => {
-    renderWithProviders(<MulliganScreen />);
+    renderWithGameProviders(<MulliganScreen />);
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Player 1 — Mulligan/);
   });
 
   it('renders hand cards as buttons with aria-pressed=false', () => {
-    renderWithProviders(<MulliganScreen />);
+    renderWithGameProviders(<MulliganScreen />);
     const cardButtons = screen.getAllByRole('button', { pressed: false });
     // Player starts with a 5-card hand
     expect(cardButtons.length).toBe(5);
   });
 
   it('clicking a card toggles aria-pressed', async () => {
-    const { user } = renderWithProviders(<MulliganScreen />);
+    const { user } = renderWithGameProviders(<MulliganScreen />);
 
     const cardButtons = screen.getAllByRole('button', { pressed: false });
     const firstCard = cardButtons[0];
@@ -40,7 +40,7 @@ describe('MulliganScreen', () => {
   });
 
   it('shows "Return N Cards" button when cards are selected', async () => {
-    const { user } = renderWithProviders(<MulliganScreen />);
+    const { user } = renderWithGameProviders(<MulliganScreen />);
 
     // Initially no return button
     expect(screen.queryByRole('button', { name: /Return/i })).not.toBeInTheDocument();
@@ -59,7 +59,7 @@ describe('MulliganScreen', () => {
   });
 
   it('Keep All advances game state', async () => {
-    const { user } = renderWithProviders(<MulliganScreen />);
+    const { user } = renderWithGameProviders(<MulliganScreen />);
 
     const keepBtn = screen.getByRole('button', { name: /Keep All/i });
     await user.click(keepBtn);
@@ -71,7 +71,7 @@ describe('MulliganScreen', () => {
   });
 
   it('Return N Cards advances with selected card IDs', async () => {
-    const { user } = renderWithProviders(<MulliganScreen />);
+    const { user } = renderWithGameProviders(<MulliganScreen />);
 
     const cardButtons = screen.getAllByRole('button', { pressed: false });
     const firstBtn = cardButtons[0];

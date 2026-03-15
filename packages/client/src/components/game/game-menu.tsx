@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
+import { useGame } from '../../context/game-context.tsx';
 import { Route } from '../../routes.ts';
 import { Button } from '../ui/button.tsx';
 import { ContentDialog } from '../ui/content-dialog.tsx';
@@ -17,6 +18,7 @@ type MenuView = 'closed' | 'menu' | 'rules' | 'settings';
 export function GameMenu() {
   const [menuView, setMenuView] = useState<MenuView>('closed');
   const navigate = useNavigate();
+  const { resetToHome } = useGame();
 
   const close = () => {
     setMenuView('closed');
@@ -95,6 +97,7 @@ export function GameMenu() {
           variant="danger"
           onClick={() => {
             close();
+            resetToHome();
             void navigate({ to: Route.Home });
           }}
         >

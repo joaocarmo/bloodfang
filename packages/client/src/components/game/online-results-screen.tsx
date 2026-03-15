@@ -1,20 +1,18 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useCallback } from 'react';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
 import { motion, useReducedMotion } from 'motion/react';
-import { useGameStore } from '../../store/game-store.ts';
-import { calculateFinalScores, determineWinner } from '@bloodfang/engine';
+import { BOARD_ROWS, calculateFinalScores, determineWinner } from '@bloodfang/engine';
+import { useOnlineGameStore } from '../../store/online-game-store.ts';
+import { OnlineGameProvider } from '../../context/online-game-provider.tsx';
 import { useLaneScores } from '../../hooks/use-lane-scores.ts';
-import { BOARD_ROWS } from '@bloodfang/engine';
 import { Route } from '../../routes.ts';
 import { Button } from '../ui/button.tsx';
 import { BackButton } from '../ui/back-button.tsx';
-import { LocalGameProvider } from '../../context/game-context.tsx';
+import { toSimulatableState } from '../../lib/game-state-adapter.ts';
 
-function ResultsContent() {
-  const gameState = useGameStore((s) => s.gameState);
-  const resetToHome = useGameStore((s) => s.resetToHome);
-  const startGame = useGameStore((s) => s.startGame);
+function OnlineResultsContent() {
+  const filteredGameState = useOnlineGameStore((s) => s.filteredGameState);
   const navigate = useNavigate();
   const headingRef = useRef<HTMLHeadingElement>(null);
   const laneScores = useLaneScores();
@@ -24,22 +22,19 @@ function ResultsContent() {
     headingRef.current?.focus();
   }, []);
 
-  if (!gameState) return null;
+  const handleHome = useCallback(() => {
+    useOnlineGameStore.getState().reset();
+    void navigate({ to: Route.Home });
+  }, [navigate]);
 
-  const finalScores = calculateFinalScores(gameState);
+  if (!filteredGameState) return null;
+
+  const simulatable = toSimulatableState(filteredGameState);
+  const finalScores = calculateFinalScores(simulatable);
   const winner = determineWinner(finalScores);
 
-  const winnerText = winner !== null ? t`Player ${String(winner + 1)} Wins!` : t`It's a Draw!`;
-
-  const handleRematch = () => {
-    startGame();
-    void navigate({ to: Route.Game });
-  };
-
-  const handleHome = () => {
-    resetToHome();
-    void navigate({ to: Route.Home });
-  };
+  // In online mode, player 0 = you, player 1 = opponent
+  const winnerText = winner === 0 ? t`You Win!` : winner === 1 ? t`You Lose` : t`It's a Draw!`;
 
   return (
     <main
@@ -68,7 +63,7 @@ function ResultsContent() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="text-text-secondary text-sm">{t`Player 1`}</div>
+          <div className="text-text-secondary text-sm">{t`You`}</div>
           <div className="text-p0 text-3xl sm:text-4xl md:text-5xl font-bold tabular-nums">
             {finalScores[0]}
           </div>
@@ -79,7 +74,7 @@ function ResultsContent() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="text-text-secondary text-sm">{t`Player 2`}</div>
+          <div className="text-text-secondary text-sm">{t`Opponent`}</div>
           <div className="text-p1 text-3xl sm:text-4xl md:text-5xl font-bold tabular-nums">
             {finalScores[1]}
           </div>
@@ -88,7 +83,9 @@ function ResultsContent() {
 
       {/* Lane breakdown */}
       <section className="w-full">
-        <h2 className="text-sm text-text-secondary font-medium mb-2 text-center">{t`Lane Breakdown`}</h2>
+        <h2 className="text-sm text-text-secondary font-medium mb-2 text-center">
+          {t`Lane Breakdown`}
+        </h2>
         <div className="space-y-1">
           {Array.from({ length: BOARD_ROWS }, (_, row) => {
             const p0 = laneScores[row]?.[0] ?? 0;
@@ -98,9 +95,9 @@ function ResultsContent() {
             const laneNum = String(row + 1);
             const laneLabel =
               laneWinner === 0
-                ? t`Lane ${laneNum}: Player 1 wins ${String(p0)} to ${String(p1)}`
+                ? t`Lane ${laneNum}: You win ${String(p0)} to ${String(p1)}`
                 : laneWinner === 1
-                  ? t`Lane ${laneNum}: Player 2 wins ${String(p1)} to ${String(p0)}`
+                  ? t`Lane ${laneNum}: Opponent wins ${String(p1)} to ${String(p0)}`
                   : t`Lane ${laneNum}: Tied ${String(p0)} to ${String(p1)}`;
 
             return (
@@ -134,11 +131,7 @@ function ResultsContent() {
         initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.9 }}
-        className="flex gap-3"
       >
-        <Button onClick={handleRematch} variant="primary" size="lg">
-          {t`Rematch`}
-        </Button>
         <Button onClick={handleHome} size="lg">
           {t`Home`}
         </Button>
@@ -147,10 +140,10 @@ function ResultsContent() {
   );
 }
 
-export function ResultsScreen() {
+export function OnlineResultsScreen() {
   return (
-    <LocalGameProvider>
-      <ResultsContent />
-    </LocalGameProvider>
+    <OnlineGameProvider>
+      <OnlineResultsContent />
+    </OnlineGameProvider>
   );
 }

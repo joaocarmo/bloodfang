@@ -4,6 +4,7 @@ import { useNavigate, useBlocker } from '@tanstack/react-router';
 import { GamePhase } from '@bloodfang/engine';
 import { useGameStore } from '../../store/game-store.ts';
 import { useSettingsStore } from '../../store/settings-store.ts';
+import { useGame, LocalGameProvider } from '../../context/game-context.tsx';
 import { Route } from '../../routes.ts';
 import { Board } from '../board/board.tsx';
 import { Hand } from '../hand/hand.tsx';
@@ -16,8 +17,8 @@ import { GameMenu } from './game-menu.tsx';
 import { SelectedCardDetail } from './selected-card-detail.tsx';
 import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 
-export function GameScreen() {
-  const gameState = useGameStore((s) => s.gameState);
+function GameScreenContent() {
+  const { gameState } = useGame();
   const showActionLog = useSettingsStore((s) => s.showActionLog);
   const navigate = useNavigate();
 
@@ -88,5 +89,13 @@ export function GameScreen() {
         </main>
       )}
     </>
+  );
+}
+
+export function GameScreen() {
+  return (
+    <LocalGameProvider>
+      <GameScreenContent />
+    </LocalGameProvider>
   );
 }

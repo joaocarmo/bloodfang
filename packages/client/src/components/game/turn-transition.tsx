@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { GamePhase } from '@bloodfang/engine';
-import { useGameStore } from '../../store/game-store.ts';
+import { useGame } from '../../context/game-context.tsx';
 import { playerTextColor } from '../../lib/player-color.ts';
 import { getMulliganPlayer } from '../../lib/get-mulligan-player.ts';
 import { DialogBase } from '../ui/dialog-base.tsx';
@@ -20,9 +20,7 @@ function getNextPlayer(gameState: {
 }
 
 export function TurnTransition() {
-  const showTransition = useGameStore((s) => s.showTransition);
-  const setShowTransition = useGameStore((s) => s.setShowTransition);
-  const gameState = useGameStore((s) => s.gameState);
+  const { showTransition, setShowTransition, gameState } = useGame();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const currentPlayer = gameState ? getNextPlayer(gameState) : 0;

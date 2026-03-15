@@ -1,12 +1,10 @@
 import { t } from '@lingui/core/macro';
 import { GamePhase } from '@bloodfang/engine';
-import { useGameStore, useValidMoves } from '../../store/game-store.ts';
+import { useGame } from '../../context/game-context.tsx';
 import { Button } from '../ui/button.tsx';
 
 export function PassButton() {
-  const gameState = useGameStore((s) => s.gameState);
-  const doPass = useGameStore((s) => s.doPass);
-  const validMoves = useValidMoves();
+  const { gameState, doPass, validMoves, isMyTurn } = useGame();
 
   if (gameState?.phase !== GamePhase.Playing) return null;
 
@@ -16,7 +14,8 @@ export function PassButton() {
     <Button
       onClick={doPass}
       variant={hasNoMoves ? 'danger' : 'secondary'}
-      className={`min-w-[100px] ${hasNoMoves ? '' : 'text-text-secondary'}`}
+      aria-disabled={!isMyTurn}
+      className={`min-w-[100px] ${hasNoMoves ? '' : 'text-text-secondary'} ${!isMyTurn ? 'opacity-50 cursor-not-allowed' : ''}`}
     >
       {hasNoMoves ? t`Pass (No Moves)` : t`Pass`}
     </Button>

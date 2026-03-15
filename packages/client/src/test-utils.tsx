@@ -6,6 +6,7 @@ import { I18nProvider } from '@lingui/react';
 import { i18n } from './i18n.ts';
 import { useGameStore } from './store/game-store.ts';
 import { useDeckStore } from './store/deck-store.ts';
+import { LocalGameProvider } from './context/game-context.tsx';
 import type { GameState } from '@bloodfang/engine';
 import { createGame, mulligan, createSeededRng, getAllGameDefinitions } from '@bloodfang/engine';
 
@@ -15,9 +16,23 @@ function Providers({ children }: { children: React.ReactNode }) {
   return <I18nProvider i18n={i18n}>{children}</I18nProvider>;
 }
 
+function GameProviders({ children }: { children: React.ReactNode }) {
+  return (
+    <I18nProvider i18n={i18n}>
+      <LocalGameProvider>{children}</LocalGameProvider>
+    </I18nProvider>
+  );
+}
+
 export function renderWithProviders(ui: ReactElement) {
   const user = userEvent.setup();
   return { user, ...render(ui, { wrapper: Providers }) };
+}
+
+/** Renders with both i18n and LocalGameProvider — use for components that call useGame() */
+export function renderWithGameProviders(ui: ReactElement) {
+  const user = userEvent.setup();
+  return { user, ...render(ui, { wrapper: GameProviders }) };
 }
 
 // ── Store helpers ────────────────────────────────────────────────────────

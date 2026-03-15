@@ -1,12 +1,12 @@
 import { useRef, useEffect } from 'react';
 import { t } from '@lingui/core/macro';
 import type { GameAction } from '@bloodfang/engine';
-import { useGameStore } from '../../store/game-store.ts';
+import { useGame } from '../../context/game-context.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 
 export function ActionLog() {
-  const log = useGameStore((s) => s.gameState?.log ?? []);
-  const definitions = useGameStore((s) => s.definitions);
+  const { gameState, definitions } = useGame();
+  const log = gameState?.log ?? [];
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export function ActionLog() {
         className="h-24 sm:h-32 md:h-40 overflow-y-auto bg-surface-raised rounded-lg p-2 text-xs text-text-muted space-y-0.5"
       >
         {recentLog.map((action, i) => (
-          <div key={log.length - 20 + i}>{formatAction(action, definitions)}</div>
+          <div key={log.length - 20 + i}>{formatAction(action as GameAction, definitions)}</div>
         ))}
         {recentLog.length === 0 && <div>{t`No actions yet.`}</div>}
       </div>

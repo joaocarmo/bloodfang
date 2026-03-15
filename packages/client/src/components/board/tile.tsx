@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { t } from '@lingui/core/macro';
 import { AnimatePresence } from 'motion/react';
-import { useGameStore } from '../../store/game-store.ts';
+import { useGame } from '../../context/game-context.tsx';
 import { useValidMovesForCard } from '../../hooks/use-valid-moves.ts';
 import { PawnDots } from './pawn-dots.tsx';
 import { PlacedCard } from './placed-card.tsx';
@@ -10,7 +10,7 @@ import { RankIcon } from '../card/rank-icon.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 import { tileBgColor, playerBgOpacity } from '../../lib/player-color.ts';
 import { getEffectivePower } from '@bloodfang/engine';
-import type { CardRank } from '@bloodfang/engine';
+import type { CardRank, GameState } from '@bloodfang/engine';
 import type { TilePreview } from '../../hooks/use-placement-preview.ts';
 
 interface TileProps {
@@ -22,23 +22,19 @@ interface TileProps {
 }
 
 export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
-  const gameState = useGameStore((s) => s.gameState);
-  const selectedCardId = useGameStore((s) => s.selectedCardId);
-  const placeCard = useGameStore((s) => s.placeCard);
-  const hoverTile = useGameStore((s) => s.hoverTile);
-  const definitions = useGameStore((s) => s.definitions);
+  const { gameState, selectedCardId, placeCard, hoverTile, definitions, isMyTurn } = useGame();
 
   const validPositions = useValidMovesForCard(selectedCardId);
 
   const handleClick = useCallback(() => {
-    if (!gameState || !selectedCardId) return;
+    if (!gameState || !selectedCardId || !isMyTurn) return;
     const tile = gameState.board[row]?.[col];
     if (!tile) return;
     const isValid = validPositions.some((p) => p.row === row && p.col === col);
     if (isValid) {
       placeCard({ row, col });
     }
-  }, [gameState, validPositions, selectedCardId, placeCard, row, col]);
+  }, [gameState, validPositions, selectedCardId, placeCard, row, col, isMyTurn]);
 
   const handleMouseEnter = useCallback(() => {
     hoverTile({ row, col });
@@ -62,7 +58,7 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
   const tile = gameState.board[row]?.[col];
   if (!tile) return null;
 
-  const isValidTarget = validPositions.some((p) => p.row === row && p.col === col);
+  const isValidTarget = isMyTurn && validPositions.some((p) => p.row === row && p.col === col);
 
   const instance =
     tile.cardInstanceId !== null
@@ -92,7 +88,9 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
     parts.push(t`${pawnCount} pawns`);
   }
   if (instance && definition) {
-    const power = String(getEffectivePower(gameState, instance.instanceId));
+    const power = String(
+      getEffectivePower(gameState as Parameters<typeof getEffectivePower>[0], instance.instanceId),
+    );
     const name = getCardName(definition.id);
     parts.push(t`${name} (power ${power})`);
   }
@@ -143,9 +141,16 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
           <CardPreviewTrigger
             key={instance.instanceId}
             definition={definition}
-            effectivePower={getEffectivePower(gameState, instance.instanceId)}
+            effectivePower={getEffectivePower(
+              gameState as Parameters<typeof getEffectivePower>[0],
+              instance.instanceId,
+            )}
           >
-            <PlacedCard instance={instance} definition={definition} gameState={gameState} />
+            <PlacedCard
+              instance={instance}
+              definition={definition}
+              gameState={gameState as GameState}
+            />
           </CardPreviewTrigger>
         )}
       </AnimatePresence>

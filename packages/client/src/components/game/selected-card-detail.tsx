@@ -1,12 +1,10 @@
 import { t } from '@lingui/core/macro';
-import { useGameStore } from '../../store/game-store.ts';
+import { useGame } from '../../context/game-context.tsx';
 import { Card } from '../card/card.tsx';
 import { Button } from '../ui/button.tsx';
 
 export function SelectedCardDetail() {
-  const selectedCardId = useGameStore((s) => s.selectedCardId);
-  const definitions = useGameStore((s) => s.definitions);
-  const selectCard = useGameStore((s) => s.selectCard);
+  const { selectedCardId, definitions, selectCard } = useGame();
 
   if (!selectedCardId) return null;
 

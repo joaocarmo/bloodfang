@@ -1,25 +1,19 @@
 import { useRef, useState, useCallback, type KeyboardEvent } from 'react';
 import { t } from '@lingui/core/macro';
-import { useGameStore } from '../../store/game-store.ts';
+import { useGame } from '../../context/game-context.tsx';
 import { HandCard } from './hand-card.tsx';
 
 export function Hand() {
-  const gameState = useGameStore((s) => s.gameState);
-  const definitions = useGameStore((s) => s.definitions);
-  const selectedCardId = useGameStore((s) => s.selectedCardId);
-  const selectCard = useGameStore((s) => s.selectCard);
+  const { definitions, selectedCardId, selectCard, myHand, isOnline, myPlayerIndex } = useGame();
   const [focusedIndex, setFocusedIndex] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
 
-  const currentPlayer = gameState?.currentPlayerIndex ?? 0;
-  const hand = gameState?.players[currentPlayer].hand ?? [];
-
   // Clamp focusedIndex when hand shrinks (e.g. after playing a card)
-  const clampedFocusedIndex = hand.length === 0 ? 0 : Math.min(focusedIndex, hand.length - 1);
+  const clampedFocusedIndex = myHand.length === 0 ? 0 : Math.min(focusedIndex, myHand.length - 1);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (hand.length === 0) return;
+      if (myHand.length === 0) return;
 
       let nextIndex = clampedFocusedIndex;
 
@@ -28,7 +22,7 @@ export function Hand() {
           nextIndex = Math.max(0, clampedFocusedIndex - 1);
           break;
         case 'ArrowRight':
-          nextIndex = Math.min(hand.length - 1, clampedFocusedIndex + 1);
+          nextIndex = Math.min(myHand.length - 1, clampedFocusedIndex + 1);
           break;
         case 'Escape':
           selectCard(null);
@@ -45,12 +39,14 @@ export function Hand() {
       const target = options?.[nextIndex];
       if (target instanceof HTMLElement) target.focus();
     },
-    [clampedFocusedIndex, hand.length, selectCard],
+    [clampedFocusedIndex, myHand.length, selectCard],
   );
 
-  if (hand.length === 0) {
+  if (myHand.length === 0) {
     return <div className="text-center text-text-muted py-4">{t`No cards in hand`}</div>;
   }
+
+  const label = isOnline ? t`Your hand` : t`Player ${String(myPlayerIndex + 1)}'s hand`;
 
   return (
     <div>
@@ -58,12 +54,12 @@ export function Hand() {
       <div
         ref={listRef}
         role="listbox"
-        aria-label={t`Player ${String(currentPlayer + 1)}'s hand`}
+        aria-label={label}
         tabIndex={-1}
         onKeyDown={handleKeyDown}
         className="flex gap-1 sm:gap-2 justify-center items-end flex-wrap py-1 sm:py-2"
       >
-        {hand.map((cardId, index) => {
+        {myHand.map((cardId, index) => {
           // cardId is the definitionId in the hand
           const def = definitions[cardId];
           if (!def) return null;
