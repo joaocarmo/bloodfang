@@ -1,13 +1,11 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { t } from '@lingui/core/macro';
-import { useNavigate, useSearch } from '@tanstack/react-router';
-import type { CardId } from '@bloodfang/engine';
+import { useNavigate } from '@tanstack/react-router';
 import { ClientMessageType, SessionPhase, WaitingReason } from '@bloodfang/server/protocol';
 import { useOnlineGameStore } from '../../store/online-game-store.ts';
 import { useWebSocket } from '../../hooks/use-websocket.ts';
 import { Route } from '../../routes.ts';
 import { Button } from '../ui/button.tsx';
-import { BackButton } from '../ui/back-button.tsx';
 
 export function OnlineLobbyScreen() {
   const sessionId = useOnlineGameStore((s) => s.sessionId);
@@ -22,8 +20,7 @@ export function OnlineLobbyScreen() {
   const [copied, setCopied] = useState(false);
   const [deckSubmitted, setDeckSubmitted] = useState(false);
 
-  // Get deck from route search params
-  const { deck: deckParam } = useSearch({ from: Route.OnlineLobby });
+  const pendingDeck = useOnlineGameStore((s) => s.pendingDeck);
 
   const { status, send, disconnect } = useWebSocket(sessionId, playerToken);
 
@@ -38,12 +35,11 @@ export function OnlineLobbyScreen() {
     sessionPhase === SessionPhase.Playing;
 
   useEffect(() => {
-    if (status === 'connected' && deckParam && !deckSubmitted && canSubmitDeck) {
-      const deck = deckParam.split(',') as CardId[];
-      send({ type: ClientMessageType.SubmitDeck, deck });
+    if (status === 'connected' && pendingDeck && !deckSubmitted && canSubmitDeck) {
+      send({ type: ClientMessageType.SubmitDeck, deck: [...pendingDeck] });
       setDeckSubmitted(true);
     }
-  }, [status, deckParam, deckSubmitted, send, canSubmitDeck]);
+  }, [status, pendingDeck, deckSubmitted, send, canSubmitDeck]);
 
   // Navigate to game when we receive first game state
   useEffect(() => {
@@ -78,7 +74,7 @@ export function OnlineLobbyScreen() {
     if (waitingReason === WaitingReason.OpponentReconnecting) return t`Opponent reconnecting...`;
     if (sessionPhase === SessionPhase.WaitingForDecks) return t`Waiting for opponent's deck...`;
     if (serverError) return t`Error: ${serverError.message}`;
-    return t`Setting up game...`;
+    return t`Waiting for game to start...`;
   })();
 
   return (
@@ -86,7 +82,7 @@ export function OnlineLobbyScreen() {
       tabIndex={-1}
       className="flex flex-col items-center justify-center min-h-screen gap-4 p-4 sm:gap-6 sm:p-6 outline-none"
     >
-      <BackButton />
+      <Button onClick={handleLeave} variant="ghost" size="sm">{t`← Leave`}</Button>
       <h1
         ref={headingRef}
         tabIndex={-1}
@@ -99,7 +95,7 @@ export function OnlineLobbyScreen() {
         <div className="flex flex-col items-center gap-2">
           <p className="text-text-secondary text-sm">{t`Share this code with your opponent:`}</p>
           <div className="flex items-center gap-2">
-            <code className="bg-surface-raised text-text-primary text-xl sm:text-2xl font-mono px-4 py-2 rounded-lg tracking-wider uppercase select-all">
+            <code className="bg-surface-raised text-text-primary text-xl sm:text-2xl font-mono px-4 py-2 rounded-lg tracking-wider select-all">
               {sessionId}
             </code>
             <Button
@@ -136,10 +132,6 @@ export function OnlineLobbyScreen() {
           {serverError.message}
         </p>
       )}
-
-      <Button onClick={handleLeave} variant="danger">
-        {t`Leave`}
-      </Button>
     </main>
   );
 }

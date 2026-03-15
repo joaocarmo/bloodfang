@@ -4,7 +4,8 @@ import { useGame } from '../../context/game-context.tsx';
 import { HandCard } from './hand-card.tsx';
 
 export function Hand() {
-  const { definitions, selectedCardId, selectCard, myHand, isOnline, myPlayerIndex } = useGame();
+  const { definitions, selectedCardId, selectCard, myHand, isOnline, myPlayerIndex, isMyTurn } =
+    useGame();
   const [focusedIndex, setFocusedIndex] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -50,14 +51,17 @@ export function Hand() {
 
   return (
     <div>
-      <h2 className="sr-only">{t`Your Hand`}</h2>
+      <h2 className="text-xs text-text-muted text-center mb-1">
+        {t`Your Hand (${String(myHand.length)})`}
+      </h2>
+      {!isMyTurn && <span className="sr-only">{t`Waiting for opponent`}</span>}
       <div
         ref={listRef}
         role="listbox"
         aria-label={label}
         tabIndex={-1}
         onKeyDown={handleKeyDown}
-        className="flex gap-1 sm:gap-2 justify-center items-end flex-wrap py-1 sm:py-2"
+        className={`flex gap-1 sm:gap-2 justify-center items-end flex-wrap py-1 sm:py-2 ${!isMyTurn ? 'opacity-50 pointer-events-none' : ''}`}
       >
         {myHand.map((cardId, index) => {
           // cardId is the definitionId in the hand
@@ -75,6 +79,7 @@ export function Hand() {
               onFocus={() => {
                 setFocusedIndex(index);
               }}
+              isMyTurn={isMyTurn}
             />
           );
         })}

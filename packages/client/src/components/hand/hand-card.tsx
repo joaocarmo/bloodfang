@@ -13,6 +13,7 @@ interface HandCardProps {
   onSelect: (cardId: CardId | null) => void;
   isFocused: boolean;
   onFocus: () => void;
+  isMyTurn: boolean;
 }
 
 export function HandCard({
@@ -22,6 +23,7 @@ export function HandCard({
   onSelect,
   isFocused,
   onFocus,
+  isMyTurn,
 }: HandCardProps) {
   const hasValidMoves = useHasValidMoves(cardId);
   const reduceMotion = useReducedMotion();
@@ -29,26 +31,27 @@ export function HandCard({
   const name = getCardName(definition.id);
   const rank = definition.rank;
   const power = definition.power;
+  const canInteract = isMyTurn && hasValidMoves;
   const label = !hasValidMoves
     ? t`${name}, Rank ${String(rank)}, Power ${String(power)}, no valid moves`
     : t`${name}, Rank ${String(rank)}, Power ${String(power)}`;
 
   return (
-    <CardPreviewTrigger definition={definition}>
+    <CardPreviewTrigger definition={definition} disabled={isSelected}>
       <motion.div
         role="option"
         aria-selected={isSelected}
-        aria-disabled={!hasValidMoves}
+        aria-disabled={!canInteract}
         aria-label={label}
         tabIndex={isFocused ? 0 : -1}
         onFocus={onFocus}
         onClick={() => {
-          if (hasValidMoves) {
+          if (canInteract) {
             onSelect(isSelected ? null : cardId);
           }
         }}
         onKeyDown={(e) => {
-          if ((e.key === 'Enter' || e.key === ' ') && hasValidMoves) {
+          if ((e.key === 'Enter' || e.key === ' ') && canInteract) {
             e.preventDefault();
             onSelect(isSelected ? null : cardId);
           }

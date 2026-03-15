@@ -72,14 +72,14 @@ export function OnlineSetupScreen() {
     }
   }, [joinCode, setSession]);
 
+  const setPendingDeck = useOnlineGameStore((s) => s.setPendingDeck);
+
   const handleDeckConfirm = useCallback(
     (deck: CardId[]) => {
-      // Store deck in online store for submission in lobby
-      useOnlineGameStore.setState({ _pendingDeck: undefined } as never);
-      // Navigate to lobby — deck will be submitted there via WebSocket
-      void navigate({ to: Route.OnlineLobby, search: { deck: deck.join(',') } });
+      setPendingDeck(deck);
+      void navigate({ to: Route.OnlineLobby });
     },
-    [navigate],
+    [navigate, setPendingDeck],
   );
 
   if (phase === 'create-deck' || phase === 'join-deck') {
@@ -137,7 +137,7 @@ export function OnlineSetupScreen() {
               if (e.key === 'Enter') void handleJoinSubmit();
             }}
             placeholder={t`Enter code`}
-            className="bg-surface-raised text-text-primary border border-border rounded-lg px-4 py-2 text-center text-lg tracking-wider uppercase w-48 focus:outline-3 focus:outline-focus-ring"
+            className="bg-surface-raised text-text-primary border border-border rounded-lg px-4 py-2 text-center text-lg tracking-wider w-48 focus:outline-3 focus:outline-focus-ring"
             aria-label={t`Game code`}
           />
           <Button

@@ -502,3 +502,134 @@ describe('Game action validation', () => {
     expect(pong.type).toBe(ServerMessageType.Pong);
   }, 5000);
 });
+
+describe('Opponent connection state in State messages', () => {
+  it('State message arrives without prior OpponentDisconnected after both connect', async () => {
+    const { p0, p1 } = await setupBothConnected();
+    track(p0, p1);
+
+    // Submit decks
+    p0.send({ type: 'submit_deck', deck: buildDeck(0) });
+    p1.send({ type: 'submit_deck', deck: buildDeck(DECK_SIZE) });
+
+    // Wait for both to receive mulligan State
+    await Promise.all([
+      p0.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Mulligan),
+      p1.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Mulligan),
+    ]);
+
+    // Verify neither player received an OpponentDisconnected message at any point
+    const p0Disconnects = p0.messages.filter(
+      (m) => m.type === ServerMessageType.OpponentDisconnected,
+    );
+    const p1Disconnects = p1.messages.filter(
+      (m) => m.type === ServerMessageType.OpponentDisconnected,
+    );
+
+    expect(p0Disconnects).toHaveLength(0);
+    expect(p1Disconnects).toHaveLength(0);
+  }, 10000);
+
+  it('reconnecting player triggers OpponentDisconnected then OpponentConnected', async () => {
+    const { sessionId, token: p0Token } = await createSession();
+    const { token: p1Token } = await joinSession(sessionId);
+
+    const p0 = await connectPlayer(sessionId, p0Token);
+    const p1 = await connectPlayer(sessionId, p1Token);
+    track(p0, p1);
+
+    // Wait for WaitingForDecks
+    await Promise.all([
+      p0.waitFor(
+        (m) => m.type === ServerMessageType.SessionInfo && m.phase === SessionPhase.WaitingForDecks,
+      ),
+      p1.waitFor(
+        (m) => m.type === ServerMessageType.SessionInfo && m.phase === SessionPhase.WaitingForDecks,
+      ),
+    ]);
+
+    // Submit decks
+    p0.send({ type: 'submit_deck', deck: buildDeck(0) });
+    p1.send({ type: 'submit_deck', deck: buildDeck(DECK_SIZE) });
+
+    // Wait for mulligan state
+    await Promise.all([
+      p0.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Mulligan),
+      p1.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Mulligan),
+    ]);
+
+    // Close p1's WebSocket connection
+    p1.close();
+
+    // Verify p0 gets OpponentDisconnected
+    const disconnectMsg = await p0.waitFor(
+      (m) => m.type === ServerMessageType.OpponentDisconnected,
+    );
+    expect(disconnectMsg.type).toBe(ServerMessageType.OpponentDisconnected);
+
+    // Reconnect p1 using the same token
+    const p1Reconnected = await connectPlayer(sessionId, p1Token);
+    track(p1Reconnected);
+
+    // Verify p0 gets OpponentConnected
+    const connectMsg = await p0.waitFor((m) => m.type === ServerMessageType.OpponentConnected);
+    expect(connectMsg.type).toBe(ServerMessageType.OpponentConnected);
+
+    // Verify p1 reconnected and received state
+    const p1State = await p1Reconnected.waitFor(
+      (m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Mulligan,
+    );
+    expect(p1State.type).toBe(ServerMessageType.State);
+  }, 10000);
+
+  it('no spurious OpponentDisconnected during phase transitions', async () => {
+    const { p0, p1 } = await setupBothConnected();
+    track(p0, p1);
+
+    // Submit decks
+    p0.send({ type: 'submit_deck', deck: buildDeck(0) });
+    p1.send({ type: 'submit_deck', deck: buildDeck(DECK_SIZE) });
+
+    // Wait for mulligan state
+    await Promise.all([
+      p0.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Mulligan),
+      p1.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Mulligan),
+    ]);
+
+    // Clear message counts before mulligan actions
+    const p0MsgCountBefore = p0.messages.length;
+    const p1MsgCountBefore = p1.messages.length;
+
+    // Mulligan (keep all)
+    p0.send({ type: 'mulligan', returnCardIds: [] });
+    p1.send({ type: 'mulligan', returnCardIds: [] });
+
+    // Wait for playing state
+    await Promise.all([
+      p0.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Playing),
+      p1.waitFor((m) => m.type === ServerMessageType.State && m.phase === SessionPhase.Playing),
+    ]);
+
+    // Check messages received during the mulligan→playing transition
+    const p0TransitionMessages = p0.messages.slice(p0MsgCountBefore);
+    const p1TransitionMessages = p1.messages.slice(p1MsgCountBefore);
+
+    // There should be no OpponentDisconnected messages during the transition
+    const p0Disconnects = p0TransitionMessages.filter(
+      (m) => m.type === ServerMessageType.OpponentDisconnected,
+    );
+    const p1Disconnects = p1TransitionMessages.filter(
+      (m) => m.type === ServerMessageType.OpponentDisconnected,
+    );
+
+    expect(p0Disconnects).toHaveLength(0);
+    expect(p1Disconnects).toHaveLength(0);
+
+    // Verify both received State messages (at least the Playing state)
+    const p0States = p0TransitionMessages.filter((m) => m.type === ServerMessageType.State);
+    const p1States = p1TransitionMessages.filter((m) => m.type === ServerMessageType.State);
+
+    expect(p0States.length).toBeGreaterThanOrEqual(1);
+    expect(p1States.length).toBeGreaterThanOrEqual(1);
+  }, 10000);
+});

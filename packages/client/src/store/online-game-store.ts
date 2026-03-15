@@ -33,6 +33,10 @@ interface OnlineGameStore {
   opponentConnected: boolean;
   serverError: { code: ErrorCode; message: string } | null;
 
+  // Pending deck (set during setup, consumed in lobby)
+  pendingDeck: readonly CardId[] | null;
+  setPendingDeck: (deck: readonly CardId[]) => void;
+
   // UI interaction
   selectedCardId: CardId | null;
   hoveredTilePosition: Position | null;
@@ -74,6 +78,11 @@ export const useOnlineGameStore = create<OnlineGameStore>((set, get) => {
     waitingReason: null,
     opponentConnected: false,
     serverError: null,
+
+    pendingDeck: null,
+    setPendingDeck: (deck) => {
+      set({ pendingDeck: deck });
+    },
 
     selectedCardId: null,
     hoveredTilePosition: null,
@@ -120,6 +129,7 @@ export const useOnlineGameStore = create<OnlineGameStore>((set, get) => {
             validMoves: msg.validMoves ? [...msg.validMoves] : [],
             sessionPhase: msg.phase,
             waitingReason: null,
+            opponentConnected: true,
             selectedCardId: null,
             hoveredTilePosition: null,
           });
@@ -184,6 +194,7 @@ export const useOnlineGameStore = create<OnlineGameStore>((set, get) => {
         waitingReason: null,
         opponentConnected: false,
         serverError: null,
+        pendingDeck: null,
         selectedCardId: null,
         hoveredTilePosition: null,
         announcement: '',

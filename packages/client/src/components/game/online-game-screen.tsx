@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
 import { t } from '@lingui/core/macro';
-import { useNavigate } from '@tanstack/react-router';
+import { useNavigate, useBlocker } from '@tanstack/react-router';
 import { GamePhase } from '@bloodfang/engine';
-import { WaitingReason } from '@bloodfang/server/protocol';
 import { useOnlineGameStore } from '../../store/online-game-store.ts';
 import { useWebSocket } from '../../hooks/use-websocket.ts';
 import { useSettingsStore } from '../../store/settings-store.ts';
@@ -17,11 +16,11 @@ import { PassButton } from './pass-button.tsx';
 import { ActionLog } from './action-log.tsx';
 import { GameMenu } from './game-menu.tsx';
 import { SelectedCardDetail } from './selected-card-detail.tsx';
+import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 
 function OnlineGameContent() {
-  const { gameState, isMyTurn } = useGame();
+  const { gameState, resetToHome } = useGame();
   const showActionLog = useSettingsStore((s) => s.showActionLog);
-  const waitingReason = useOnlineGameStore((s) => s.waitingReason);
   const opponentConnected = useOnlineGameStore((s) => s.opponentConnected);
   const connectionStatus = useOnlineGameStore((s) => s.connectionStatus);
   const navigate = useNavigate();
@@ -33,10 +32,22 @@ function OnlineGameContent() {
     }
   }, [gameState?.phase, navigate]);
 
+  // Block navigation when game is in progress
+  const { proceed, reset, status } = useBlocker({
+    shouldBlockFn: () => gameState !== null && gameState.phase !== GamePhase.Ended,
+    withResolver: true,
+  });
+
   if (!gameState) {
     return (
       <main tabIndex={-1} className="flex items-center justify-center min-h-screen outline-none">
-        <p className="text-text-secondary">{t`Loading game...`}</p>
+        <div className="flex flex-col items-center gap-3">
+          <div
+            className="w-8 h-8 border-4 border-text-muted border-t-text-primary rounded-full motion-safe:animate-spin"
+            aria-hidden="true"
+          />
+          <p className="text-text-secondary">{t`Game starting...`}</p>
+        </div>
       </main>
     );
   }
@@ -61,60 +72,85 @@ function OnlineGameContent() {
     );
   }
 
+  const opponentDeckCount =
+    'deckCount' in gameState.players[1] ? gameState.players[1].deckCount : undefined;
+
   return (
-    <main
-      tabIndex={-1}
-      className="flex flex-col gap-2 p-2 sm:gap-3 sm:p-3 md:gap-4 md:p-4 max-w-4xl mx-auto outline-none"
-    >
-      <h1 className="sr-only">{t`Online Game`}</h1>
+    <>
+      <ConfirmDialog
+        open={status === 'blocked'}
+        title={t`Leave game?`}
+        description={t`Your game progress will be lost.`}
+        confirmLabel={t`Leave`}
+        cancelLabel={t`Cancel`}
+        onConfirm={() => {
+          resetToHome();
+          proceed?.();
+        }}
+        onCancel={() => {
+          reset?.();
+        }}
+      />
+      <main
+        tabIndex={-1}
+        className="flex flex-col gap-2 p-2 sm:gap-3 sm:p-3 md:gap-4 md:p-4 max-w-4xl mx-auto outline-none"
+      >
+        <h1 className="sr-only">{t`Online Game`}</h1>
 
-      {/* Connection status banner */}
-      {connectionStatus !== 'connected' && (
-        <div
-          role="alert"
-          className="bg-power-debuff/20 text-power-debuff text-center py-1 rounded text-sm"
-        >
-          {t`Reconnecting...`}
-        </div>
-      )}
-
-      {/* Opponent disconnected overlay */}
-      {!opponentConnected && connectionStatus === 'connected' && (
-        <div
-          role="alert"
-          className="bg-surface-raised text-text-secondary text-center py-1 rounded text-sm"
-        >
-          {t`Opponent disconnected. Waiting for reconnection...`}
-        </div>
-      )}
-
-      <div className="flex items-center justify-between">
-        <GameMenu />
-        <TurnIndicator />
-        <div className="w-10" />
-      </div>
-
-      <section aria-label={t`Board`}>
-        <Board />
-      </section>
-
-      <div className="flex items-center justify-center gap-4">
-        <PassButton />
-        {!isMyTurn && waitingReason === WaitingReason.OpponentTurn && (
-          <span className="text-text-muted text-sm" role="status">
-            {t`Opponent's turn`}
-          </span>
+        {/* Connection status banner */}
+        {connectionStatus !== 'connected' && (
+          <div
+            role="alert"
+            className="bg-power-debuff/20 text-power-debuff text-center py-1 rounded text-sm"
+          >
+            {t`Reconnecting...`}
+          </div>
         )}
-      </div>
 
-      <section aria-label={t`Hand`}>
-        <Hand />
-      </section>
+        {/* Opponent disconnected overlay */}
+        {!opponentConnected && connectionStatus === 'connected' && (
+          <div
+            role="alert"
+            className="bg-surface-raised text-text-secondary text-center py-1 rounded text-sm"
+          >
+            {t`Opponent disconnected. Waiting for reconnection...`}
+          </div>
+        )}
 
-      <SelectedCardDetail />
+        <div className="flex items-center justify-between">
+          <GameMenu />
+          <TurnIndicator />
+          <div className="w-10" />
+        </div>
 
-      {showActionLog && <ActionLog />}
-    </main>
+        {/* Opponent info */}
+        {opponentDeckCount !== undefined && (
+          <div
+            className="text-xs text-text-muted text-center"
+            role="status"
+            aria-label={t`Opponent has ${String(opponentDeckCount)} cards in deck`}
+          >
+            {t`Opponent deck: ${String(opponentDeckCount)}`}
+          </div>
+        )}
+
+        <section aria-label={t`Board`}>
+          <Board />
+        </section>
+
+        <div className="flex items-center justify-center gap-4">
+          <PassButton />
+        </div>
+
+        <section aria-label={t`Hand`}>
+          <Hand />
+        </section>
+
+        <SelectedCardDetail />
+
+        {showActionLog && <ActionLog />}
+      </main>
+    </>
   );
 }
 

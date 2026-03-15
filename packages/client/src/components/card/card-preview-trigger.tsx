@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import {
   useFloating,
@@ -29,6 +29,7 @@ interface CardPreviewTriggerProps {
   effectivePower?: number | undefined;
   touchAction?: (() => void) | undefined;
   touchActionLabel?: string | undefined;
+  disabled?: boolean | undefined;
   children: ReactNode;
 }
 
@@ -37,11 +38,16 @@ export function CardPreviewTrigger({
   effectivePower,
   touchAction,
   touchActionLabel,
+  disabled,
   children,
 }: CardPreviewTriggerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const isSmall = useIsSmallScreen();
+
+  useEffect(() => {
+    if (disabled) setIsOpen(false);
+  }, [disabled]);
 
   // On small screens, only show the dialog when a touchAction is provided.
   // Without a touch action, the dialog has no actionable content beyond what
@@ -60,9 +66,9 @@ export function CardPreviewTrigger({
   const hover = useHover(context, {
     mouseOnly: true,
     delay: { open: 250 },
-    enabled: !isSmall,
+    enabled: !isSmall && !disabled,
   });
-  const focus = useFocus(context, { enabled: !isSmall });
+  const focus = useFocus(context, { enabled: !isSmall && !disabled });
   const click = useClick(context, { enabled: useDialog });
   const dismiss = useDismiss(context, {
     // On desktop tooltips, allow Escape to propagate to parent handlers

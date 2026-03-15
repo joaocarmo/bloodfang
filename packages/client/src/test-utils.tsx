@@ -6,8 +6,11 @@ import { I18nProvider } from '@lingui/react';
 import { i18n } from './i18n.ts';
 import { useGameStore } from './store/game-store.ts';
 import { useDeckStore } from './store/deck-store.ts';
+import { useOnlineGameStore } from './store/online-game-store.ts';
 import { LocalGameProvider } from './context/game-context.tsx';
+import { OnlineGameProvider } from './context/online-game-provider.tsx';
 import type { GameState } from '@bloodfang/engine';
+import type { FilteredGameState } from '@bloodfang/server/protocol';
 import { createGame, mulligan, createSeededRng, getAllGameDefinitions } from '@bloodfang/engine';
 
 // ── Providers ────────────────────────────────────────────────────────────
@@ -24,6 +27,14 @@ function GameProviders({ children }: { children: React.ReactNode }) {
   );
 }
 
+function OnlineGameProviders({ children }: { children: React.ReactNode }) {
+  return (
+    <I18nProvider i18n={i18n}>
+      <OnlineGameProvider>{children}</OnlineGameProvider>
+    </I18nProvider>
+  );
+}
+
 export function renderWithProviders(ui: ReactElement) {
   const user = userEvent.setup();
   return { user, ...render(ui, { wrapper: Providers }) };
@@ -35,14 +46,22 @@ export function renderWithGameProviders(ui: ReactElement) {
   return { user, ...render(ui, { wrapper: GameProviders }) };
 }
 
+/** Renders with both i18n and OnlineGameProvider — use for online game components */
+export function renderWithOnlineProviders(ui: ReactElement) {
+  const user = userEvent.setup();
+  return { user, ...render(ui, { wrapper: OnlineGameProviders }) };
+}
+
 // ── Store helpers ────────────────────────────────────────────────────────
 
 const gameStoreInitial = useGameStore.getState();
 const deckStoreInitial = useDeckStore.getState();
+const onlineStoreInitial = useOnlineGameStore.getState();
 
 export function resetStores() {
   useGameStore.setState(gameStoreInitial, true);
   useDeckStore.setState(deckStoreInitial, true);
+  useOnlineGameStore.setState(onlineStoreInitial, true);
 }
 
 // ── Game state factories ─────────────────────────────────────────────────
@@ -70,6 +89,35 @@ export function createPlayingState(): GameState {
   state = mulligan(state, 0, [], rng);
   state = mulligan(state, 1, [], rng);
   return state;
+}
+
+/** Returns a FilteredGameState in the Playing phase (for online game tests) */
+export function createOnlinePlayingState(): FilteredGameState {
+  const local = createPlayingState();
+  return {
+    board: local.board,
+    players: [
+      {
+        hand: [...local.players[0].hand],
+        deckCount: local.players[0].deck.length,
+        mulliganUsed: true,
+      },
+      {
+        hand: [],
+        deckCount: local.players[1].deck.length,
+        mulliganUsed: true,
+      },
+    ],
+    currentPlayerIndex: local.currentPlayerIndex,
+    turnNumber: local.turnNumber,
+    phase: local.phase,
+    consecutivePasses: local.consecutivePasses,
+    continuousModifiers: [...local.continuousModifiers],
+    cardInstances: local.cardInstances,
+    log: [],
+    cardDefinitions: local.cardDefinitions,
+    nextInstanceId: local.nextInstanceId,
+  } as FilteredGameState;
 }
 
 // ── Re-exports ───────────────────────────────────────────────────────────

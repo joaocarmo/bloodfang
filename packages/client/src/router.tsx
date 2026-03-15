@@ -78,9 +78,6 @@ const onlineLobbyRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: Route.OnlineLobby,
   component: OnlineLobbyScreen,
-  validateSearch: (search: Record<string, unknown>) => ({
-    deck: (search['deck'] as string) || '',
-  }),
 });
 
 const onlineGameRoute = createRoute({

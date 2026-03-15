@@ -12,7 +12,9 @@ export function PassButton() {
 
   return (
     <Button
-      onClick={doPass}
+      onClick={() => {
+        if (isMyTurn) doPass();
+      }}
       variant={hasNoMoves ? 'danger' : 'secondary'}
       aria-disabled={!isMyTurn}
       className={`min-w-[100px] ${hasNoMoves ? '' : 'text-text-secondary'} ${!isMyTurn ? 'opacity-50 cursor-not-allowed' : ''}`}
