@@ -123,6 +123,7 @@ export interface FilteredGameState {
   readonly cardInstances: Readonly<Record<string, CardInstance>>;
   readonly log: readonly FilteredGameAction[];
   readonly cardDefinitions: Readonly<Record<string, CardDefinition>>;
+  readonly nextInstanceId: number;
 }
 
 export interface ValidMove {

@@ -36,6 +36,7 @@ export function filterStateForPlayer(state: GameState, viewingPlayer: PlayerId):
     cardInstances: state.cardInstances,
     log,
     cardDefinitions: state.cardDefinitions,
+    nextInstanceId: state.nextInstanceId,
   };
 }
 
