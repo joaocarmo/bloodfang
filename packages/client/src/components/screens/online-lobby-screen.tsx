@@ -31,14 +31,19 @@ export function OnlineLobbyScreen() {
     headingRef.current?.focus();
   }, []);
 
-  // Submit deck once connected
+  // Submit deck once connected and server is ready for decks
+  const canSubmitDeck =
+    sessionPhase === SessionPhase.WaitingForDecks ||
+    sessionPhase === SessionPhase.Mulligan ||
+    sessionPhase === SessionPhase.Playing;
+
   useEffect(() => {
-    if (status === 'connected' && deckParam && !deckSubmitted) {
+    if (status === 'connected' && deckParam && !deckSubmitted && canSubmitDeck) {
       const deck = deckParam.split(',') as CardId[];
       send({ type: ClientMessageType.SubmitDeck, deck });
       setDeckSubmitted(true);
     }
-  }, [status, deckParam, deckSubmitted, send]);
+  }, [status, deckParam, deckSubmitted, send, canSubmitDeck]);
 
   // Navigate to game when we receive first game state
   useEffect(() => {
@@ -63,15 +68,16 @@ export function OnlineLobbyScreen() {
   }, [disconnect, navigate]);
 
   const statusMessage = (() => {
-    if (serverError) return t`Error: ${serverError.message}`;
     if (status === 'connecting') return t`Connecting to server...`;
     if (status === 'disconnected') return t`Disconnected from server.`;
-    if (!deckSubmitted) return t`Submitting deck...`;
-    if (waitingReason === WaitingReason.OpponentDeck) return t`Waiting for opponent's deck...`;
-    if (waitingReason === WaitingReason.OpponentReconnecting) return t`Opponent reconnecting...`;
     if (sessionPhase === SessionPhase.WaitingForPlayers && !opponentConnected)
       return t`Waiting for opponent to join...`;
+    if (!deckSubmitted && canSubmitDeck) return t`Submitting deck...`;
+    if (!deckSubmitted) return t`Waiting for opponent to join...`;
+    if (waitingReason === WaitingReason.OpponentDeck) return t`Waiting for opponent's deck...`;
+    if (waitingReason === WaitingReason.OpponentReconnecting) return t`Opponent reconnecting...`;
     if (sessionPhase === SessionPhase.WaitingForDecks) return t`Waiting for opponent's deck...`;
+    if (serverError) return t`Error: ${serverError.message}`;
     return t`Setting up game...`;
   })();
 

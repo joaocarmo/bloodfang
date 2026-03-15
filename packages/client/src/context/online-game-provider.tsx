@@ -2,6 +2,7 @@ import { useMemo, useCallback } from 'react';
 import type { CardId, Position } from '@bloodfang/engine';
 import { ClientMessageType } from '@bloodfang/server/protocol';
 import { useOnlineGameStore, sendMessage } from '../store/online-game-store.ts';
+import { disconnectWs } from '../hooks/use-websocket.ts';
 import { GameContext, type GameContextValue } from './game-context.tsx';
 
 export function OnlineGameProvider({ children }: { children: React.ReactNode }) {
@@ -38,6 +39,7 @@ export function OnlineGameProvider({ children }: { children: React.ReactNode }) 
   }, []);
 
   const resetToHome = useCallback(() => {
+    disconnectWs();
     useOnlineGameStore.getState().reset();
   }, []);
 

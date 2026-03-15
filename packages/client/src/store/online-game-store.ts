@@ -107,7 +107,7 @@ export const useOnlineGameStore = create<OnlineGameStore>((set, get) => {
     handleServerMessage: (msg) => {
       switch (msg.type) {
         case ServerMessageType.SessionInfo: {
-          set({ sessionPhase: msg.phase });
+          set({ sessionPhase: msg.phase, serverError: null });
           break;
         }
 
@@ -151,7 +151,7 @@ export const useOnlineGameStore = create<OnlineGameStore>((set, get) => {
         }
 
         case ServerMessageType.OpponentConnected: {
-          set({ opponentConnected: true });
+          set({ opponentConnected: true, serverError: null });
           get().announce(t`Opponent connected.`);
           break;
         }

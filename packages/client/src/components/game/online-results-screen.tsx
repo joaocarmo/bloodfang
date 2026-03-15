@@ -10,6 +10,7 @@ import { Route } from '../../routes.ts';
 import { Button } from '../ui/button.tsx';
 import { BackButton } from '../ui/back-button.tsx';
 import { toSimulatableState } from '../../lib/game-state-adapter.ts';
+import { disconnectWs } from '../../hooks/use-websocket.ts';
 
 function OnlineResultsContent() {
   const filteredGameState = useOnlineGameStore((s) => s.filteredGameState);
@@ -23,6 +24,7 @@ function OnlineResultsContent() {
   }, []);
 
   const handleHome = useCallback(() => {
+    disconnectWs();
     useOnlineGameStore.getState().reset();
     void navigate({ to: Route.Home });
   }, [navigate]);
