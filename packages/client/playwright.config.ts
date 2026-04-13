@@ -2,7 +2,7 @@ import process from 'node:process';
 import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 5173;
-const BASE_URL = `http://127.0.0.1:${PORT}`;
+const BASE_URL = `http://localhost:${PORT}`;
 const isCi = Boolean(process.env['CI']);
 
 export default defineConfig({
