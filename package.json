@@ -6,9 +6,12 @@
     "test": "pnpm -r run test",
     "typecheck": "pnpm -r run typecheck",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.11",
     "prettier": "^3.8.1",
     "typescript": "~5.9.3",
     "vitest": "^4.1.0"
