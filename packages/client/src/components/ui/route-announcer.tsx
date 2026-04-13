@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { useLocation } from '@tanstack/react-router';
 import { t } from '@lingui/core/macro';
+import { useLocation } from '@tanstack/react-router';
+import { useEffect, useRef } from 'react';
 import { Route } from '../../routes.ts';
 
 function getPageName(pathname: string): string {

@@ -1,12 +1,12 @@
 import { t } from '@lingui/core/macro';
 import { BackButton } from '../ui/back-button.tsx';
 import {
-  SettingsContent,
   ActionLogSetting,
-  LanguageSetting,
-  ThemeSetting,
   GameModeSetting,
+  LanguageSetting,
   ResetSettingsButton,
+  SettingsContent,
+  ThemeSetting,
 } from './settings-content.tsx';
 
 export function SettingsScreen() {
@@ -29,7 +29,7 @@ export function SettingsScreen() {
         <LanguageSetting />
         <ThemeSetting />
         <GameModeSetting />
-        <hr className="border-border" aria-hidden="true" />
+        <hr className="border-border" />
         <ResetSettingsButton />
       </SettingsContent>
     </main>

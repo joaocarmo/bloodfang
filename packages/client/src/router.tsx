@@ -1,18 +1,18 @@
-import { createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router';
-import { Route } from './routes.ts';
+import { createRootRoute, createRoute, createRouter, Outlet } from '@tanstack/react-router';
 import { Announcer } from './components/game/announcer.tsx';
-import { RouteAnnouncer } from './components/ui/route-announcer.tsx';
-import { HomeScreen } from './components/screens/home-screen.tsx';
-import { SetupScreen } from './components/screens/setup-screen.tsx';
 import { GameScreen } from './components/game/game-screen.tsx';
-import { ResultsScreen } from './components/game/results-screen.tsx';
-import { RulesScreen } from './components/screens/rules-screen.tsx';
-import { SettingsScreen } from './components/screens/settings-screen.tsx';
-import { AboutScreen } from './components/screens/about-screen.tsx';
-import { OnlineSetupScreen } from './components/screens/online-setup-screen.tsx';
-import { OnlineLobbyScreen } from './components/screens/online-lobby-screen.tsx';
 import { OnlineGameScreen } from './components/game/online-game-screen.tsx';
 import { OnlineResultsScreen } from './components/game/online-results-screen.tsx';
+import { ResultsScreen } from './components/game/results-screen.tsx';
+import { AboutScreen } from './components/screens/about-screen.tsx';
+import { HomeScreen } from './components/screens/home-screen.tsx';
+import { OnlineLobbyScreen } from './components/screens/online-lobby-screen.tsx';
+import { OnlineSetupScreen } from './components/screens/online-setup-screen.tsx';
+import { RulesScreen } from './components/screens/rules-screen.tsx';
+import { SettingsScreen } from './components/screens/settings-screen.tsx';
+import { SetupScreen } from './components/screens/setup-screen.tsx';
+import { RouteAnnouncer } from './components/ui/route-announcer.tsx';
+import { Route } from './routes.ts';
 
 function RootLayout() {
   return (

@@ -1,17 +1,17 @@
-import { useState } from 'react';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 import { useGame } from '../../context/game-context.tsx';
 import { Route } from '../../routes.ts';
-import { Button } from '../ui/button.tsx';
-import { ContentDialog } from '../ui/content-dialog.tsx';
-import { RulesContent, BasicRules, KeyboardShortcuts } from '../screens/rules-content.tsx';
+import { BasicRules, KeyboardShortcuts, RulesContent } from '../screens/rules-content.tsx';
 import {
-  SettingsContent,
   ActionLogSetting,
   LanguageSetting,
+  SettingsContent,
   ThemeSetting,
 } from '../screens/settings-content.tsx';
+import { Button } from '../ui/button.tsx';
+import { ContentDialog } from '../ui/content-dialog.tsx';
 
 type MenuView = 'closed' | 'menu' | 'rules' | 'settings';
 

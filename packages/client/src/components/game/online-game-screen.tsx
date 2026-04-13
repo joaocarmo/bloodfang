@@ -1,22 +1,22 @@
-import { useEffect } from 'react';
-import { t } from '@lingui/core/macro';
-import { useNavigate, useBlocker } from '@tanstack/react-router';
 import { GamePhase } from '@bloodfang/engine';
-import { useOnlineGameStore } from '../../store/online-game-store.ts';
-import { useWebSocket } from '../../hooks/use-websocket.ts';
-import { useSettingsStore } from '../../store/settings-store.ts';
+import { t } from '@lingui/core/macro';
+import { useBlocker, useNavigate } from '@tanstack/react-router';
+import { useEffect } from 'react';
 import { useGame } from '../../context/game-context.tsx';
 import { OnlineGameProvider } from '../../context/online-game-provider.tsx';
+import { useWebSocket } from '../../hooks/use-websocket.ts';
 import { Route } from '../../routes.ts';
+import { useOnlineGameStore } from '../../store/online-game-store.ts';
+import { useSettingsStore } from '../../store/settings-store.ts';
 import { Board } from '../board/board.tsx';
 import { Hand } from '../hand/hand.tsx';
-import { MulliganScreen } from './mulligan-screen.tsx';
-import { TurnIndicator } from './turn-indicator.tsx';
-import { PassButton } from './pass-button.tsx';
+import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 import { ActionLog } from './action-log.tsx';
 import { GameMenu } from './game-menu.tsx';
+import { MulliganScreen } from './mulligan-screen.tsx';
+import { PassButton } from './pass-button.tsx';
 import { SelectedCardDetail } from './selected-card-detail.tsx';
-import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
+import { TurnIndicator } from './turn-indicator.tsx';
 
 function OnlineGameContent() {
   const { gameState, resetToHome } = useGame();

@@ -1,3 +1,5 @@
+import { getTile, setTile } from './board.js';
+import type { CardId } from './card-id.js';
 import type {
   AbilityEffect,
   CardInstance,
@@ -6,9 +8,7 @@ import type {
   PlayerId,
   Position,
 } from './types.js';
-import type { CardId } from './card-id.js';
 import { EFFECT_TYPES, GAME_EVENT_TYPES, LOG_ACTION_TYPES, MAX_PAWN_COUNT } from './types.js';
-import { getTile, setTile } from './board.js';
 
 // ── Effect Result ─────────────────────────────────────────────────────
 

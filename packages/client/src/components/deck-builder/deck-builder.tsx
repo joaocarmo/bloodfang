@@ -1,14 +1,13 @@
-import { useRef, useEffect } from 'react';
-import { t } from '@lingui/core/macro';
 import type { CardId } from '@bloodfang/engine';
 import { DECK_SIZE } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
+import { useEffect, useRef } from 'react';
+import { playerTextColor } from '../../lib/player-color.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
-
-import { FilterBar } from './filter-bar.tsx';
+import { Button } from '../ui/button.tsx';
 import { CardCatalog } from './card-catalog.tsx';
 import { DeckSlots } from './deck-slots.tsx';
-import { Button } from '../ui/button.tsx';
-import { playerTextColor } from '../../lib/player-color.ts';
+import { FilterBar } from './filter-bar.tsx';
 
 interface DeckBuilderProps {
   playerNumber: 1 | 2;
@@ -23,7 +22,7 @@ export function DeckBuilder({ playerNumber, onConfirm }: DeckBuilderProps) {
   useEffect(() => {
     clear();
     headingRef.current?.focus();
-  }, [playerNumber, clear]);
+  }, [clear]);
 
   const isReady = selectedCards.length === DECK_SIZE;
 

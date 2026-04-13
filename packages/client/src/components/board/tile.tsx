@@ -1,17 +1,17 @@
-import { useCallback } from 'react';
+import type { CardRank, GameState } from '@bloodfang/engine';
+import { getEffectivePower } from '@bloodfang/engine';
 import { t } from '@lingui/core/macro';
 import { AnimatePresence } from 'motion/react';
+import { useCallback } from 'react';
 import { useGame } from '../../context/game-context.tsx';
+import type { TilePreview } from '../../hooks/use-placement-preview.ts';
 import { useValidMovesForCard } from '../../hooks/use-valid-moves.ts';
-import { PawnDots } from './pawn-dots.tsx';
-import { PlacedCard } from './placed-card.tsx';
+import { getCardName } from '../../lib/card-identity.ts';
+import { playerBgOpacity, tileBgColor } from '../../lib/player-color.ts';
 import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
 import { RankIcon } from '../card/rank-icon.tsx';
-import { getCardName } from '../../lib/card-identity.ts';
-import { tileBgColor, playerBgOpacity } from '../../lib/player-color.ts';
-import { getEffectivePower } from '@bloodfang/engine';
-import type { CardRank, GameState } from '@bloodfang/engine';
-import type { TilePreview } from '../../hooks/use-placement-preview.ts';
+import { PawnDots } from './pawn-dots.tsx';
+import { PlacedCard } from './placed-card.tsx';
 
 interface TileProps {
   row: number;
@@ -112,6 +112,7 @@ export function Tile({ row, col, isFocused, onFocus, preview }: TileProps) {
   }
 
   return (
+    // biome-ignore lint/a11y/useSemanticElements: parent grid uses CSS Grid layout, not table semantics
     <div
       role="gridcell"
       aria-label={parts.join(', ')}

@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server';
+import { createApp } from './app.js';
 import { loadConfig } from './config.js';
 import { ConsoleLogger } from './logger.js';
-import { createApp } from './app.js';
 
 // ── Bootstrap ────────────────────────────────────────────────────────
 

@@ -1,3 +1,7 @@
+import { resolveAbilities } from './abilities.js';
+import { createBoard, getTile, isBoardFull, isValidPosition, setTile } from './board.js';
+import type { CardId } from './card-id.js';
+import { internalDestroyCard } from './effects.js';
 import type {
   Board,
   CardDefinition,
@@ -12,7 +16,6 @@ import type {
   RangeCell,
   Tile,
 } from './types.js';
-import type { CardId } from './card-id.js';
 import {
   BOARD_COLS,
   BOARD_ROWS,
@@ -23,12 +26,9 @@ import {
   INITIAL_HAND_SIZE,
   LOG_ACTION_TYPES,
   MAX_PAWN_COUNT,
-  RANGE_CELL_TYPES,
   opponent,
+  RANGE_CELL_TYPES,
 } from './types.js';
-import { createBoard, getTile, isBoardFull, isValidPosition, setTile } from './board.js';
-import { resolveAbilities } from './abilities.js';
-import { internalDestroyCard } from './effects.js';
 import { fisherYatesShuffle } from './utils.js';
 
 // ── Internal Helpers ───────────────────────────────────────────────────

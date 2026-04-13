@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import type { CardId } from '@bloodfang/engine';
 import { t } from '@lingui/core/macro';
 import { useReducedMotion } from 'motion/react';
-import type { CardId } from '@bloodfang/engine';
-import { getCardName, getCardInitials } from '../../lib/card-identity.ts';
+import { useState } from 'react';
+import { getCardInitials, getCardName } from '../../lib/card-identity.ts';
 
 interface CardArtProps {
   definitionId: CardId;

@@ -1,15 +1,15 @@
 import type { CardDefinition } from '@bloodfang/engine';
-import { RankIcon } from './rank-icon.tsx';
-import { PowerBadge } from './power-badge.tsx';
-import { RangeGrid } from './range-grid.tsx';
-import { AbilityText } from './ability-text.tsx';
-import { CardArt } from './card-art.tsx';
 import {
+  getCardAriaLabel,
   getCardName,
   getFlavorText,
-  getCardAriaLabel,
   getRankGradientClass,
 } from '../../lib/card-identity.ts';
+import { AbilityText } from './ability-text.tsx';
+import { CardArt } from './card-art.tsx';
+import { PowerBadge } from './power-badge.tsx';
+import { RangeGrid } from './range-grid.tsx';
+import { RankIcon } from './rank-icon.tsx';
 
 interface CardDetailProps {
   definition: CardDefinition;
@@ -47,7 +47,7 @@ export function CardDetail({ definition, effectivePower }: CardDetailProps) {
 
       {flavorText && (
         <>
-          <hr className="border-text-muted/20" aria-hidden="true" />
+          <hr className="border-text-muted/20" />
           <p className="text-xs sm:text-sm italic text-text-muted leading-snug">{flavorText}</p>
         </>
       )}

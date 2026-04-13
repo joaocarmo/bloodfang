@@ -1,16 +1,16 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { getAllGameDefinitions } from './cards/all-cards.js';
+import { getGameTokenDefinitions } from './cards/game-tokens.js';
 import { getRank1Definitions } from './cards/rank1-cards.js';
 import { getRank2Definitions } from './cards/rank2-cards.js';
 import { getRank3Definitions } from './cards/rank3-cards.js';
 import { getReplacementDefinitions } from './cards/replacement-cards.js';
-import { getGameTokenDefinitions } from './cards/game-tokens.js';
 import {
   ABILITY_TRIGGERS,
-  TARGET_SELECTORS,
+  CARD_RANKS,
   EFFECT_TYPES,
   RANGE_CELL_TYPES,
-  CARD_RANKS,
+  TARGET_SELECTORS,
 } from './types.js';
 
 const allDefs = getAllGameDefinitions();

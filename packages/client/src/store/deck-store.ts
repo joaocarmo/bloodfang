@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import type { CardRank, CardId } from '@bloodfang/engine';
+import type { CardId, CardRank } from '@bloodfang/engine';
 import { DECK_SIZE } from '@bloodfang/engine';
+import { create } from 'zustand';
 
 interface DeckStore {
   selectedCards: CardId[];

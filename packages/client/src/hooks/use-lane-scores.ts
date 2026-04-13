@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
-import { calculateLaneScores } from '@bloodfang/engine';
 import type { LaneScores } from '@bloodfang/engine';
+import { calculateLaneScores } from '@bloodfang/engine';
+import { useMemo } from 'react';
 import { useGame } from '../context/game-context.tsx';
 
 export function useLaneScores(): LaneScores {

@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react';
-import { t } from '@lingui/core/macro';
 import type { GameAction } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
+import { useEffect, useRef } from 'react';
 import { useGame } from '../../context/game-context.tsx';
 import { getCardName } from '../../lib/card-identity.ts';
 
@@ -13,7 +13,7 @@ export function ActionLog() {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [log.length]);
+  }, []);
 
   // Show last 20 actions
   const recentLog = log.slice(-20);
@@ -28,7 +28,9 @@ export function ActionLog() {
         className="h-24 sm:h-32 md:h-40 overflow-y-auto bg-surface-raised rounded-lg p-2 text-xs text-text-muted space-y-0.5"
       >
         {recentLog.map((action, i) => (
-          <div key={log.length - 20 + i}>{formatAction(action as GameAction, definitions)}</div>
+          <div key={`log-${String(log.length - 20 + i)}`}>
+            {formatAction(action as GameAction, definitions)}
+          </div>
         ))}
         {recentLog.length === 0 && <div>{t`No actions yet.`}</div>}
       </div>

@@ -1,6 +1,6 @@
+import { CardId } from '../card-id.js';
 import type { CardDefinition } from '../types.js';
 import { ABILITY_TRIGGERS, EFFECT_TYPES, RANGE_CELL_TYPES, TARGET_SELECTORS } from '../types.js';
-import { CardId } from '../card-id.js';
 import { cardsToDefinitionMap } from './utils.js';
 
 export const hopliteGuard: CardDefinition = {

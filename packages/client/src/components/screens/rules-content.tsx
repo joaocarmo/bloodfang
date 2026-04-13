@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
 import { t } from '@lingui/core/macro';
+import type { ReactNode } from 'react';
 
 export function BasicRules() {
   return (

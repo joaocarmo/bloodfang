@@ -1,3 +1,4 @@
+import { CardId } from '../card-id.js';
 import type { CardDefinition } from '../types.js';
 import {
   ABILITY_TRIGGERS,
@@ -7,7 +8,6 @@ import {
   TARGET_SELECTORS,
 } from '../types.js';
 import { cardsToDefinitionMap } from './utils.js';
-import { CardId } from '../card-id.js';
 
 export const mantisChimera: CardDefinition = {
   id: CardId.MantisChimera,

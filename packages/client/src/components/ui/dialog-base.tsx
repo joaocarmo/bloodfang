@@ -1,4 +1,4 @@
-import { useRef, type ReactNode, type RefObject } from 'react';
+import { type ReactNode, type RefObject, useRef } from 'react';
 import { useDialog } from '../../hooks/use-dialog.ts';
 
 const base =

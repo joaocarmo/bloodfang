@@ -1,5 +1,5 @@
-import { t } from '@lingui/core/macro';
 import type { CardRank } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
 import { useDeckStore } from '../../store/deck-store.ts';
 import { ToggleButton } from '../ui/toggle-button.tsx';
 
@@ -37,7 +37,7 @@ export function FilterBar() {
             min-h-[36px]"
         />
       </div>
-      <div className="flex gap-1" role="group" aria-label={t`Filter by rank`}>
+      <fieldset className="flex gap-1 border-0 p-0 m-0" aria-label={t`Filter by rank`}>
         {ranks.map(({ value, label }) => (
           <ToggleButton
             key={String(value)}
@@ -49,7 +49,7 @@ export function FilterBar() {
             {label}
           </ToggleButton>
         ))}
-      </div>
+      </fieldset>
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import { useRef } from 'react';
 import { t } from '@lingui/core/macro';
 import { motion, useReducedMotion } from 'motion/react';
+import { useRef } from 'react';
 import { useGame } from '../../context/game-context.tsx';
 import { playerTextColor } from '../../lib/player-color.ts';
 

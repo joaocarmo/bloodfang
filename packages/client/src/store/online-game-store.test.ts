@@ -1,8 +1,8 @@
-import { GamePhase, CardId } from '@bloodfang/engine';
+import { CardId, GamePhase } from '@bloodfang/engine';
 import type { FilteredGameState, ServerMessage } from '@bloodfang/server/protocol';
 import { ServerMessageType, SessionPhase } from '@bloodfang/server/protocol';
+import { createOnlinePlayingState, resetStores, TEST_DECK_A } from '../test-utils.tsx';
 import { useOnlineGameStore } from './online-game-store.ts';
-import { resetStores, createOnlinePlayingState, TEST_DECK_A } from '../test-utils.tsx';
 
 beforeEach(() => {
   resetStores();

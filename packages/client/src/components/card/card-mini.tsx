@@ -1,7 +1,7 @@
 import type { CardDefinition } from '@bloodfang/engine';
+import { getCardName } from '../../lib/card-identity.ts';
 import { PowerBadge } from './power-badge.tsx';
 import { RankIcon } from './rank-icon.tsx';
-import { getCardName } from '../../lib/card-identity.ts';
 
 interface CardMiniProps {
   definition: CardDefinition;

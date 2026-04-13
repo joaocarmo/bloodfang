@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { parseClientMessage } from './validation.js';
+import { describe, expect, it } from 'vitest';
 import { ClientMessageType } from './protocol.js';
+import { parseClientMessage } from './validation.js';
 
 describe('parseClientMessage', () => {
   it('parses submit_deck message', () => {

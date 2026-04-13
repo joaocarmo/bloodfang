@@ -1,9 +1,9 @@
-import { useState, useCallback, type KeyboardEvent } from 'react';
+import { BOARD_COLS, BOARD_ROWS } from '@bloodfang/engine';
 import { t } from '@lingui/core/macro';
-import { BOARD_ROWS, BOARD_COLS } from '@bloodfang/engine';
-import { Tile } from './tile.tsx';
-import { LaneScores, LaneTotal } from './lane-scores.tsx';
+import { type KeyboardEvent, useCallback, useState } from 'react';
 import { usePlacementPreview } from '../../hooks/use-placement-preview.ts';
+import { LaneScores, LaneTotal } from './lane-scores.tsx';
+import { Tile } from './tile.tsx';
 
 export function Board() {
   const [focusedRow, setFocusedRow] = useState(0);
@@ -49,7 +49,7 @@ export function Board() {
       <div className="flex items-stretch gap-1 sm:gap-2">
         <LaneScores player={0} side="left" previewLaneScores={previewLaneScores} />
 
-        {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus -- focus is managed via roving tabindex on child cells */}
+        {/* biome-ignore lint/a11y/useSemanticElements: game grid uses CSS Grid layout, not table semantics */}
         <div
           role="grid"
           aria-label={t`Game board`}
@@ -57,9 +57,14 @@ export function Board() {
           className="grid grid-cols-5 grid-rows-3 gap-1 flex-1"
         >
           {Array.from({ length: BOARD_ROWS }, (_, row) => (
-            <div key={row} role="row" className="contents">
+            // biome-ignore lint/a11y/useSemanticElements: CSS Grid layout uses display:contents on rows, incompatible with <tr>
+            // biome-ignore lint/a11y/useFocusableInteractive: focus is managed via roving tabindex on child gridcells
+            <div key={`row-${String(row)}`} role="row" className="contents">
               {Array.from({ length: BOARD_COLS }, (_, col) => (
-                <div key={col} data-tile={`${String(row)}-${String(col)}`}>
+                <div
+                  key={`${String(row)}-${String(col)}`}
+                  data-tile={`${String(row)}-${String(col)}`}
+                >
                   <Tile
                     row={row}
                     col={col}

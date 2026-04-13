@@ -1,8 +1,8 @@
-import { useEffect, useCallback } from 'react';
 import type { ClientMessage, ServerMessage } from '@bloodfang/server/protocol';
 import { ClientMessageType } from '@bloodfang/server/protocol';
-import { useOnlineGameStore, type ConnectionStatus } from '../store/online-game-store.ts';
+import { useCallback, useEffect } from 'react';
 import { getWsUrl } from '../lib/server-client.ts';
+import { type ConnectionStatus, useOnlineGameStore } from '../store/online-game-store.ts';
 
 const MAX_RETRIES = 5;
 const PING_INTERVAL_MS = 30_000;
@@ -72,7 +72,7 @@ function connectWs(sessionId: string, token: string): void {
 
     // Attempt reconnect with exponential backoff
     if (retries < MAX_RETRIES && activeSessionId && activeToken) {
-      const delay = Math.min(1000 * Math.pow(2, retries), 16_000);
+      const delay = Math.min(1000 * 2 ** retries, 16_000);
       retries++;
       useOnlineGameStore.getState().setConnectionStatus('connecting');
       retryTimeout = setTimeout(() => {

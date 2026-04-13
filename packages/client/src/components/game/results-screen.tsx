@@ -1,15 +1,14 @@
-import { useRef, useEffect } from 'react';
+import { BOARD_ROWS, calculateFinalScores, determineWinner } from '@bloodfang/engine';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
 import { motion, useReducedMotion } from 'motion/react';
-import { useGameStore } from '../../store/game-store.ts';
-import { calculateFinalScores, determineWinner } from '@bloodfang/engine';
-import { useLaneScores } from '../../hooks/use-lane-scores.ts';
-import { BOARD_ROWS } from '@bloodfang/engine';
-import { Route } from '../../routes.ts';
-import { Button } from '../ui/button.tsx';
-import { BackButton } from '../ui/back-button.tsx';
+import { useEffect, useRef } from 'react';
 import { LocalGameProvider } from '../../context/game-context.tsx';
+import { useLaneScores } from '../../hooks/use-lane-scores.ts';
+import { Route } from '../../routes.ts';
+import { useGameStore } from '../../store/game-store.ts';
+import { BackButton } from '../ui/back-button.tsx';
+import { Button } from '../ui/button.tsx';
 
 function ResultsContent() {
   const gameState = useGameStore((s) => s.gameState);
@@ -105,7 +104,7 @@ function ResultsContent() {
 
             return (
               <motion.div
-                key={row}
+                key={`lane-${String(row)}`}
                 aria-label={laneLabel}
                 initial={reduceMotion ? false : { y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

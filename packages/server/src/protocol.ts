@@ -1,6 +1,7 @@
 import type {
   Board,
   CardDefinition,
+  CardId,
   CardInstance,
   ContinuousModifier,
   GameAction,
@@ -8,7 +9,6 @@ import type {
   PlayerId,
   Position,
 } from '@bloodfang/engine';
-import type { CardId } from '@bloodfang/engine';
 
 // ── Branded Types ────────────────────────────────────────────────────
 

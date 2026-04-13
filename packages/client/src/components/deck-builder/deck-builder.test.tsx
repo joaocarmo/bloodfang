@@ -1,8 +1,8 @@
-import { act } from '@testing-library/react';
 import { DECK_SIZE } from '@bloodfang/engine';
+import { act } from '@testing-library/react';
 import { useDeckStore } from '../../store/deck-store.ts';
-import { DeckBuilder } from './deck-builder.tsx';
 import { renderWithProviders, resetStores, screen, TEST_DECK_A } from '../../test-utils.tsx';
+import { DeckBuilder } from './deck-builder.tsx';
 
 beforeEach(() => {
   resetStores();

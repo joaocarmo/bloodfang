@@ -1,11 +1,11 @@
 import { useGameStore } from '../../store/game-store.ts';
-import { LaneScores, LaneTotal } from './lane-scores.tsx';
 import {
+  createPlayingState,
   renderWithGameProviders,
   resetStores,
   screen,
-  createPlayingState,
 } from '../../test-utils.tsx';
+import { LaneScores, LaneTotal } from './lane-scores.tsx';
 
 beforeEach(() => {
   resetStores();

@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { t, plural } from '@lingui/core/macro';
 import type { CardId } from '@bloodfang/engine';
+import { plural, t } from '@lingui/core/macro';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useGame } from '../../context/game-context.tsx';
+import { playerTextColor } from '../../lib/player-color.ts';
 import { Card } from '../card/card.tsx';
 import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
-import { playerTextColor } from '../../lib/player-color.ts';
 import { Button } from '../ui/button.tsx';
 
 export function MulliganScreen() {
@@ -15,7 +15,7 @@ export function MulliganScreen() {
 
   useEffect(() => {
     headingRef.current?.focus();
-  }, [myPlayerIndex]);
+  }, []);
 
   const toggleCard = useCallback((cardId: CardId) => {
     setSelectedToReturn((prev) =>
@@ -50,10 +50,9 @@ export function MulliganScreen() {
         {t`Select cards to return to your deck. You'll draw the same number of replacements.`}
       </p>
 
-      <div
-        role="group"
+      <fieldset
         aria-label={t`Cards to mulligan`}
-        className="flex gap-2 sm:gap-3 flex-wrap justify-center"
+        className="flex gap-2 sm:gap-3 flex-wrap justify-center border-0 p-0 m-0"
       >
         {myHand.map((cardId) => {
           const def = definitions[cardId];
@@ -63,6 +62,7 @@ export function MulliganScreen() {
           return (
             <CardPreviewTrigger key={cardId} definition={def}>
               <button
+                type="button"
                 onClick={() => {
                   toggleCard(cardId);
                 }}
@@ -74,7 +74,7 @@ export function MulliganScreen() {
             </CardPreviewTrigger>
           );
         })}
-      </div>
+      </fieldset>
 
       <div className="flex gap-3">
         <Button onClick={handleKeep}>{t`Keep All`}</Button>

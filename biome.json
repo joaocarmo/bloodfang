@@ -9,10 +9,10 @@
   "files": {
     "includes": [
       "**",
-      "!**/dist/**",
-      "!**/node_modules/**",
+      "!**/dist",
+      "!**/node_modules",
       "!pnpm-lock.yaml",
-      "!packages/client/src/locales/**"
+      "!packages/client/src/locales"
     ]
   },
   "formatter": {

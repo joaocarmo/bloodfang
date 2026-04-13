@@ -1,4 +1,4 @@
-import type { SessionId, PlayerToken } from '@bloodfang/server/protocol';
+import type { PlayerToken, SessionId } from '@bloodfang/server/protocol';
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL ?? 'http://localhost:3001';
 

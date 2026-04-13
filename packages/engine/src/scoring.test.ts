@@ -1,9 +1,9 @@
-import { describe, it, expect } from 'vitest';
-import { calculateLaneScores, calculateFinalScores, determineWinner } from './scoring.js';
-import { createGame, mulligan, playCard, pass } from './game.js';
-import { createSeededRng } from './types.js';
+import { describe, expect, it } from 'vitest';
+import { buildTestDeck, defined, getAllTestDefinitions } from './cards/test-cards.js';
+import { createGame, mulligan, pass, playCard } from './game.js';
+import { calculateFinalScores, calculateLaneScores, determineWinner } from './scoring.js';
 import type { GameState } from './types.js';
-import { buildTestDeck, getAllTestDefinitions, defined } from './cards/test-cards.js';
+import { createSeededRng } from './types.js';
 
 const defs = getAllTestDefinitions();
 const deck = buildTestDeck();

@@ -1,6 +1,6 @@
-import { t } from '@lingui/core/macro';
 import type { PlayerId } from '@bloodfang/engine';
 import { MAX_PAWN_COUNT } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
 import { motion, useReducedMotion } from 'motion/react';
 import { playerBgColor } from '../../lib/player-color.ts';
 
@@ -18,11 +18,12 @@ export function PawnDots({ count, owner }: PawnDotsProps) {
   return (
     <div
       className="flex gap-0.5 items-center"
+      role="img"
       aria-label={t`${String(count)} of ${String(MAX_PAWN_COUNT)} pawns`}
     >
       {Array.from({ length: count }, (_, i) => (
         <motion.div
-          key={i}
+          key={`dot-${String(i)}`}
           initial={reduceMotion ? false : { scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', duration: 0.2, delay: i * 0.05 }}

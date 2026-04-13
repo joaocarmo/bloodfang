@@ -1,8 +1,8 @@
-import { t, msg } from '@lingui/core/macro';
-import { i18n } from '@lingui/core';
-import type { MessageDescriptor } from '@lingui/core';
-import { CardId } from '@bloodfang/engine';
 import type { AbilityDefinition, CardDefinition, CardRank } from '@bloodfang/engine';
+import { CardId } from '@bloodfang/engine';
+import type { MessageDescriptor } from '@lingui/core';
+import { i18n } from '@lingui/core';
+import { msg, t } from '@lingui/core/macro';
 
 export interface CardIdentity {
   name: string;

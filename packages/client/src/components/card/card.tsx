@@ -1,10 +1,10 @@
 import type { CardDefinition } from '@bloodfang/engine';
-import { RankIcon } from './rank-icon.tsx';
+import { getCardAriaLabel, getCardName, getRankGradientClass } from '../../lib/card-identity.ts';
+import { AbilityText } from './ability-text.tsx';
+import { CardArt } from './card-art.tsx';
 import { PowerBadge } from './power-badge.tsx';
 import { RangeGrid } from './range-grid.tsx';
-import { AbilityText } from './ability-text.tsx';
-import { getCardName, getCardAriaLabel, getRankGradientClass } from '../../lib/card-identity.ts';
-import { CardArt } from './card-art.tsx';
+import { RankIcon } from './rank-icon.tsx';
 
 interface CardProps {
   definition: CardDefinition;
@@ -77,8 +77,8 @@ export function Card({ definition, selected, disabled, onClick, compact }: CardP
   }
 
   return (
-    <div className={classes} role="group" aria-label={ariaLabel}>
+    <fieldset className={classes} aria-label={ariaLabel}>
       {content}
-    </div>
+    </fieldset>
   );
 }

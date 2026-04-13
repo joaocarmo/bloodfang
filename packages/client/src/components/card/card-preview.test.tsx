@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
-import { act } from '@testing-library/react';
 import { getAllGameDefinitions } from '@bloodfang/engine';
-import { CardPreviewTrigger } from './card-preview-trigger.tsx';
-import { CardDetail } from './card-detail.tsx';
+import { act } from '@testing-library/react';
+import type { ReactNode } from 'react';
 import { renderWithProviders, resetStores, screen, waitFor } from '../../test-utils.tsx';
+import { CardDetail } from './card-detail.tsx';
+import { CardPreviewTrigger } from './card-preview-trigger.tsx';
 
 // Mock AnimatePresence so exit animations don't keep elements in the DOM
 vi.mock('motion/react', async () => {
@@ -54,7 +54,7 @@ describe('CardPreviewTrigger hover (desktop)', () => {
   beforeEach(() => {
     Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
-      matches: query === '(pointer: coarse)' ? false : false,
+      matches: false,
       media: query,
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
@@ -68,7 +68,7 @@ describe('CardPreviewTrigger hover (desktop)', () => {
   it('shows popup on mouse enter after delay', async () => {
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef}>
-        <button>Hover me</button>
+        <button type="button">Hover me</button>
       </CardPreviewTrigger>,
     );
 
@@ -85,7 +85,7 @@ describe('CardPreviewTrigger hover (desktop)', () => {
   it('does not show popup before delay completes', async () => {
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef}>
-        <button>Hover me</button>
+        <button type="button">Hover me</button>
       </CardPreviewTrigger>,
     );
 
@@ -100,7 +100,7 @@ describe('CardPreviewTrigger hover (desktop)', () => {
   it('hides popup on mouse leave', async () => {
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef}>
-        <button>Hover me</button>
+        <button type="button">Hover me</button>
       </CardPreviewTrigger>,
     );
 
@@ -127,7 +127,9 @@ describe('CardPreviewTrigger hover (desktop)', () => {
     const onClick = vi.fn();
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef}>
-        <button onClick={onClick}>Click me</button>
+        <button type="button" onClick={onClick}>
+          Click me
+        </button>
       </CardPreviewTrigger>,
     );
 
@@ -141,7 +143,7 @@ describe('CardPreviewTrigger touch/small screen dialog', () => {
     // Simulate small/touch screen
     Object.defineProperty(window, 'innerWidth', { value: 375, writable: true });
     window.matchMedia = vi.fn().mockImplementation((query: string) => ({
-      matches: query === '(pointer: coarse)' ? true : false,
+      matches: query === '(pointer: coarse)',
       media: query,
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
@@ -155,7 +157,7 @@ describe('CardPreviewTrigger touch/small screen dialog', () => {
   it('opens card detail dialog on click', async () => {
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef} touchAction={vi.fn()} touchActionLabel="Add">
-        <button>Tap me</button>
+        <button type="button">Tap me</button>
       </CardPreviewTrigger>,
     );
 
@@ -170,7 +172,7 @@ describe('CardPreviewTrigger touch/small screen dialog', () => {
   it('shows action button with label in dialog', async () => {
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef} touchAction={vi.fn()} touchActionLabel="Add to Deck">
-        <button>Tap me</button>
+        <button type="button">Tap me</button>
       </CardPreviewTrigger>,
     );
 
@@ -186,7 +188,7 @@ describe('CardPreviewTrigger touch/small screen dialog', () => {
     const action = vi.fn();
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef} touchAction={action} touchActionLabel="Add to Deck">
-        <button>Tap me</button>
+        <button type="button">Tap me</button>
       </CardPreviewTrigger>,
     );
 
@@ -207,7 +209,7 @@ describe('CardPreviewTrigger touch/small screen dialog', () => {
   it('closes dialog when close button is clicked', async () => {
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef} touchAction={vi.fn()} touchActionLabel="Add">
-        <button>Tap me</button>
+        <button type="button">Tap me</button>
       </CardPreviewTrigger>,
     );
 
@@ -228,7 +230,9 @@ describe('CardPreviewTrigger touch/small screen dialog', () => {
     const onClick = vi.fn();
     const { user } = renderWithProviders(
       <CardPreviewTrigger definition={testDef}>
-        <button onClick={onClick}>Tap me</button>
+        <button type="button" onClick={onClick}>
+          Tap me
+        </button>
       </CardPreviewTrigger>,
     );
 

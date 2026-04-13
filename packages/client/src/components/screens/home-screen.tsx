@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
 import { t } from '@lingui/core/macro';
+import { useEffect, useRef } from 'react';
 import { Route } from '../../routes.ts';
 import { LinkButton } from '../ui/link-button.tsx';
 

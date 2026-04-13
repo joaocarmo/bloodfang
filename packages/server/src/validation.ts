@@ -13,11 +13,11 @@ export function parseClientMessage(raw: string): ClientMessage | null {
     return null;
   }
 
-  if (!isObject(data) || typeof data['type'] !== 'string') {
+  if (!isObject(data) || typeof data.type !== 'string') {
     return null;
   }
 
-  const type = data['type'] as ClientMessageType;
+  const type = data.type as ClientMessageType;
   switch (type) {
     case ClientMessageType.SubmitDeck:
       return parseSubmitDeck(data);
@@ -39,31 +39,31 @@ function isCardId(value: unknown): value is CardIdType {
 }
 
 function parseSubmitDeck(data: Record<string, unknown>): ClientMessage | null {
-  const deck = data['deck'];
+  const deck = data.deck;
   if (!Array.isArray(deck)) return null;
   if (!deck.every(isCardId)) return null;
   return { type: ClientMessageType.SubmitDeck, deck };
 }
 
 function parseMulligan(data: Record<string, unknown>): ClientMessage | null {
-  const returnCardIds = data['returnCardIds'];
+  const returnCardIds = data.returnCardIds;
   if (!Array.isArray(returnCardIds)) return null;
   if (!returnCardIds.every(isCardId)) return null;
   return { type: ClientMessageType.Mulligan, returnCardIds };
 }
 
 function parsePlayCard(data: Record<string, unknown>): ClientMessage | null {
-  const cardId = data['cardId'];
+  const cardId = data.cardId;
   if (!isCardId(cardId)) return null;
 
-  const position = data['position'];
+  const position = data.position;
   if (!isObject(position)) return null;
-  if (typeof position['row'] !== 'number' || typeof position['col'] !== 'number') return null;
+  if (typeof position.row !== 'number' || typeof position.col !== 'number') return null;
 
   return {
     type: ClientMessageType.PlayCard,
     cardId,
-    position: { row: position['row'], col: position['col'] },
+    position: { row: position.row, col: position.col },
   };
 }
 

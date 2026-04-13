@@ -1,14 +1,14 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { t } from '@lingui/core/macro';
-import { useNavigate } from '@tanstack/react-router';
 import type { CardId } from '@bloodfang/engine';
 import { fisherYatesShuffle } from '@bloodfang/engine';
-import { useGameStore } from '../../store/game-store.ts';
-import { useDeckStore } from '../../store/deck-store.ts';
+import { t } from '@lingui/core/macro';
+import { useNavigate } from '@tanstack/react-router';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Route } from '../../routes.ts';
+import { useDeckStore } from '../../store/deck-store.ts';
+import { useGameStore } from '../../store/game-store.ts';
 import { DeckBuilder } from '../deck-builder/deck-builder.tsx';
-import { Button } from '../ui/button.tsx';
 import { BackButton } from '../ui/back-button.tsx';
+import { Button } from '../ui/button.tsx';
 
 enum SetupPhase {
   P0Build = 'p0-build',
