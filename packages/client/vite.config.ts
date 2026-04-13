@@ -1,7 +1,6 @@
 import { lingui } from '@lingui/vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import { defineConfig } from 'vitest/config';
 import pkg from './package.json' with { type: 'json' };
 
@@ -33,11 +32,6 @@ export default defineConfig({
     }),
     tailwindcss(),
     lingui(),
-    ViteImageOptimizer({
-      includePublic: true,
-      webp: { quality: 80 },
-      png: { quality: 80 },
-    }),
   ],
   test: {
     environment: 'jsdom',
