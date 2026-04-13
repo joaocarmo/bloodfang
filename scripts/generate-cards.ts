@@ -661,8 +661,8 @@ function main() {
           ...(trigger.threshold !== undefined ? { threshold: trigger.threshold } : {}),
         };
       } else {
-        // biome-ignore lint/style/noNonNullAssertion: guarded by seeds.abilities.length > 0 check above
-        const primaryAbility = seeds.abilities[0]!;
+        const primaryAbility = seeds.abilities[0];
+        if (!primaryAbility) continue;
         const trigger = mapTrigger(primaryAbility.when, entry.overrides);
         const effect = buildEffect(primaryAbility, entry.overrides, mapping);
 
