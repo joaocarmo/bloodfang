@@ -9,6 +9,11 @@ const serverUrl = process.env.VITE_SERVER_URL || 'http://localhost:3001';
 
 export default defineConfig({
   base: process.env.VITE_BASE_PATH || '/',
+  build: {
+    // Aligns with packages/client/tsconfig.json `lib: ES2024`. Drops Safari ≤17.3,
+    // Chrome ≤117, Firefox ≤119, Edge ≤117 — explicit baseline.
+    target: 'es2024',
+  },
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
