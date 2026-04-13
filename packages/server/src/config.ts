@@ -8,10 +8,10 @@ export interface ServerConfig {
 }
 
 export function loadConfig(): ServerConfig {
-  const port = parsePositiveInt(process.env.PORT, 'PORT') ?? 3001;
-  const corsOrigin = process.env.CORS_ORIGIN ?? 'http://localhost:5173';
-  const maxSessions = parsePositiveInt(process.env.MAX_SESSIONS, 'MAX_SESSIONS') ?? 1000;
-  const logLevel = parseLogLevel(process.env.LOG_LEVEL);
+  const port = parsePositiveInt(process.env['PORT'], 'PORT') ?? 3001;
+  const corsOrigin = process.env['CORS_ORIGIN'] ?? 'http://localhost:5173';
+  const maxSessions = parsePositiveInt(process.env['MAX_SESSIONS'], 'MAX_SESSIONS') ?? 1000;
+  const logLevel = parseLogLevel(process.env['LOG_LEVEL']);
 
   return { port, corsOrigin, maxSessions, logLevel };
 }

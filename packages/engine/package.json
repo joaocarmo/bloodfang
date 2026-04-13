@@ -18,12 +18,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src/"
+    "lint": "biome lint src/"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
-    "eslint": "^9.39.3",
-    "tsdown": "^0.21.3",
-    "typescript-eslint": "^8.56.1"
+    "tsdown": "^0.21.3"
   }
 }

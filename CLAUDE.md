@@ -18,31 +18,32 @@ pnpm -F @bloodfang/client build      # tsc --noEmit && vite build
 
 # Test
 pnpm -F @bloodfang/engine test       # vitest (218 tests)
-pnpm -F @bloodfang/client lint       # eslint src/
 
 # Dev
 pnpm -F @bloodfang/client dev        # vite dev server
 
-# Format
-pnpm format                           # prettier --write .
-pnpm format:check                     # prettier --check .
+# Lint + format (Biome)
+pnpm check                            # biome check . (lint + format)
+pnpm check:fix                        # biome check --write .
+pnpm format                           # biome format --write .
+pnpm format:check                     # biome format .
 
 # i18n
 pnpm -F @bloodfang/client i18n:extract
 pnpm -F @bloodfang/client i18n:compile
 ```
 
-Always run `pnpm -F @bloodfang/client build` after client changes — it runs both `tsc --noEmit` (type-check) and `vite build`. Run `pnpm -F @bloodfang/client lint` to ensure zero ESLint errors/warnings. Both the engine and client have vitest test suites.
+Always run `pnpm -F @bloodfang/client build` after client changes — it runs both `tsc --noEmit` (type-check) and `vite build`. Run `pnpm check` to ensure zero Biome lint errors and correct formatting. Both the engine and client have vitest test suites.
 
 ## Code style
 
-- **Prettier**: single quotes, trailing commas, 100 char print width, semicolons, LF endings
+- **Biome**: single quotes, trailing commas, 100 char print width, semicolons, LF endings. Linter enabled with recommended rules + accessibility and React hooks coverage. Config in `biome.json`.
 - **TypeScript**: strict mode with `exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`, `noUnusedLocals`, `noUnusedParameters`, `verbatimModuleSyntax`
-- **ESLint**: flat config with `typescript-eslint`, `jsx-a11y` (accessibility), `react-hooks`
-- Unused parameters must be prefixed with `_` (ESLint `@typescript-eslint/no-unused-vars` pattern `^_`)
-- Never use `autoFocus` prop — use `useEffect` + `ref.current?.focus()` instead (jsx-a11y/no-autofocus)
-- Never use `eslint-disable` comments unless absolutely necessary; remove stale ones
+- Unused parameters must be prefixed with `_` (Biome `noUnusedFunctionParameters` ignores `^_` by default)
+- Never use `autoFocus` prop — use `useEffect` + `ref.current?.focus()` instead (Biome `noAutofocus`)
+- Never use `biome-ignore` comments unless absolutely necessary; remove stale ones
 - Remove unused imports immediately — don't leave dead code
+- Biome does not type-check, so it cannot catch floating promises (`@typescript-eslint/no-floating-promises` has no Biome equivalent). Be vigilant with `async` calls in event handlers and effects.
 
 ## Architecture patterns
 

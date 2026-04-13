@@ -52,7 +52,8 @@
         "useConsistentArrayType": "error"
       },
       "complexity": {
-        "noStaticOnlyClass": "error"
+        "noStaticOnlyClass": "error",
+        "useLiteralKeys": "off"
       },
       "suspicious": {
         "noEmptyBlockStatements": "error"
