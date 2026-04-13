@@ -13,15 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/lib/card-identity.ts:304
-#~ msgid "-{0} power to {target}"
-#~ msgstr "-{0} power to {target}"
-
-#: src/lib/card-identity.ts:497
+#: src/lib/card-identity.ts:531
 msgid "-{val} power to {target}"
 msgstr "-{val} power to {target}"
 
-#: src/lib/card-identity.ts:495
+#: src/lib/card-identity.ts:529
 msgid "-replaced card's power to {target}"
 msgstr "-replaced card's power to {target}"
 
@@ -194,31 +190,37 @@ msgstr "\"You cannot catch what was never where you looked.\""
 msgid "{0, plural, one {Return # Card} other {Return # Cards}}"
 msgstr "{0, plural, one {Return # Card} other {Return # Cards}}"
 
-#: src/components/board/pawn-dots.tsx:19
-msgid "{count} of {MAX_PAWN_COUNT} pawns"
-msgstr "{count} of {MAX_PAWN_COUNT} pawns"
+#. placeholder {0}: String(count)
+#. placeholder {1}: String(MAX_PAWN_COUNT)
+#: src/components/board/pawn-dots.tsx:22
+msgid "{0} of {1} pawns"
+msgstr "{0} of {1} pawns"
 
-#: src/components/board/tile.tsx:93
+#: src/components/board/tile.tsx:95
 msgid "{name} (power {power})"
 msgstr "{name} (power {power})"
 
-#: src/components/card/card-preview-trigger.tsx:100
+#: src/components/card/card-preview-trigger.tsx:108
 msgid "{name} card details"
 msgstr "{name} card details"
 
-#: src/components/hand/hand-card.tsx:34
-msgid "{name}, Rank {rank}, Power {power}"
-msgstr "{name}, Rank {rank}, Power {power}"
+#. placeholder {0}: String(rank)
+#. placeholder {1}: String(power)
+#: src/components/hand/hand-card.tsx:37
+msgid "{name}, Rank {0}, Power {1}"
+msgstr "{name}, Rank {0}, Power {1}"
 
-#: src/components/hand/hand-card.tsx:33
-msgid "{name}, Rank {rank}, Power {power}, no valid moves"
-msgstr "{name}, Rank {rank}, Power {power}, no valid moves"
+#. placeholder {0}: String(rank)
+#. placeholder {1}: String(power)
+#: src/components/hand/hand-card.tsx:36
+msgid "{name}, Rank {0}, Power {1}, no valid moves"
+msgstr "{name}, Rank {0}, Power {1}, no valid moves"
 
 #: src/components/board/tile.tsx:88
 msgid "{pawnCount} pawns"
 msgstr "{pawnCount} pawns"
 
-#: src/lib/card-identity.ts:412
+#: src/lib/card-identity.ts:446
 msgid "{trigger}: {effect}"
 msgstr "{trigger}: {effect}"
 
@@ -230,58 +232,43 @@ msgstr "← →"
 msgid "← → ↑ ↓"
 msgstr "← → ↑ ↓"
 
-#: src/components/game/game-menu.tsx:40
-#: src/components/game/game-menu.tsx:53
+#: src/components/game/game-menu.tsx:52
+#: src/components/game/game-menu.tsx:71
 msgid "← Back"
 msgstr "← Back"
 
-#: src/components/ui/back-button.tsx:12
+#: src/components/ui/back-button.tsx:18
 msgid "← Home"
 msgstr "← Home"
 
-#: src/lib/card-identity.ts:321
-#~ msgid "+{0} pawns to {1}"
-#~ msgstr "+{0} pawns to {1}"
+#: src/components/screens/online-lobby-screen.tsx:85
+msgid "← Leave"
+msgstr "← Leave"
 
-#: src/lib/card-identity.ts:309
-#~ msgid "+{0} power per {1}"
-#~ msgstr "+{0} power per {1}"
-
-#: src/lib/card-identity.ts:299
-#~ msgid "+{0} power to {target}"
-#~ msgstr "+{0} power to {target}"
-
-#: src/lib/card-identity.ts:328
-#~ msgid "+{0} to allies, {enemyStr} to enemies ({target})"
-#~ msgstr "+{0} to allies, {enemyStr} to enemies ({target})"
-
-#: src/lib/card-identity.ts:311
-#~ msgid "+{0} to lane score"
-#~ msgstr "+{0} to lane score"
-
-#: src/lib/card-identity.ts:529
-msgid "+{allied} to allies, {enemyStr} to enemies ({target})"
-msgstr "+{allied} to allies, {enemyStr} to enemies ({target})"
+#. placeholder {0}: String(allied)
+#: src/lib/card-identity.ts:563
+msgid "+{0} to allies, {enemyStr} to enemies ({target})"
+msgstr "+{0} to allies, {enemyStr} to enemies ({target})"
 
 #. placeholder {0}: describeTarget(effect.target)
-#: src/lib/card-identity.ts:520
+#: src/lib/card-identity.ts:554
 msgid "+{pawns} pawns to {0}"
 msgstr "+{pawns} pawns to {0}"
 
-#: src/lib/card-identity.ts:491
+#: src/lib/card-identity.ts:525
 msgid "+{val} power to {target}"
 msgstr "+{val} power to {target}"
 
-#: src/lib/card-identity.ts:507
+#: src/lib/card-identity.ts:541
 msgid "+{val} to lane score"
 msgstr "+{val} to lane score"
 
 #. placeholder {0}: describeCondition(effect.condition)
-#: src/lib/card-identity.ts:503
+#: src/lib/card-identity.ts:537
 msgid "+{vpu} power per {0}"
 msgstr "+{vpu} power per {0}"
 
-#: src/lib/card-identity.ts:489
+#: src/lib/card-identity.ts:523
 msgid "+replaced card's power to {target}"
 msgstr "+replaced card's power to {target}"
 
@@ -310,18 +297,17 @@ msgid "A strategic card game on a 3×5 grid. Place cards, control lanes, outscor
 msgstr "A strategic card game on a 3×5 grid. Place cards, control lanes, outscore your opponent."
 
 #. placeholder {0}: action.abilityTrigger
-#: src/components/game/action-log.tsx:96
+#: src/components/game/action-log.tsx:98
 msgid "Ability triggered: {0}"
 msgstr "Ability triggered: {0}"
 
 #. placeholder {0}: definition.ability.effect.type
-#: src/components/card/card-detail.tsx:34
-#: src/components/card/card.tsx:35
+#: src/lib/card-identity.ts:414
 msgid "Ability: {0}"
 msgstr "Ability: {0}"
 
 #: src/components/screens/about-screen.tsx:17
-#: src/components/screens/home-screen.tsx:40
+#: src/components/screens/home-screen.tsx:43
 #: src/components/ui/route-announcer.tsx:21
 msgid "About"
 msgstr "About"
@@ -338,11 +324,7 @@ msgstr "Action"
 msgid "Action log"
 msgstr "Action log"
 
-#: src/lib/card-identity.ts:314
-#~ msgid "Add {0} {tokenName} to hand"
-#~ msgstr "Add {0} {tokenName} to hand"
-
-#: src/lib/card-identity.ts:512
+#: src/lib/card-identity.ts:546
 msgid "Add {count} {tokenName} to hand"
 msgstr "Add {count} {tokenName} to hand"
 
@@ -350,7 +332,7 @@ msgstr "Add {count} {tokenName} to hand"
 msgid "Add to Deck"
 msgstr "Add to Deck"
 
-#: src/components/screens/settings-content.tsx:112
+#: src/components/screens/settings-content.tsx:120
 msgid "Additional game modes coming soon."
 msgstr "Additional game modes coming soon."
 
@@ -366,23 +348,23 @@ msgstr "Alexander wept not because there were no worlds left to conquer, but bec
 msgid "All"
 msgstr "All"
 
-#: src/lib/card-identity.ts:439
+#: src/lib/card-identity.ts:473
 msgid "all allies"
 msgstr "all allies"
 
-#: src/lib/card-identity.ts:441
+#: src/lib/card-identity.ts:475
 msgid "all cards in lane"
 msgstr "all cards in lane"
 
-#: src/lib/card-identity.ts:440
+#: src/lib/card-identity.ts:474
 msgid "all enemies"
 msgstr "all enemies"
 
-#: src/lib/card-identity.ts:449
+#: src/lib/card-identity.ts:483
 msgid "all enfeebled cards"
 msgstr "all enfeebled cards"
 
-#: src/lib/card-identity.ts:446
+#: src/lib/card-identity.ts:480
 msgid "all enhanced cards"
 msgstr "all enhanced cards"
 
@@ -390,15 +372,15 @@ msgstr "all enhanced cards"
 msgid "All-Seeing Eye"
 msgstr "All-Seeing Eye"
 
-#: src/lib/card-identity.ts:459
+#: src/lib/card-identity.ts:493
 msgid "allied card in lane"
 msgstr "allied card in lane"
 
-#: src/lib/card-identity.ts:461
+#: src/lib/card-identity.ts:495
 msgid "allied card on board"
 msgstr "allied card on board"
 
-#: src/lib/card-identity.ts:442
+#: src/lib/card-identity.ts:476
 msgid "allies in lane"
 msgstr "allies in lane"
 
@@ -482,7 +464,8 @@ msgstr "Before the labyrinth, before Minos, before Crete — there was only the 
 msgid "Blood Fang"
 msgstr "Blood Fang"
 
-#: src/components/game/game-screen.tsx:70
+#: src/components/game/game-screen.tsx:74
+#: src/components/game/online-game-screen.tsx:137
 msgid "Board"
 msgstr "Board"
 
@@ -506,7 +489,7 @@ msgstr "Born in iron. Forged in discipline. Broken by nothing."
 msgid "Born yesterday. Angry about it."
 msgstr "Born yesterday. Angry about it."
 
-#: src/components/screens/setup-screen.tsx:139
+#: src/components/screens/setup-screen.tsx:141
 msgid "Both decks are ready!"
 msgstr "Both decks are ready!"
 
@@ -522,24 +505,25 @@ msgstr "Bronze Fortress"
 msgid "Bronze Sweeper"
 msgstr "Bronze Sweeper"
 
-#: src/components/game/game-screen.tsx:45
+#: src/components/game/game-screen.tsx:47
+#: src/components/game/online-game-screen.tsx:85
 #: src/components/ui/confirm-dialog.tsx:40
 msgid "Cancel"
 msgstr "Cancel"
 
-#: src/components/deck-builder/card-catalog.tsx:47
+#: src/components/deck-builder/card-catalog.tsx:49
 msgid "Card catalog"
 msgstr "Card catalog"
 
-#: src/components/game/action-log.tsx:72
+#: src/components/game/action-log.tsx:74
 msgid "Card destroyed at ({row},{col})"
 msgstr "Card destroyed at ({row},{col})"
 
-#: src/components/deck-builder/filter-bar.tsx:31
+#: src/components/deck-builder/filter-bar.tsx:33
 msgid "Card name..."
 msgstr "Card name..."
 
-#: src/lib/card-identity.ts:463
+#: src/lib/card-identity.ts:497
 msgid "card on board"
 msgstr "card on board"
 
@@ -547,11 +531,11 @@ msgstr "card on board"
 msgid "Cards have power, range, rank (1★ / 2★ / 3★ / Replacement), and abilities."
 msgstr "Cards have power, range, rank (1★ / 2★ / 3★ / Replacement), and abilities."
 
-#: src/lib/card-identity.ts:437
+#: src/lib/card-identity.ts:471
 msgid "cards in range"
 msgstr "cards in range"
 
-#: src/components/game/mulligan-screen.tsx:57
+#: src/components/game/mulligan-screen.tsx:54
 msgid "Cards to mulligan"
 msgstr "Cards to mulligan"
 
@@ -591,11 +575,11 @@ msgstr "Chariot of Ares"
 msgid "Circe Enchantress"
 msgstr "Circe Enchantress"
 
-#: src/components/deck-builder/deck-builder.tsx:50
+#: src/components/deck-builder/deck-builder.tsx:49
 msgid "Clear"
 msgstr "Clear"
 
-#: src/components/screens/settings-content.tsx:133
+#: src/components/screens/settings-content.tsx:146
 msgid "Clears all saved settings and local data, restoring everything to its default state."
 msgstr "Clears all saved settings and local data, restoring everything to its default state."
 
@@ -603,7 +587,7 @@ msgstr "Clears all saved settings and local data, restoring everything to its de
 msgid "Cleopatra chose the asp not for its venom, but for its silence."
 msgstr "Cleopatra chose the asp not for its venom, but for its silence."
 
-#: src/components/card/card-preview-trigger.tsx:119
+#: src/components/card/card-preview-trigger.tsx:131
 #: src/components/ui/content-dialog.tsx:27
 msgid "Close"
 msgstr "Close"
@@ -612,18 +596,47 @@ msgstr "Close"
 msgid "Confirm"
 msgstr "Confirm"
 
-#. placeholder {0}: selectedCards.length
-#: src/components/deck-builder/deck-builder.tsx:59
-msgid "Confirm ({0}/{DECK_SIZE})"
-msgstr "Confirm ({0}/{DECK_SIZE})"
+#. placeholder {0}: String(selectedCards.length)
+#. placeholder {1}: String(DECK_SIZE)
+#: src/components/deck-builder/deck-builder.tsx:60
+msgid "Confirm ({0}/{1})"
+msgstr "Confirm ({0}/{1})"
 
-#: src/lib/card-identity.ts:464
+#: src/components/screens/online-lobby-screen.tsx:67
+msgid "Connecting to server..."
+msgstr "Connecting to server..."
+
+#: src/lib/card-identity.ts:498
 msgid "controlled tile in lane"
 msgstr "controlled tile in lane"
+
+#: src/components/screens/online-lobby-screen.tsx:107
+msgid "Copied!"
+msgstr "Copied!"
 
 #: src/lib/card-identity.ts:40
 msgid "Copper Automaton"
 msgstr "Copper Automaton"
+
+#: src/components/screens/online-lobby-screen.tsx:107
+msgid "Copy"
+msgstr "Copy"
+
+#: src/components/screens/online-lobby-screen.tsx:105
+msgid "Copy game code"
+msgstr "Copy game code"
+
+#: src/components/screens/online-setup-screen.tsx:176
+msgid "Create a new game or join an existing one with a code."
+msgstr "Create a new game or join an existing one with a code."
+
+#: src/components/screens/online-setup-screen.tsx:186
+msgid "Create Game"
+msgstr "Create Game"
+
+#: src/components/screens/online-setup-screen.tsx:186
+msgid "Creating..."
+msgstr "Creating..."
 
 #: src/lib/card-identity.ts:142
 msgid "Crimson Chariot"
@@ -657,14 +670,15 @@ msgstr "Daedalus Pilot"
 msgid "Daedalus' greatest failure — or his greatest success, depending on who you ask."
 msgstr "Daedalus' greatest failure — or his greatest success, depending on who you ask."
 
-#: src/components/screens/settings-content.tsx:85
+#: src/components/screens/settings-content.tsx:91
 msgid "Dark"
 msgstr "Dark"
 
-#. placeholder {0}: selectedCards.length
+#. placeholder {0}: String(selectedCards.length)
+#. placeholder {1}: String(DECK_SIZE)
 #: src/components/deck-builder/deck-slots.tsx:16
-msgid "Deck ({0}/{DECK_SIZE})"
-msgstr "Deck ({0}/{DECK_SIZE})"
+msgid "Deck ({0}/{1})"
+msgstr "Deck ({0}/{1})"
 
 #: src/components/game/selected-card-detail.tsx:24
 #: src/components/screens/rules-content.tsx:56
@@ -680,7 +694,7 @@ msgid "Desert Triton"
 msgstr "Desert Triton"
 
 #. placeholder {0}: describeTarget(effect.target)
-#: src/lib/card-identity.ts:500
+#: src/lib/card-identity.ts:534
 msgid "Destroy {0}"
 msgstr "Destroy {0}"
 
@@ -692,7 +706,11 @@ msgstr "Dionysus Reveler"
 msgid "Diplomacy is the art of saying \"nice doggy\" until you can find a rock. This is the rock."
 msgstr "Diplomacy is the art of saying \"nice doggy\" until you can find a rock. This is the rock."
 
-#: src/components/screens/settings-content.tsx:41
+#: src/components/screens/online-lobby-screen.tsx:68
+msgid "Disconnected from server."
+msgstr "Disconnected from server."
+
+#: src/components/screens/settings-content.tsx:43
 msgid "Display a log of game actions during play."
 msgstr "Display a log of game actions during play."
 
@@ -704,10 +722,10 @@ msgstr "Divine Colossus"
 msgid "Drakon Ascendant"
 msgstr "Drakon Ascendant"
 
-#. placeholder {0}: scores[0]
-#. placeholder {1}: scores[1]
-#: src/store/game-store.ts:137
-#: src/store/game-store.ts:163
+#. placeholder {0}: String(scores[0])
+#. placeholder {1}: String(scores[1])
+#: src/store/game-store.ts:144
+#: src/store/game-store.ts:170
 msgid "Draw! {0} to {1}."
 msgstr "Draw! {0} to {1}."
 
@@ -751,51 +769,66 @@ msgstr "Ember Salamander"
 msgid "Empty"
 msgstr "Empty"
 
-#: src/lib/card-identity.ts:428
+#: src/lib/card-identity.ts:462
 msgid "End of game"
 msgstr "End of game"
 
-#: src/lib/card-identity.ts:443
+#: src/lib/card-identity.ts:477
 msgid "enemies in lane"
 msgstr "enemies in lane"
 
-#: src/lib/card-identity.ts:460
+#: src/lib/card-identity.ts:494
 msgid "enemy card in lane"
 msgstr "enemy card in lane"
 
-#: src/lib/card-identity.ts:462
+#: src/lib/card-identity.ts:496
 msgid "enemy card on board"
 msgstr "enemy card on board"
 
-#: src/lib/card-identity.ts:447
+#: src/lib/card-identity.ts:481
 msgid "enfeebled allies"
 msgstr "enfeebled allies"
 
-#. placeholder {0}: action.value
-#: src/components/game/action-log.tsx:77
+#. placeholder {0}: String(action.value)
+#: src/components/game/action-log.tsx:79
 msgid "Enfeebled card -{0} power"
 msgstr "Enfeebled card -{0} power"
 
-#: src/lib/card-identity.ts:448
+#: src/lib/card-identity.ts:482
 msgid "enfeebled enemies"
 msgstr "enfeebled enemies"
 
-#: src/lib/card-identity.ts:444
+#: src/lib/card-identity.ts:478
 msgid "enhanced allies"
 msgstr "enhanced allies"
 
-#. placeholder {0}: action.value
-#: src/components/game/action-log.tsx:75
+#. placeholder {0}: String(action.value)
+#: src/components/game/action-log.tsx:77
 msgid "Enhanced card +{0} power"
 msgstr "Enhanced card +{0} power"
 
-#: src/lib/card-identity.ts:445
+#: src/lib/card-identity.ts:479
 msgid "enhanced enemies"
 msgstr "enhanced enemies"
 
 #: src/components/screens/rules-content.tsx:48
 msgid "Enter / Space"
 msgstr "Enter / Space"
+
+#: src/components/screens/online-setup-screen.tsx:139
+msgid "Enter code"
+msgstr "Enter code"
+
+#: src/components/screens/online-setup-screen.tsx:122
+msgid "Enter the game code shared by your opponent."
+msgstr "Enter the game code shared by your opponent."
+
+#. placeholder {0}: msg.message
+#. placeholder {0}: serverError.message
+#: src/components/screens/online-lobby-screen.tsx:76
+#: src/store/online-game-store.ts:177
+msgid "Error: {0}"
+msgstr "Error: {0}"
 
 #: src/components/screens/rules-content.tsx:54
 msgid "Escape"
@@ -821,11 +854,19 @@ msgstr "Every drakon bows. Not from loyalty — from memory."
 msgid "Every story needs a hero who falls. His story needs it twice."
 msgstr "Every story needs a hero who falls. His story needs it twice."
 
-#: src/components/game/game-menu.tsx:77
+#: src/components/game/game-menu.tsx:104
 msgid "Exit Game"
 msgstr "Exit Game"
 
-#: src/store/game-store.ts:82
+#: src/components/screens/online-setup-screen.tsx:54
+msgid "Failed to create session"
+msgstr "Failed to create session"
+
+#: src/components/screens/online-setup-screen.tsx:69
+msgid "Failed to join session"
+msgstr "Failed to join session"
+
+#: src/store/game-store.ts:85
 msgid "Failed to start game: {reason}"
 msgstr "Failed to start game: {reason}"
 
@@ -849,7 +890,7 @@ msgstr "Feathered Drake"
 msgid "Festival Guard"
 msgstr "Festival Guard"
 
-#: src/components/deck-builder/filter-bar.tsx:38
+#: src/components/deck-builder/filter-bar.tsx:40
 msgid "Filter by rank"
 msgstr "Filter by rank"
 
@@ -911,38 +952,55 @@ msgstr "Game"
 msgid "Game board"
 msgstr "Game board"
 
-#: src/components/game/game-screen.tsx:62
+#: src/components/game/game-screen.tsx:66
 msgid "Game Board"
 msgstr "Game Board"
 
-#. placeholder {0}: action.scores[0]
-#. placeholder {1}: action.scores[1]
-#: src/components/game/action-log.tsx:84
+#: src/components/screens/online-setup-screen.tsx:126
+#: src/components/screens/online-setup-screen.tsx:141
+msgid "Game code"
+msgstr "Game code"
+
+#. placeholder {0}: String(action.scores[0])
+#. placeholder {1}: String(action.scores[1])
+#: src/components/game/action-log.tsx:86
 msgid "Game ended: {0} - {1}"
 msgstr "Game ended: {0} - {1}"
 
-#: src/components/game/game-menu.tsx:29
+#: src/components/screens/online-lobby-screen.tsx:91
+msgid "Game Lobby"
+msgstr "Game Lobby"
+
+#: src/components/game/game-menu.tsx:35
 msgid "Game menu"
 msgstr "Game menu"
 
-#: src/components/screens/settings-content.tsx:98
+#: src/components/screens/settings-content.tsx:104
 msgid "Game Mode"
 msgstr "Game Mode"
 
-#: src/store/game-store.ts:138
-#: src/store/game-store.ts:164
+#: src/store/online-game-store.ts:153
+msgid "Game over."
+msgstr "Game over."
+
+#: src/store/game-store.ts:145
+#: src/store/game-store.ts:171
 msgid "Game over. {winMsg}"
 msgstr "Game over. {winMsg}"
 
 #: src/components/screens/setup-screen.tsx:95
-#: src/components/screens/setup-screen.tsx:138
+#: src/components/screens/setup-screen.tsx:140
 #: src/components/ui/route-announcer.tsx:11
 msgid "Game Setup"
 msgstr "Game Setup"
 
-#: src/store/game-store.ts:79
+#: src/store/game-store.ts:82
 msgid "Game started. Mulligan phase. Player 1, select cards to return."
 msgstr "Game started. Mulligan phase. Player 1, select cards to return."
+
+#: src/components/game/online-game-screen.tsx:49
+msgid "Game starting..."
+msgstr "Game starting..."
 
 #: src/lib/card-identity.ts:147
 msgid "Gates of Erebus"
@@ -992,7 +1050,8 @@ msgstr "Gryphon Rider"
 msgid "Half eagle, half lion, wholly convinced of its divine right to everything."
 msgstr "Half eagle, half lion, wholly convinced of its divine right to everything."
 
-#: src/components/game/game-screen.tsx:78
+#: src/components/game/game-screen.tsx:82
+#: src/components/game/online-game-screen.tsx:145
 msgid "Hand"
 msgstr "Hand"
 
@@ -1036,6 +1095,7 @@ msgstr "Her song doesn't lure sailors to the rocks. It makes them forget that ro
 msgid "Hermes Trickster"
 msgstr "Hermes Trickster"
 
+#: src/components/game/online-results-screen.tsx:138
 #: src/components/game/results-screen.tsx:142
 #: src/components/ui/route-announcer.tsx:9
 msgid "Home"
@@ -1169,6 +1229,7 @@ msgstr "It straddles the harbor not as guardian, but as warning: some doors shou
 msgid "It wears the face of someone you once trusted."
 msgstr "It wears the face of someone you once trusted."
 
+#: src/components/game/online-results-screen.tsx:39
 #: src/components/game/results-screen.tsx:31
 msgid "It's a Draw!"
 msgstr "It's a Draw!"
@@ -1205,6 +1266,19 @@ msgstr "Its songs are tiny, its courage enormous, and its pitch questionable."
 msgid "Janus Mask"
 msgstr "Janus Mask"
 
+#: src/components/screens/online-setup-screen.tsx:149
+msgid "Join"
+msgstr "Join"
+
+#: src/components/screens/online-setup-screen.tsx:119
+#: src/components/screens/online-setup-screen.tsx:195
+msgid "Join Game"
+msgstr "Join Game"
+
+#: src/components/screens/online-setup-screen.tsx:149
+msgid "Joining..."
+msgstr "Joining..."
+
 #: src/lib/card-identity.ts:173
 msgid "Junior Nymph"
 msgstr "Junior Nymph"
@@ -1237,36 +1311,59 @@ msgstr "Kraken Terror"
 msgid "Labyrinth Experiment"
 msgstr "Labyrinth Experiment"
 
-#. placeholder {0}: row + 1
+#. placeholder {0}: String(row + 1)
+#: src/components/game/online-results-screen.tsx:119
 #: src/components/game/results-screen.tsx:119
 msgid "Lane {0}"
 msgstr "Lane {0}"
 
+#. placeholder {0}: String(p1)
+#. placeholder {1}: String(p0)
+#: src/components/game/online-results-screen.tsx:102
+msgid "Lane {laneNum}: Opponent wins {0} to {1}"
+msgstr "Lane {laneNum}: Opponent wins {0} to {1}"
+
+#. placeholder {0}: String(p0)
+#. placeholder {1}: String(p1)
 #: src/components/game/results-screen.tsx:100
-msgid "Lane {laneNum}: Player 1 wins {p0} to {p1}"
-msgstr "Lane {laneNum}: Player 1 wins {p0} to {p1}"
+msgid "Lane {laneNum}: Player 1 wins {0} to {1}"
+msgstr "Lane {laneNum}: Player 1 wins {0} to {1}"
 
+#. placeholder {0}: String(p1)
+#. placeholder {1}: String(p0)
 #: src/components/game/results-screen.tsx:102
-msgid "Lane {laneNum}: Player 2 wins {p1} to {p0}"
-msgstr "Lane {laneNum}: Player 2 wins {p1} to {p0}"
+msgid "Lane {laneNum}: Player 2 wins {0} to {1}"
+msgstr "Lane {laneNum}: Player 2 wins {0} to {1}"
 
+#. placeholder {0}: String(p0)
+#. placeholder {1}: String(p1)
+#: src/components/game/online-results-screen.tsx:103
 #: src/components/game/results-screen.tsx:103
-msgid "Lane {laneNum}: Tied {p0} to {p1}"
-msgstr "Lane {laneNum}: Tied {p0} to {p1}"
+msgid "Lane {laneNum}: Tied {0} to {1}"
+msgstr "Lane {laneNum}: Tied {0} to {1}"
 
+#. placeholder {0}: String(p0)
+#. placeholder {1}: String(p1)
+#: src/components/game/online-results-screen.tsx:100
+msgid "Lane {laneNum}: You win {0} to {1}"
+msgstr "Lane {laneNum}: You win {0} to {1}"
+
+#: src/components/game/online-results-screen.tsx:89
 #: src/components/game/results-screen.tsx:90
 msgid "Lane Breakdown"
 msgstr "Lane Breakdown"
 
-#: src/components/screens/settings-content.tsx:52
+#: src/components/screens/settings-content.tsx:54
 msgid "Language"
 msgstr "Language"
 
-#: src/components/game/game-screen.tsx:44
+#: src/components/game/game-screen.tsx:46
+#: src/components/game/online-game-screen.tsx:84
 msgid "Leave"
 msgstr "Leave"
 
-#: src/components/game/game-screen.tsx:42
+#: src/components/game/game-screen.tsx:44
+#: src/components/game/online-game-screen.tsx:82
 msgid "Leave game?"
 msgstr "Leave game?"
 
@@ -1282,7 +1379,7 @@ msgstr "Little Shade"
 msgid "Log"
 msgstr "Log"
 
-#: src/components/card/card-detail.tsx:35
+#: src/lib/card-identity.ts:415
 msgid "Lore: {flavorText}"
 msgstr "Lore: {flavorText}"
 
@@ -1310,7 +1407,7 @@ msgstr "Marble Colossus"
 msgid "Medusa's lesser sister, but \"lesser\" is a generous word."
 msgstr "Medusa's lesser sister, but \"lesser\" is a generous word."
 
-#: src/components/game/game-menu.tsx:66
+#: src/components/game/game-menu.tsx:84
 msgid "Menu"
 msgstr "Menu"
 
@@ -1326,11 +1423,11 @@ msgstr "Minotaur Thug"
 msgid "MIT — Copyright (c) 2026 Blood Fang Contributors"
 msgstr "MIT — Copyright (c) 2026 Blood Fang Contributors"
 
-#: src/components/screens/settings-content.tsx:64
+#: src/components/screens/settings-content.tsx:68
 msgid "More languages coming soon."
 msgstr "More languages coming soon."
 
-#: src/components/screens/settings-content.tsx:87
+#: src/components/screens/settings-content.tsx:93
 msgid "More themes coming soon."
 msgstr "More themes coming soon."
 
@@ -1342,9 +1439,21 @@ msgstr "Mother Nymph"
 msgid "Move between sections"
 msgstr "Move between sections"
 
-#: src/store/game-store.ts:94
+#: src/components/game/mulligan-screen.tsx:38
+msgid "Mulligan"
+msgstr "Mulligan"
+
+#: src/store/online-game-store.ts:144
+msgid "Mulligan complete. Game started."
+msgstr "Mulligan complete. Game started."
+
+#: src/store/game-store.ts:97
 msgid "Mulligan complete. Player {p}'s turn."
 msgstr "Mulligan complete. Player {p}'s turn."
+
+#: src/store/online-game-store.ts:140
+msgid "Mulligan phase. Select cards to return."
+msgstr "Mulligan phase. Select cards to return."
 
 #: src/lib/card-identity.ts:33
 msgid "Myrmex Crawler"
@@ -1378,15 +1487,15 @@ msgstr "Nemean Guardian"
 msgid "Night does not fall. Night rules, and it always has."
 msgstr "Night does not fall. Night rules, and it always has."
 
-#: src/components/game/action-log.tsx:33
+#: src/components/game/action-log.tsx:35
 msgid "No actions yet."
 msgstr "No actions yet."
 
-#: src/components/hand/hand.tsx:51
+#: src/components/hand/hand.tsx:47
 msgid "No cards in hand"
 msgstr "No cards in hand"
 
-#: src/components/deck-builder/card-catalog.tsx:77
+#: src/components/deck-builder/card-catalog.tsx:83
 msgid "No cards match your filters."
 msgstr "No cards match your filters."
 
@@ -1430,6 +1539,56 @@ msgstr "One hundred fifty pairs. Each fights not for country, but for the soul b
 msgid "One is a curiosity. A hundred is an invasion. A thousand is a geological event."
 msgstr "One is a curiosity. A hundred is an invasion. A thousand is a geological event."
 
+#: src/components/game/online-game-screen.tsx:98
+msgid "Online Game"
+msgstr "Online Game"
+
+#: src/components/screens/online-setup-screen.tsx:178
+msgid "Online game options"
+msgstr "Online game options"
+
+#: src/components/game/online-results-screen.tsx:79
+msgid "Opponent"
+msgstr "Opponent"
+
+#: src/components/screens/online-lobby-screen.tsx:126
+msgid "Opponent connected"
+msgstr "Opponent connected"
+
+#: src/store/online-game-store.ts:165
+msgid "Opponent connected."
+msgstr "Opponent connected."
+
+#. placeholder {0}: String(opponentDeckCount)
+#: src/components/game/online-game-screen.tsx:133
+msgid "Opponent deck: {0}"
+msgstr "Opponent deck: {0}"
+
+#: src/store/online-game-store.ts:171
+msgid "Opponent disconnected."
+msgstr "Opponent disconnected."
+
+#: src/components/game/online-game-screen.tsx:116
+msgid "Opponent disconnected. Waiting for reconnection..."
+msgstr "Opponent disconnected. Waiting for reconnection..."
+
+#. placeholder {0}: String(opponentDeckCount)
+#: src/components/game/online-game-screen.tsx:131
+msgid "Opponent has {0} cards in deck"
+msgstr "Opponent has {0} cards in deck"
+
+#: src/components/screens/online-lobby-screen.tsx:74
+msgid "Opponent reconnecting..."
+msgstr "Opponent reconnecting..."
+
+#: src/components/game/turn-indicator.tsx:26
+msgid "Opponent's Turn"
+msgstr "Opponent's Turn"
+
+#: src/store/online-game-store.ts:149
+msgid "Opponent's turn."
+msgstr "Opponent's turn."
+
 #: src/lib/card-identity.ts:107
 msgid "Oracle of Delphi"
 msgstr "Oracle of Delphi"
@@ -1446,42 +1605,42 @@ msgstr "Orichalcum Golem"
 msgid "Owned by Player {ownerNum}"
 msgstr "Owned by Player {ownerNum}"
 
-#. placeholder {0}: def.power
-#. placeholder {0}: tile.owner + 1
+#. placeholder {0}: String(def.power)
+#. placeholder {0}: String(tile.owner + 1)
 #: src/components/board/tile.tsx:74
-#: src/components/deck-builder/deck-slots.tsx:44
+#: src/components/deck-builder/deck-slots.tsx:47
 msgid "P{0}"
 msgstr "P{0}"
 
-#: src/components/game/action-log.tsx:67
+#: src/components/game/action-log.tsx:69
 msgid "P{p} captured pawn at ({row},{col})"
 msgstr "P{p} captured pawn at ({row},{col})"
 
-#: src/components/game/action-log.tsx:55
+#: src/components/game/action-log.tsx:57
 msgid "P{p} drew a card"
 msgstr "P{p} drew a card"
 
-#: src/components/game/action-log.tsx:102
+#: src/components/game/action-log.tsx:104
 msgid "P{p} gained {bonus} bonus pawns at ({row},{col})"
 msgstr "P{p} gained {bonus} bonus pawns at ({row},{col})"
 
-#: src/components/game/action-log.tsx:81
+#: src/components/game/action-log.tsx:83
 msgid "P{p} mulliganed {count} cards"
 msgstr "P{p} mulliganed {count} cards"
 
-#: src/components/game/action-log.tsx:51
+#: src/components/game/action-log.tsx:53
 msgid "P{p} passed"
 msgstr "P{p} passed"
 
-#: src/components/game/action-log.tsx:61
+#: src/components/game/action-log.tsx:63
 msgid "P{p} placed pawn at ({row},{col})"
 msgstr "P{p} placed pawn at ({row},{col})"
 
-#: src/components/game/action-log.tsx:47
+#: src/components/game/action-log.tsx:49
 msgid "P{p} played {name} at ({row},{col})"
 msgstr "P{p} played {name} at ({row},{col})"
 
-#: src/components/game/action-log.tsx:93
+#: src/components/game/action-log.tsx:95
 msgid "P{p} received a card"
 msgstr "P{p} received a card"
 
@@ -1497,15 +1656,15 @@ msgstr "Painted red not for intimidation, but to hide the stains."
 msgid "Pandora's Jar"
 msgstr "Pandora's Jar"
 
-#: src/components/game/pass-button.tsx:21
+#: src/components/game/pass-button.tsx:22
 msgid "Pass"
 msgstr "Pass"
 
-#: src/components/game/pass-button.tsx:21
+#: src/components/game/pass-button.tsx:22
 msgid "Pass (No Moves)"
 msgstr "Pass (No Moves)"
 
-#. placeholder {0}: currentPlayer + 1
+#. placeholder {0}: String(currentPlayer + 1)
 #: src/components/game/turn-transition.tsx:41
 msgid "Pass the device to Player {0}"
 msgstr "Pass the device to Player {0}"
@@ -1538,68 +1697,70 @@ msgstr "Phantom Vulture"
 msgid "Phantom Wraith"
 msgstr "Phantom Wraith"
 
-#. placeholder {0}: currentPlayer + 1
-#: src/components/game/mulligan-screen.tsx:49
+#: src/components/screens/home-screen.tsx:33
+#: src/components/screens/online-setup-screen.tsx:173
+msgid "Play Online"
+msgstr "Play Online"
+
+#. placeholder {0}: String(playerNumber)
+#: src/components/deck-builder/deck-builder.tsx:36
+msgid "Player {0} — Build Your Deck"
+msgstr "Player {0} — Build Your Deck"
+
+#. placeholder {0}: String(myPlayerIndex + 1)
+#: src/components/game/mulligan-screen.tsx:38
 msgid "Player {0} — Mulligan"
 msgstr "Player {0} — Mulligan"
 
-#. placeholder {0}: player + 1
+#. placeholder {0}: String(player + 1)
 #: src/components/board/lane-scores.tsx:21
 msgid "Player {0} lane scores"
 msgstr "Player {0} lane scores"
 
-#: src/components/board/lane-scores.tsx:23
-#~ msgid "Player {0} scores"
-#~ msgstr "Player {0} scores"
-
-#. placeholder {0}: player + 1
+#. placeholder {0}: String(player + 1)
 #: src/components/board/lane-scores.tsx:74
 msgid "Player {0} total score"
 msgstr "Player {0} total score"
 
-#. placeholder {0}: winner + 1
-#. placeholder {1}: scores[winner]
-#. placeholder {2}: scores[winner === 0 ? 1 : 0]
-#: src/store/game-store.ts:136
-#: src/store/game-store.ts:162
+#. placeholder {0}: String(winner + 1)
+#. placeholder {1}: String(scores[winner])
+#. placeholder {2}: String(scores[winner === 0 ? 1 : 0])
+#: src/store/game-store.ts:143
+#: src/store/game-store.ts:169
 msgid "Player {0} wins {1} to {2}."
 msgstr "Player {0} wins {1} to {2}."
 
-#. placeholder {0}: winner + 1
+#. placeholder {0}: String(winner + 1)
 #: src/components/game/results-screen.tsx:31
 msgid "Player {0} Wins!"
 msgstr "Player {0} Wins!"
 
-#. placeholder {0}: currentPlayer + 1
-#: src/components/hand/hand.tsx:60
+#. placeholder {0}: String(myPlayerIndex + 1)
+#: src/components/hand/hand.tsx:50
 msgid "Player {0}'s hand"
 msgstr "Player {0}'s hand"
 
-#. placeholder {0}: currentPlayer + 1
-#. placeholder {0}: player + 1
-#: src/components/game/turn-indicator.tsx:14
+#. placeholder {0}: String(currentPlayer + 1)
+#. placeholder {0}: String(player + 1)
+#: src/components/game/turn-indicator.tsx:27
 #: src/components/game/turn-transition.tsx:39
 msgid "Player {0}'s Turn"
 msgstr "Player {0}'s Turn"
 
-#: src/store/game-store.ts:142
-#: src/store/game-store.ts:168
+#: src/store/game-store.ts:149
+#: src/store/game-store.ts:175
 msgid "Player {nextP}'s turn."
 msgstr "Player {nextP}'s turn."
 
-#: src/store/game-store.ts:155
+#: src/store/game-store.ts:162
 msgid "Player {passP} passed."
 msgstr "Player {passP} passed."
 
-#: src/store/game-store.ts:101
+#: src/store/game-store.ts:104
 msgid "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
 msgstr "Player {pDone} mulligan complete. Player {pNext}, select cards to return."
 
-#: src/components/deck-builder/deck-builder.tsx:37
-msgid "Player {playerNumber} — Build Your Deck"
-msgstr "Player {playerNumber} — Build Your Deck"
-
-#: src/store/game-store.ts:129
+#: src/store/game-store.ts:136
 msgid "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 msgstr "Player {pNum} played {cardName} at row {rowNum}, column {colNum}."
 
@@ -1615,11 +1776,11 @@ msgstr "Player 1 deck saved!"
 msgid "Player 2"
 msgstr "Player 2"
 
-#: src/components/screens/setup-screen.tsx:104
+#: src/components/screens/setup-screen.tsx:106
 msgid "Player 2 — Build Deck"
 msgstr "Player 2 — Build Deck"
 
-#: src/components/screens/settings-content.tsx:110
+#: src/components/screens/settings-content.tsx:118
 msgid "Player vs AI"
 msgstr "Player vs AI"
 
@@ -1635,22 +1796,22 @@ msgstr "Plump Gryphon"
 msgid "Poseidon built it from a nightmare he couldn't shake. The ocean has trembled ever since."
 msgstr "Poseidon built it from a nightmare he couldn't shake. The ocean has trembled ever since."
 
+#. placeholder {0}: String(effectivePower)
+#. placeholder {0}: String(power)
+#: src/components/card/power-badge.tsx:32
+#: src/lib/card-identity.ts:413
+msgid "Power {0}"
+msgstr "Power {0}"
+
+#. placeholder {0}: String(effectivePower)
+#: src/components/card/power-badge.tsx:29
+msgid "Power {0}, buffed"
+msgstr "Power {0}, buffed"
+
+#. placeholder {0}: String(effectivePower)
 #: src/components/card/power-badge.tsx:31
-msgid "Power {effectivePower}"
-msgstr "Power {effectivePower}"
-
-#: src/components/card/power-badge.tsx:28
-msgid "Power {effectivePower}, buffed"
-msgstr "Power {effectivePower}, buffed"
-
-#: src/components/card/power-badge.tsx:30
-msgid "Power {effectivePower}, debuffed"
-msgstr "Power {effectivePower}, debuffed"
-
-#: src/components/card/card-detail.tsx:33
-#: src/components/card/card.tsx:34
-msgid "Power {power}"
-msgstr "Power {power}"
+msgid "Power {0}, debuffed"
+msgstr "Power {0}, debuffed"
 
 #: src/lib/card-identity.ts:73
 msgid "Protean Mass"
@@ -1660,11 +1821,11 @@ msgstr "Protean Mass"
 msgid "Psyche Leech"
 msgstr "Psyche Leech"
 
-#: src/components/screens/settings-content.tsx:109
+#: src/components/screens/settings-content.tsx:117
 msgid "PvP — Online"
 msgstr "PvP — Online"
 
-#: src/components/screens/settings-content.tsx:108
+#: src/components/screens/settings-content.tsx:116
 msgid "PvP — Same Device"
 msgstr "PvP — Same Device"
 
@@ -1676,31 +1837,32 @@ msgstr "Pyriphlegethon"
 msgid "Pyroclast Soldier"
 msgstr "Pyroclast Soldier"
 
-#: src/components/card/range-grid.tsx:33
-#~ msgid "Range pattern"
-#~ msgstr "Range pattern"
-
+#. placeholder {0}: String(abilityCells)
 #: src/components/card/range-grid.tsx:18
-msgid "Range: {abilityCells} ability tiles"
-msgstr "Range: {abilityCells} ability tiles"
+msgid "Range: {0} ability tiles"
+msgstr "Range: {0} ability tiles"
 
+#. placeholder {0}: String(pawnCells)
 #: src/components/card/range-grid.tsx:15
-msgid "Range: {pawnCells} pawn tiles"
-msgstr "Range: {pawnCells} pawn tiles"
+msgid "Range: {0} pawn tiles"
+msgstr "Range: {0} pawn tiles"
 
+#. placeholder {0}: String(pawnCells)
+#. placeholder {1}: String(abilityCells)
 #: src/components/card/range-grid.tsx:12
-msgid "Range: {pawnCells} pawn tiles, {abilityCells} ability tiles"
-msgstr "Range: {pawnCells} pawn tiles, {abilityCells} ability tiles"
+msgid "Range: {0} pawn tiles, {1} ability tiles"
+msgstr "Range: {0} pawn tiles, {1} ability tiles"
 
 #: src/components/card/range-grid.tsx:20
 msgid "Range: no tiles"
 msgstr "Range: no tiles"
 
-#: src/components/card/card-detail.tsx:32
-#: src/components/card/card.tsx:33
-#: src/components/card/rank-icon.tsx:26
-msgid "Rank {rank}"
-msgstr "Rank {rank}"
+#. placeholder {0}: String(definition.rank)
+#. placeholder {0}: String(rank)
+#: src/components/card/rank-icon.tsx:27
+#: src/lib/card-identity.ts:412
+msgid "Rank {0}"
+msgstr "Rank {0}"
 
 #: src/components/deck-builder/filter-bar.tsx:14
 msgid "Rank 1"
@@ -1714,9 +1876,13 @@ msgstr "Rank 2"
 msgid "Rank 3"
 msgstr "Rank 3"
 
-#: src/components/game/turn-transition.tsx:48
+#: src/components/game/turn-transition.tsx:50
 msgid "Ready"
 msgstr "Ready"
+
+#: src/components/game/online-game-screen.tsx:106
+msgid "Reconnecting..."
+msgstr "Reconnecting..."
 
 #: src/lib/card-identity.ts:324
 msgid "Red scales, red eyes, red ruin wherever it roams."
@@ -1731,7 +1897,7 @@ msgid "Rematch"
 msgstr "Rematch"
 
 #. placeholder {0}: getCardName(cardId)
-#: src/components/deck-builder/deck-slots.tsx:41
+#: src/components/deck-builder/deck-slots.tsx:44
 msgid "Remove {0} from deck"
 msgstr "Remove {0} from deck"
 
@@ -1743,15 +1909,15 @@ msgstr "Replace"
 msgid "Replacement card"
 msgstr "Replacement card"
 
-#: src/components/screens/settings-content.tsx:142
+#: src/components/screens/settings-content.tsx:157
 msgid "Reset"
 msgstr "Reset"
 
-#: src/components/screens/settings-content.tsx:130
+#: src/components/screens/settings-content.tsx:143
 msgid "Reset to Defaults"
 msgstr "Reset to Defaults"
 
-#: src/components/screens/settings-content.tsx:140
+#: src/components/screens/settings-content.tsx:155
 msgid "Reset to Defaults?"
 msgstr "Reset to Defaults?"
 
@@ -1775,9 +1941,9 @@ msgstr "Row {rowNum}, Column {colNum}"
 msgid "Royal Spear"
 msgstr "Royal Spear"
 
-#: src/components/game/game-menu.tsx:38
-#: src/components/game/game-menu.tsx:68
-#: src/components/screens/home-screen.tsx:34
+#: src/components/game/game-menu.tsx:44
+#: src/components/game/game-menu.tsx:90
+#: src/components/screens/home-screen.tsx:37
 #: src/components/screens/rules-screen.tsx:17
 #: src/components/ui/route-announcer.tsx:17
 msgid "Rules"
@@ -1791,7 +1957,7 @@ msgstr "Sacred Band"
 msgid "Sand Gorgon"
 msgstr "Sand Gorgon"
 
-#: src/lib/card-identity.ts:427
+#: src/lib/card-identity.ts:461
 msgid "Scaling"
 msgstr "Scaling"
 
@@ -1811,15 +1977,15 @@ msgstr "Search"
 msgid "Select card or place on tile"
 msgstr "Select card or place on tile"
 
-#: src/components/game/mulligan-screen.tsx:52
+#: src/components/game/mulligan-screen.tsx:50
 msgid "Select cards to return to your deck. You'll draw the same number of replacements."
 msgstr "Select cards to return to your deck. You'll draw the same number of replacements."
 
-#: src/components/game/selected-card-detail.tsx:19
+#: src/components/game/selected-card-detail.tsx:17
 msgid "Selected"
 msgstr "Selected"
 
-#: src/components/game/selected-card-detail.tsx:17
+#: src/components/game/selected-card-detail.tsx:15
 msgid "Selected card details"
 msgstr "Selected card details"
 
@@ -1827,7 +1993,7 @@ msgstr "Selected card details"
 msgid "Selected deck cards"
 msgstr "Selected deck cards"
 
-#: src/lib/card-identity.ts:438
+#: src/lib/card-identity.ts:472
 msgid "self"
 msgstr "self"
 
@@ -1839,9 +2005,9 @@ msgstr "Sent by the huntress to remind Orion that pride has a sting."
 msgid "Serpent of Lerna"
 msgstr "Serpent of Lerna"
 
-#: src/components/game/game-menu.tsx:51
-#: src/components/game/game-menu.tsx:69
-#: src/components/screens/home-screen.tsx:37
+#: src/components/game/game-menu.tsx:63
+#: src/components/game/game-menu.tsx:95
+#: src/components/screens/home-screen.tsx:40
 #: src/components/screens/settings-screen.tsx:24
 #: src/components/ui/route-announcer.tsx:19
 msgid "Settings"
@@ -1859,6 +2025,10 @@ msgstr "Shadow Artemis"
 msgid "Shadow Commander"
 msgstr "Shadow Commander"
 
+#: src/components/screens/online-lobby-screen.tsx:96
+msgid "Share this code with your opponent:"
+msgstr "Share this code with your opponent:"
+
 #: src/lib/card-identity.ts:294
 msgid "She does not protect the earth. She IS the earth, and she is waking up."
 msgstr "She does not protect the earth. She IS the earth, and she is waking up."
@@ -1872,7 +2042,7 @@ msgid "She tends a garden of daughters, each one wilder than the last."
 msgstr "She tends a garden of daughters, each one wilder than the last."
 
 #: src/components/screens/settings-content.tsx:19
-#: src/components/screens/settings-content.tsx:33
+#: src/components/screens/settings-content.tsx:35
 msgid "Show Action Log"
 msgstr "Show Action Log"
 
@@ -1901,11 +2071,11 @@ msgid "Spartan Sentinel"
 msgstr "Spartan Sentinel"
 
 #. placeholder {0}: describeTarget(effect.target)
-#: src/lib/card-identity.ts:516
+#: src/lib/card-identity.ts:550
 msgid "Spawn {tokenName} at {0}"
 msgstr "Spawn {tokenName} at {0}"
 
-#: src/components/game/action-log.tsx:89
+#: src/components/game/action-log.tsx:91
 msgid "Spawned {name} at ({row},{col})"
 msgstr "Spawned {name} at ({row},{col})"
 
@@ -1925,7 +2095,7 @@ msgstr "Sprite Trio"
 msgid "Star Voyager"
 msgstr "Star Voyager"
 
-#: src/components/screens/setup-screen.tsx:141
+#: src/components/screens/setup-screen.tsx:143
 msgid "Start Game"
 msgstr "Start Game"
 
@@ -1941,6 +2111,10 @@ msgstr "Stone Basilisk"
 msgid "Stygian Claw"
 msgstr "Stygian Claw"
 
+#: src/components/screens/online-lobby-screen.tsx:71
+msgid "Submitting deck..."
+msgstr "Submitting deck..."
+
 #: src/lib/card-identity.ts:148
 msgid "Swift Blade"
 msgstr "Swift Blade"
@@ -1953,7 +2127,7 @@ msgstr "Swift Hare"
 msgid "Tab"
 msgstr "Tab"
 
-#: src/lib/card-identity.ts:453
+#: src/lib/card-identity.ts:487
 msgid "targets"
 msgstr "targets"
 
@@ -2029,10 +2203,6 @@ msgstr "The mountain didn't move. Something behind the mountain did."
 msgid "The player with the higher lane score wins that lane and claims its power. The player with the most total power across all won lanes wins the game."
 msgstr "The player with the higher lane score wins that lane and claims its power. The player with the most total power across all won lanes wins the game."
 
-#: src/components/screens/rules-content.tsx:15
-#~ msgid "The player with the higher lane score wins that lane. Win the most lanes to win the game."
-#~ msgstr "The player with the higher lane score wins that lane. Win the most lanes to win the game."
-
 #: src/lib/card-identity.ts:243
 msgid "The pool shows you what you love most. You'll never want to look away."
 msgstr "The pool shows you what you love most. You'll never want to look away."
@@ -2065,7 +2235,7 @@ msgstr "The wheels leave furrows in the earth that never grow back."
 msgid "The wolf remembers being a man. The man wishes he didn't."
 msgstr "The wolf remembers being a man. The man wishes he didn't."
 
-#: src/components/screens/settings-content.tsx:75
+#: src/components/screens/settings-content.tsx:79
 msgid "Theme"
 msgstr "Theme"
 
@@ -2077,7 +2247,7 @@ msgstr "They built it to last a thousand years. It has outlasted three thousand 
 msgid "They share one mind but never agree. Their prey benefits from neither opinion."
 msgstr "They share one mind but never agree. Their prey benefits from neither opinion."
 
-#: src/components/screens/settings-content.tsx:141
+#: src/components/screens/settings-content.tsx:156
 msgid "This will clear all saved settings and local data. The page will reload."
 msgstr "This will clear all saved settings and local data. The page will reload."
 
@@ -2117,8 +2287,8 @@ msgstr "Tragic Muse"
 msgid "Triple Chimera"
 msgstr "Triple Chimera"
 
-#. placeholder {0}: gameState.turnNumber
-#: src/components/game/turn-indicator.tsx:16
+#. placeholder {0}: String(gameState.turnNumber)
+#: src/components/game/turn-indicator.tsx:41
 msgid "Turn {0}"
 msgstr "Turn {0}"
 
@@ -2138,20 +2308,21 @@ msgstr "Twin-Headed Oracle"
 msgid "Tyrant & Beast"
 msgstr "Tyrant & Beast"
 
-#: src/lib/card-identity.ts:468
+#: src/lib/card-identity.ts:502
 msgid "unit"
 msgstr "unit"
 
-#: src/store/game-store.ts:81
+#: src/store/game-store.ts:84
 msgid "Unknown error"
 msgstr "Unknown error"
 
+#: src/components/screens/online-setup-screen.tsx:100
 #: src/components/screens/setup-screen.tsx:82
-#: src/components/screens/setup-screen.tsx:125
+#: src/components/screens/setup-screen.tsx:127
 msgid "Use Random Deck"
 msgstr "Use Random Deck"
 
-#: src/components/board/tile.tsx:95
+#: src/components/board/tile.tsx:97
 msgid "Valid target"
 msgstr "Valid target"
 
@@ -2171,9 +2342,32 @@ msgstr "Version"
 msgid "Volcanic Imp"
 msgstr "Volcanic Imp"
 
+#: src/components/game/online-results-screen.tsx:73
 #: src/components/game/results-screen.tsx:75
 msgid "vs"
 msgstr "vs"
+
+#: src/components/screens/online-lobby-screen.tsx:77
+msgid "Waiting for game to start..."
+msgstr "Waiting for game to start..."
+
+#: src/components/hand/hand.tsx:57
+msgid "Waiting for opponent"
+msgstr "Waiting for opponent"
+
+#: src/components/screens/online-lobby-screen.tsx:70
+#: src/components/screens/online-lobby-screen.tsx:72
+msgid "Waiting for opponent to join..."
+msgstr "Waiting for opponent to join..."
+
+#: src/components/screens/online-lobby-screen.tsx:73
+#: src/components/screens/online-lobby-screen.tsx:75
+msgid "Waiting for opponent's deck..."
+msgstr "Waiting for opponent's deck..."
+
+#: src/components/game/online-game-screen.tsx:70
+msgid "Waiting for opponent's mulligan..."
+msgstr "Waiting for opponent's mulligan..."
 
 #: src/lib/card-identity.ts:45
 msgid "War Chariot"
@@ -2203,35 +2397,35 @@ msgstr "What lives below the kraken? Sailors who ask don't come back to tell."
 msgid "Wheel of Fortune"
 msgstr "Wheel of Fortune"
 
-#: src/lib/card-identity.ts:419
+#: src/lib/card-identity.ts:453
 msgid "When an ally is destroyed"
 msgstr "When an ally is destroyed"
 
-#: src/lib/card-identity.ts:422
+#: src/lib/card-identity.ts:456
 msgid "When an ally is played"
 msgstr "When an ally is played"
 
-#: src/lib/card-identity.ts:420
+#: src/lib/card-identity.ts:454
 msgid "When an enemy is destroyed"
 msgstr "When an enemy is destroyed"
 
-#: src/lib/card-identity.ts:423
+#: src/lib/card-identity.ts:457
 msgid "When an enemy is played"
 msgstr "When an enemy is played"
 
-#: src/lib/card-identity.ts:421
+#: src/lib/card-identity.ts:455
 msgid "When any card is destroyed"
 msgstr "When any card is destroyed"
 
-#: src/lib/card-identity.ts:418
+#: src/lib/card-identity.ts:452
 msgid "When destroyed"
 msgstr "When destroyed"
 
-#: src/lib/card-identity.ts:424
+#: src/lib/card-identity.ts:458
 msgid "When first enfeebled"
 msgstr "When first enfeebled"
 
-#: src/lib/card-identity.ts:425
+#: src/lib/card-identity.ts:459
 msgid "When first enhanced"
 msgstr "When first enhanced"
 
@@ -2247,11 +2441,11 @@ msgstr "When it walks, the earth complains. When it stops, the silence is worse.
 msgid "When its shadow passes over a village, the villagers pray — not for safety, but for the honor of being noticed."
 msgstr "When its shadow passes over a village, the villagers pray — not for safety, but for the honor of being noticed."
 
-#: src/lib/card-identity.ts:416
+#: src/lib/card-identity.ts:450
 msgid "When played"
 msgstr "When played"
 
-#: src/lib/card-identity.ts:426
+#: src/lib/card-identity.ts:460
 msgid "When power reaches threshold"
 msgstr "When power reaches threshold"
 
@@ -2259,7 +2453,7 @@ msgstr "When power reaches threshold"
 msgid "Where light meets shadow, balance is not found — it is forged."
 msgstr "Where light meets shadow, balance is not found — it is forged."
 
-#: src/lib/card-identity.ts:417
+#: src/lib/card-identity.ts:451
 msgid "While in play"
 msgstr "While in play"
 
@@ -2267,7 +2461,7 @@ msgstr "While in play"
 msgid "Winged Fury"
 msgstr "Winged Fury"
 
-#: src/lib/card-identity.ts:523
+#: src/lib/card-identity.ts:557
 msgid "Winner takes all points in lane"
 msgstr "Winner takes all points in lane"
 
@@ -2283,21 +2477,47 @@ msgstr "World Serpent"
 msgid "Wraith of Tartarus"
 msgstr "Wraith of Tartarus"
 
+#: src/components/game/online-results-screen.tsx:68
+msgid "You"
+msgstr "You"
+
 #: src/lib/card-identity.ts:216
 msgid "You cannot cage the west wind. Many have tried. The cages are still there; the wind is not."
 msgstr "You cannot cage the west wind. Many have tried. The cages are still there; the wind is not."
+
+#: src/components/game/online-results-screen.tsx:39
+msgid "You Lose"
+msgstr "You Lose"
+
+#: src/components/game/online-results-screen.tsx:39
+msgid "You Win!"
+msgstr "You Win!"
 
 #: src/lib/card-identity.ts:326
 msgid "You'll feel the wound before you see the sword."
 msgstr "You'll feel the wound before you see the sword."
 
-#: src/components/game/game-screen.tsx:43
+#: src/components/game/game-screen.tsx:45
+#: src/components/game/online-game-screen.tsx:83
 msgid "Your game progress will be lost."
 msgstr "Your game progress will be lost."
 
-#: src/components/hand/hand.tsx:56
-msgid "Your Hand"
-msgstr "Your Hand"
+#: src/components/hand/hand.tsx:50
+msgid "Your hand"
+msgstr "Your hand"
+
+#. placeholder {0}: String(myHand.length)
+#: src/components/hand/hand.tsx:55
+msgid "Your Hand ({0})"
+msgstr "Your Hand ({0})"
+
+#: src/components/game/turn-indicator.tsx:25
+msgid "Your Turn"
+msgstr "Your Turn"
+
+#: src/store/online-game-store.ts:147
+msgid "Your turn."
+msgstr "Your turn."
 
 #: src/lib/card-identity.ts:185
 msgid "Zealot Champion"

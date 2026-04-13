@@ -1,8 +1,8 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { GameMode } from '../game-mode.ts';
 import { DEFAULT_LOCALE, type Locale } from '../i18n.ts';
 import { Theme } from '../theme.ts';
+import { createPersistedStore } from './create-persisted-store.ts';
+import { StorageKey } from './storage-keys.ts';
 
 interface SettingsStore {
   locale: Locale;
@@ -16,19 +16,24 @@ interface SettingsStore {
   setShowActionLog: (show: boolean) => void;
 }
 
-export const useSettingsStore = create<SettingsStore>()(
-  persist(
-    (set) => ({
-      locale: DEFAULT_LOCALE,
-      theme: Theme.Dark,
-      gameMode: GameMode.PvpLocal,
-      showActionLog: false,
+type PersistedSettings = Pick<SettingsStore, 'locale' | 'theme' | 'gameMode' | 'showActionLog'>;
 
-      setLocale: (locale) => set({ locale }),
-      setTheme: (theme) => set({ theme }),
-      setGameMode: (gameMode) => set({ gameMode }),
-      setShowActionLog: (show) => set({ showActionLog: show }),
-    }),
-    { name: 'bloodfang-settings' },
-  ),
-);
+const DEFAULTS: PersistedSettings = {
+  locale: DEFAULT_LOCALE,
+  theme: Theme.Dark,
+  gameMode: GameMode.PvpLocal,
+  showActionLog: false,
+};
+
+export const useSettingsStore = createPersistedStore<SettingsStore, keyof PersistedSettings>({
+  name: StorageKey.Settings,
+  version: 1,
+  persistKeys: ['locale', 'theme', 'gameMode', 'showActionLog'],
+  migrate: (persisted, _from) => ({ ...DEFAULTS, ...(persisted as Partial<PersistedSettings>) }),
+})((set) => ({
+  ...DEFAULTS,
+  setLocale: (locale) => set({ locale }),
+  setTheme: (theme) => set({ theme }),
+  setGameMode: (gameMode) => set({ gameMode }),
+  setShowActionLog: (show) => set({ showActionLog: show }),
+}));
