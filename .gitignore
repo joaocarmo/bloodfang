@@ -7,3 +7,5 @@ PLAN_*.md
 .env
 .env.local
 .env.production
+packages/client/playwright-report
+packages/client/test-results
