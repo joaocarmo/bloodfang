@@ -27,7 +27,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src/"
+    "lint": "biome lint src/"
   },
   "dependencies": {
     "@bloodfang/engine": "workspace:*",
@@ -37,12 +37,9 @@
     "nanoid": "^5.1.5"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
     "@types/ws": "^8.18.1",
-    "eslint": "^10.0.3",
     "tsdown": "^0.21.3",
     "tsx": "^4.19.4",
-    "typescript-eslint": "^8.57.0",
     "ws": "^8.18.2"
   }
 }

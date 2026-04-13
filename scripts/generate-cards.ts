@@ -1,4 +1,5 @@
 #!/usr/bin/env npx tsx
+
 /**
  * Card Database Generator
  *
@@ -9,9 +10,9 @@
  * Usage: npx tsx scripts/generate-cards.ts
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
 import { execSync } from 'node:child_process';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 
 // ── Paths ──────────────────────────────────────────────────────────────
 
@@ -81,14 +82,14 @@ function parseExpectedRanges(): Record<string, { name: string; rangePattern: Ran
   for (const [slug, entry] of Object.entries(raw)) {
     const grid = entry.grid;
     const height = grid.length;
-    const width = grid[0]!.length;
+    const width = grid[0]?.length;
     const centerRow = Math.floor(height / 2);
     const centerCol = Math.floor(width / 2);
 
     const cells: RangeCell[] = [];
     for (let r = 0; r < height; r++) {
       for (let c = 0; c < width; c++) {
-        const val = grid[r]![c];
+        const val = grid[r]?.[c];
         if (val === null || val === 'W') continue;
         if (r === centerRow && c === centerCol) continue;
 
@@ -147,7 +148,7 @@ function mapTrigger(
   when: string,
   overrides?: Record<string, unknown>,
 ): { trigger: string; threshold?: number } {
-  if (overrides?.['scalingCondition']) {
+  if (overrides?.scalingCondition) {
     return { trigger: 'scaling' };
   }
 
@@ -176,10 +177,10 @@ function mapTrigger(
       return { trigger: 'endOfGame' };
     default: {
       const thresholdMatch = when.match(/power_first_reaches_(\d+)/);
-      if (thresholdMatch) {
+      if (thresholdMatch?.[1] !== undefined) {
         return {
           trigger: 'whenPowerReachesN',
-          threshold: parseInt(thresholdMatch[1]!, 10),
+          threshold: parseInt(thresholdMatch[1], 10),
         };
       }
       console.warn(`Unknown trigger: "${when}"`);
@@ -225,17 +226,16 @@ function mapTarget(which: string): string | null {
 function resolveTokenId(actionValue: string, mapping: CardMapping): string | null {
   // Extract card name from Card.find_by(name:'X') or Card.where(name:['X', 'Y'])
   const singleMatch = actionValue.match(/Card\.find_by\(name:'([^']+)'\)/);
-  if (singleMatch) {
-    const originalTokenName = singleMatch[1]!;
-    return resolveTokenName(originalTokenName, mapping);
+  if (singleMatch?.[1] !== undefined) {
+    return resolveTokenName(singleMatch[1], mapping);
   }
 
   // Handle Card.where(name:['X', 'Y'] ).all (note possible extra spaces)
   const whereMatch = actionValue.match(/Card\.where\(name:\[([^\]]+)\]/);
   if (whereMatch) {
-    const names = whereMatch[1]!.match(/'([^']+)'/g);
+    const names = whereMatch[1]?.match(/'([^']+)'/g);
     if (names && names.length > 0) {
-      const firstName = names[0]!.replace(/'/g, '');
+      const firstName = names[0]?.replace(/'/g, '');
       return resolveTokenName(firstName, mapping);
     }
   }
@@ -260,9 +260,9 @@ function resolveTokenName(name: string, mapping: CardMapping): string {
 function resolveSecondTokenFromWhere(actionValue: string, mapping: CardMapping): string | null {
   const whereMatch = actionValue.match(/Card\.where\(name:\[([^\]]+)\]/);
   if (whereMatch) {
-    const names = whereMatch[1]!.match(/'([^']+)'/g);
+    const names = whereMatch[1]?.match(/'([^']+)'/g);
     if (names && names.length > 1) {
-      const secondName = names[1]!.replace(/'/g, '');
+      const secondName = names[1]?.replace(/'/g, '');
       return resolveTokenName(secondName, mapping);
     }
   }
@@ -307,7 +307,7 @@ function buildEffect(
     let tokenId = resolveTokenId(actionValue, mapping);
     // Dynamic spawn (e.g. Shiva) — check if there's a dynamicSpawnPower override
     // and look up the child card from the mapping's tokenNameMap
-    if (!tokenId && overrides?.['dynamicSpawnPower']) {
+    if (!tokenId && overrides?.dynamicSpawnPower) {
       // Find the parent card's child token in the mapping (e.g. Diamond Dust → frost-crystal-minor)
       // by checking for Card.find_by_name references in seeds.rb child entries
       tokenId = mapping.tokenNameMap['Diamond Dust'] ?? null;
@@ -328,9 +328,9 @@ function buildEffect(
       count: 1,
     };
     // Handle multi-token adds (e.g. Moogle Trio → Moogle Mage + Moogle Bard)
-    if (overrides?.['additionalTokens']) {
-      const extras = overrides['additionalTokens'] as Array<{ tokenId: string; count: number }>;
-      result['additionalTokens'] = extras.map((e) => ({
+    if (overrides?.additionalTokens) {
+      const extras = overrides.additionalTokens as Array<{ tokenId: string; count: number }>;
+      result.additionalTokens = extras.map((e) => ({
         tokenDefinitionId: e.tokenId,
         count: e.count,
       }));
@@ -338,7 +338,7 @@ function buildEffect(
       // Check for Card.where with multiple names
       const secondToken = resolveSecondTokenFromWhere(actionValue, mapping);
       if (secondToken) {
-        result['additionalTokens'] = [{ tokenDefinitionId: secondToken, count: 1 }];
+        result.additionalTokens = [{ tokenDefinitionId: secondToken, count: 1 }];
       }
     }
     return result;
@@ -353,11 +353,11 @@ function buildEffect(
   }
 
   // Scaling override (allies_played_from_hand / enemies_played_from_hand)
-  if (overrides?.['scalingCondition']) {
+  if (overrides?.scalingCondition) {
     return {
       type: 'selfPowerScaling',
-      condition: { type: overrides['scalingCondition'] as string },
-      valuePerUnit: (overrides['valuePerUnit'] as number) ?? 1,
+      condition: { type: overrides.scalingCondition as string },
+      valuePerUnit: (overrides.valuePerUnit as number) ?? 1,
     };
   }
 
@@ -371,7 +371,7 @@ function buildEffect(
     }
 
     // ally.power based effects
-    const isDynamic = overrides?.['dynamicValue'] === 'replacedCardPower';
+    const isDynamic = overrides?.dynamicValue === 'replacedCardPower';
     const value = isDynamic ? 0 : 1;
     if (actionType === 'power_up') {
       return {
@@ -394,7 +394,7 @@ function buildEffect(
   // EnhanceAbility / power_up
   if (actionType === 'power_up') {
     const value = parseInt(actionValue, 10);
-    if (isNaN(value)) {
+    if (Number.isNaN(value)) {
       // Dynamic value like "ally.power"
       return {
         type: 'enhance',
@@ -412,7 +412,7 @@ function buildEffect(
   // EnfeebleAbility / power_down
   if (actionType === 'power_down') {
     const value = parseInt(actionValue, 10);
-    if (isNaN(value)) {
+    if (Number.isNaN(value)) {
       return {
         type: 'enfeeble',
         value: 0,
@@ -440,8 +440,11 @@ function isDualAbility(abilities: SeedsCard['abilities']): boolean {
 }
 
 function buildDualEffect(abilities: SeedsCard['abilities']): EffectObj {
-  const enhance = abilities.find((a) => a.actionType === 'power_up')!;
-  const enfeeble = abilities.find((a) => a.actionType === 'power_down')!;
+  const enhance = abilities.find((a) => a.actionType === 'power_up');
+  const enfeeble = abilities.find((a) => a.actionType === 'power_down');
+  if (!enhance || !enfeeble) {
+    throw new Error('buildDualEffect called without both enhance and enfeeble abilities');
+  }
   const target = mapTarget(enhance.which) ?? mapTarget(enfeeble.which) ?? 'rangePattern';
   return {
     type: 'dualTargetBuff',
@@ -519,24 +522,24 @@ function formatRangePattern(cells: RangeCell[]): string {
 }
 
 function formatEffect(effect: EffectObj): string {
-  const effectType = effect['type'] as string;
+  const effectType = effect.type as string;
   const parts: string[] = [`type: ${EFFECT_TYPE_EXPR[effectType] ?? `'${effectType}'`}`];
 
-  if (effect['value'] !== undefined) parts.push(`value: ${effect['value']}`);
-  if (effect['bonusPawns'] !== undefined) parts.push(`bonusPawns: ${effect['bonusPawns']}`);
-  if (effect['alliedValue'] !== undefined) parts.push(`alliedValue: ${effect['alliedValue']}`);
-  if (effect['enemyValue'] !== undefined) parts.push(`enemyValue: ${effect['enemyValue']}`);
-  if (effect['tokenDefinitionId'] !== undefined)
-    parts.push(`tokenDefinitionId: '${effect['tokenDefinitionId']}'`);
-  if (effect['count'] !== undefined) parts.push(`count: ${effect['count']}`);
-  if (effect['condition'] !== undefined) {
-    const cond = effect['condition'] as { type: string };
+  if (effect.value !== undefined) parts.push(`value: ${effect.value}`);
+  if (effect.bonusPawns !== undefined) parts.push(`bonusPawns: ${effect.bonusPawns}`);
+  if (effect.alliedValue !== undefined) parts.push(`alliedValue: ${effect.alliedValue}`);
+  if (effect.enemyValue !== undefined) parts.push(`enemyValue: ${effect.enemyValue}`);
+  if (effect.tokenDefinitionId !== undefined)
+    parts.push(`tokenDefinitionId: '${effect.tokenDefinitionId}'`);
+  if (effect.count !== undefined) parts.push(`count: ${effect.count}`);
+  if (effect.condition !== undefined) {
+    const cond = effect.condition as { type: string };
     parts.push(`condition: { type: '${cond.type}' }`);
   }
-  if (effect['valuePerUnit'] !== undefined) parts.push(`valuePerUnit: ${effect['valuePerUnit']}`);
-  if (effect['dynamicValue'] !== undefined) parts.push(`dynamicValue: '${effect['dynamicValue']}'`);
-  if (effect['additionalTokens'] !== undefined) {
-    const tokens = effect['additionalTokens'] as Array<{
+  if (effect.valuePerUnit !== undefined) parts.push(`valuePerUnit: ${effect.valuePerUnit}`);
+  if (effect.dynamicValue !== undefined) parts.push(`dynamicValue: '${effect.dynamicValue}'`);
+  if (effect.additionalTokens !== undefined) {
+    const tokens = effect.additionalTokens as Array<{
       tokenDefinitionId: string;
       count: number;
     }>;
@@ -545,8 +548,8 @@ function formatEffect(effect: EffectObj): string {
       .join(', ');
     parts.push(`additionalTokens: [${tokenStr}]`);
   }
-  if (effect['target'] !== undefined) {
-    const tgt = effect['target'] as { type: string };
+  if (effect.target !== undefined) {
+    const tgt = effect.target as { type: string };
     parts.push(`target: { type: ${TARGET_EXPR[tgt.type] ?? `'${tgt.type}'`} }`);
   }
 
@@ -651,14 +654,15 @@ function main() {
     if (seeds.abilities.length > 0) {
       if (isDualAbility(seeds.abilities)) {
         // Two Face pattern: dual enhance + enfeeble
-        const trigger = mapTrigger(seeds.abilities[0]!.when, entry.overrides);
+        const trigger = mapTrigger(seeds.abilities[0]?.when, entry.overrides);
         ability = {
           trigger: trigger.trigger,
           effect: buildDualEffect(seeds.abilities),
           ...(trigger.threshold !== undefined ? { threshold: trigger.threshold } : {}),
         };
       } else {
-        const primaryAbility = seeds.abilities[0]!;
+        const primaryAbility = seeds.abilities[0];
+        if (!primaryAbility) continue;
         const trigger = mapTrigger(primaryAbility.when, entry.overrides);
         const effect = buildEffect(primaryAbility, entry.overrides, mapping);
 
@@ -667,8 +671,8 @@ function main() {
             trigger: trigger.trigger,
             effect,
             ...(trigger.threshold !== undefined ? { threshold: trigger.threshold } : {}),
-            ...(entry.overrides?.['threshold'] !== undefined
-              ? { threshold: entry.overrides['threshold'] as number }
+            ...(entry.overrides?.threshold !== undefined
+              ? { threshold: entry.overrides.threshold as number }
               : {}),
           };
         }
@@ -765,7 +769,7 @@ function generateFile(fileName: string, cards: CardDef[], prefix: string, outDir
   const needsRangeCellTypes = cards.some((c) => c.rangePattern.length > 0);
   const needsAbilityTriggers = cards.some((c) => c.ability);
   const needsEffectTypes = cards.some((c) => c.ability);
-  const needsTargetSelectors = cards.some((c) => c.ability?.effect['target']);
+  const needsTargetSelectors = cards.some((c) => c.ability?.effect.target);
   const needsCardRanks = cards.some((c) => c.rank === 'replacement');
 
   const imports: string[] = [];

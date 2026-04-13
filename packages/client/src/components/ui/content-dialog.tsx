@@ -1,7 +1,7 @@
-import { useRef, type ReactNode, type RefObject } from 'react';
 import { t } from '@lingui/core/macro';
-import { DialogBase } from './dialog-base.tsx';
+import { type ReactNode, type RefObject, useRef } from 'react';
 import { Button } from './button.tsx';
+import { DialogBase } from './dialog-base.tsx';
 
 interface ContentDialogProps {
   open: boolean;

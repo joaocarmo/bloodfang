@@ -1,6 +1,6 @@
 import { t } from '@lingui/core/macro';
 import { BackButton } from '../ui/back-button.tsx';
-import { RulesContent, BasicRules, KeyboardShortcuts } from './rules-content.tsx';
+import { BasicRules, KeyboardShortcuts, RulesContent } from './rules-content.tsx';
 
 export function RulesScreen() {
   return (

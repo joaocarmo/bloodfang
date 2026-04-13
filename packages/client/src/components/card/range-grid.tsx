@@ -1,5 +1,5 @@
-import { t } from '@lingui/core/macro';
 import type { RangeCell } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
 
 function describeRange(rangePattern: readonly RangeCell[]): string {
   let pawnCells = 0;
@@ -54,7 +54,10 @@ export function RangeGrid({ rangePattern, size = 'sm' }: RangeGridProps) {
       aria-label={describeRange(rangePattern)}
     >
       {grid.flat().map((cell, i) => (
-        <div key={i} className={`${cellSize} rounded-sm ${getCellColor(cell)}`} />
+        <div
+          key={`${String(Math.floor(i / 5))}-${String(i % 5)}`}
+          className={`${cellSize} rounded-sm ${getCellColor(cell)}`}
+        />
       ))}
     </div>
   );

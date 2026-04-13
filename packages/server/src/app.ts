@@ -1,20 +1,20 @@
 import { createNodeWebSocket } from '@hono/node-ws';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { getClientIp } from './client-ip.js';
+import { HttpStatus } from './http-status.js';
+import type { Logger } from './logger.js';
+import {
+  ClientMessageType,
+  ErrorCode,
+  type PlayerToken,
+  ServerMessageType,
+  type SessionId,
+} from './protocol.js';
+import { createRateLimiter } from './rate-limiter.js';
+import { Route } from './routes.js';
 import { InMemorySessionStore, SessionManager } from './session-manager.js';
 import { parseClientMessage } from './validation.js';
-import {
-  type SessionId,
-  type PlayerToken,
-  ClientMessageType,
-  ServerMessageType,
-  ErrorCode,
-} from './protocol.js';
-import type { Logger } from './logger.js';
-import { Route } from './routes.js';
-import { HttpStatus } from './http-status.js';
-import { createRateLimiter } from './rate-limiter.js';
-import { getClientIp } from './client-ip.js';
 
 // ── App Factory ─────────────────────────────────────────────────────
 

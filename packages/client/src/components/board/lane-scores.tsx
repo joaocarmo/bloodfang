@@ -1,6 +1,6 @@
-import { t } from '@lingui/core/macro';
-import type { PlayerId, LaneScores as LaneScoresType } from '@bloodfang/engine';
+import type { LaneScores as LaneScoresType, PlayerId } from '@bloodfang/engine';
 import { BOARD_ROWS } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
 import { useLaneScores } from '../../hooks/use-lane-scores.ts';
 import { playerTextColor } from '../../lib/player-color.ts';
 
@@ -27,7 +27,7 @@ export function LaneScores({ player, side, previewLaneScores }: LaneScoresProps)
 
         return (
           <div
-            key={row}
+            key={`lane-${String(row)}`}
             className={`${colorClass} font-bold text-sm sm:text-base md:text-lg tabular-nums flex items-center justify-center`}
           >
             {hasPreviewDelta ? (

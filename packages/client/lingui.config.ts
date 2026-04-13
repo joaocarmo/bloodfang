@@ -1,5 +1,5 @@
 import type { LinguiConfig } from '@lingui/conf';
-import { Locale, DEFAULT_LOCALE } from './src/i18n';
+import { DEFAULT_LOCALE, Locale } from './src/i18n';
 
 const config: LinguiConfig = {
   locales: Object.values(Locale),

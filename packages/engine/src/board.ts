@@ -1,5 +1,5 @@
 import type { Board, Position, Tile } from './types.js';
-import { BOARD_ROWS, BOARD_COLS } from './types.js';
+import { BOARD_COLS, BOARD_ROWS } from './types.js';
 
 export function isValidPosition(pos: Position): boolean {
   return pos.row >= 0 && pos.row < BOARD_ROWS && pos.col >= 0 && pos.col < BOARD_COLS;

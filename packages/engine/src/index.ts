@@ -1,109 +1,102 @@
 // Types
-export type {
-  PlayerId,
-  Position,
-  RangeCellType,
-  RangeCell,
-  CardRank,
-  CardDefinition,
-  CardInstance,
-  ContinuousModifier,
-  Tile,
-  Board,
-  PlayerState,
-  GameAction,
-  GameConfig,
-  GameState,
-  // Ability types
-  AbilityTriggerType,
-  TargetSelectorType,
-  TargetSelector,
-  ScalingCondition,
-  AbilityEffect,
-  EnhanceEffect,
-  EnfeebleEffect,
-  DestroyEffect,
-  SelfPowerScalingEffect,
-  LaneScoreBonusEffect,
-  AddCardToHandEffect,
-  SpawnCardEffect,
-  PositionRankManipEffect,
-  ScoreRedistributionEffect,
-  DualTargetBuffEffect,
-  AbilityDefinition,
-  DynamicValue,
-  GameEventType,
-  GameEvent,
-} from './types.js';
-
-// Constants & helpers
-export {
-  BOARD_ROWS,
-  BOARD_COLS,
-  MAX_PAWN_COUNT,
-  DECK_SIZE,
-  INITIAL_HAND_SIZE,
-  RANGE_CELL_TYPES,
-  ABILITY_TRIGGERS,
-  TARGET_SELECTORS,
-  GAME_EVENT_TYPES,
-  GamePhase,
-  EFFECT_TYPES,
-  LOG_ACTION_TYPES,
-  CARD_RANKS,
-  opponent,
-  createSeededRng,
-} from './types.js';
-
-// Board
-export { createBoard, getTile, setTile, isValidPosition, isBoardFull } from './board.js';
-
-// Utilities
-export { fisherYatesShuffle } from './utils.js';
-
-// Game lifecycle
-export {
-  createGame,
-  mulligan,
-  playCard,
-  pass,
-  destroyCard,
-  canPlayCard,
-  getValidMoves,
-  getEffectivePower,
-  resolveRangePattern,
-} from './game.js';
 
 // Abilities
 export {
+  collectTriggersForEvents,
+  recalculateContinuousEffects,
   resolveAbilities,
   resolveAbilityRangePattern,
   resolveTargets,
-  collectTriggersForEvents,
-  recalculateContinuousEffects,
 } from './abilities.js';
+// Board
+export { createBoard, getTile, isBoardFull, isValidPosition, setTile } from './board.js';
+export type { CardId as CardIdType } from './card-id.js';
+// Card IDs
+export { CardId } from './card-id.js';
+// Card database
+export { getAllGameDefinitions } from './cards/all-cards.js';
+export type { EffectResult } from './effects.js';
 
 // Effects
 export {
-  applyEffect,
-  applyEnhance,
-  applyEnfeeble,
-  applyDestroy,
   applyAddCardToHand,
-  applySpawnCard,
-  applyPositionRankManip,
+  applyDestroy,
   applyDualTargetBuff,
+  applyEffect,
+  applyEnfeeble,
+  applyEnhance,
+  applyPositionRankManip,
+  applySpawnCard,
   internalDestroyCard,
 } from './effects.js';
-export type { EffectResult } from './effects.js';
-
-// Scoring
-export { calculateLaneScores, calculateFinalScores, determineWinner } from './scoring.js';
+// Game lifecycle
+export {
+  canPlayCard,
+  createGame,
+  destroyCard,
+  getEffectivePower,
+  getValidMoves,
+  mulligan,
+  pass,
+  playCard,
+  resolveRangePattern,
+} from './game.js';
 export type { LaneScores } from './scoring.js';
-
-// Card IDs
-export { CardId } from './card-id.js';
-export type { CardId as CardIdType } from './card-id.js';
-
-// Card database
-export { getAllGameDefinitions } from './cards/all-cards.js';
+// Scoring
+export { calculateFinalScores, calculateLaneScores, determineWinner } from './scoring.js';
+export type {
+  AbilityDefinition,
+  AbilityEffect,
+  // Ability types
+  AbilityTriggerType,
+  AddCardToHandEffect,
+  Board,
+  CardDefinition,
+  CardInstance,
+  CardRank,
+  ContinuousModifier,
+  DestroyEffect,
+  DualTargetBuffEffect,
+  DynamicValue,
+  EnfeebleEffect,
+  EnhanceEffect,
+  GameAction,
+  GameConfig,
+  GameEvent,
+  GameEventType,
+  GameState,
+  LaneScoreBonusEffect,
+  PlayerId,
+  PlayerState,
+  Position,
+  PositionRankManipEffect,
+  RangeCell,
+  RangeCellType,
+  ScalingCondition,
+  ScoreRedistributionEffect,
+  SelfPowerScalingEffect,
+  SpawnCardEffect,
+  TargetSelector,
+  TargetSelectorType,
+  Tile,
+} from './types.js';
+// Constants & helpers
+export {
+  ABILITY_TRIGGERS,
+  BOARD_COLS,
+  BOARD_ROWS,
+  CARD_RANKS,
+  createSeededRng,
+  DECK_SIZE,
+  EFFECT_TYPES,
+  GAME_EVENT_TYPES,
+  GamePhase,
+  INITIAL_HAND_SIZE,
+  LOG_ACTION_TYPES,
+  MAX_PAWN_COUNT,
+  opponent,
+  RANGE_CELL_TYPES,
+  TARGET_SELECTORS,
+} from './types.js';
+// Utilities
+export { fisherYatesShuffle } from './utils.js';

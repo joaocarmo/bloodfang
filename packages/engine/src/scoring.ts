@@ -1,6 +1,6 @@
+import { getEffectivePower } from './game.js';
 import type { GameState, PlayerId } from './types.js';
 import { ABILITY_TRIGGERS, BOARD_COLS, BOARD_ROWS, EFFECT_TYPES } from './types.js';
-import { getEffectivePower } from './game.js';
 
 export type LaneScores = readonly [number, number][];
 

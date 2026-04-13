@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react';
-import type { ReactNode } from 'react';
+import type { CardDefinition } from '@bloodfang/engine';
 import {
-  useFloating,
-  useHover,
-  useFocus,
+  autoUpdate,
+  FloatingFocusManager,
+  FloatingOverlay,
+  FloatingPortal,
+  flip,
+  offset,
+  shift,
   useClick,
   useDismiss,
-  useRole,
+  useFloating,
+  useFocus,
+  useHover,
   useInteractions,
-  offset,
-  flip,
-  shift,
-  autoUpdate,
-  FloatingPortal,
-  FloatingOverlay,
-  FloatingFocusManager,
+  useRole,
 } from '@floating-ui/react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { t } from '@lingui/core/macro';
-import type { CardDefinition } from '@bloodfang/engine';
-import { CardDetail } from './card-detail.tsx';
-import { Button } from '../ui/button.tsx';
-import { getCardName } from '../../lib/card-identity.ts';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { useIsSmallScreen } from '../../hooks/use-small-screen.ts';
+import { getCardName } from '../../lib/card-identity.ts';
+import { Button } from '../ui/button.tsx';
+import { CardDetail } from './card-detail.tsx';
 
 interface CardPreviewTriggerProps {
   definition: CardDefinition;
@@ -103,8 +103,9 @@ export function CardPreviewTrigger({
               <FloatingFocusManager context={context}>
                 <div
                   ref={refs.setFloating}
-                  aria-label={t`${name} card details`}
                   {...getFloatingProps()}
+                  role="dialog"
+                  aria-label={t`${name} card details`}
                   className="flex flex-col items-center gap-3 p-4 max-w-sm w-full"
                 >
                   <CardDetail definition={definition} effectivePower={power} />

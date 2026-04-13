@@ -1,5 +1,5 @@
-import { useRef, useState, useCallback, type KeyboardEvent } from 'react';
 import { t } from '@lingui/core/macro';
+import { type KeyboardEvent, useCallback, useRef, useState } from 'react';
 import { useGame } from '../../context/game-context.tsx';
 import { HandCard } from './hand-card.tsx';
 

@@ -1,7 +1,7 @@
-import { useRef, type RefObject } from 'react';
 import { t } from '@lingui/core/macro';
-import { DialogBase } from './dialog-base.tsx';
+import { type RefObject, useRef } from 'react';
 import { Button } from './button.tsx';
+import { DialogBase } from './dialog-base.tsx';
 
 interface ConfirmDialogProps {
   open: boolean;

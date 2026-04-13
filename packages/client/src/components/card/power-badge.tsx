@@ -23,6 +23,7 @@ export function PowerBadge({ basePower, effectivePower, size = 'md' }: PowerBadg
   return (
     <span
       className={`${colorClass} ${sizeClass} font-bold tabular-nums`}
+      role="img"
       aria-label={
         isBuffed
           ? t`Power ${String(effectivePower)}, buffed`

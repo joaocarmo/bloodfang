@@ -1,21 +1,21 @@
-import { useEffect } from 'react';
-import { t } from '@lingui/core/macro';
-import { useNavigate, useBlocker } from '@tanstack/react-router';
 import { GamePhase } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
+import { useBlocker, useNavigate } from '@tanstack/react-router';
+import { useEffect } from 'react';
+import { LocalGameProvider, useGame } from '../../context/game-context.tsx';
+import { Route } from '../../routes.ts';
 import { useGameStore } from '../../store/game-store.ts';
 import { useSettingsStore } from '../../store/settings-store.ts';
-import { useGame, LocalGameProvider } from '../../context/game-context.tsx';
-import { Route } from '../../routes.ts';
 import { Board } from '../board/board.tsx';
 import { Hand } from '../hand/hand.tsx';
-import { MulliganScreen } from './mulligan-screen.tsx';
-import { TurnIndicator } from './turn-indicator.tsx';
-import { TurnTransition } from './turn-transition.tsx';
-import { PassButton } from './pass-button.tsx';
+import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 import { ActionLog } from './action-log.tsx';
 import { GameMenu } from './game-menu.tsx';
+import { MulliganScreen } from './mulligan-screen.tsx';
+import { PassButton } from './pass-button.tsx';
 import { SelectedCardDetail } from './selected-card-detail.tsx';
-import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
+import { TurnIndicator } from './turn-indicator.tsx';
+import { TurnTransition } from './turn-transition.tsx';
 
 function GameScreenContent() {
   const { gameState } = useGame();

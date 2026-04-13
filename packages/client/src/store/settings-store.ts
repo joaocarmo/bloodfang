@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { type Locale, DEFAULT_LOCALE } from '../i18n.ts';
-import { Theme } from '../theme.ts';
 import { GameMode } from '../game-mode.ts';
+import { DEFAULT_LOCALE, type Locale } from '../i18n.ts';
+import { Theme } from '../theme.ts';
 
 interface SettingsStore {
   locale: Locale;

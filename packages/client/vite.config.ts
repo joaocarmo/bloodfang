@@ -1,8 +1,8 @@
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
 import { lingui } from '@lingui/vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { defineConfig } from 'vitest/config';
 import pkg from './package.json' with { type: 'json' };
 
 const serverUrl = process.env.VITE_SERVER_URL || 'http://localhost:3001';

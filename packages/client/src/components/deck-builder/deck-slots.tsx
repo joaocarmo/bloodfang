@@ -1,9 +1,9 @@
-import { t } from '@lingui/core/macro';
 import { DECK_SIZE } from '@bloodfang/engine';
+import { t } from '@lingui/core/macro';
+import { getCardName } from '../../lib/card-identity.ts';
 import { useDeckStore } from '../../store/deck-store.ts';
 import { useGameStore } from '../../store/game-store.ts';
 import { CardPreviewTrigger } from '../card/card-preview-trigger.tsx';
-import { getCardName } from '../../lib/card-identity.ts';
 
 export function DeckSlots() {
   const selectedCards = useDeckStore((s) => s.selectedCards);
@@ -23,7 +23,7 @@ export function DeckSlots() {
           if (!cardId || !def) {
             return (
               <li
-                key={i}
+                key={`slot-${String(i)}`}
                 className="h-8 bg-surface-raised border border-border border-dashed rounded flex items-center justify-center text-text-muted text-xs"
               >
                 {t`Empty`}
@@ -32,9 +32,10 @@ export function DeckSlots() {
           }
 
           return (
-            <li key={i}>
+            <li key={`slot-${cardId}-${String(i)}`}>
               <CardPreviewTrigger definition={def}>
                 <button
+                  type="button"
                   onClick={() => {
                     removeCard(cardId);
                   }}

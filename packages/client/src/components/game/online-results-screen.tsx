@@ -1,16 +1,16 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { BOARD_ROWS, calculateFinalScores, determineWinner } from '@bloodfang/engine';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
 import { motion, useReducedMotion } from 'motion/react';
-import { BOARD_ROWS, calculateFinalScores, determineWinner } from '@bloodfang/engine';
-import { useOnlineGameStore } from '../../store/online-game-store.ts';
+import { useCallback, useEffect, useRef } from 'react';
 import { OnlineGameProvider } from '../../context/online-game-provider.tsx';
 import { useLaneScores } from '../../hooks/use-lane-scores.ts';
-import { Route } from '../../routes.ts';
-import { Button } from '../ui/button.tsx';
-import { BackButton } from '../ui/back-button.tsx';
-import { toSimulatableState } from '../../lib/game-state-adapter.ts';
 import { disconnectWs } from '../../hooks/use-websocket.ts';
+import { toSimulatableState } from '../../lib/game-state-adapter.ts';
+import { Route } from '../../routes.ts';
+import { useOnlineGameStore } from '../../store/online-game-store.ts';
+import { BackButton } from '../ui/back-button.tsx';
+import { Button } from '../ui/button.tsx';
 
 function OnlineResultsContent() {
   const filteredGameState = useOnlineGameStore((s) => s.filteredGameState);
@@ -104,7 +104,7 @@ function OnlineResultsContent() {
 
             return (
               <motion.div
-                key={row}
+                key={`lane-${String(row)}`}
                 aria-label={laneLabel}
                 initial={reduceMotion ? false : { y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}

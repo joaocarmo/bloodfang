@@ -1,10 +1,10 @@
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { ClientMessageType, SessionPhase, WaitingReason } from '@bloodfang/server/protocol';
 import { t } from '@lingui/core/macro';
 import { useNavigate } from '@tanstack/react-router';
-import { ClientMessageType, SessionPhase, WaitingReason } from '@bloodfang/server/protocol';
-import { useOnlineGameStore } from '../../store/online-game-store.ts';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWebSocket } from '../../hooks/use-websocket.ts';
 import { Route } from '../../routes.ts';
+import { useOnlineGameStore } from '../../store/online-game-store.ts';
 import { Button } from '../ui/button.tsx';
 
 export function OnlineLobbyScreen() {

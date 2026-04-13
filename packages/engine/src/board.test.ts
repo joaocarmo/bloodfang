@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { createBoard, getTile, setTile, isValidPosition } from './board.js';
-import { BOARD_ROWS, BOARD_COLS } from './types.js';
+import { describe, expect, it } from 'vitest';
+import { createBoard, getTile, isValidPosition, setTile } from './board.js';
+import { BOARD_COLS, BOARD_ROWS } from './types.js';
 
 describe('isValidPosition', () => {
   it('accepts all in-bounds positions', () => {

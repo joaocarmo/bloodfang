@@ -32,8 +32,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check formatting
-        run: pnpm format:check
+      - name: Lint and format check
+        run: pnpm check
 
       - name: Build engine
         run: pnpm -F @bloodfang/engine build
@@ -41,17 +41,11 @@ jobs:
       - name: Typecheck engine
         run: pnpm -F @bloodfang/engine typecheck
 
-      - name: Lint engine
-        run: pnpm -F @bloodfang/engine lint
-
       - name: Test engine
         run: pnpm -F @bloodfang/engine test
 
       - name: Typecheck server
         run: pnpm -F @bloodfang/server typecheck
-
-      - name: Lint server
-        run: pnpm -F @bloodfang/server lint
 
       - name: Test server
         run: pnpm -F @bloodfang/server test
@@ -61,9 +55,6 @@ jobs:
 
       - name: Typecheck client
         run: pnpm -F @bloodfang/client typecheck
-
-      - name: Lint client
-        run: pnpm -F @bloodfang/client lint
 
       - name: Test client
         run: pnpm -F @bloodfang/client test

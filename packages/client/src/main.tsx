@@ -1,8 +1,8 @@
+import { I18nProvider } from '@lingui/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { I18nProvider } from '@lingui/react';
-import { i18n } from './i18n.ts';
 import { App } from './app.tsx';
+import { i18n } from './i18n.ts';
 import './app.css';
 
 const rootElement = document.getElementById('root');

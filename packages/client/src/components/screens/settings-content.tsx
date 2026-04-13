@@ -1,9 +1,9 @@
-import { useState, type ReactNode } from 'react';
 import { t } from '@lingui/core/macro';
-import { useSettingsStore } from '../../store/settings-store.ts';
-import { Locale } from '../../i18n.ts';
-import { Theme } from '../../theme.ts';
+import { type ReactNode, useState } from 'react';
 import { GameMode } from '../../game-mode.ts';
+import { Locale } from '../../i18n.ts';
+import { useSettingsStore } from '../../store/settings-store.ts';
+import { Theme } from '../../theme.ts';
 import { Button } from '../ui/button.tsx';
 import { ConfirmDialog } from '../ui/confirm-dialog.tsx';
 

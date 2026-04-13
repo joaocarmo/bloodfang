@@ -1,3 +1,6 @@
+import { isValidPosition } from './board.js';
+import { applyEffect, internalDestroyCard } from './effects.js';
+import { getEffectivePower } from './game.js';
 import type {
   AbilityDefinition,
   AbilityTriggerType,
@@ -19,9 +22,6 @@ import {
   LOG_ACTION_TYPES,
   RANGE_CELL_TYPES,
 } from './types.js';
-import { isValidPosition } from './board.js';
-import { applyEffect, internalDestroyCard } from './effects.js';
-import { getEffectivePower } from './game.js';
 
 // ── Constants ─────────────────────────────────────────────────────────
 
